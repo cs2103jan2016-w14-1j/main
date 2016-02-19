@@ -9,13 +9,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ListInterface.ListInterfaceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ListInterface.ListInterfaceController">
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
    
    <children>
-      <BorderPane styleClass="borderPane" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <BorderPane prefHeight="768.0" prefWidth="1024.0" styleClass="borderPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
           
          <!-- Title -->
          <top>
@@ -41,16 +41,16 @@
          
          <!-- Class -->
          <left>
-            <AnchorPane prefHeight="419.0" prefWidth="236.0" BorderPane.alignment="CENTER" >
+            <AnchorPane prefHeight="419.0" prefWidth="236.0" BorderPane.alignment="CENTER">
             <children>
-                  <ListView fx:id="todoClass"/>
+                  <ListView fx:id="todoClass" prefHeight="419.0" />
             </children>
             </AnchorPane>
          </left>
          
          <!-- to do list -->
          <center>
-            <AnchorPane prefHeight="419.0" prefWidth="640.0" BorderPane.alignment="CENTER" >
+            <AnchorPane prefHeight="419.0" prefWidth="640.0" BorderPane.alignment="CENTER">
             <children>
                   <ListView fx:id="todoList" prefHeight="419.0" prefWidth="640.0" />
             </children>
