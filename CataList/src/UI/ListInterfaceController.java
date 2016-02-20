@@ -5,22 +5,20 @@
 */
 package ListInterface;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.CheckBox;
-import javafx.fxml.Initializable;
-import java.util.ResourceBundle;
-import java.net.URL;
 import javafx.beans.value.ChangeListener;
-import java.lang.String;
 
 /**
  *
@@ -39,15 +37,22 @@ public class ListInterfaceController implements Initializable {
             FXCollections.observableArrayList();
     public static final ObservableList completed =
             FXCollections.observableArrayList();
+    public static final ObservableList temp =
+            FXCollections.observableArrayList();
     
+    /**
+     * Init method. No purpose for now but will handle mouse events.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        todoClass.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    /**    todoClass.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 // Your action here
                 feedback.setText(newValue + " selected");
-            }});
+            }}); **/
     }
     
     /**
@@ -59,6 +64,11 @@ public class ListInterfaceController implements Initializable {
     }
     **/
     
+    /**
+     * Method to handle command line input
+     * @command today, complete
+     * @param event 
+     */
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
         feedback.setText("Input entered");
         
@@ -66,13 +76,14 @@ public class ListInterfaceController implements Initializable {
         
         /** temp parser **/
         if(command.toLowerCase().equals("today") && !tasks.isEmpty()) {
-            completed.removeAll();
+           // temp.addAll(completed);
+           // completed.removeAll();
             todoList.setItems(tasks);
-        } else if(command.toLowerCase().equals("completed") && !completed.isEmpty()) {
-            tasks.removeAll();
+        } else if(command.toLowerCase().equals("complete") && !completed.isEmpty()) {
+           // tasks.removeAll();
             todoList.setItems(completed);
         } else {
-            CheckBox task = new CheckBox(userInput.getText());
+            CheckBox task = new CheckBox(command);
             task.setOnAction(e -> handleCheckedBox(task));
             
             tasks.add(task);
@@ -88,6 +99,11 @@ public class ListInterfaceController implements Initializable {
         userInput.clear();
     }
     
+    
+    /**
+     * Method to handle CheckBox i.e. create and remove tick/untick boxes
+     * @param task 
+     */
     private void handleCheckedBox(CheckBox task) {
         if(task.isSelected()) {
             if(completed.isEmpty()) {
@@ -100,6 +116,9 @@ public class ListInterfaceController implements Initializable {
         if(!task.isSelected()) {
             completed.remove(task);
             tasks.add(task);
+            if(completed.isEmpty()) {
+                classes.remove("Complete");
+            }
         }
     }
 }
