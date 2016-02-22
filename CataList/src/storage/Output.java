@@ -13,8 +13,34 @@ public class Output {
 		set_cmd(cmd);
 		set_messageToUser(msg);
 	}
-
 	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Output){
+			Output other = (Output)obj;
+			return(isEqualCmd(other) 
+					&& isEqualMsg(other) 
+					&& isEqualTask(other) 
+					&& isSuccesful(other));
+		}
+		return false;
+	}
+	
+	public boolean isEqualCmd(Output other){
+		return (other.get_cmd() == this._cmd);
+	}
+	
+	public boolean isEqualMsg(Output other){
+		return (other.get_messageToUser() == this._messageToUser);
+	}
+	
+	public boolean isEqualTask(Output other){
+		return (other.get_task() == this._task);
+	}
+	
+	public boolean isSuccesful(Output other){
+		return (other.is_success() == this._success);
+	}
 	/************GETTERS***********/
 	public boolean is_success() {
 		return _success;
