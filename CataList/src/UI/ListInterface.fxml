@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ListInterface.ListInterfaceController">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   
+   <children>
+      <BorderPane prefHeight="768.0" prefWidth="1024.0" styleClass="borderPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+          
+         <!-- Title -->
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+         
+         <!-- Command Line -->
+         <bottom>
+            <VBox alignment="CENTER" prefHeight="99.0" prefWidth="419.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="userInput" alignment="CENTER" onAction="#handleSubmitButtonAction" prefHeight="31.0" prefWidth="774.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="258.59503173828125" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="50.0" right="50.0" />
+               </BorderPane.margin>
+            </VBox>
+         </bottom>
+         
+         <!-- Class -->
+         <left>
+            <AnchorPane prefHeight="419.0" prefWidth="236.0" BorderPane.alignment="CENTER">
+            <children>
+                  <ListView fx:id="todoClass" prefHeight="419.0" />
+            </children>
+            </AnchorPane>
+         </left>
+         
+         <!-- to do list -->
+         <center>
+            <AnchorPane prefHeight="419.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+            <children>
+                  <ListView fx:id="todoList" prefHeight="419.0" prefWidth="640.0" />
+            </children>
+            </AnchorPane>
+         </center>
+         
+      </BorderPane>
+   </children>
+   
+   <stylesheets>
+    <URL value="@ListInterface.css" />
+   </stylesheets>
+</AnchorPane>
