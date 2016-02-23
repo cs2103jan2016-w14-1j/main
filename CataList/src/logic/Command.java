@@ -9,7 +9,7 @@ public interface Command {
 	 * function call for every class that implements the Command interface.
 	 * @return
 	 */
-	Output execute();
+	Task execute();
 	
 	// Getters
 	String getEvent();
