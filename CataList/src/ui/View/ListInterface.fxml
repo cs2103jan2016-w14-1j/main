@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="419.0" prefWidth="640.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ListInterfaceController">
+            <children>
+                  <ListView fx:id="todoList" prefHeight="419.0" prefWidth="640.0" />
+            </children>
+</AnchorPane>
