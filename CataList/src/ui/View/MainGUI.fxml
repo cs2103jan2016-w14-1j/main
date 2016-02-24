@@ -9,13 +9,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
+            minHeight="-Infinity" minWidth="-Infinity" 
+            prefHeight="768.0" prefWidth="1024.0" styleClass="root" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="Controllers.MainGUIController">
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
    
    <children>
-      <BorderPane prefHeight="768.0" prefWidth="1024.0" styleClass="borderPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <BorderPane prefHeight="768.0" prefWidth="1024.0" 
+                  styleClass="borderPane" 
+                  AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" 
+                  AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
           
          <!-- Title -->
          <top>
@@ -34,7 +41,9 @@
          
          <!-- to do list -->
          <center>
-                <fx:include fx:id="todoList" source="/View/ListInterface.fxml"/>
+            <VBox>
+            <fx:include fx:id="todoList" source="/View/ListInterface.fxml"/>
+            </VBox>
          </center>
          
       </BorderPane>

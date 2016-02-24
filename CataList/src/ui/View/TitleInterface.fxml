@@ -5,5 +5,12 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TitleInterfaceController"/>
+<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" 
+      xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" 
+      fx:controller="Controllers.TitleInterfaceController" >
+    <Text fx:id="quote" 
+          strokeType="OUTSIDE" strokeWidth="0.0" 
+          textAlignment="CENTER" wrappingWidth="600"/>
+</HBox>

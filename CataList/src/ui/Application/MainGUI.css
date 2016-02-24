@@ -1,52 +1,72 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Feb 19, 2016, 11:37:52 AM
-    Author     : ericewe
-*/
+@font-face {
+    font-family: delicious-bold;
+    src: url("font/Delicious-Bold.otf");
+}
 
-/** main background **/
+@font-face {
+    font-family: delicious-roman;
+    src: url("font/Delicious-Roman.otf");
+}
+
+@font-face {
+    font-family: delicious-smallcaps;
+    src: url("font/Delicious-SmallCaps.otf");
+}
+
+@font-face {
+    font-family: infinity;
+    src: url("font/Infinity.ttf") format("truetype");
+    
+}
+
 .root {
-     -fx-background-image: url("background_1.jpg");
+     -fx-background-image: url("empty_wall.png");
      -fx-background-size:cover;
      -fx-min-width: 1020px;
 }
 
+.borderPane {
+    -fx-max-width: 1020px;
+}
+
+#quote {
+     -fx-font-family: infinity;
+     -fx-font-size: 20px;
+     -fx-fill: black;
+}
+
 /** list **/
 #todoList {
-    -fx-background-color: rgb(255, 255, 255, 0);
-    -fx-font-size: 25px;
+    -fx-background-color: rgb(255, 255, 255, 0.2);
+    -fx-font-size: 20px;
+    -fx-font-family: delicious-roman;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    
+   
 }
 
 #todoClass {
-    -fx-background-color: rgb(255, 255, 255, 0);
-    -fx-font-size: 25px;
+    -fx-background-color: rgb(255, 255, 255, 0.4);
+    -fx-font-size: 20px;
+    -fx-font-family: delicious-smallcaps;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
 }
 
 .list-cell {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
-    -fx-text-fill: white;
-}
-
-.list-cell:filled:hover {
-    -fx-background-color: darkorange;
-    -fx-text-fill: white;
+    -fx-background-color: rgb(255, 255, 255, 0);
+    -fx-text-fill: black;    
 }
 
 /** user input feedback **/
 #feedback {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-fill: red;
+    -fx-font-size: 20px;
+    -fx-fill: black;
+    -fx-font-family: delicious-bold;
 }
 
 /** check box **/
 .check-box {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
-
-
-
