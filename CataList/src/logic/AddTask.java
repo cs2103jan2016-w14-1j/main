@@ -1,39 +1,25 @@
 package logic;
 
 import java.util.ArrayList;
-import storage.Output;
 
-public class AddTask implements Command {
+public class AddTask extends Task {
 	
 	private static final String MESSAGE_ADD_SUCCESS = "The event has been added.";
 	private static final String MESSAGE_ADD_FAILURE = "Unable to add message.";
 	private static final String COMMAND_TYPE = "add";
 	private static final String SYMBOL_SPACE = " ";
 	
-	private String theEvent;
-	private String date;
-	private String time;
-	
 	//Constructor
-	public AddTask(){
-		
+	public AddTask(boolean isChange, String userInput, String cmd, String msg){
+		super(isChange, userInput, cmd, msg);
 	}
 	
-	public Output execute(){
-		return new Output(true, theEvent, COMMAND_TYPE, MESSAGE_ADD_SUCCESS);
+	public AddTask(boolean isChange, String userInput, String cmd, String msg, String date){
+		super(isChange, userInput, cmd, msg);
+		this.set_date(date);
+	}
+	public AddTask(boolean isChange, String userInput, String cmd, String msg, String time, String date){
+		super(isChange,userInput, cmd, msg, time, date);
 	}
 
-	
-	//GETTERS
-	public String getEvent(){
-		return theEvent;
-	}
-	//SETTERS
-	public void setEvent(String inputEvent){
-		this.theEvent = inputEvent;
-	}
-	
-	public void setDate(String inputDate){
-		this.date = inputDate;
-	}
 }
