@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<helpList>
+    
+   <help number="0">
+      <id>add task</id>
+      <command> add [task] &#xD; add [task] by [time] &#xD; add [task] by [date][month] from [start time] - [end time] </command>
+   </help>
+   <help nunber="1">
+      <id>delete task</id>
+      <command> delete [task number] </command>
+   </help>
+   <help number="2">
+      <id>clear all</id>
+      <command> clearAll</command>
+   </help>
+   <help number="3">
+      <id>display list</id>
+      <command> display (default) &#xD; display [class]</command>
+   </help>
+   <help number="4">
+      <id>edit task</id>
+      <command> edit[task number] &#xD; edit[task number] by [time] &#xD; edit[task number] by [date][month] from [start time] - [end time]</command>
+   </help>
+   <help number="5">
+      <id>undo previous action</id>
+      <command> undo</command>
+   </help>
+   
+</helpList>
+
