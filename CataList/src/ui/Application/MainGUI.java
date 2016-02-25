@@ -6,9 +6,12 @@
 package Application;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +29,15 @@ public class MainGUI extends Application {
         scene.getStylesheets().add(getClass().getResource("MainGUI.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+        
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent evt) {
+                if (evt.getCode().equals(KeyCode.ESCAPE)) {
+                    stage.close();
+                }
+            }
+        });
     }
 
     /**

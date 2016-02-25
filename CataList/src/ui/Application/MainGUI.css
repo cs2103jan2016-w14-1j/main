@@ -55,7 +55,7 @@
 }
 
 .list-cell {
-    -fx-background-color: rgb(255, 255, 255, 0);
+    -fx-background-color: transparent;
     -fx-text-fill: black;    
 }
 

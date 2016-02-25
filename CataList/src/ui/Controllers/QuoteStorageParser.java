@@ -20,7 +20,7 @@ public class QuoteStorageParser {
     private static final String PERSON = "person";
     private static final String QUOTE_CONJUNCTION = "--";
     private static final String QUOTE_FILE_PATH = 
-            "/src/ui/Controllers/QuoteStorage.xml";
+            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/QuoteStorage.xml";
     
     public static String parseQuoteList(int i) {
         

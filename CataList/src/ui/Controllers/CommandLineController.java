@@ -4,7 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
 import Controllers.MainGUIController;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  *
@@ -31,7 +40,7 @@ public class CommandLineController {
      * @param event
      */
     @FXML 
-    private void handleSubmitButtonAction(ActionEvent event) {
+    private void handleSubmitButtonAction(ActionEvent event) throws IOException {
         feedback.setText("Input entered");
         command = userInput.getText();
         userInput.clear();
@@ -40,6 +49,8 @@ public class CommandLineController {
             main.todoListController.displayPending();
         } else if(command.toLowerCase().equals("complete") && !main.todoListController.completed.isEmpty()) {
             main.todoListController.displayCompleted();
+        } else if(command.toLowerCase().equals("help")) {
+            createHelpWindow();
         } else {
             main.todoListController.addTaskToList();
             
@@ -48,9 +59,28 @@ public class CommandLineController {
             }
         }
     }
+
+    private void createHelpWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HelpPage.fxml"));
+        Parent helpPageRoot = (Parent) fxmlLoader.load();
+        Stage helpPageStage = new Stage();
+        helpPageStage.setTitle("Help");
+        Scene helpPageScene = new Scene(helpPageRoot);
+        helpPageStage.setScene(helpPageScene);
+        helpPageStage.show();
         
-        public void init(MainGUIController mainController) {
-            main = mainController;
-            feedback.setText(INIT_FEEDBACK);
-        }
+        helpPageScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent evt) {
+                if (evt.getCode().equals(KeyCode.ESCAPE)) {
+                    helpPageStage.close();
+                }
+            }
+        });
+    }
+        
+    public void init(MainGUIController mainController) {
+        main = mainController;
+        feedback.setText(INIT_FEEDBACK);
+    }
 }

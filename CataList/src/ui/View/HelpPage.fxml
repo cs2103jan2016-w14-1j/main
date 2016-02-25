@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="Controllers.HelpPageController">
+   <children>
+      <StackPane layoutX="15.0" layoutY="10.0" 
+                 prefHeight="390.0" prefWidth="585.0" 
+                 AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" 
+                 AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <children>
+         <TableView fx:id="helpList" prefHeight="357.0" prefWidth="546.0" />
+         </children>
+      </StackPane>
+   </children>
+   
+   <stylesheets>
+       <URL value="@HelpPage.css" /></stylesheets>
+</AnchorPane>
