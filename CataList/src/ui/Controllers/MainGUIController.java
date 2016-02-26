@@ -16,11 +16,6 @@ public class MainGUIController {
     @FXML ClassController classListController;
     @FXML TitleInterfaceController titleController;
     
-    /**
-     * Method to handle command line input
-     * @command today, complete
-     * @param event 
-     */
     public void initialize() {
        commandLineController.init(this);
        todoListController.init(this);

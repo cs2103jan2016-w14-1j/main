@@ -16,7 +16,7 @@ public class ClassController {
     
     @FXML private ListView todoClass;
    
-   public static final ObservableList classes =
+   public static ObservableList classes =
             FXCollections.observableArrayList();
     
     public void initEmptyClassList() {
@@ -28,22 +28,17 @@ public class ClassController {
     
     public void initCompletedClassList() {
         
-        if(main.todoListController.completed.isEmpty()) {
+        if(ListInterfaceController.completed.isEmpty()) {
             classes.add("complete");
         }
     }
     
     public void clearCompletedClassList() {
-        if(main.todoListController.completed.isEmpty()) {
+        if(ListInterfaceController.completed.isEmpty()) {
             classes.remove("complete");
         }
     }
     
-    /**
-     * Method to handle command line input
-     * @command today, complete
-     * @param event 
-     */
     public void init(MainGUIController mainController) {
         main = mainController;
     }

@@ -7,19 +7,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import Controllers.MainGUIController;
 
-/**
- *
- * @author ericewe
- */
 public class ListInterfaceController {
     
     private MainGUIController main;
     
     @FXML private ListView todoList;
    
-    public static final ObservableList tasks =
+    public static ObservableList tasks =
             FXCollections.observableArrayList();
-    public static final ObservableList completed =
+    public static ObservableList completed =
             FXCollections.observableArrayList();
     
     public void addTaskToList() {
@@ -52,11 +48,6 @@ public class ListInterfaceController {
         }
     }
     
-    /**
-     * Method to handle command line input
-     * @command today, complete
-     * @param event 
-     */
     public void init(MainGUIController mainController) {
         main = mainController;
     }

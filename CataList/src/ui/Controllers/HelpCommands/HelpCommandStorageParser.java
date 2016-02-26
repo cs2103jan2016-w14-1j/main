@@ -22,7 +22,7 @@ public class HelpCommandStorageParser {
     private static final String QUOTE_FILE_PATH = 
             "/Users/ericewe/NetBeansProjects/Test/src/Controllers/HelpCommands/HelpCommandStorage.xml";
     
-    private static ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+    private static ArrayList<ArrayList<String>> result = new ArrayList<>();
     
     public static ArrayList<ArrayList<String>> parseHelpList() {
         
@@ -35,10 +35,7 @@ public class HelpCommandStorageParser {
          List<Element> helpList = helpElement.getChildren();
          
          accessStorage(helpList);
-      }catch(JDOMException e){
-         e.printStackTrace();
-      }catch(IOException ioe){
-         ioe.printStackTrace();
+      }catch(JDOMException | IOException e){
       }
       
       return result;

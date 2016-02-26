@@ -3,7 +3,6 @@ package Controllers.TitleQuotes;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -38,10 +37,7 @@ public class QuoteStorageParser {
          List<Element> quoteList = quoteElement.getChildren();
          
          result = accessStorage(quoteList, i, result);
-      }catch(JDOMException e){
-         e.printStackTrace();
-      }catch(IOException ioe){
-         ioe.printStackTrace();
+      }catch(JDOMException | IOException e){
       }
       
       return result;

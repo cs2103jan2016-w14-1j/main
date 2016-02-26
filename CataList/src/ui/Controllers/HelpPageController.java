@@ -1,4 +1,3 @@
-
 package Controllers;
 
 import Controllers.HelpCommands.Help;
@@ -10,20 +9,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  *
  * @author ericewe
  */
-public class HelpPageController extends HelpCommandStorageParser {
+public class HelpPageController {
     
     @FXML private TableView<Help> helpList;
-    @FXML private AnchorPane anchorPane;
     
     private static final String ID_HEADER = "ID";
     private static final String COMMAND_HEADER = "Command";
@@ -33,7 +26,7 @@ public class HelpPageController extends HelpCommandStorageParser {
     private static final int COMMAND_COL_WIDTH = 370;
     
             
-    private ObservableList<Help> table = 
+    private final ObservableList<Help> table = 
             FXCollections.observableArrayList();
     
     private ArrayList<ArrayList<String>> parsedStorage;
@@ -62,6 +55,5 @@ public class HelpPageController extends HelpCommandStorageParser {
         idCol.setMinWidth(colWidth);
         idCol.setCellValueFactory(new PropertyValueFactory(value));
         return idCol;
-    }
-    
+    } 
 }
