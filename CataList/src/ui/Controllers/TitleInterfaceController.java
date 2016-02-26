@@ -1,5 +1,6 @@
 package Controllers;
 
+import Controllers.TitleQuotes.QuoteGenerator;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import Controllers.MainGUIController;
@@ -8,7 +9,7 @@ import Controllers.MainGUIController;
  *
  * @author ericewe
  */
-public class TitleInterfaceController extends quoteGenerator {
+public class TitleInterfaceController extends QuoteGenerator {
     
     private MainGUIController main;
     
@@ -16,6 +17,6 @@ public class TitleInterfaceController extends quoteGenerator {
     
     public void init(MainGUIController mainController) {
         main = mainController;
-        quote.setText(quoteGenerator.generateRandomQuote());
+        quote.setText(QuoteGenerator.generateRandomQuote());
     }
 }

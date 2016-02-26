@@ -22,8 +22,6 @@ public class MainGUIController {
      * @param event 
      */
     public void initialize() {
-        //System.out.println(this);
-        //System.out.println();
        commandLineController.init(this);
        todoListController.init(this);
        classListController.init(this);

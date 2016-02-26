@@ -61,7 +61,7 @@ public class CommandLineController {
     }
 
     private void createHelpWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HelpPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/HelpPage.fxml"));
         Parent helpPageRoot = (Parent) fxmlLoader.load();
         Stage helpPageStage = new Stage();
         helpPageStage.setTitle("Help");

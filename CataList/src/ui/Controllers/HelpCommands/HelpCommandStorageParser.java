@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.HelpCommands;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,19 +14,18 @@ import org.jdom2.input.SAXBuilder;
  *
  * @author ericewe
  */
-public class HelpCommandParser {
+public class HelpCommandStorageParser {
     
     private static final String INITIALIZE = "Empty";
     private static final String ID = "id";
     private static final String COMMAND = "command";
     private static final String QUOTE_FILE_PATH = 
-            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/HelpCommandList.xml";
+            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/HelpCommands/HelpCommandStorage.xml";
     
     private static ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
     
     public static ArrayList<ArrayList<String>> parseHelpList() {
         
-      
       try {
          File inputFile = new File(QUOTE_FILE_PATH);
          

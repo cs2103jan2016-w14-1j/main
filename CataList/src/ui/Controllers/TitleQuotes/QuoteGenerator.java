@@ -1,12 +1,13 @@
-package Controllers;
+package Controllers.TitleQuotes;
 
+import Controllers.TitleQuotes.QuoteStorageParser;
 import java.util.Date;
 
 /**
  *
  * @author ericewe
  */
-public class quoteGenerator extends QuoteStorageParser {
+public class QuoteGenerator extends QuoteStorageParser {
     
     private static final int NUM_QUOTES = 9;
     

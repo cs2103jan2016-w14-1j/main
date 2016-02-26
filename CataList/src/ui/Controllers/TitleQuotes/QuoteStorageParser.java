@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.TitleQuotes;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class QuoteStorageParser {
     private static final String PERSON = "person";
     private static final String QUOTE_CONJUNCTION = "--";
     private static final String QUOTE_FILE_PATH = 
-            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/QuoteStorage.xml";
+            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/TitleQuotes/QuoteStorage.xml";
     
     public static String parseQuoteList(int i) {
         

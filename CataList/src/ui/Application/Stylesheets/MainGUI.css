@@ -1,26 +1,26 @@
 @font-face {
     font-family: delicious-bold;
-    src: url("font/Delicious-Bold.otf");
+    src: url("Fonts/Delicious-Bold.otf");
 }
 
 @font-face {
     font-family: delicious-roman;
-    src: url("font/Delicious-Roman.otf");
+    src: url("Fonts/Delicious-Roman.otf");
 }
 
 @font-face {
     font-family: delicious-smallcaps;
-    src: url("font/Delicious-SmallCaps.otf");
+    src: url("Fonts/Delicious-SmallCaps.otf");
 }
 
 @font-face {
     font-family: infinity;
-    src: url("font/Infinity.ttf") format("truetype");
+    src: url("Fonts/Infinity.ttf") format("truetype");
     
 }
 
 .root {
-     -fx-background-image: url("empty_wall.png");
+     -fx-background-image: url("/Background/empty_wall.png");
      -fx-background-size:cover;
      -fx-min-width: 1020px;
 }

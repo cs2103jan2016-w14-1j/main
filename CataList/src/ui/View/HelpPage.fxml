@@ -22,5 +22,5 @@
    </children>
    
    <stylesheets>
-       <URL value="@HelpPage.css" /></stylesheets>
+       <URL value="@../Application/Stylesheets/HelpPage.css" /></stylesheets>
 </AnchorPane>

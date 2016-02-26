@@ -1,6 +1,8 @@
 
 package Controllers;
 
+import Controllers.HelpCommands.Help;
+import Controllers.HelpCommands.HelpCommandStorageParser;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author ericewe
  */
-public class HelpPageController extends HelpCommandParser {
+public class HelpPageController extends HelpCommandStorageParser {
     
     @FXML private TableView<Help> helpList;
     @FXML private AnchorPane anchorPane;
@@ -48,7 +50,7 @@ public class HelpPageController extends HelpCommandParser {
     }
 
     private void readFromStorage() {
-        parsedStorage = HelpCommandParser.parseHelpList(); 
+        parsedStorage = HelpCommandStorageParser.parseHelpList(); 
         for (int i = 0; i < parsedStorage.size(); i++) {
             table.add(new Help(parsedStorage.get(i).get(0), parsedStorage.get(i).get(1)));
         }
