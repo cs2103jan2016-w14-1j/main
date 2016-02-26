@@ -15,12 +15,12 @@
 
 @font-face {
     font-family: infinity;
-    src: url("Fonts/Infinity.ttf") format("truetype");
+    src: url("Fonts/Infinity.ttf");
     
 }
 
 .root {
-     -fx-background-image: url("/Background/empty_wall.png");
+     -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
      -fx-background-size:cover;
      -fx-min-width: 1020px;
 }

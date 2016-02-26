@@ -16,7 +16,7 @@ public class MainGUI extends Application {
     
     private final String GUI_PATH = "/View/MainGUI.fxml";
     private final String APP_NAME = "CataList";
-    private final String STYLESHEET_PATH = "MainGUI.css";
+    private final String STYLESHEET_PATH = "/Application/Stylesheets/MainGUI.css";
     
     @Override
     public void start(Stage stage) throws Exception {
