@@ -1,0 +1,72 @@
+@font-face {
+    font-family: delicious-bold;
+    src: url("Fonts/Delicious-Bold.otf");
+}
+
+@font-face {
+    font-family: delicious-roman;
+    src: url("Fonts/Delicious-Roman.otf");
+}
+
+@font-face {
+    font-family: delicious-smallcaps;
+    src: url("Fonts/Delicious-SmallCaps.otf");
+}
+
+@font-face {
+    font-family: infinity;
+    src: url("Fonts/Infinity.ttf") format("truetype");
+    
+}
+
+.root {
+     -fx-background-image: url("/Background/empty_wall.png");
+     -fx-background-size:cover;
+     -fx-min-width: 1020px;
+}
+
+.borderPane {
+    -fx-max-width: 1020px;
+}
+
+#quote {
+     -fx-font-family: infinity;
+     -fx-font-size: 20px;
+     -fx-fill: black;
+}
+
+/** list **/
+#todoList {
+    -fx-background-color: rgb(255, 255, 255, 0.2);
+    -fx-font-size: 20px;
+    -fx-font-family: delicious-roman;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    
+   
+}
+
+#todoClass {
+    -fx-background-color: rgb(255, 255, 255, 0.4);
+    -fx-font-size: 20px;
+    -fx-font-family: delicious-smallcaps;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;    
+}
+
+/** user input feedback **/
+#feedback {
+    -fx-font-size: 20px;
+    -fx-fill: black;
+    -fx-font-family: delicious-bold;
+}
+
+/** check box **/
+.check-box {
+    -fx-text-fill: black;
+}

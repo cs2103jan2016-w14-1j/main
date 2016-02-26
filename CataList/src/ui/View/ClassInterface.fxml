@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefHeight="420.0" prefWidth="235.0" BorderPane.alignment="CENTER" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="Controllers.ClassController">
+            <children>
+                <ListView fx:id="todoClass" prefWidth="235.0" prefHeight="420.0" >
+                <VBox.margin>
+                    <Insets>
+                      <right>10</right>
+                    </Insets>
+                </VBox.margin>
+                </ListView>
+            </children>  
+</VBox>
