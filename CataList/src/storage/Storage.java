@@ -1,24 +1,20 @@
-package storage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
+
+import org.jdom2.Content;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.util.IteratorIterable;
+import org.jdom2.Content.CType;
 
 public class Storage {
 	private static String fileName;
+	private static String LISTNAME = "todoList.xml";
 	static File file;
 	
 	/*** Constructor ***/
@@ -34,6 +30,7 @@ public class Storage {
 	public static boolean initFile(){
 		if(!file.exists()){
 			try{
+				file = new File(LISTNAME);
 				file.createNewFile();
 			}
 			catch (IOException ioe){
@@ -47,20 +44,26 @@ public class Storage {
 			}
 		return true;
 		}
-
 	
-	public void XML(){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	    factory.setValidating(true);
-	    factory.setIgnoringElementContentWhitespace(true);
-	    try {
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        Document doc = builder.parse(file);
-	        // Do something with the document here.
-	    } catch (ParserConfigurationException e) {
-	    } catch (SAXException e) {
-	    } catch (IOException e) { 
-	    }
-		}
+	
+	public static boolean xmlFileBuilder() throws JDOMException, IOException{
+		SAXBuilder jdomBuilder = new SAXBuilder();
+		
+		Document jdomDocument = jdomBuilder.build(LISTNAME);
+		
+		System.out.println(jdomDocument.getRootElement().getName());
+		
+		Element todoList = jdomDocument.getRootElement();
+		
+		Element firstItem = todoList.getChild("");
+		
+		IteratorIterable<Content> contents = todoList.getDescendants();
+        while (contents.hasNext()) {
+            Content todoList_content = contents.next();
+            if (!todoList_content.getCType().equals(CType.Text) && !todoList_content.getCType().equals(CType.Comment)) {
+                System.out.println(todoList_content.toString());
+            }
+        }
+        return true;
 	}
-	
+}
