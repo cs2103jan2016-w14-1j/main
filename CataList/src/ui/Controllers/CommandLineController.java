@@ -22,6 +22,7 @@ public class CommandLineController extends CreateHelpWindow {
     
     @FXML 
     private Text feedback;
+    
     @FXML 
     public TextField userInput;
     

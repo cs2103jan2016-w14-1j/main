@@ -22,7 +22,9 @@ public class HelpPageController {
     private static final String COMMAND_HEADER = "Command";
     private static final String ID_VALUE = "helpId";
     private static final String COMMAND_VALUE= "helpCommand";
-    private static final int ID_COL_WIDTH= 125;
+    private static int ARRAY_ID = 0;
+    private static int ARRAY_COMMAND = 1;
+    private static final int ID_COL_WIDTH = 125;
     private static final int COMMAND_COL_WIDTH = 370;
     
             
@@ -45,7 +47,7 @@ public class HelpPageController {
     private void readFromStorage() {
         parsedStorage = HelpCommandStorageParser.parseHelpList(); 
         for (int i = 0; i < parsedStorage.size(); i++) {
-            table.add(new Help(parsedStorage.get(i).get(0), parsedStorage.get(i).get(1)));
+            table.add(new Help(parsedStorage.get(i).get(ARRAY_ID), parsedStorage.get(i).get(ARRAY_COMMAND)));
         }
         parsedStorage.clear();
     }

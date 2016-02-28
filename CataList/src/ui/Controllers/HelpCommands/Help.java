@@ -12,15 +12,16 @@ public class Help {
     public String getHelpId() {
         return this.helpId;
     }
-    public void setHelpId(String id) {
-       this.helpId = id;
-    }
         
     public String getHelpCommand() {
         return this.helpCommand;
     }
-    public void setLastName(String command) {
+    
+    public void setHelpId(String id) {
+        this.helpId = id;
+     }
+    
+    public void setHelpCommand(String command) {
         this.helpCommand = command;
     }
-
 }

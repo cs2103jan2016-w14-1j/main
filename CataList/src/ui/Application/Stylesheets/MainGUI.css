@@ -54,8 +54,6 @@
     -fx-font-family: delicious-roman;
     -fx-border-radius: 20 20 20 20;
     -fx-background-radius: 20 20 20 20;
-    
-   
 }
 
 #todoClass {
@@ -69,6 +67,10 @@
 .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: black;    
+}
+
+#taskDate, #taskTime {
+	-fx-font-family: delicious-bold;
 }
 
 /** user input feedback **/
