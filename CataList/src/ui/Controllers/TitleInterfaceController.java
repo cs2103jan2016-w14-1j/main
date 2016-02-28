@@ -5,11 +5,7 @@ import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import Controllers.MainGUIController;
 
-/**
- *
- * @author ericewe
- */
-public class TitleInterfaceController extends QuoteGenerator {
+public class TitleInterfaceController {
     
     private MainGUIController main;
     

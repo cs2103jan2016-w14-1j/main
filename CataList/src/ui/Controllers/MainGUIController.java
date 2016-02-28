@@ -1,6 +1,7 @@
 package Controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import Controllers.CommandLineController;
 import Controllers.ListInterfaceController;
 import Controllers.TitleInterfaceController;
@@ -15,6 +16,8 @@ public class MainGUIController {
     @FXML ListInterfaceController todoListController;
     @FXML ClassController classListController;
     @FXML TitleInterfaceController titleController;
+    
+    @FXML AnchorPane mainAnchorPane;
     
     public void initialize() {
        commandLineController.init(this);

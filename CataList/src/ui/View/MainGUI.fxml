@@ -11,7 +11,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
             minHeight="-Infinity" minWidth="-Infinity" 
-            prefHeight="768.0" prefWidth="1024.0" styleClass="root" 
+            prefHeight="768.0" prefWidth="1024.0" 
+            styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
             xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="Controllers.MainGUIController">
    <padding>

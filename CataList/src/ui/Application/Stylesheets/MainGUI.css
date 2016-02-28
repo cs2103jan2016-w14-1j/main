@@ -19,11 +19,23 @@
     
 }
 
-.root {
+#mainPaneDefault {
      -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
-     -fx-background-size:cover;
-     -fx-min-width: 1020px;
 }
+
+#mainPaneWinter {
+    -fx-background-image: url("/Application/Stylesheets/Background/winter_morraine.jpg");
+}
+
+#mainPanePool {
+    -fx-background-image: url("/Application/Stylesheets/Background/fairy_pools.jpg");
+}
+
+.root {
+	-fx-background-size:cover;
+    -fx-min-width: 1020px;
+}
+
 
 .borderPane {
     -fx-max-width: 1020px;
