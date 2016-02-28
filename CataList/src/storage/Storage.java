@@ -1,8 +1,9 @@
-package Storage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -14,10 +15,11 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.util.IteratorIterable;
 import org.jdom2.Content.CType;
 
+
 public class Storage {
 	private static String fileName;
 	private static String LISTNAME = "todoList.xml";
-	static File file;
+	private static File file;
 	
 	/*** Constructor ***/
 	private Storage(){
@@ -47,8 +49,17 @@ public class Storage {
 		return true;
 		}
 	
+	public File getFile(String fileName){
+		File file = new File(fileName);
+		if(!file.exists()){
+			return null;
+		}
+		return file;
+	}
 	
-	public static boolean xmlFileBuilder(){
+	
+	
+	public static boolean xmlFileBuilder() throws JDOMException, IOException{
 		SAXBuilder jdomBuilder = new SAXBuilder();
 		
 		Document jdomDocument = jdomBuilder.build(LISTNAME);
@@ -66,5 +77,17 @@ public class Storage {
                 System.out.println(todoList_content.toString());
             }
         }
+        return true;
 	}
+	
+	public byte[] getFileInBytes(String fileName) {
+        byte[] content = null;
+        try {
+            Path filePath = Paths.get(fileName);
+            content = Files.readAllBytes(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
 }
