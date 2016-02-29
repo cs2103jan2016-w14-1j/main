@@ -11,7 +11,7 @@ public class Parser {
 	private static final String COMMAND_CLEAR= "clear";
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_SEARCH = "search";
-	private static final String COMMAND_SORT = "dsiplay";
+	private static final String COMMAND_SORT = "sort";
 	
 	public static COMMAND_TYPE getCommand(String userInput) {
 		String commandType = getFirstWord(userInput).toLowerCase();

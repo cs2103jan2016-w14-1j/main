@@ -10,4 +10,10 @@ public class LogicMain {
 	//5> create Task objects from results
 	//6> pass to Storage
 
+	public static String processCommand(String userInput) {
+		// call parser, get command type
+		// decide on action to take depending on command type
+		// return feedback
+		return "received by logic bro";
+	}
 }
