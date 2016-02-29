@@ -8,10 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-/**
- *
- * @author ericewe
- */
 public class MainGUI extends Application {
     
     private final String GUI_PATH = "/View/MainGUI.fxml";
@@ -28,10 +24,10 @@ public class MainGUI extends Application {
         stage.setScene(scene);
         stage.show();
         
-        QuitProgram(scene, stage);
+        quitProgram(scene, stage);
     }
 
-    private void QuitProgram(Scene scene, Stage stage) {
+    private void quitProgram(Scene scene, Stage stage) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {
             if (evt.getCode().equals(KeyCode.ESCAPE)) {
                 stage.close();

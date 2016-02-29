@@ -15,7 +15,8 @@ public class HelpCommandStorageParser {
     private static final String ID = "id";
     private static final String COMMAND = "command";
     private static final String HELP_FILE_PATH = 
-            System.getProperty("user.dir") + "/Controllers/HelpCommands/HelpCommandStorage.xml";
+            System.getProperty("user.dir") + 
+            "/Controllers/HelpCommands/HelpCommandStorage.xml";
     
     private static ArrayList<ArrayList<String>> result = new ArrayList<>();
     

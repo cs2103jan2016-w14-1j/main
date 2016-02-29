@@ -11,6 +11,6 @@
             fx:controller="Controllers.ListInterfaceController" >
             <children>
                   <ListView fx:id="todoList" HBox.hgrow="ALWAYS" 
-                            prefHeight="419.0" prefWidth="640.0" /> 
+                            prefHeight="419.0" prefWidth="640.0" />           
             </children>
 </HBox>

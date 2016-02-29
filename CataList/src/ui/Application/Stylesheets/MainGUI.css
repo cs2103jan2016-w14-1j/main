@@ -16,7 +16,6 @@
 @font-face {
     font-family: infinity;
     src: url("Fonts/Infinity.ttf");
-    
 }
 
 #mainPaneDefault {
@@ -56,6 +55,12 @@
     -fx-background-radius: 20 20 20 20;
 }
 
+/* Hide scroll bars */
+#todoList .scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
 #todoClass {
     -fx-background-color: rgb(255, 255, 255, 0.4);
     -fx-font-size: 20px;
@@ -70,7 +75,8 @@
 }
 
 #taskDate, #taskTime {
-	-fx-font-family: delicious-bold;
+	-fx-font-family: Monospaced;
+	-fx-font-size: 17px;
 }
 
 /** user input feedback **/

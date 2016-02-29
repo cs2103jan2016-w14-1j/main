@@ -14,7 +14,7 @@
       fx:controller="Controllers.CommandLineController">
     <children>
         <TextField fx:id="userInput" alignment="CENTER" 
-                   onAction="#handleSubmitButtonAction" 
+                   onKeyPressed="#handleSubmitButtonAction" 
                    prefHeight="35.0" prefWidth="774.0">
             <VBox.margin>
                 <Insets bottom="10.0" />

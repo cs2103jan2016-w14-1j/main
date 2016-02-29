@@ -3,13 +3,11 @@ package Controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.Text;
 import Controllers.MainGUIController;
 
 public class ListInterfaceController {
@@ -21,12 +19,13 @@ public class ListInterfaceController {
     private MainGUIController main;
     
     @FXML 
-    private ListView<HBox> todoList;
+    public ListView<HBox> todoList;
     
     public static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
     public static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
+    public int taskCount = 0;
     
     public void addTaskToList() {
     	HBox taskRow = new HBox(10);
@@ -42,6 +41,7 @@ public class ListInterfaceController {
         
         tasks.add(taskRow);
         todoList.setItems(tasks);
+        taskCount++;
     }
     
     public void displayPending() {
@@ -57,11 +57,13 @@ public class ListInterfaceController {
             main.classListController.initCompletedClassList();
             completed.add(hb);
             tasks.remove(hb);
+            taskCount--;
         }
         
         if(!cb.isSelected()) {
             completed.remove(hb);
             tasks.add(hb);
+            taskCount++;
             main.classListController.clearCompletedClassList();
         }
     }
@@ -72,6 +74,7 @@ public class ListInterfaceController {
     	HBox.setHgrow(tn, Priority.ALWAYS);
     	tn.setPrefWidth(350);
     	tn.setMaxWidth(Double.MAX_VALUE);
+    	tn.setId(TASK_ID);
     	
     	HBox.setHgrow(td, Priority.ALWAYS);
     	td.setPrefWidth(100);

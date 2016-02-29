@@ -15,7 +15,8 @@ public class QuoteStorageParser {
     private static final String PERSON = "person";
     private static final String QUOTE_CONJUNCTION = "--";
     private static final String QUOTE_FILE_PATH = 
-           System.getProperty("user.dir") + "/Controllers/TitleQuotes/QuoteStorage.xml";
+           System.getProperty("user.dir") + 
+           "/Controllers/TitleQuotes/QuoteStorage.xml";
     
     public static String parseQuoteList(int i) {
         

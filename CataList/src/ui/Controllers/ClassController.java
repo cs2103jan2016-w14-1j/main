@@ -6,17 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import Controllers.MainGUIController;
 
-/**
- *
- * @author ericewe
- */
 public class ClassController {
     
     private MainGUIController main;
     
-    @FXML private ListView todoClass;
+    @FXML private ListView<String> todoClass;
    
-   public static ObservableList classes =
+   public static ObservableList<String> classes =
             FXCollections.observableArrayList();
     
     public void initEmptyClassList() {

@@ -10,10 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 
-/**
- *
- * @author ericewe
- */
 public class HelpPageController {
     
     @FXML private TableView<Help> helpList;
@@ -33,7 +29,7 @@ public class HelpPageController {
     
     private ArrayList<ArrayList<String>> parsedStorage;
  
-    public void initialize() {
+    public HelpPageController() {
         TableColumn<Help, String> idCol = createColumn(ID_HEADER, ID_VALUE, ID_COL_WIDTH);
         TableColumn<Help, String> commandCol = createColumn(COMMAND_HEADER, COMMAND_VALUE, COMMAND_COL_WIDTH);
         
@@ -53,9 +49,9 @@ public class HelpPageController {
     }
 
     private TableColumn<Help, String> createColumn(String header, String value, int colWidth) {
-        TableColumn<Help, String> idCol = new TableColumn(header);
-        idCol.setMinWidth(colWidth);
-        idCol.setCellValueFactory(new PropertyValueFactory(value));
-        return idCol;
+        TableColumn<Help, String> column = new TableColumn<Help, String>(header);
+        column.setMinWidth(colWidth);
+        column.setCellValueFactory(new PropertyValueFactory<Help, String>(value));
+        return column;
     } 
 }
