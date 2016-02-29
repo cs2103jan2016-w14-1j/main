@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class HelpPageController {
     
-    @FXML private TableView<Help> helpList;
+    @FXML 
+    private TableView<Help> helpList;
     
     private static final String ID_HEADER = "ID";
     private static final String COMMAND_HEADER = "Command";
@@ -29,7 +30,7 @@ public class HelpPageController {
     
     private ArrayList<ArrayList<String>> parsedStorage;
  
-    public HelpPageController() {
+    public void initialize() {
         TableColumn<Help, String> idCol = createColumn(ID_HEADER, ID_VALUE, ID_COL_WIDTH);
         TableColumn<Help, String> commandCol = createColumn(COMMAND_HEADER, COMMAND_VALUE, COMMAND_COL_WIDTH);
         

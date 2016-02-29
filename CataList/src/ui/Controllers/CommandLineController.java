@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import java.io.IOException;
 import Controllers.MainGUIController;
 import Controllers.ParseBackground;
+import logic.LogicMain;
 
 public class CommandLineController {
     
@@ -66,6 +67,10 @@ public class CommandLineController {
     
     private void readUserInput() {
     	feedback.setText("Input entered");
+    	
+    	// integration code
+        // feedback.setText(LogicMain.processCommand(userInput.getText()));
+        
         command = userInput.getText();
         userInput.clear();
     }
