@@ -10,13 +10,13 @@ import org.jdom2.input.SAXBuilder;
 
 public class QuoteStorageParser {
     
-    private static final String INITIALIZE = "Hang in there bro!";
+    private static final String INITIALIZE = "Good Day!";
     private static final String PHRASE = "phrase";
     private static final String PERSON = "person";
     private static final String QUOTE_CONJUNCTION = "--";
     private static final String QUOTE_FILE_PATH = 
            System.getProperty("user.dir") + 
-           "/Controllers/TitleQuotes/QuoteStorage.xml";
+           "/CataList/src/ui/Controllers/TitleQuotes/QuoteStorage.xml";
     
     public static String parseQuoteList(int i) {
         

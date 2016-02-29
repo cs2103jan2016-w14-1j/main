@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 import java.io.IOException;
 import Controllers.MainGUIController;
 import Controllers.ParseBackground;
-import logic.LogicMain;
+import logic.LogicHandler;
 
 public class CommandLineController {
     
