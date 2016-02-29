@@ -3,7 +3,7 @@ package logic;
 public class DeleteTask extends Task{
 	
 	private static final String MESSAGE_DELETE_SUCCESS = "The event has been deleted.";
-	private static final String MESSAGE_DELETE_FAILURE = "Unable to delete message.";
+	private static final String MESSAGE_DELETE_FAILURE = "Unable to delete event.";
 	private static final String COMMAND_TYPE = "delete";
 	private static final String SYMBOL_SPACE = " ";
 	
