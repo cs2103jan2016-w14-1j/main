@@ -1,5 +1,7 @@
 package parser;
 
+import shared.COMMAND_TYPE;
+
 public class Parser {
 	
 	private static final String COMMAND_ADD = "add";
@@ -11,30 +13,28 @@ public class Parser {
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_SORT = "dsiplay";
 	
-	private static final String WARNING_INVALID = "Are you drunk bro?";
-	
-	public static String getCommand(String userInput) {
-		String commandType = getFirstWord(userInput);
+	public static COMMAND_TYPE getCommand(String userInput) {
+		String commandType = getFirstWord(userInput).toLowerCase();
 	
 		switch (commandType) {
 			case COMMAND_ADD:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.ADD_TASK;
 			case COMMAND_DELETE:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.DELETE_TASK;
 			case COMMAND_EDIT:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.EDIT_TASK;
 			case COMMAND_UNDO:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.UNDO_ACTION;
 			case COMMAND_CLEAR:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.CLEAR_CLASS;
 			case COMMAND_DISPLAY:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.DISPLAY_CLASS;
 			case COMMAND_SEARCH:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.SEARCH_KEYWORD;
 			case COMMAND_SORT:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.SORT_TASK;
 			default:
-				return WARNING_INVALID;
+				return COMMAND_TYPE.INVALID;
 		}
 	}
 	

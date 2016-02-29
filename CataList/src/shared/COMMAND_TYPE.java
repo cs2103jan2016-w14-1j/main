@@ -1,0 +1,16 @@
+package shared;
+
+public enum COMMAND_TYPE {
+	ADD_TASK,
+	DELETE_TASK,
+	EDIT_TASK,
+	SORT_TASK,
+	
+	DISPLAY_CLASS,
+	CLEAR_CLASS,
+	SEARCH_KEYWORD,
+	
+	UNDO_ACTION,
+	
+	INVALID
+}
