@@ -1,9 +1,11 @@
 package Controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -13,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 import java.io.IOException;
 import Controllers.MainGUIController;
 import Controllers.ParseBackground;
-import logic.LogicHandler;
 
 public class CommandLineController {
     
@@ -40,7 +41,7 @@ public class CommandLineController {
     		readUserInput();
         
     		/**************** temp parser *******************/
-    		if(command.toLowerCase().equals("today") && !ListInterfaceController.tasks.isEmpty()) {
+    		if(command.toLowerCase().equals("inbox") && !ListInterfaceController.tasks.isEmpty()) {
     			main.todoListController.displayPending();
     		} else if(command.toLowerCase().equals("complete") && !ListInterfaceController.completed.isEmpty()) {
     			main.todoListController.displayCompleted();
@@ -57,11 +58,6 @@ public class CommandLineController {
     				}
     			}
     		}
-    	} else if (event.getCode() == KeyCode.DOWN) {
-        	main.todoListController.todoList.scrollTo(index++);
-          
-    	} else if (event.getCode() == KeyCode.UP ) {
-    		main.todoListController.todoList.scrollTo(index--);
     	}
     }
     
@@ -89,6 +85,12 @@ public class CommandLineController {
         Parent helpPageRoot = (Parent) fxmlLoader.load();
         Stage helpPageStage = new Stage();
         helpPageStage.setTitle(HELP_PAGE_NAME);
+        
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), helpPageRoot);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+        
         Scene helpPageScene = new Scene(helpPageRoot);
         helpPageStage.setScene(helpPageScene);
         helpPageStage.show();

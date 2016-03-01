@@ -35,6 +35,26 @@
     -fx-min-width: 1020px;
 }
 
+#welcomeMessage {
+	-fx-alignment: center ; 
+	-fx-padding: 50 0 0 -230;
+}
+
+#titleMessage {
+	-fx-font-family: delicious-smallcaps;
+	-fx-font-size: 80px;
+	-fx-text-alignment: center ;	
+}
+
+#subMessage {
+	-fx-font-family: delicious-roman;
+	-fx-font-size: 15px;
+	-fx-text-alignment: center ;
+}
+
+#imageView {
+	-fx-opacity: 0.5;
+}
 
 .borderPane {
     -fx-max-width: 1020px;
@@ -48,7 +68,7 @@
 
 /** list **/
 #todoList {
-    -fx-background-color: rgb(255, 255, 255, 0.2);
+	-fx-background-color: rgb(255, 255, 255, 0.2);
     -fx-font-size: 20px;
     -fx-font-family: delicious-roman;
     -fx-border-radius: 20 20 20 20;

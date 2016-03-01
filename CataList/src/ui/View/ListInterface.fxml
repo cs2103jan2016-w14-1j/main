@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <HBox prefHeight="420.0" prefWidth="640.0" BorderPane.alignment="CENTER" 
-            xmlns:fx="http://javafx.com/fxml/1" 
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controllers.ListInterfaceController" >
             <children>
                   <ListView fx:id="todoList" HBox.hgrow="ALWAYS" 
