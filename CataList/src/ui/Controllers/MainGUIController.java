@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import Controllers.CommandLineController;
 import Controllers.ListInterfaceController;
@@ -26,8 +27,8 @@ public class MainGUIController {
     @FXML TitleInterfaceController titleController;
     
     @FXML AnchorPane mainAnchorPane;
-    @FXML Label titleMessage;
-    @FXML Label subMessage;
+    @FXML Text titleMessage;
+    @FXML Text subMessage;
     @FXML VBox welcomeMessage;
     
     public void initialize() {

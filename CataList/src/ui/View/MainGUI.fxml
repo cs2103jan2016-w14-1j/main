@@ -54,8 +54,8 @@
                               <Image url="@../Application/Stylesheets/Background/catalist_icon.png" />
                            </image>
                      </ImageView>
-           			 <Label fx:id="titleMessage" text="Welcome to CataList!" />
-           			<Label fx:id="subMessage" text="Type 'help' for more information" />
+           			 <Text fx:id="titleMessage" text="Welcome to CataList!" />
+           			 <Text fx:id="subMessage" text="Type 'help' for more information" />
            	    </VBox>
             <fx:include fx:id="todoList" source="/View/ListInterface.fxml"/>
             </VBox>

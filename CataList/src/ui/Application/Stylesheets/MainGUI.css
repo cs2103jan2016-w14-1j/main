@@ -12,22 +12,23 @@
     font-family: delicious-smallcaps;
     src: url("Fonts/Delicious-SmallCaps.otf");
 }
-
+ 
 @font-face {
     font-family: infinity;
     src: url("Fonts/Infinity.ttf");
-}
+} 
+
 
 #mainPaneDefault {
      -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
 }
 
-#mainPaneWinter {
-    -fx-background-image: url("/Application/Stylesheets/Background/winter_morraine.jpg");
+#mainPaneSea {
+    -fx-background-image: url("/Application/Stylesheets/Background/sea.jpg");
 }
 
-#mainPanePool {
-    -fx-background-image: url("/Application/Stylesheets/Background/fairy_pools.jpg");
+#mainPaneFalls {
+    -fx-background-image: url("/Application/Stylesheets/Background/waterfalls.jpg");
 }
 
 .root {
@@ -43,13 +44,12 @@
 #titleMessage {
 	-fx-font-family: delicious-smallcaps;
 	-fx-font-size: 80px;
-	-fx-text-alignment: center ;	
+	-fx-fill: darkorange;
 }
 
 #subMessage {
 	-fx-font-family: delicious-roman;
 	-fx-font-size: 15px;
-	-fx-text-alignment: center ;
 }
 
 #imageView {

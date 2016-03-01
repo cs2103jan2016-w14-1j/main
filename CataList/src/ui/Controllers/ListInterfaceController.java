@@ -54,11 +54,10 @@ public class ListInterfaceController {
     }
 
 	private void initToDoList() {
-		
-		main.removeWelcomeMsg();
-		
 		if(tasks.isEmpty() && completed.isEmpty()) {
 			todoList.getParent().setOpacity(1);
+			
+			main.removeWelcomeMsg();
 			
 			ScaleTransition st = new ScaleTransition(Duration.millis(800), todoList.getParent());
 			st.setFromX(0);
