@@ -7,11 +7,15 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
             minHeight="-Infinity" minWidth="-Infinity" 
-            prefHeight="768.0" prefWidth="1024.0" styleClass="root" 
+            prefHeight="768.0" prefWidth="1024.0" 
+            styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
             xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="Controllers.MainGUIController">
    <padding>
@@ -32,7 +36,7 @@
          <!-- Command Line -->
          <bottom>
             <fx:include fx:id="commandLine" source="/View/CommandLineInterface.fxml" />
-         </bottom>
+         </bottom> 
          
          <!-- Class -->
          <left>
@@ -42,6 +46,17 @@
          <!-- to do list -->
          <center>
             <VBox>
+            	<VBox fx:id="welcomeMessage" prefHeight="100.0" prefWidth="200.0">
+            		 <ImageView  fx:id="imageView" layoutX="29.0" layoutY="44.0" 
+            			 fitHeight="124.0" fitWidth="300.0" 
+            		     pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Application/Stylesheets/Background/catalist_icon.png" />
+                           </image>
+                     </ImageView>
+           			 <Text fx:id="titleMessage" text="Welcome to CataList!" />
+           			 <Text fx:id="subMessage" text="Type 'help' for more information" />
+           	    </VBox>
             <fx:include fx:id="todoList" source="/View/ListInterface.fxml"/>
             </VBox>
          </center>

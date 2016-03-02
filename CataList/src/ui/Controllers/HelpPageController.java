@@ -10,19 +10,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 
-/**
- *
- * @author ericewe
- */
 public class HelpPageController {
     
-    @FXML private TableView<Help> helpList;
+    @FXML 
+    private TableView<Help> helpList;
     
     private static final String ID_HEADER = "ID";
     private static final String COMMAND_HEADER = "Command";
     private static final String ID_VALUE = "helpId";
     private static final String COMMAND_VALUE= "helpCommand";
-    private static final int ID_COL_WIDTH= 125;
+    private static int ARRAY_ID = 0;
+    private static int ARRAY_COMMAND = 1;
+    private static final int ID_COL_WIDTH = 125;
     private static final int COMMAND_COL_WIDTH = 370;
     
             
@@ -45,15 +44,15 @@ public class HelpPageController {
     private void readFromStorage() {
         parsedStorage = HelpCommandStorageParser.parseHelpList(); 
         for (int i = 0; i < parsedStorage.size(); i++) {
-            table.add(new Help(parsedStorage.get(i).get(0), parsedStorage.get(i).get(1)));
+            table.add(new Help(parsedStorage.get(i).get(ARRAY_ID), parsedStorage.get(i).get(ARRAY_COMMAND)));
         }
         parsedStorage.clear();
     }
 
     private TableColumn<Help, String> createColumn(String header, String value, int colWidth) {
-        TableColumn<Help, String> idCol = new TableColumn(header);
-        idCol.setMinWidth(colWidth);
-        idCol.setCellValueFactory(new PropertyValueFactory(value));
-        return idCol;
+        TableColumn<Help, String> column = new TableColumn<Help, String>(header);
+        column.setMinWidth(colWidth);
+        column.setCellValueFactory(new PropertyValueFactory<Help, String>(value));
+        return column;
     } 
 }

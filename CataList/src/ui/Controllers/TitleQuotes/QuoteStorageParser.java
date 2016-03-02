@@ -8,18 +8,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-/**
- *
- * @author ericewe
- */
 public class QuoteStorageParser {
     
-    private static final String INITIALIZE = "Hang in there bro!";
+    private static final String INITIALIZE = "Good Day!";
     private static final String PHRASE = "phrase";
     private static final String PERSON = "person";
     private static final String QUOTE_CONJUNCTION = "--";
     private static final String QUOTE_FILE_PATH = 
-            "/Users/ericewe/NetBeansProjects/Test/src/Controllers/TitleQuotes/QuoteStorage.xml";
+           System.getProperty("user.dir") + 
+           "/CataList/src/ui/Controllers/TitleQuotes/QuoteStorage.xml";
     
     public static String parseQuoteList(int i) {
         
@@ -44,9 +41,9 @@ public class QuoteStorageParser {
    }
 
     private static String accessStorage(List<Element> quoteList, int i, String result) {
-        for (int temp = 0; temp < quoteList.size(); temp++) {
-            Element quote = quoteList.get(temp);
-            result = getStorageItem(temp, i, result, quote);
+        for (int j = 0; j < quoteList.size(); j++) {
+            Element quote = quoteList.get(j);
+            result = getStorageItem(j, i, result, quote);
         }
         return result;
     }
