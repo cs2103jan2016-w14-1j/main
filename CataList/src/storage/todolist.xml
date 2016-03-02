@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<today>
-	<math MA1501="ce1" MA1101="midterm"></math>
-	<science physics="PC11501"></science></today>
+<bookstore>
+	<book category="children">
+		<title>Harry Potter</title>
+		<author>J.K Rowling</author>
+		<year>2005</year>
+		<price>29.99</price></book>
+	<book category="web">
+		<title>Learnign XML</title>
+		<author>erik</author>
+		<year>2003</year>
+		<price>30.00</price></book></bookstore>
