@@ -2,7 +2,7 @@ package logic;
 
 public class Task {
 	private static final String SYMBOL_NULL = "";
-
+	
 	private boolean _changeDataFlag;
 	private String _task;
 	private String _cmd;
@@ -17,6 +17,11 @@ public class Task {
 		set_messageToUser(msg);
 		set_time(SYMBOL_NULL);
 		set_date(SYMBOL_NULL);
+	}
+	
+	public Task(boolean isChanged, String userInput, String cmd, String msg, String date){
+		this(isChanged, userInput, cmd, msg);
+		set_date(date);
 	}
 	
 	public Task(boolean isChanged, String userInput, String cmd, String msg, String time, String date){
@@ -127,4 +132,12 @@ public class Task {
 		this._time = _time;
 	}
 
+	public void setMessageErrorDefault(String errorMsg){
+		//Method to be implemented in all concrete classes
+	}
+	
+	public void setMessageErrorEmpty(String emptyMsg){
+		//ditto. Man I need to write better comments.
+	}
+	
 }
