@@ -6,11 +6,15 @@ import parser.Parser;
 
 
 public class LogicHandler {
+	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
+	
 	private static final int INPUT_COMMAND_INDEX = 0;
 	private static final int INPUT_EVENT_INDEX = 1;
+	private static final int INPUT_DATE_INDEX = 2;
+	private static final int INPUT_TIME_INDEX = 3;
 	
 	private static final int INPUT_LENGTH_NODATETIME = 1;  
-	private static final int INPUT_LENGTH_NO_TIME_WITH_DATE = 2;  
+	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 2;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 3;
 	
 	public void processCommand(String userInput){
@@ -20,23 +24,26 @@ public class LogicHandler {
 		createTask(formattedString);
 	}
 	
-	private Task createTask(String[] userInput){
-		int numberOfFields = userInput.length;
-		if(numberOfFields == 1){
-			createTaskNoDateTime(userInput);
-		} else if ( numberOfFields == 2){
-			
-		} else if ( numberOfFields == 3){
-			
+	private Task createTask(String[] userInputArray){
+		int numberOfFields = userInputArray.length;
+		Task newTask;
+		if(numberOfFields == INPUT_LENGTH_NODATETIME){
+			newTask = createTaskNoDateTime(userInputArray);
+		} else if ( numberOfFields == INPUT_LENGTH_WITH_DATE_NO_TIME){
+			newTask = createTaskWithDateNoTime(userInputArray);
+		} else if ( numberOfFields == INPUT_LENGTH_WITH_DATE_TIME){
+			newTask = createTaskWithDateTime(userInputArray);
 		} else {
-			return;
+			newTask = createTaskWithParserError();
 		}
+		return newTask;
 	}
 	
 	
 	private Task createTaskNoDateTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
-		String userInputEvent = checkString[1];
+		String userInputEvent = checkString[INPUT_EVENT_INDEX];
+		
 		switch(commandType){
 			case "add":
 				return new AddTask(userInputEvent);
@@ -54,7 +61,70 @@ public class LogicHandler {
 				return new UndoTask(userInputEvent);
 			case "invalid":
 				return new InvalidTask(userInputEvent);
+			default: 
+				return createTaskWithParserError();
 		}
 	}
+	
+	private Task createTaskWithDateNoTime(String[] checkString){
+		String commandType = checkString[INPUT_COMMAND_INDEX];
+		String userInputEvent = checkString[INPUT_EVENT_INDEX];
+		String userInputDate = checkString[INPUT_DATE_INDEX];
+		
+		switch(commandType){
+			case "add":
+				return new AddTask(userInputEvent, userInputDate);
+			case "delete":
+				return new DeleteTask(userInputEvent, userInputDate);
+			case "clear" :
+				return new ClearTask(userInputEvent, userInputDate);
+			case "display" :
+				return new DisplayTask(userInputEvent, userInputDate);
+			case "edit" :
+				return new EditTask(userInputEvent, userInputDate);
+			case "redo" : 
+				return new RedoTask(userInputEvent, userInputDate);
+			case "undo" :
+				return new UndoTask(userInputEvent, userInputDate);
+			case "invalid":
+				return new InvalidTask(userInputEvent);
+			default: 
+				return createTaskWithParserError();
+		}
+	}
+	
+	private Task createTaskWithDateTime(String[] checkString){
+		String commandType = checkString[INPUT_COMMAND_INDEX];
+		String userInputEvent = checkString[INPUT_EVENT_INDEX];
+		String userInputDate = checkString[INPUT_DATE_INDEX];
+		String userInputTime = checkString[INPUT_TIME_INDEX];
+		
+		switch(commandType){
+			case "add":
+				return new AddTask(userInputEvent, userInputDate, userInputTime);
+			case "delete":
+				return new DeleteTask(userInputEvent, userInputDate, userInputTime);
+			case "clear" :
+				return new ClearTask(userInputEvent, userInputDate, userInputTime);
+			case "display" :
+				return new DisplayTask(userInputEvent, userInputDate, userInputTime);
+			case "edit" :
+				return new EditTask(userInputEvent, userInputDate, userInputTime);
+			case "redo" : 
+				return new RedoTask(userInputEvent, userInputDate, userInputTime);
+			case "undo" :
+				return new UndoTask(userInputEvent, userInputDate, userInputTime);
+			case "invalid":
+				return new InvalidTask(userInputEvent);
+			default: 
+				return createTaskWithParserError();
+		}
+	}
+	
+	private Task createTaskWithParserError(){
+		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
+		return parserErrorTask;
+	}
+	
 	
 }
