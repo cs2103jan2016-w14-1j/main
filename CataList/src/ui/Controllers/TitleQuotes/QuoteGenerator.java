@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class QuoteGenerator {
     
-    private static final int NUM_QUOTES = 9;
+    private static final int NUM_QUOTES = 11;
     
     public static String generateRandomQuote() {
         return QuoteStorageParser.parseQuoteList(randomGeneratorByDate());
