@@ -1,6 +1,7 @@
 package Application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,10 +28,12 @@ public class MainGUI extends Application {
         quitProgram(scene, stage);
     }
 
+    
     private void quitProgram(Scene scene, Stage stage) {
+    	
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {
             if (evt.getCode().equals(KeyCode.ESCAPE)) {
-                stage.close();
+            	stage.close();
             }
         });
     }

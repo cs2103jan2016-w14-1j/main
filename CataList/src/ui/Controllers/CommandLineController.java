@@ -42,7 +42,6 @@ public class CommandLineController {
     
     @FXML 
     private void handleSubmitButtonAction(KeyEvent event) throws IOException {
-    	// TODO: ctrl up and down commands
     	
     	if (event.getCode() == KeyCode.ENTER) {
     		readUserInput();
