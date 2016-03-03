@@ -18,21 +18,46 @@
     src: url("Fonts/Infinity.ttf");
 } 
 
+@font-face {
+	font-family: comicNeue-angular-regular;
+	src: url("Fonts/ComicNeue-Angular-Regular.otf");
+}
+
+@font-face {
+	font-family: docker-one;
+	src: url("Fonts/Docker-One.ttf");
+}
 
 #mainPaneDefault {
      -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
 }
 
 #mainPaneSea {
-    -fx-background-image: url("/Application/Stylesheets/Background/sea.jpg");
+    -fx-background-image: url("/Application/Stylesheets/Background/sea_mtfuji.jpg");
 }
 
-#mainPaneFalls {
-    -fx-background-image: url("/Application/Stylesheets/Background/waterfalls.jpg");
+#mainPaneMountain {
+    -fx-background-image: url("/Application/Stylesheets/Background/mountains.jpg");
+}
+
+#mainPaneNight {
+    -fx-background-image: url("/Application/Stylesheets/Background/night_deathvalley.jpg");
+}
+
+#mainPaneSunrise {
+    -fx-background-image: url("/Application/Stylesheets/Background/sunrise_skye.jpg");
+}
+
+#mainPaneSunset {
+    -fx-background-image: url("/Application/Stylesheets/Background/sunset_iceland.jpg");
+}
+
+#mainPaneWinter {
+    -fx-background-image: url("/Application/Stylesheets/Background/winter_netherlands.jpg");
 }
 
 .root {
-	-fx-background-size:cover;
+	-fx-background-size: cover;
     -fx-min-width: 1020px;
 }
 
@@ -42,8 +67,8 @@
 }
 
 #titleMessage {
-	-fx-font-family: delicious-smallcaps;
-	-fx-font-size: 80px;
+	-fx-font-family: "DOCKER";
+	-fx-font-size: 40px;
 	-fx-fill: darkorange;
 }
 
@@ -63,16 +88,20 @@
 #quote {
      -fx-font-family: infinity;
      -fx-font-size: 20px;
-     -fx-fill: black;
+     -fx-fill: white;
 }
 
 /** list **/
 #todoList {
-	-fx-background-color: rgb(255, 255, 255, 0.2);
+	-fx-background-color: rgb(0, 0, 0, 0.2);
     -fx-font-size: 20px;
     -fx-font-family: delicious-roman;
     -fx-border-radius: 20 20 20 20;
     -fx-background-radius: 20 20 20 20;
+}
+
+.label {
+	-fx-text-fill: white;
 }
 
 /* Hide scroll bars */
@@ -82,7 +111,7 @@
 }
 
 #todoClass {
-    -fx-background-color: rgb(255, 255, 255, 0.4);
+    -fx-background-color: rgb(0, 0, 0, 0.4);
     -fx-font-size: 20px;
     -fx-font-family: delicious-smallcaps;
     -fx-border-radius: 20 20 20 20;
@@ -91,7 +120,7 @@
 
 .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: black;    
+    -fx-text-fill: white;    
 }
 
 #taskDate, #taskTime {
@@ -101,12 +130,7 @@
 
 /** user input feedback **/
 #feedback {
-    -fx-font-size: 20px;
-    -fx-fill: black;
-    -fx-font-family: delicious-bold;
-}
-
-/** check box **/
-.check-box {
-    -fx-text-fill: black;
+	-fx-font-family: "Comic Neue Angular";
+    -fx-font-size: 25px;
+    -fx-fill: white;
 }

@@ -13,6 +13,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import Controllers.MainGUIController;
 import Controllers.ParseBackground;
 
@@ -21,9 +23,12 @@ public class CommandLineController {
     private MainGUIController main;
     
     private static final String INITIALIZE = "";
-    private static final String INIT_FEEDBACK = "Do you have anything on your mind?";
+    private static final String INIT_FEEDBACK = "How can I help you?";
+   
     private final String HELP_PAGE_PATH = "/View/HelpPage.fxml";
     private final String HELP_PAGE_NAME = "Help";
+    
+    private final ArrayList<String> inputArray = new ArrayList<String>();
     
     @FXML 
     private Text feedback;
@@ -37,6 +42,8 @@ public class CommandLineController {
     
     @FXML 
     private void handleSubmitButtonAction(KeyEvent event) throws IOException {
+    	// TODO: ctrl up and down commands
+    	
     	if (event.getCode() == KeyCode.ENTER) {
     		readUserInput();
         
@@ -58,17 +65,39 @@ public class CommandLineController {
     				}
     			}
     		}
+    	} else if (event.getCode() ==  KeyCode.UP) {
+    		if (event.isAltDown()) {
+    			getPreviousCommand();
+    		}
+    	} else if (event.getCode() ==  KeyCode.DOWN) {
+    		if (event.isAltDown()) {
+    			getNextCommand();
+    		}
     	}
     }
+
+	private void getNextCommand() {
+		if(index >= 0 && index < inputArray.size()-1) {
+			userInput.setText(inputArray.get(++index));
+		}
+	}
+
+	private void getPreviousCommand() {
+		if(index > 0 && index <= inputArray.size()) {
+			userInput.setText(inputArray.get(--index));
+		}
+	}
     
     private void readUserInput() {
-    	feedback.setText("Input entered");
-    	
     	// integration code
         // feedback.setText(LogicMain.processCommand(userInput.getText()));
         
         command = userInput.getText();
+        feedback.setText("\"" + command + "\" entered");
         userInput.clear();
+        
+        inputArray.add(command);
+        index++;
     }
     
     private static String removeFirstWord(String userInput) {

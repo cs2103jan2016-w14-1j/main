@@ -6,16 +6,16 @@
       <person>Kevin Durant</person>
    </quote>
    <quote nunber="1">
-      <phrase>"Shit disregards religion, race and beliefs. Yet, shit happens."</phrase>
-      <person>Anonymous</person>
+      <phrase>"Strive not to be a success, but rather be a value"</phrase>
+      <person>Albert Einstein</person>
    </quote>
    <quote number="2">
       <phrase>"The secret of success is to do the common things uncommonly well."</phrase>
       <person>John D. Rockefeller</person>
    </quote>
    <quote number="3">
-      <phrase>"Shouryuuken!!!"</phrase>
-      <person>Street Fighter</person>
+      <phrase>"Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference."</phrase>
+      <person>Robert Frost</person>
    </quote>
    <quote number="4">
       <phrase>"The secret of success is to do the common things uncommonly well."</phrase>
@@ -26,16 +26,23 @@
       <person>Uzumaki Naruto</person>
    </quote>
    <quote number="6">
-      <phrase>"I dont know, I dont care, I just wanna do my hair"</phrase>
-      <person>Bimbo</person>
-   </quote>
-   <quote number="7">
-      <phrase>"Cause screw this"</phrase>
+      <phrase>"Shit happens."</phrase>
       <person>Anonymous</person>
    </quote>
-   <quote number="8">
-      <phrase>"Talent is cheaper than table salt. 
-          What separates the talented individual from the successful one is a lot of hard work."</phrase>
-      <person>Stephen King</person>
+   <quote number="7">
+      <phrase>"Your time is limited, so don’t waste it living someone else’s life."</phrase>
+      <person>Steve Jobs</person>
    </quote>
+   <quote number="8">
+      <phrase>"People often say that motivation doesn’t last. Well, neither does bathing. That’s why we recommend it daily."</phrase>
+      <person>Zig Ziglar</person>
+   </quote>
+   <quote number="9">
+      <phrase>"You can never cross the ocean until you have the courage to lose sight of the shore."</phrase>
+      <person>Christopher Columbus</person>
+   </quote>
+    <quote number="10">
+      <phrase>"Remember no one can make you feel inferior without your consent."</phrase>
+      <person>Eleanor Roosevelt</person>
+    </quote>
 </quoteList>
