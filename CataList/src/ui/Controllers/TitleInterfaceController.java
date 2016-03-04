@@ -1,17 +1,15 @@
 package Controllers;
 
-import Controllers.TitleQuotes.QuoteGenerator;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import Controllers.MainGUIController;
+import Controllers.TitleQuotes.QuoteGenerator;
 
-public class TitleInterfaceController {
+public class TitleInterfaceController extends QuoteGenerator{
     
     private MainGUIController main;
     

@@ -19,8 +19,10 @@ public class HelpPageController {
     private static final String COMMAND_HEADER = "Command";
     private static final String ID_VALUE = "helpId";
     private static final String COMMAND_VALUE= "helpCommand";
+    
     private static int ARRAY_ID = 0;
     private static int ARRAY_COMMAND = 1;
+    
     private static final int ID_COL_WIDTH = 125;
     private static final int COMMAND_COL_WIDTH = 370;
     

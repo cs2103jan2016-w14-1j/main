@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox prefHeight="420.0" prefWidth="235.0" BorderPane.alignment="CENTER" 
-            xmlns:fx="http://javafx.com/fxml/1" 
+<VBox prefWidth="235.0" prefHeight="420.0" BorderPane.alignment="CENTER" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:id="classContainer"
             fx:controller="Controllers.ClassController">
             <children>
                 <ListView fx:id="todoClass" prefWidth="235.0" prefHeight="420.0" >

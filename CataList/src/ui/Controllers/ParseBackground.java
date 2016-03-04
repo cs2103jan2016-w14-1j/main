@@ -45,7 +45,7 @@ public class ParseBackground {
 			case COMMAND_HILLS:
 				return HILLS_ID;
 			default:
-				return DEFAULT_ID;
+				return MESSAGE_INVALID;
 		}
 	}
 	

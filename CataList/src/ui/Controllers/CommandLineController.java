@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import Controllers.CalendarGenerator;
 
 public class CommandLineController extends CreateWindow {
     
@@ -14,6 +15,8 @@ public class CommandLineController extends CreateWindow {
     
     private static final String INITIALIZE = "";
     private static final String INIT_FEEDBACK = "How can I help you?";
+    
+    private static final String MESSAGE_INVALID = "Invalid background";
     
     private final ArrayList<String> inputArray = new ArrayList<String>();
     
@@ -40,9 +43,21 @@ public class CommandLineController extends CreateWindow {
     			main.todoListController.displayCompleted();
     		} else if(command.toLowerCase().equals("help")) {
     			createWindow();
+    		} else if(command.toLowerCase().equals("calendar")) {
+    			main.classListController.todoClass.setOpacity(0);
+    			CalendarGenerator.renderCalendar();
+    			main.classListController.classContainer.getChildren().add(CalendarGenerator.wb);
+    		} else if(command.toLowerCase().equals("quit calendar")) {
+    			main.classListController.todoClass.setOpacity(1);
+    			main.classListController.classContainer.getChildren().remove(CalendarGenerator.wb);
     		} else {
     			if (getFirstWord(command).toLowerCase().equals("show")) {
-    				main.mainAnchorPane.setId(ParseBackground.parseInput(removeFirstWord(command)));
+    				String id = ParseBackground.parseInput(removeFirstWord(command));
+    				if(id.equals(MESSAGE_INVALID)) {
+    					feedback.setText(MESSAGE_INVALID);
+    				} else {
+    					main.mainAnchorPane.setId(id);
+    				}
     			} else {
     				main.todoListController.addTaskToList();
 
@@ -89,7 +104,7 @@ public class CommandLineController extends CreateWindow {
     }
     
     private static String removeFirstWord(String userInput) {
-		return userInput.replace(getFirstWord(userInput), "").trim();
+		return userInput.replace(getFirstWord(userInput), INITIALIZE).trim();
 	}
 
 	

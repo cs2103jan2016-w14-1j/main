@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import Controllers.MainGUIController;
 
@@ -14,7 +15,10 @@ public class ClassController {
 	
 	private final String DEFAULT = "inbox";
 
-	@FXML private ListView<String> todoClass;
+	@FXML 
+	ListView<String> todoClass;
+	@FXML
+	VBox classContainer;
    
 	public static ObservableList<String> classes =
 			FXCollections.observableArrayList();
