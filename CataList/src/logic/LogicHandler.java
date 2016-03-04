@@ -13,9 +13,9 @@ public class LogicHandler {
 	private static final int INPUT_DATE_INDEX = 2;
 	private static final int INPUT_TIME_INDEX = 3;
 	
-	private static final int INPUT_LENGTH_NODATETIME = 1;  
-	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 2;  
-	private static final int INPUT_LENGTH_WITH_DATE_TIME = 3;
+	private static final int INPUT_LENGTH_NODATETIME = 2;  
+	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
+	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
 	
 	public void processCommand(String userInput){
 	//TODO: parser
