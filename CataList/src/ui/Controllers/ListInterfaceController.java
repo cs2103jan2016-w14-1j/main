@@ -36,9 +36,9 @@ public class ListInterfaceController {
     	
     	HBox taskRow = new HBox(10);
     	CheckBox isCompleted = new CheckBox();
-    	Label taskName = new Label(main.loadStringFromCommandLine());
-    	Label taskTime = new Label(main.loadStringFromCommandLine());
-    	Label taskDate = new Label(main.loadStringFromCommandLine());
+    	Label taskName = new Label(main.commandLineController.command);
+    	Label taskTime = new Label(main.commandLineController.command);
+    	Label taskDate = new Label(main.commandLineController.command);
     	setProperties(taskName, taskTime, taskDate, taskRow);
         
     	animateListCellFadeIn(taskRow);
