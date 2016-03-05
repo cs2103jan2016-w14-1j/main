@@ -1,4 +1,3 @@
-package storage;
 
 import logic.Task;
 
@@ -32,8 +31,12 @@ public class StorageWriter {
 	private static Element time;
 	private static Element date;
 	private static int index = 0;
+	
+	private static final String STORAGE_PATH = 
+			System.getProperty("user.dir") + 
+            "/CataList/src/storage/test.xml";
 
-	public boolean StorageWriter(Document todoListDocument){
+	public static void writeToStorage(Document todoListDocument) throws IOException{
 		
 		/*
 		 * SAXBuilder builder = new SAXBuilder();
@@ -46,8 +49,6 @@ public class StorageWriter {
 	    serializer.output(todoListDocument, System.out);
 	    
 	    serializer.setFormat(Format.getPrettyFormat());
-	    serializer.output(todoListDocument, new FileWriter("todoList.xml"));
-	    
-	    return true;
+	    serializer.output(todoListDocument, new FileWriter(STORAGE_PATH));
 	}
 }

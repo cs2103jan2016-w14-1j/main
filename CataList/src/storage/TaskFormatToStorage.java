@@ -2,7 +2,6 @@
 import logic.Task;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,14 +12,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.jdom2.util.IteratorIterable;
-import org.jdom2.input.SAXBuilder;
 
-public class TaskFormatToStorage {
+
+public class TaskFormatToStorage extends StorageWriter {
 	
 	private static final String ELEMENT_TASKLIST = "TaskList";
 	private static final String ELEMENT_TASK = "Task";
@@ -52,29 +46,38 @@ public class TaskFormatToStorage {
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
             "/CataList/src/storage/test.xml";
-
-	private static ArrayList<Task> toBeDoneList;
-	private static ArrayList<Task> completedList;
-	private static ArrayList<Task> masterList;
 	
-	private static Task taskObj;
+	private static ArrayList<Task> toBeDoneList = new ArrayList<Task>();
+	private static ArrayList<Task> completedList = new ArrayList<Task>();
+	private static ArrayList<Task> masterList = new ArrayList<Task>();
 	
-	public static String addToStorage(Task taskObj) {
+	public static String addToStorage(Task taskObj) throws IOException, JDOMException {
+		File inputFile = new File(STORAGE_PATH);
+		Document toDoListDocument = null;
 		
-		Task task = new Element(ELEMENT_TASK);
+		if(inputFile.exists()) {
+			SAXBuilder saxBuilder = new SAXBuilder();
+			toDoListDocument = saxBuilder.build(inputFile);
+		} else {
+			Element taskList = new Element(ELEMENT_TASKLIST);
+			toDoListDocument = new Document(taskList);
+		}
 		
-		Document toDoListDocument = new Document(task);
+		task = new Element(ELEMENT_TASK);
+		//Document toDoListDocument = new Document(task);
 		
 		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
 		task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
         
-		index++;
-		toBeDoneList.add(task);
-		masterList.add(task);
+		index = toBeDoneList.size() + 1;
+		toBeDoneList.add(taskObj);
+		masterList.add(taskObj);
 		
-		StorageWriter writer = new StorageWriter(toDoListDocument);
+		toDoListDocument.getRootElement().addContent(task);
+		
+		StorageWriter.writeToStorage(toDoListDocument);
 		
 		return taskObj.get_messageToUser();
 	}
@@ -89,43 +92,6 @@ public class TaskFormatToStorage {
 	        return taskObj.get_messageToUser();
 	}
 	
-	/*
-	public static void addToStorage(Task taskObj) throws JDOMException, IOException {
-		/*
-		changes: 
-		changed type from String to void for testing, can change back later
-		commented out return type
-		commented out other functions
-		added xmloutputter
-		 */
-		/*
-		File inputFile = new File(STORAGE_PATH);
-		Document document = null;
-		if(inputFile.exists()) {
-			SAXBuilder saxBuilder = new SAXBuilder();
-			document = saxBuilder.build(inputFile);
-		} else {
-			Element taskList = new Element(ELEMENT_TASKLIST);
-			document = new Document(taskList);
-		}
-
-		index++;
-
-		task = new Element(ELEMENT_TASK);
-		*
-		document.getRootElement().addContent(task);
-
-		FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
-		XMLOutputter xmlOutput = new XMLOutputter();
-
-		xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
-		xmlOutput.output(document, writer);  // writes to xml
-		xmlOutput.output(document, System.out);  // print what is written on xml
-		writer.close(); // close writer
-
-		//return taskObj.get_messageToUser();
-	} */
-	/*
 	public static void clearFromStorage() throws IOException, JDOMException {
 
 		File inputFile = new File(STORAGE_PATH);
@@ -146,14 +112,8 @@ public class TaskFormatToStorage {
 			e.getParent().removeContent(e);
 		}
 
-		FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
-		XMLOutputter xmlOutput = new XMLOutputter();
-
-		xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
-		xmlOutput.output(document, writer);  // writes to xml
-		xmlOutput.output(document, System.out);  // print what is written on xml
-		writer.close();
-	} */
+		writeToStorage(document);
+	} 
 	
 	/*
 	public static boolean displayFromStorage(){
@@ -260,5 +220,4 @@ public class TaskFormatToStorage {
 		}
 	}
 	*/
-	}
 }

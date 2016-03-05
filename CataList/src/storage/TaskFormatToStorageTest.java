@@ -14,7 +14,7 @@ public class TaskFormatToStorageTest {
 	
 	@Test
 	public void testAdd1() throws JDOMException, IOException {
-		testAdd = new Task(true, "find some bitches", "add", "fuck yes", "1300", "3 March");
+		testAdd = new Task(true, "find some bitches", "add", "fuck yes", "1300", "5 March");
 		expectedResults = "fuck yes";
 		TaskFormatToStorage.addToStorage(testAdd);
 	}
