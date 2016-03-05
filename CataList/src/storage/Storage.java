@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import logic.Task;
 
 import org.jdom2.Content;
 import org.jdom2.Document;
@@ -20,10 +21,15 @@ public class Storage {
 	private static String fileName;
 	private static String LISTNAME = "todoList.xml";
 	private static File file;
+	private static ArrayList<Task> toBeDoneList;
+	private static ArrayList<Task> completedList;
+	private static ArrayList<ArrayList<Task>> masterList;
 	
 	/*** Constructor ***/
 	private Storage(){
-		
+		toBeDoneList = new ArrayList<Task>();
+		completedList = new ArrayList<Task>();
+		masterList = new ArrayList<ArrayList<Task>>();
 	}
 	
 	/*** Methods ***/
@@ -44,7 +50,7 @@ public class Storage {
 			}
 		else{// file exists
 			//read file name
-			
+			getFileInBytes(LISTNAME);
 			}
 		return true;
 		}
@@ -53,34 +59,11 @@ public class Storage {
 		File file = new File(fileName);
 		if(!file.exists()){
 			return null;
-		}
+			}
 		return file;
-	}
+		}
 	
-	
-	
-	public static boolean xmlFileBuilder() throws JDOMException, IOException{
-		SAXBuilder jdomBuilder = new SAXBuilder();
-		
-		Document jdomDocument = jdomBuilder.build(LISTNAME);
-		
-		System.out.println(jdomDocument.getRootElement().getName());
-		
-		Element todoList = jdomDocument.getRootElement();
-		
-		Element firstItem = todoList.getChild("");
-		
-		IteratorIterable<Content> contents = todoList.getDescendants();
-        while (contents.hasNext()) {
-            Content todoList_content = contents.next();
-            if (!todoList_content.getCType().equals(CType.Text) && !todoList_content.getCType().equals(CType.Comment)) {
-                System.out.println(todoList_content.toString());
-            }
-        }
-        return true;
-	}
-	
-	public byte[] getFileInBytes(String fileName) {
+	public static byte[] getFileInBytes(String fileName) {
         byte[] content = null;
         try {
             Path filePath = Paths.get(fileName);
@@ -90,4 +73,43 @@ public class Storage {
         }
         return content;
     }
+	
+	public static boolean XMlFileBuilder() throws JDOMException, IOException{
+		Element todoList;
+		
+		SAXBuilder jdomBuilder = new SAXBuilder();
+		
+		//building the document(xml file to be used)
+		Document toDoListDocument = jdomBuilder.build(LISTNAME);
+		
+		//this would be the root element of the document, check if element exists or not
+		if(toDoListDocument.getRootElement() == null){
+			todoList = new Element("masterList");
+		} else {
+			todoList = toDoListDocument.getRootElement();
+		}
+		
+		Element firstItem = todoList.getChild("");
+		
+        return true;
+	}
+	
+	//method takes in a task and then based on command does what is needed.
+	public String FormatToStorage(Task task){
+		
+		TaskFormatToStorage toStorage = new TaskFormatToStorage(task, command);
+		
+		return task.get_messageToUser();
+	}
+	
+	
+	//junk code i will return to
+	/*
+	IteratorIterable<Content> contents = todoList.getDescendants();
+    while (contents.hasNext()) {
+        Content todoList_content = contents.next();
+        if (!todoList_content.getCType().equals(CType.Text) && !todoList_content.getCType().equals(CType.Comment)) {
+            System.out.println(todoList_content.toString());
+        }
+    }*/
 }
