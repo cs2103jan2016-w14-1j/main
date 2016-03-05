@@ -15,6 +15,10 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.jdom2.util.IteratorIterable;
+import org.jdom2.input.SAXBuilder;
 
 public class TaskFormatToStorage {
 	
@@ -30,6 +34,15 @@ public class TaskFormatToStorage {
 	private String endTime;
 	private String deadline;
 	
+	private static final String COMMAND_ADD = "add";
+	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_EDIT = "edit";
+	private static final String COMMAND_UNDO = "undo";
+	private static final String COMMAND_CLEAR= "clear";
+	private static final String COMMAND_DISPLAY = "display";
+	private static final String COMMAND_SEARCH = "search";
+	private static final String COMMAND_SORT = "sort";
+	
 	private static Element task;
 	private static Element event;
 	private static Element time;
@@ -39,78 +52,34 @@ public class TaskFormatToStorage {
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
             "/CataList/src/storage/test.xml";
+
+	private static ArrayList<Task> toBeDoneList;
+	private static ArrayList<Task> completedList;
+	private static ArrayList<Task> masterList;
 	
-	public static void addToStorage(Task taskObj) throws JDOMException, IOException {
-		/*
-		changes: 
-		changed type from String to void for testing, can change back later
-		commented out return type
-		commented out other functions
-		added xmloutputter
-		*/
+	private static Task taskObj;
+	
+	public static String addToStorage(Task taskObj) {
 		
-		File inputFile = new File(STORAGE_PATH);
-		Document document = null;
-        if(inputFile.exists()) {
-        	SAXBuilder saxBuilder = new SAXBuilder();
-            document = saxBuilder.build(inputFile);
-        } else {
-        	Element taskList = new Element(ELEMENT_TASKLIST);
-        	document = new Document(taskList);
-        }
+		Task task = new Element(ELEMENT_TASK);
 		
-        index++;
+		Document toDoListDocument = new Document(task);
 		
-		task = new Element(ELEMENT_TASK);
 		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
 		task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
-		
-		document.getRootElement().addContent(task);
-		
-		FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
-		XMLOutputter xmlOutput = new XMLOutputter();
-		
-        xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
-        xmlOutput.output(document, writer);  // writes to xml
-        xmlOutput.output(document, System.out);  // print what is written on xml
-        writer.close(); // close writer
-		
-		//return taskObj.get_messageToUser();
-	}
-	
-	public static void clearFromStorage() throws IOException, JDOMException {
-	
-		File inputFile = new File(STORAGE_PATH);
-		SAXBuilder saxBuilder = new SAXBuilder();
-		Document document = saxBuilder.build(inputFile);
-		Element rootElement = document.getRootElement();
-		
-		List<Element> taskList = rootElement.getChildren();
-		Iterator itr = taskList.iterator();
-		List<Element> elements = new ArrayList<Element>();
-
-		while(itr.hasNext()) {
-			Element subchild = (Element)itr.next();
-			elements.add(subchild);
-		}
-		
-		for(Element e: elements) {
-			e.getParent().removeContent(e);
-		}
         
-        FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
-		XMLOutputter xmlOutput = new XMLOutputter();
+		index++;
+		toBeDoneList.add(task);
+		masterList.add(task);
 		
-        xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
-        xmlOutput.output(document, writer);  // writes to xml
-        xmlOutput.output(document, System.out);  // print what is written on xml
-        writer.close();
+		StorageWriter writer = new StorageWriter(toDoListDocument);
+		
+		return taskObj.get_messageToUser();
 	}
 	
-	public static String deleteFromStorage(Task taskObj){
-			
+	public static String deleteFromStorage(Task taskObj) {
 		 List<Element> taskChildren = new ArrayList<Element>();
 	        for (int i = 0; i < index; i++) {
 	            Element taskChild = taskChildren.get(i);
@@ -121,11 +90,134 @@ public class TaskFormatToStorage {
 	}
 	
 	/*
+	public static void addToStorage(Task taskObj) throws JDOMException, IOException {
+		/*
+		changes: 
+		changed type from String to void for testing, can change back later
+		commented out return type
+		commented out other functions
+		added xmloutputter
+		 */
+		/*
+		File inputFile = new File(STORAGE_PATH);
+		Document document = null;
+		if(inputFile.exists()) {
+			SAXBuilder saxBuilder = new SAXBuilder();
+			document = saxBuilder.build(inputFile);
+		} else {
+			Element taskList = new Element(ELEMENT_TASKLIST);
+			document = new Document(taskList);
+		}
+
+		index++;
+
+		task = new Element(ELEMENT_TASK);
+		*
+		document.getRootElement().addContent(task);
+
+		FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
+		XMLOutputter xmlOutput = new XMLOutputter();
+
+		xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
+		xmlOutput.output(document, writer);  // writes to xml
+		xmlOutput.output(document, System.out);  // print what is written on xml
+		writer.close(); // close writer
+
+		//return taskObj.get_messageToUser();
+	} */
+	/*
+	public static void clearFromStorage() throws IOException, JDOMException {
+
+		File inputFile = new File(STORAGE_PATH);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+
+		List<Element> taskList = rootElement.getChildren();
+		Iterator itr = taskList.iterator();
+		List<Element> elements = new ArrayList<Element>();
+
+		while(itr.hasNext()) {
+			Element subchild = (Element)itr.next();
+			elements.add(subchild);
+		}
+
+		for(Element e: elements) {
+			e.getParent().removeContent(e);
+		}
+
+		FileWriter writer = new FileWriter(STORAGE_PATH);  // to write to xml
+		XMLOutputter xmlOutput = new XMLOutputter();
+
+		xmlOutput.setFormat(Format.getPrettyFormat()); // make display nice
+		xmlOutput.output(document, writer);  // writes to xml
+		xmlOutput.output(document, System.out);  // print what is written on xml
+		writer.close();
+	} */
+	
+	/*
 	public static boolean displayFromStorage(){
 		
 		  try {  
 			   // converted file to document object  
 			   Document document = saxBuilder.build(file);  
+	        for (int i = 0; i < index; i++) {
+	            Element masterTaskChild = masterList.get(i);
+	            
+	            if(taskObj.equals(masterTaskChild)){
+	            	masterList.remove(i);
+	            }
+	        }
+	        
+	        for (int i = 0; i < index; i++) {
+	            Element todoTaskChild = toBeDoneList.get(i);
+	            
+	            if(taskObj.equals(todoTaskChild)){
+	            	toBeDoneList.remove(i);
+	            }
+	        }
+	        
+	        for (int i = 0; i < index; i++) {
+	            Element completedChild = completedList.get(i);
+	            
+	            if(taskObj.equals(completedChild)){
+	            	completedList.remove(i);
+	            }
+	        }
+	        taskObj.detach();
+	        return taskObj.get_messageToUser();
+	}
+	
+	public static boolean displayFromStorage(){
+		
+		//stub files in storage reader. file only reads "todoList.xml" for now.
+		StorageReader StorageReader = new StorageReader();
+		
+		return true;
+	}
+	
+	
+	public static void main(String args[]){
+		
+		String command = taskObj.get_cmd();
+		
+		switch(command){
+			case COMMAND_ADD: 
+				return addToStorage(taskObj);
+			case COMMAND_DELETE: 
+				return deleteFromStorage(taskObj);
+			case COMMAND_DISPLAY:
+				return displayFromStorage(taskObj);
+		}
+	}
+	
+	//junkcode
+	
+	/*public static boolean displayFromStorage(){
+		
+		  try {  
+			   // converted file to document object  
+			   Document document = SAXBuilder.build(file);  
 			     
 			   // get root node from xml  
 			   Element rootNode = document.getRootElement();  
@@ -146,6 +238,7 @@ public class TaskFormatToStorage {
 			   // TODO Auto-generated catch block  
 			   e.printStackTrace();  
 			  } 
+
 	}
 	*/
 	
@@ -167,4 +260,5 @@ public class TaskFormatToStorage {
 		}
 	}
 	*/
+	}
 }
