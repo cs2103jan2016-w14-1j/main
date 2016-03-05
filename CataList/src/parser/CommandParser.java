@@ -5,7 +5,7 @@ public class CommandParser {
 	private static final int COMMAND_INDEX = 0;
 	private static final String SYMBOL_WHITESPACE = " ";
 	
-	public static String parseCommand(String userInput){
+	public String parseCommand(String userInput){
 		String firstWord = extractFirstWord(userInput);
 		String identifiedCommand = analyzeWord(firstWord);
 		return identifiedCommand;

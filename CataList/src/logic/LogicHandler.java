@@ -1,7 +1,6 @@
 package logic;
 
-import java.util.Stack;
-import parser.Parser;
+import parser.CommandParser;
 
 
 
@@ -19,9 +18,17 @@ public class LogicHandler {
 	
 	public void processCommand(String userInput){
 	//TODO: parser
-		Parser commandParser = new Parser();
-		String[] formattedString = commandParser(userInput);
-		createTask(formattedString);
+	// incomplete dependencies. Only returns commands now.
+	//CommandParser is supposed to be a part of a bigger parser class, which combines
+	// all output into a String[]. Currently we initialize the array here, and will
+	// move it to Parser after.
+		CommandParser commandParser = new CommandParser();
+		String formattedString = commandParser.parseCommand(userInput);
+		
+		String[] inputArray = new String[1];
+		inputArray[0] = formattedString;
+		
+		createTask(inputArray);
 	}
 	
 	private Task createTask(String[] userInputArray){
