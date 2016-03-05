@@ -16,7 +16,7 @@ public class LogicHandler {
 	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
 	
-	public void processCommand(String userInput){
+	public static void processCommand(String userInput){
 	//TODO: parser
 	// incomplete dependencies. Only returns commands now.
 	//CommandParser is supposed to be a part of a bigger parser class, which combines
@@ -28,7 +28,10 @@ public class LogicHandler {
 		String[] inputArray = new String[1];
 		inputArray[0] = formattedString;
 		
-		createTask(inputArray);
+	// test if user input is receive. remove later	
+		System.out.println(inputArray[0]);
+		
+		//createTask(inputArray);
 	}
 	
 	private Task createTask(String[] userInputArray){

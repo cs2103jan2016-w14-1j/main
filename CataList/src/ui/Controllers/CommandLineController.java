@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import Controllers.CalendarGenerator;
+import logic.LogicHandler;
 
 public class CommandLineController extends CreateWindow {
     
@@ -92,8 +93,7 @@ public class CommandLineController extends CreateWindow {
 	}
     
     private void readUserInput() {
-    	// integration code
-        // feedback.setText(LogicMain.processCommand(userInput.getText()));
+        uiToLogic();
         
         command = userInput.getText();
         feedback.setText("\"" + command + "\" entered");
@@ -102,6 +102,10 @@ public class CommandLineController extends CreateWindow {
         inputArray.add(command);
         index++;
     }
+
+	private void uiToLogic() {
+		LogicHandler.processCommand(userInput.getText());
+	}
     
     private static String removeFirstWord(String userInput) {
 		return userInput.replace(getFirstWord(userInput), INITIALIZE).trim();
