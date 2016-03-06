@@ -27,8 +27,8 @@ public class HelpCommandStorageParser {
          
          SAXBuilder saxBuilder = new SAXBuilder();
          Document document = saxBuilder.build(inputFile);
-         Element helpElement = document.getRootElement();
-         List<Element> helpList = helpElement.getChildren();
+         Element rootElement = document.getRootElement();
+         List<Element> helpList = rootElement.getChildren();
          
          accessStorage(helpList);
       }catch(JDOMException | IOException e){
