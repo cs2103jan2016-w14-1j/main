@@ -28,8 +28,9 @@
 	src: url("Fonts/Docker-One.ttf");
 }
 
+
 #mainPaneDefault {
-     -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
+    -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
 }
 
 #mainPaneSea {
@@ -69,7 +70,9 @@
 #titleMessage {
 	-fx-font-family: "DOCKER";
 	-fx-font-size: 40px;
-	-fx-fill: darkorange;
+	-fx-fill: black;
+	-fx-stroke: darkorange;
+	-fx-stroke-width: 2px;
 }
 
 #subMessage {
@@ -78,7 +81,8 @@
 }
 
 #imageView {
-	-fx-opacity: 0.5;
+	-fx-opacity: 0.7;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,1) , 0,0,0,1 );
 }
 
 .borderPane {
@@ -133,4 +137,11 @@
 	-fx-font-family: "Comic Neue Angular";
     -fx-font-size: 25px;
     -fx-fill: white;
+}
+
+.text-field {
+	-fx-background-color: rgb(255, 255, 255, 0.5);
+	-fx-background-radius: 20 20 20 20;
+	-fx-font-family: delicious-bold;
+	-fx-font-size: 20px;
 }

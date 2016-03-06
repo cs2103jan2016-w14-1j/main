@@ -100,7 +100,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		Element rootElement = document.getRootElement();
 
 		List<Element> taskList = rootElement.getChildren();
-		Iterator itr = taskList.iterator();
+		Iterator<Element> itr = taskList.iterator();
 		List<Element> elements = new ArrayList<Element>();
 
 		while(itr.hasNext()) {
@@ -114,6 +114,13 @@ public class TaskFormatToStorage extends StorageWriter {
 
 		writeToStorage(document);
 	} 
+	
+	public static boolean displayFromStorage() throws IOException, JDOMException{
+
+		StorageReader.readFromStorage();
+
+		return true;
+	}
 	
 	/*
 	public static boolean displayFromStorage(){
@@ -146,14 +153,6 @@ public class TaskFormatToStorage extends StorageWriter {
 	        }
 	        taskObj.detach();
 	        return taskObj.get_messageToUser();
-	}
-	
-	public static boolean displayFromStorage(){
-		
-		//stub files in storage reader. file only reads "todoList.xml" for now.
-		StorageReader StorageReader = new StorageReader();
-		
-		return true;
 	}
 	
 	
