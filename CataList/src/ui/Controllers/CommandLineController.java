@@ -60,7 +60,7 @@ public class CommandLineController extends CreateWindow {
     					main.mainAnchorPane.setId(id);
     				}
     			} else {
-    				main.todoListController.addTaskToList();
+    				//main.todoListController.addTaskToList();
 
     				if(ClassController.classes.isEmpty()) {
     					main.classListController.initEmptyClassList();

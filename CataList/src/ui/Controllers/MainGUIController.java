@@ -1,13 +1,21 @@
 package Controllers;
 
+import java.io.IOException;
+
+import org.jdom2.JDOMException;
+
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import logic.LogicHandler;
 
 public class MainGUIController {
+	
+	private final String INIT_LIST = "display";
+	
     @FXML 
     CommandLineController commandLineController;  
     @FXML 
@@ -26,11 +34,11 @@ public class MainGUIController {
     @FXML 
     VBox welcomeMessage;
     
-    public void initialize() {
+    public void initialize() throws IOException, JDOMException {
        commandLineController.init(this);
-       todoListController.init(this);
        classListController.init(this);
        titleController.init(this);
+       todoListController.init(this);
     }
         
     public void removeWelcomeMsg() {

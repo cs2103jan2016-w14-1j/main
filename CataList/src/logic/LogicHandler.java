@@ -31,10 +31,10 @@ public class LogicHandler {
 	// test if user input is receive. remove later	
 		System.out.println(inputArray[0]);
 		
-		//createTask(inputArray);
+		createTask(inputArray);
 	}
 	
-	private Task createTask(String[] userInputArray){
+	private static Task createTask(String[] userInputArray){
 		int numberOfFields = userInputArray.length;
 		Task newTask;
 		if(numberOfFields == INPUT_LENGTH_NODATETIME){
@@ -50,7 +50,7 @@ public class LogicHandler {
 	}
 	
 	
-	private Task createTaskNoDateTime(String[] checkString){
+	private static Task createTaskNoDateTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
 		
@@ -76,7 +76,7 @@ public class LogicHandler {
 		}
 	}
 	
-	private Task createTaskWithDateNoTime(String[] checkString){
+	private static Task createTaskWithDateNoTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
 		String userInputDate = checkString[INPUT_DATE_INDEX];
@@ -103,7 +103,7 @@ public class LogicHandler {
 		}
 	}
 	
-	private Task createTaskWithDateTime(String[] checkString){
+	private static Task createTaskWithDateTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
 		String userInputDate = checkString[INPUT_DATE_INDEX];
@@ -131,7 +131,7 @@ public class LogicHandler {
 		}
 	}
 	
-	private Task createTaskWithParserError(){
+	private static Task createTaskWithParserError(){
 		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
 		return parserErrorTask;
 	}

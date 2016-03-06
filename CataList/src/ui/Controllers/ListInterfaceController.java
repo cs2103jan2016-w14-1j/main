@@ -10,8 +10,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+
+import java.io.IOException;
+
+import org.jdom2.JDOMException;
+
 import Controllers.MainGUIController;
+import storage.StorageReader;
+import logic.Task;
 
 public class ListInterfaceController {
     
@@ -30,15 +38,15 @@ public class ListInterfaceController {
             FXCollections.observableArrayList();
     public int taskCount = 0;
     
-    public void addTaskToList() {
+    public void addTaskToList(String event, String time, String date) {
     	
     	initToDoList();
     	
     	HBox taskRow = new HBox(10);
     	CheckBox isCompleted = new CheckBox();
-    	Label taskName = new Label(main.commandLineController.command);
-    	Label taskTime = new Label(main.commandLineController.command);
-    	Label taskDate = new Label(main.commandLineController.command);
+    	Label taskName = new Label(event);
+    	Label taskTime = new Label(time);
+    	Label taskDate = new Label(date);
     	setProperties(taskName, taskTime, taskDate, taskRow);
         
     	animateListCellFadeIn(taskRow);
@@ -102,21 +110,37 @@ public class ListInterfaceController {
     	hb.setPrefWidth(600);
     	
     	HBox.setHgrow(tn, Priority.ALWAYS);
-    	tn.setPrefWidth(350);
+    	tn.setPrefWidth(380);
     	tn.setMaxWidth(Double.MAX_VALUE);
     	tn.setId(TASK_ID);
     	
     	HBox.setHgrow(td, Priority.ALWAYS);
-    	td.setPrefWidth(100);
+    	td.setPrefWidth(110);
     	td.setId(DATE_ID);
   
     	HBox.setHgrow(tt, Priority.ALWAYS);
-    	tt.setPrefWidth(100);
+    	tt.setPrefWidth(110);
     	tt.setId(TIME_ID);
     }
     
-    public void init(MainGUIController mainController) {
+    public void init(MainGUIController mainController) throws IOException, JDOMException {
         main = mainController;
-        todoList.getParent().setOpacity(0);
+        
+        /****** temp init  *****/
+        receiveFromLogic();
     }
+
+	private void receiveFromLogic() throws IOException, JDOMException {
+		Task[] listOfTasks = StorageReader.readFromStorage();
+        if(listOfTasks.length == 0) {
+        	todoList.getParent().setOpacity(0);
+        } else {
+        	for(Task t: listOfTasks) {
+        		addTaskToList(t.get_task(), t.get_time(), t.get_date());
+        	}
+        	if(ClassController.classes.isEmpty()) {
+				main.classListController.initEmptyClassList();
+			}
+        }
+	}
 }

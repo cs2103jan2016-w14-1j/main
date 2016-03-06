@@ -33,7 +33,7 @@ public class TaskFormatToStorageTest {
 	
 	@Test
 	public void testDisplay() throws JDOMException, IOException {
-		StorageReader.readStorage();
+		TaskFormatToStorage.displayFromStorage();
 	}
 
 }
