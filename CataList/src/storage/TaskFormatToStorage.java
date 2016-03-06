@@ -1,3 +1,4 @@
+package storage;
 
 import logic.Task;
 
@@ -197,7 +198,6 @@ public class TaskFormatToStorage extends StorageWriter {
 			   // TODO Auto-generated catch block  
 			   e.printStackTrace();  
 			  } 
-
 	}
 	*/
 	
