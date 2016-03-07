@@ -14,7 +14,7 @@ public class EventParser {
 	
 	private static String removeCommandWord(String userInput){
 		String[] inputArray = userInput.split(SYMBOL_WHITESPACE);
-		String remainingText = "SYMBOL_EMPTY;";
+		String remainingText = SYMBOL_EMPTY;
 		if(inputArray.length >= ARRAY_MINIMUM_LENGTH) {
 			for(String eachWord : inputArray){
 				remainingText += eachWord;
