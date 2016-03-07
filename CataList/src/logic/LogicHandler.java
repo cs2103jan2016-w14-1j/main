@@ -1,6 +1,8 @@
 package logic;
 
+import storage.Storage;
 import parser.CommandParser;
+import parser.EventParser;
 
 public class LogicHandler {
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
@@ -14,23 +16,28 @@ public class LogicHandler {
 	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
 	
-	public static void processCommand(String userInput){
+	public static String processCommand(String userInput){
 	//TODO: parser
 	// incomplete dependencies. Only returns commands now.
 	//CommandParser is supposed to be a part of a bigger parser class, which combines
 	// all output into a String[]. Currently we initialize the array here, and will
 	// move it to Parser after.
+	//REFACTOR THIS PIECE OF SHIT WHEN PARSERHANDLER IS BORN
 		CommandParser commandParser = new CommandParser();
 		String formattedString = commandParser.parseCommand(userInput);
-		
+		EventParser eventParser = new EventParser();
+		String extractedEvent = eventParser.parseEvent(userInput);
 		String[] inputArray = new String[1];
 		inputArray[0] = formattedString;
+		inputArray[1] = extractedEvent;
 		
 	// test if user input is receive. remove later	
 		System.out.println(inputArray[0]);
+		System.out.println(inputArray[1]);
 		
-		createTask(inputArray);
-		
+		Task newTask = createTask(inputArray);
+		String receivedString = Storage.FormatToStorage(newTask);
+		return receivedString;
 	}
 	
 	private static Task createTask(String[] userInputArray){
