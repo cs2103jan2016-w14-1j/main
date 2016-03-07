@@ -14,7 +14,6 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-
 public class TaskFormatToStorage extends StorageWriter {
 	
 	private static final String ELEMENT_TASKLIST = "TaskList";
@@ -78,22 +77,36 @@ public class TaskFormatToStorage extends StorageWriter {
 		
 		toDoListDocument.getRootElement().addContent(task);
 		
-		StorageWriter.writeToStorage(toDoListDocument);
+		try{
+			StorageWriter.writeToStorage(toDoListDocument);
+		} catch(IOException e) {
+			taskObj.setErrorMessageDefault();
+			return taskObj.get_messageToUser();
+		}
 		
 		return taskObj.get_messageToUser();
 	}
 	
 	public static String deleteFromStorage(Task taskObj) {
-		 List<Element> taskChildren = new ArrayList<Element>();
-	        for (int i = 0; i < index; i++) {
-	            Element taskChild = taskChildren.get(i);
-	            
-	            taskChild.detach();
-	        }
-	        return taskObj.get_messageToUser();
+		
+		File inputFile = new File(STORAGE_PATH);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+		
+		List<Element> taskChildren = new ArrayList<Element>();
+	       for (int i = 0; i < index; i++) {
+	           Element taskChild = taskChildren.get(i);
+	           
+	           //attribute is taskID, but task is task
+	           if((taskChild.getAttributes()).equals(taskObj.get_task())){
+	        	   taskChild.detach();
+	           }
+	       }
+	       return taskObj.get_messageToUser();
 	}
 	
-	public static void clearFromStorage() throws IOException, JDOMException {
+	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
 
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -113,14 +126,25 @@ public class TaskFormatToStorage extends StorageWriter {
 			e.getParent().removeContent(e);
 		}
 
-		writeToStorage(document);
+		StorageWriter.writeToStorage(document);
+		
+		return taskObj.get_messageToUser();
 	} 
 	
-	public static boolean displayFromStorage() throws IOException, JDOMException{
-
-		StorageReader.readFromStorage();
-
-		return true;
+	public static String displayFromStorage(Task taskObj) throws IOException, JDOMException{
+		
+		try{
+			StorageReader.readFromStorage();
+		} catch(IOException|JDOMException e) { 
+			taskObj.setErrorMessageDefault();
+			return taskObj.get_messageToUser();;
+		}
+		return taskObj.get_messageToUser();
+	}
+	
+	public static String invalidTaskToStorage(Task taskObj) throws IOException, JDOMException{
+		
+		return taskObj.get_messageToUser();
 	}
 	
 	/*

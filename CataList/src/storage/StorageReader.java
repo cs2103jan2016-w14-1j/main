@@ -1,5 +1,6 @@
 package storage;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +22,7 @@ public class StorageReader {
 	private static final String ELEMENT_EVENT = "Event";
 	private static final String ATTRIBUTE_NUM = "ID";
 	
-	public static Task[] readFromStorage() throws IOException, JDOMException{
+	public static void readFromStorage() throws IOException, JDOMException{
 		
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(STORAGE_PATH);
@@ -47,6 +48,6 @@ public class StorageReader {
 		
 		}
 		
-		return listOfTask;
+		
 	}
 }

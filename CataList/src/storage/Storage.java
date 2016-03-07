@@ -25,13 +25,13 @@ public class Storage {
 	private static File file;
 	private static ArrayList<Task> toBeDoneList;
 	private static ArrayList<Task> completedList;
-	private static ArrayList<ArrayList<Task>> masterList;
+	private static ArrayList<Task> masterList;
 	
 	/*** Constructor ***/
 	private Storage(){
 		toBeDoneList = new ArrayList<Task>();
 		completedList = new ArrayList<Task>();
-		masterList = new ArrayList<ArrayList<Task>>();
+		masterList = new ArrayList<Task>();
 	}
 	
 	/*** Methods ***/
@@ -99,7 +99,7 @@ public class Storage {
 	//method takes in a task and then based on command does what is needed.
 	public String FormatToStorage(Task task){
 		
-		TaskFormatToStorage toStorage = new TaskFormatToStorage(task, command);
+		StorageParser toStorage = new StorageParser(task);
 		
 		return task.get_messageToUser();
 	}
