@@ -10,7 +10,7 @@ public class KeywordConstraints {
 	//  Keywords (KW)
 	protected static final String[] KW_TASK_ADD = { "add", "++", "/a", "-a" };
 	protected static final String[] KW_TASK_CLEAR = { "clear", "nuke"};
-	protected static final String[] KW_TASK_DELETE = { "delete", "rm", "del", "-d", "/d", "--" };
+	protected static final String[] KW_TASK_DELETE = { "delete", "rm", "del", "-del", "/del", "--" };
 	protected static final String[] KW_TASK_DISPLAY = { "ls", "display", "show" };
 	protected static final String[] KW_TASK_SEARCH = { "search", "find", "/find", "/f"};
 	protected static final String[] KW_TASK_EDIT = { "edit", "change", "update", "-e", "/e" };
@@ -19,4 +19,8 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_UNDO = { "undo", "/u", "-u" };
 	protected static final String[] KW_TASK_REDO = { "redo", "/r", "-r" };
 	protected static final String[] KW_TASK_EXIT = { "exit", "quit", "-x", "/x"};
+
+	// Keywords for TIME/DATE
+	protected static final String[] KW_DATE_FLAG = { "-d", "-date" };
+	protected static final String[] KW_TIME_FLAG = { "-t", "-time" };
 }

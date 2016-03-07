@@ -2,8 +2,6 @@ package logic;
 
 import parser.CommandParser;
 
-
-
 public class LogicHandler {
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
 	
@@ -32,6 +30,7 @@ public class LogicHandler {
 		System.out.println(inputArray[0]);
 		
 		createTask(inputArray);
+		
 	}
 	
 	private static Task createTask(String[] userInputArray){
