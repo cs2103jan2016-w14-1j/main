@@ -38,9 +38,7 @@ public class CommandLineController extends CreateWindow {
     private void handleSubmitButtonAction(KeyEvent event) throws IOException, JDOMException {
     	
     	if (event.getCode() == KeyCode.ENTER) {
-    		String logicMessage = readUserInput();
-    		
-    		boolean isSuccess = ParseForUi.parseLogicMessage(logicMessage);
+    		readUserInput();
     		
     		/**************** temp parser *******************/
     		if(command.toLowerCase().equals("inbox") && !ListInterfaceController.tasks.isEmpty()) {
@@ -64,9 +62,9 @@ public class CommandLineController extends CreateWindow {
     				} else {
     					main.mainAnchorPane.setId(id);
     				}
-    			} else if(isSuccess){
+    			} else {
     				
-    				main.todoListController.addTaskToList(command, command, command);
+    				main.todoListController.displayTaskList();
 
     				if(ClassController.classes.isEmpty()) {
     					main.classListController.initEmptyClassList();
@@ -98,15 +96,14 @@ public class CommandLineController extends CreateWindow {
 		}
 	}
     
-    public String readUserInput() throws IOException, JDOMException {
-        String logicMessage = uiToLogic();
+    public void readUserInput() throws IOException, JDOMException {
+        feedback.setText(uiToLogic());
         
         command = userInput.getText();
         userInput.clear();
         
         inputArray.add(command);
         index++;
-        return logicMessage;
     }
 
 	private String uiToLogic() throws IOException, JDOMException {

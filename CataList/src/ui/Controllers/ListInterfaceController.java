@@ -12,8 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import storage.Storage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
@@ -30,35 +32,46 @@ public class ListInterfaceController {
     private MainGUIController main;
     
     @FXML 
-    public ListView<HBox> todoList;
+    private ListView<HBox> todoList;
     
     public static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
     public static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
-    public int taskCount = 0;
     
-    public void addTaskToList(String event, String time, String date) {
+    private Storage _storage = new Storage();
+    
+    public void displayTaskList() throws IOException, JDOMException {
     	
     	initToDoList();
     	
-    	HBox taskRow = new HBox(10);
-    	CheckBox isCompleted = new CheckBox();
-    	Label taskName = new Label(event);
-    	Label taskTime = new Label(time);
-    	Label taskDate = new Label(date);
-    	setProperties(taskName, taskTime, taskDate, taskRow);
-        
-    	animateListCellFadeIn(taskRow);
+    	tasks.clear();
+    	_storage.loadTask();
     	
-        taskRow.getChildren().addAll(isCompleted, taskName, taskTime, taskDate);
-       
-        isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
-        
-        tasks.add(taskRow);
+    	ArrayList<Task> taskList = _storage.getToBeDoneList();
+    	
+    	for(Task taskObj: taskList) {
+    		HBox taskRow = new HBox(10);
+    		CheckBox isCompleted = new CheckBox();
+        	Label taskName = new Label(taskObj.get_task());
+        	Label taskTime = new Label(taskObj.get_time());
+        	Label taskDate = new Label(taskObj.get_date());
+        	
+        	setProperties(taskName, taskTime, taskDate, taskRow);
+        	animateListCellFadeIn(taskRow);
+        	
+        	isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
+        	
+        	taskRow.getChildren().addAll(isCompleted, taskName, taskTime, taskDate);
+        	
+        	tasks.add(taskRow);
+    	}
+     
         todoList.setItems(tasks);
-      
-        taskCount++;
+        
+        if(ClassController.classes.isEmpty()) {
+			main.classListController.initEmptyClassList();
+		}
     }
 
 	private void initToDoList() {
@@ -90,18 +103,17 @@ public class ListInterfaceController {
         todoList.setItems(completed);
     }
     
+    
     private void handleCheckedBox(CheckBox cb, HBox hb) {
         if(cb.isSelected()) {
             main.classListController.initCompletedClassList();
             completed.add(hb);
             tasks.remove(hb);
-            taskCount--;
         }
         
         if(!cb.isSelected()) {
             completed.remove(hb);
             tasks.add(hb);
-            taskCount++;
             main.classListController.clearCompletedClassList();
         }
     }
@@ -125,23 +137,6 @@ public class ListInterfaceController {
     
     public void init(MainGUIController mainController) throws IOException, JDOMException {
         main = mainController;
-        
-        /****** temp init  *****/
-        receiveFromStorage();
+        displayTaskList();
     }
-
-    /**** temp method to initialize list *****/
-	private void receiveFromStorage() throws IOException, JDOMException {
-		Task[] listOfTasks = StorageReader.readFromStorage();
-        if(listOfTasks.length == 0) {
-        	todoList.getParent().setOpacity(0);
-        } else {
-        	for(Task t: listOfTasks) {
-        		addTaskToList(t.get_task(), t.get_time(), t.get_date());
-        	}
-        	if(ClassController.classes.isEmpty()) {
-				main.classListController.initEmptyClassList();
-			}
-        }
-	}
 }

@@ -1,6 +1,5 @@
 package storage;
 
-
 import logic.Task;
 
 import java.io.File;
@@ -48,7 +47,7 @@ public class StorageWriter {
 		*/
 		
 		XMLOutputter serializer = new XMLOutputter();
-	    serializer.output(todoListDocument, System.out);
+	    //serializer.output(todoListDocument, System.out);
 	    
 	    serializer.setFormat(Format.getPrettyFormat());
 	    serializer.output(todoListDocument, new FileWriter(STORAGE_PATH));

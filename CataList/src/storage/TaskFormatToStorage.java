@@ -91,6 +91,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		return taskObj.get_messageToUser();
 	}
 	
+	/*// TODO get_id
 	public static String deleteFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
@@ -113,8 +114,9 @@ public class TaskFormatToStorage extends StorageWriter {
 	           }
 	    	}
 	       return taskObj.get_messageToUser();
-	}
+	}*/
 	
+	/*// TODO get_id
 	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
@@ -130,7 +132,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    		Element child = (Element) itr.next();
 	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
 	           //attribute is taskID, but task is task
-	           if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	           if((Integer.parseInt(att)).equals(taskObj.get_id)){
 	        	   task = new Element(ELEMENT_TASK);
 	       			//Document toDoListDocument = new Document(task);
 	       			task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
@@ -146,7 +148,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 	       return taskObj.get_messageToUser();
 		
-	}
+	} */
 	
 	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
 

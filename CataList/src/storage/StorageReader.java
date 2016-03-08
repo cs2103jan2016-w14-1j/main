@@ -3,6 +3,7 @@ package storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -22,7 +23,7 @@ public class StorageReader {
 	private static final String ELEMENT_EVENT = "Event";
 	private static final String ATTRIBUTE_NUM = "ID";
 	
-	public static Task[] readFromStorage() throws IOException, JDOMException{
+	public static ArrayList<Task> readFromStorage() throws IOException, JDOMException{
 		
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(STORAGE_PATH);
@@ -31,21 +32,22 @@ public class StorageReader {
 		Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
 		
 		List<Element> list = rootNode.getChildren(); // every single children is a task
-		Task[] listOfTask = new Task[list.size()];
+		ArrayList<Task> listOfTask = new ArrayList<Task>(list.size());
 		
 		
 		for(int i=0; i<list.size(); i++) {
 			
 			Element node = (Element) list.get(i);
 			
-			listOfTask[i] = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
-					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
+			listOfTask.add(new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
+					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME)));
 			
+			/*
 			System.out.println(node.getAttributeValue(ATTRIBUTE_NUM));
 			System.out.println(node.getChildText(ELEMENT_EVENT));
 			System.out.println(node.getChildText(ELEMENT_DATE));
 			System.out.println(node.getChildText(ELEMENT_TIME));
-		
+			*/
 		}
 		
 		return listOfTask;
