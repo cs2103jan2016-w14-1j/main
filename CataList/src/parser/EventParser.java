@@ -19,6 +19,9 @@ public class EventParser {
 			for(int i = 0; i < inputArray.length; i++) {
 				if (i != COMMAND_WORD_INDEX){
 					remainingText += inputArray[i];
+				} 
+				
+				if(i != inputArray.length) {
 					remainingText += SYMBOL_WHITESPACE;
 				}
 			}
