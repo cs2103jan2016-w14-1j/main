@@ -127,10 +127,11 @@ public class ListInterfaceController {
         main = mainController;
         
         /****** temp init  *****/
-        receiveFromLogic();
+        receiveFromStorage();
     }
 
-	private void receiveFromLogic() throws IOException, JDOMException {
+    /**** temp method to initialize list *****/
+	private void receiveFromStorage() throws IOException, JDOMException {
 		Task[] listOfTasks = StorageReader.readFromStorage();
         if(listOfTasks.length == 0) {
         	todoList.getParent().setOpacity(0);

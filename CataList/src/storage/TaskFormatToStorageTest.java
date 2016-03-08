@@ -26,12 +26,12 @@ public class TaskFormatToStorageTest {
 		TaskFormatToStorage.addToStorage(testAdd);
 	}
 	
-	
+	@Test
 	public void testClear() throws JDOMException, IOException {
 		TaskFormatToStorage.clearFromStorage();
 	}
 	
-	@Test
+	
 	public void testDisplay() throws JDOMException, IOException {
 		TaskFormatToStorage.displayFromStorage();
 	}

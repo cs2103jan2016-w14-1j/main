@@ -1,6 +1,11 @@
 package logic;
 
 import storage.Storage;
+
+import java.io.IOException;
+
+import org.jdom2.JDOMException;
+
 import parser.CommandParser;
 import parser.EventParser;
 
@@ -16,7 +21,7 @@ public class LogicHandler {
 	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
 	
-	public static String processCommand(String userInput){
+	public static String processCommand(String userInput) throws IOException, JDOMException{
 	//TODO: parser
 	// incomplete dependencies. Only returns commands now.
 	//CommandParser is supposed to be a part of a bigger parser class, which combines
@@ -27,7 +32,7 @@ public class LogicHandler {
 		String formattedString = commandParser.parseCommand(userInput);
 		EventParser eventParser = new EventParser();
 		String extractedEvent = eventParser.parseEvent(userInput);
-		String[] inputArray = new String[1];
+		String[] inputArray = new String[2];
 		inputArray[0] = formattedString;
 		inputArray[1] = extractedEvent;
 		
@@ -36,7 +41,7 @@ public class LogicHandler {
 		System.out.println(inputArray[1]);
 		
 		Task newTask = createTask(inputArray);
-		String receivedString = Storage.FormatToStorage(newTask);
+		String receivedString = Storage.formatToStorage(newTask);
 		return receivedString;
 	}
 	

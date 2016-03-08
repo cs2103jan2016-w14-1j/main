@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.jdom2.JDOMException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -32,7 +35,7 @@ public class CommandLineController extends CreateWindow {
     
     
     @FXML 
-    private void handleSubmitButtonAction(KeyEvent event) throws IOException {
+    private void handleSubmitButtonAction(KeyEvent event) throws IOException, JDOMException {
     	
     	if (event.getCode() == KeyCode.ENTER) {
     		readUserInput();
@@ -60,7 +63,7 @@ public class CommandLineController extends CreateWindow {
     					main.mainAnchorPane.setId(id);
     				}
     			} else {
-    				//main.todoListController.addTaskToList();
+    				main.todoListController.addTaskToList(command, command, command);
 
     				if(ClassController.classes.isEmpty()) {
     					main.classListController.initEmptyClassList();
@@ -92,19 +95,19 @@ public class CommandLineController extends CreateWindow {
 		}
 	}
     
-    private void readUserInput() {
+	// public for testing purposes
+    public void readUserInput() throws IOException, JDOMException {
         uiToLogic();
         
         command = userInput.getText();
-        feedback.setText("\"" + command + "\" entered");
         userInput.clear();
         
         inputArray.add(command);
         index++;
     }
 
-	private void uiToLogic() {
-		LogicHandler.processCommand(userInput.getText());
+	private void uiToLogic() throws IOException, JDOMException {
+		feedback.setText(LogicHandler.processCommand(userInput.getText()));
 	}
     
     private static String removeFirstWord(String userInput) {

@@ -1,5 +1,9 @@
 package storage;
 
+import java.io.IOException;
+
+import org.jdom2.JDOMException;
+
 import logic.Task;
 
 public class StorageParser {
@@ -14,7 +18,7 @@ public class StorageParser {
 	private static final String COMMAND_SORT = "sort";
 	private static final String COMMAND_INVALID = "invalid";
 	
-	public static String StorageParse (Task taskObj){
+	public static void StorageParse (Task taskObj) throws IOException, JDOMException{
 		
 		String commandType = taskObj.get_cmd();
 		

@@ -70,7 +70,7 @@
 #titleMessage {
 	-fx-font-family: "DOCKER";
 	-fx-font-size: 40px;
-	-fx-fill: black;
+	-fx-fill: white;
 	-fx-stroke: darkorange;
 	-fx-stroke-width: 2px;
 }
@@ -78,6 +78,7 @@
 #subMessage {
 	-fx-font-family: delicious-roman;
 	-fx-font-size: 15px;
+	-fx-fill: white;
 }
 
 #imageView {

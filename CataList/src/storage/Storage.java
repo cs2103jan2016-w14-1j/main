@@ -97,9 +97,9 @@ public class Storage {
 	}
 	
 	//method takes in a task and then based on command does what is needed.
-	public String FormatToStorage(Task task){
+	public static String formatToStorage(Task task) throws IOException, JDOMException{
 		
-		StorageParser toStorage = new StorageParser(task);
+		StorageParser.StorageParse(task);
 		
 		return task.get_messageToUser();
 	}

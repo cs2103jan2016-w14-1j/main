@@ -37,6 +37,8 @@ public class TaskFormatToStorage extends StorageWriter {
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_SORT = "sort";
 	
+	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
+	
 	private static Element task;
 	private static Element event;
 	private static Element time;
@@ -80,14 +82,14 @@ public class TaskFormatToStorage extends StorageWriter {
 		try{
 			StorageWriter.writeToStorage(toDoListDocument);
 		} catch(IOException e) {
-			taskObj.setErrorMessageDefault();
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return taskObj.get_messageToUser();
 		}
 		
 		return taskObj.get_messageToUser();
 	}
 	
-	public static String deleteFromStorage(Task taskObj) {
+	public static String deleteFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -136,8 +138,8 @@ public class TaskFormatToStorage extends StorageWriter {
 		try{
 			StorageReader.readFromStorage();
 		} catch(IOException|JDOMException e) { 
-			taskObj.setErrorMessageDefault();
-			return taskObj.get_messageToUser();;
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return taskObj.get_messageToUser();
 		}
 		return taskObj.get_messageToUser();
 	}
