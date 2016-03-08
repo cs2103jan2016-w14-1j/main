@@ -66,14 +66,16 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 		
 		task = new Element(ELEMENT_TASK);
+		List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 		//Document toDoListDocument = new Document(task);
+		
+		index = taskList.size() + 1;
 		
 		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
 		task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
         
-		index = toBeDoneList.size() + 1;
 		toBeDoneList.add(taskObj);
 		masterList.add(taskObj);
 		

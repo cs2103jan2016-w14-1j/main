@@ -21,6 +21,7 @@ public class StorageParser {
 	public static void StorageParse (Task taskObj) throws IOException, JDOMException{
 		
 		String commandType = taskObj.get_cmd();
+		//System.out.println(commandType);
 		
 		if(commandType == COMMAND_ADD){
 			TaskFormatToStorage.addToStorage(taskObj);

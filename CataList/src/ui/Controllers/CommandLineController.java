@@ -38,8 +38,10 @@ public class CommandLineController extends CreateWindow {
     private void handleSubmitButtonAction(KeyEvent event) throws IOException, JDOMException {
     	
     	if (event.getCode() == KeyCode.ENTER) {
-    		readUserInput();
-        
+    		String logicMessage = readUserInput();
+    		
+    		boolean isSuccess = ParseForUi.parseLogicMessage(logicMessage);
+    		
     		/**************** temp parser *******************/
     		if(command.toLowerCase().equals("inbox") && !ListInterfaceController.tasks.isEmpty()) {
     			main.todoListController.displayPending();
@@ -62,7 +64,8 @@ public class CommandLineController extends CreateWindow {
     				} else {
     					main.mainAnchorPane.setId(id);
     				}
-    			} else {
+    			} else if(isSuccess){
+    				
     				main.todoListController.addTaskToList(command, command, command);
 
     				if(ClassController.classes.isEmpty()) {
@@ -95,19 +98,19 @@ public class CommandLineController extends CreateWindow {
 		}
 	}
     
-	// public for testing purposes
-    public void readUserInput() throws IOException, JDOMException {
-        uiToLogic();
+    public String readUserInput() throws IOException, JDOMException {
+        String logicMessage = uiToLogic();
         
         command = userInput.getText();
         userInput.clear();
         
         inputArray.add(command);
         index++;
+        return logicMessage;
     }
 
-	private void uiToLogic() throws IOException, JDOMException {
-		feedback.setText(LogicHandler.processCommand(userInput.getText()));
+	private String uiToLogic() throws IOException, JDOMException {
+		return LogicHandler.processCommand(userInput.getText());
 	}
     
     private static String removeFirstWord(String userInput) {
