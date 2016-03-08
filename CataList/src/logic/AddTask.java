@@ -18,7 +18,7 @@ public class AddTask extends Task {
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_ADD_SUCCESS, date);
 	}
 	public AddTask(String userInput, String date, String time){
-		super(IS_MUTATOR,userInput, COMMAND_TYPE, MESSAGE_ADD_SUCCESS, time, date);
+		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_ADD_SUCCESS, time, date);
 	}
 
 	public void setErrorMessageDefault(){
