@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1">
-    <Event>add this piece of shit</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="2">
-    <Event>add this piece of shit</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="3">
-    <Event>add this piece of shit</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="4">
-    <Event>integrate this piece of shit</Event>
+    <Event>hello</Event>
     <Date />
     <Time />
   </Task>

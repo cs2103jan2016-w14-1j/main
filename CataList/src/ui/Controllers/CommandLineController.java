@@ -66,7 +66,7 @@ public class CommandLineController extends CreateWindow {
     				
     				main.todoListController.displayTaskList();
 
-    				if(ClassController.classes.isEmpty()) {
+    				if(ClassController.classes.isEmpty() && !main.todoListController.tasks.isEmpty()) {
     					main.classListController.initEmptyClassList();
     				}
     			}

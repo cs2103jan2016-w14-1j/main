@@ -33,6 +33,8 @@ public class ListInterfaceController {
     
     @FXML 
     private ListView<HBox> todoList;
+    @FXML 
+    private HBox todoListContainer;
     
     public static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
@@ -43,10 +45,12 @@ public class ListInterfaceController {
     
     public void displayTaskList() throws IOException, JDOMException {
     	
-    	initToDoList();
-    	
     	tasks.clear();
     	_storage.loadTask();
+    	
+    	if(!_storage.getToBeDoneList().isEmpty()) {
+    		 initToDoList();
+    	}
     	
     	ArrayList<Task> taskList = _storage.getToBeDoneList();
     	
@@ -66,17 +70,19 @@ public class ListInterfaceController {
         	
         	tasks.add(taskRow);
     	}
-     
+    	
         todoList.setItems(tasks);
         
-        if(ClassController.classes.isEmpty()) {
+        if(ClassController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
 			main.classListController.initEmptyClassList();
 		}
     }
 
 	private void initToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
-			todoList.getParent().setOpacity(1);
+			todoListContainer.setManaged(true);
+			todoListContainer.setOpacity(1);
+			todoList.setOpacity(1);
 			
 			main.removeWelcomeMsg();
 			
@@ -137,6 +143,8 @@ public class ListInterfaceController {
     
     public void init(MainGUIController mainController) throws IOException, JDOMException {
         main = mainController;
+        todoListContainer.setManaged(false);
+        todoListContainer.setOpacity(0);
         displayTaskList();
     }
 }

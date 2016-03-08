@@ -111,7 +111,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
 	          
 	    		//attribute is taskID, but task is task
-	    		System.out.println(att + ":" + taskObj.get_task());
+	    		//System.out.println(att + ":" + taskObj.get_task());
 	    		if(att.equals(taskObj.get_task())) {
 	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
 	        	   itr.remove();
@@ -130,7 +130,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    return taskObj.get_messageToUser();
 	}
 	
-	/*// TODO get_id
+	
 	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
@@ -138,15 +138,24 @@ public class TaskFormatToStorage extends StorageWriter {
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
 		
-		List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
+		List<Element> taskChildren = rootElement.getChildren();
+		//List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
 	    Iterator<Element> itr = taskChildren.iterator();
+	   // List<Element> elements = new ArrayList<Element>();
 	        
 	    while(itr.hasNext()){
 	    	
-	    		Element child = (Element) itr.next();
-	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    			Element child = (Element) itr.next();
+	    		String att = child.getChild("Event").getText();
+	    		
+	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	          
+	    		//attribute is taskID, but task is task
+	    		//System.out.println(att + ":" + taskObj.get_task());
 	           //attribute is taskID, but task is task
-	           if((Integer.parseInt(att)).equals(taskObj.get_id)){
+	    		
+	    		if(att.equals(taskObj.get_task())) {
+	           //if((Integer.parseInt(att)).equals(taskObj.get_id)){
 	        	   task = new Element(ELEMENT_TASK);
 	       			//Document toDoListDocument = new Document(task);
 	       			task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
@@ -162,7 +171,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 	       return taskObj.get_messageToUser();
 		
-	} */
+	} 
 	
 	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
 
