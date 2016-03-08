@@ -21,7 +21,6 @@ public class StorageParser {
 	public static void StorageParse (Task taskObj) throws IOException, JDOMException{
 		
 		String commandType = taskObj.get_cmd();
-		//System.out.println(commandType);
 		
 		if(commandType == COMMAND_ADD){
 			TaskFormatToStorage.addToStorage(taskObj);
@@ -31,8 +30,8 @@ public class StorageParser {
 			TaskFormatToStorage.displayFromStorage(taskObj);
 		} else if(commandType == COMMAND_CLEAR) {
 			TaskFormatToStorage.clearFromStorage(taskObj);
-		} else if(commandType == COMMAND_INVALID) {
-			TaskFormatToStorage.invalidTaskToStorage(taskObj);
+		} else if(commandType == COMMAND_EDIT) {
+			TaskFormatToStorage.editFromStorage(taskObj);
 		} else {
 			TaskFormatToStorage.invalidTaskToStorage(taskObj);
 		}

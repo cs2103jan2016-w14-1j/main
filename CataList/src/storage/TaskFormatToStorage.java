@@ -68,7 +68,6 @@ public class TaskFormatToStorage extends StorageWriter {
 		task = new Element(ELEMENT_TASK);
 		List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 		//Document toDoListDocument = new Document(task);
-		
 		index = taskList.size() + 1;
 		
 		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
@@ -76,6 +75,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
         
+		
 		toBeDoneList.add(taskObj);
 		masterList.add(taskObj);
 		
@@ -98,16 +98,54 @@ public class TaskFormatToStorage extends StorageWriter {
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
 		
-		List<Element> taskChildren = new ArrayList<Element>();
-	       for (int i = 0; i < index; i++) {
-	           Element taskChild = taskChildren.get(i);
-	           
+		List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
+	    Iterator<Element> itr = taskChildren.iterator();
+	        
+	    while(itr.hasNext()){
+	    	
+	    		Element child = (Element) itr.next();
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
 	           //attribute is taskID, but task is task
-	           if((taskChild.getAttributes()).equals(taskObj.get_task())){
-	        	   taskChild.detach();
+	           if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	        	   itr.remove();
+	        	   masterList.remove(taskObj);
+	        	   toBeDoneList.remove(taskObj);
 	           }
-	       }
+	    	}
 	       return taskObj.get_messageToUser();
+	}
+	
+	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
+		
+		File inputFile = new File(STORAGE_PATH);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+		
+		List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
+	    Iterator<Element> itr = taskChildren.iterator();
+	        
+	    while(itr.hasNext()){
+	    	
+	    		Element child = (Element) itr.next();
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	           //attribute is taskID, but task is task
+	           if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	        	   task = new Element(ELEMENT_TASK);
+	       			//Document toDoListDocument = new Document(task);
+	       			task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
+	       			task.setContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
+	       			task.setContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
+	           }
+	    	}
+	    try{
+			StorageWriter.writeToStorage(document);
+		} catch(IOException e) {
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return taskObj.get_messageToUser();
+		}
+	       return taskObj.get_messageToUser();
+		
 	}
 	
 	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
@@ -130,7 +168,12 @@ public class TaskFormatToStorage extends StorageWriter {
 			e.getParent().removeContent(e);
 		}
 
-		StorageWriter.writeToStorage(document);
+		try{
+			StorageWriter.writeToStorage(document);
+		} catch(IOException e) {
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return taskObj.get_messageToUser();
+		}
 		
 		return taskObj.get_messageToUser();
 	} 
