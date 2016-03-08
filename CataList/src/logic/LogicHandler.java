@@ -63,7 +63,9 @@ public class LogicHandler {
 	
 	private static Task createTaskNoDateTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
-		String userInputEvent = checkString[INPUT_EVENT_INDEX];
+		
+		// added trim for testing purposes, remove later
+		String userInputEvent = checkString[INPUT_EVENT_INDEX].trim();
 		
 		switch(commandType){
 			case "add":

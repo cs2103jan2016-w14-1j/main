@@ -12,18 +12,24 @@ import logic.LogicHandler;
 public class LogicParserStorageTest {
 
 	private static final String MESSAGE_ADD_SUCCESS = "The event has been added.";
+	private static final String MESSAGE_DELETE_SUCCESS = "The event has been deleted.";
 	private static final String MESSAGE_CLEAR_SUCCESS = "Your dashboard has been cleared.";
 	
 	String userInput;
 	String expectedResult;
 	
-	@Test
+	
 	public void testAdd() throws IOException, JDOMException {
 		userInput = "add integrate this piece of shit";
 		expectedResult = MESSAGE_ADD_SUCCESS;
 		assertEquals(expectedResult, LogicHandler.processCommand(userInput));
 	}
-	
+	@Test
+	public void testDelete() throws IOException, JDOMException {
+		userInput = "delete chibai";
+		expectedResult = MESSAGE_DELETE_SUCCESS;
+		assertEquals(expectedResult, LogicHandler.processCommand(userInput));
+	}
 	
 	public void testClear() throws IOException, JDOMException {
 		userInput = "clear this piece of shit";

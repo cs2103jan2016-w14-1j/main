@@ -14,11 +14,11 @@ public class DeleteTask extends Task{
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS);
 	}
 	
-	public DeleteTask(String userInput,String date){
+	public DeleteTask(String userInput, String date){
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS, date);
 	}
 	public DeleteTask(String userInput, String time, String date){
-		super(IS_MUTATOR,userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS, time, date);
+		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS, time, date);
 	}
 	
 	public void setErrorMessageDefault(){
