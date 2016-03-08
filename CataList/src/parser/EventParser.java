@@ -3,7 +3,7 @@ package parser;
 public class EventParser {
 	private static final String SYMBOL_WHITESPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
-	private static final int COMMAND_WORD_INDEX = 1;
+	private static final int COMMAND_WORD_INDEX = 0;
 	private static final int ARRAY_MINIMUM_LENGTH = 2; 
 	
 	public static String parseEvent(String userInput){

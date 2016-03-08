@@ -18,15 +18,15 @@ public class LogicParserStorageTest {
 	String userInput;
 	String expectedResult;
 	
-	
+	@Test
 	public void testAdd() throws IOException, JDOMException {
 		userInput = "add integrate this piece of shit";
 		expectedResult = MESSAGE_ADD_SUCCESS;
 		assertEquals(expectedResult, LogicHandler.processCommand(userInput));
 	}
-	@Test
+	
 	public void testDelete() throws IOException, JDOMException {
-		userInput = "delete chibai";
+		userInput = "delete shit";
 		expectedResult = MESSAGE_DELETE_SUCCESS;
 		assertEquals(expectedResult, LogicHandler.processCommand(userInput));
 	}

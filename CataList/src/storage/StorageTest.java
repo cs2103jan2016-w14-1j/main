@@ -16,14 +16,12 @@ public class StorageTest {
 	
 	private static final String MESSAGE_ADD_SUCCESS = "The event has been added.";
 	
-	@Test
 	public void testAdd1() throws JDOMException, IOException {
 		test = new Task(true, "find some bitches", "add", "fuck yes", "1300", "5 March");
 		expectedResults = "fuck yes";
 		TaskFormatToStorage.addToStorage(test);
 	}
 	
-	@Test
 	public void testAdd2() throws JDOMException, IOException {
 		test = new Task(true, "go home and sleep", "add", "fuck yes", "0100", "32 March");
 		expectedResults = "fuck yes";
@@ -39,6 +37,12 @@ public class StorageTest {
 	public void testDisplay() throws JDOMException, IOException {
 		test = new Task(true, "go home and sleep", "add", "fuck yes", "0100", "32 March");
 		TaskFormatToStorage.displayFromStorage(test);
+	}
+	
+	@Test
+	public void testDelete() throws JDOMException, IOException {
+		test = new Task(true, "hello", "delete", "fuck yes", "0100", "32 March");
+		Storage.formatToStorage(test);
 	}
 	
 	
