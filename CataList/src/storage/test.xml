@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1">
-    <Event>hello</Event>
-    <Date />
-    <Time />
+    <Event>go home and sleep</Event>
+    <Date>0100</Date>
+    <Time>32 March</Time>
+  </Task>
+  <Task ID="2">
+    <Event>do some coding</Event>
+    <Date>3000</Date>
+    <Time>59 March</Time>
   </Task>
 </TaskList>

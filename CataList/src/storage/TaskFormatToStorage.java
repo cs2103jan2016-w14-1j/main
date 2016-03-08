@@ -47,7 +47,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
-            "/CataList/src/storage/test.xml";
+			"/CataList/src/storage/test.xml";
 	
 	private static ArrayList<Task> toBeDoneList = new ArrayList<Task>();
 	private static ArrayList<Task> completedList = new ArrayList<Task>();
@@ -106,7 +106,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    while(itr.hasNext()){
 	    	
 	    		Element child = (Element) itr.next();
-	    		String att = child.getChild("Event").getText();
+	    		String att = child.getChild(ELEMENT_EVENT).getText();
 	    		
 	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
 	          
@@ -114,10 +114,24 @@ public class TaskFormatToStorage extends StorageWriter {
 	    		//System.out.println(att + ":" + taskObj.get_task());
 	    		if(att.equals(taskObj.get_task())) {
 	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	    		
 	        	   itr.remove();
 	        	   masterList.remove(taskObj);
 	        	   toBeDoneList.remove(taskObj);
 	           }
+	    }
+	    
+	    for(int i=0; i<taskChildren.size(); i++){
+    		
+	    	Element child = taskChildren.get(i);
+	    	
+    		//child.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(i)));
+	    	child.getAttribute(ATTRIBUTE_NUM).setValue(Integer.toString(i+1));
+    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
+          
+    		//attribute is taskID, but task is task
+    		//System.out.println(att + ":" + taskObj.get_task());
+    		
 	    }
 	    
 	    try{
@@ -145,22 +159,25 @@ public class TaskFormatToStorage extends StorageWriter {
 	        
 	    while(itr.hasNext()){
 	    	
-	    			Element child = (Element) itr.next();
-	    		String att = child.getChild("Event").getText();
+	    		Element child = (Element) itr.next();
+	    		String att = child.getChild(ELEMENT_EVENT).getText();
 	    		
 	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
 	          
 	    		//attribute is taskID, but task is task
 	    		//System.out.println(att + ":" + taskObj.get_task());
-	           //attribute is taskID, but task is task
+	            //attribute is taskID, but task is task
 	    		
 	    		if(att.equals(taskObj.get_task())) {
 	           //if((Integer.parseInt(att)).equals(taskObj.get_id)){
-	        	   task = new Element(ELEMENT_TASK);
+	    			//task = new Element(ELEMENT_TASK);
 	       			//Document toDoListDocument = new Document(task);
-	       			task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
-	       			task.setContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
-	       			task.setContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
+	       			//task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
+	       			//task.setContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
+	       			//task.setContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
+	    			child.getChild(ELEMENT_EVENT).setText(taskObj.get_task());
+	    			child.getChild(ELEMENT_DATE).setText(taskObj.get_time());
+	    			child.getChild(ELEMENT_TIME).setText(taskObj.get_date());
 	           }
 	    	}
 	    try{
