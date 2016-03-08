@@ -75,7 +75,6 @@ public class TaskFormatToStorage extends StorageWriter {
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
         
-		
 		toBeDoneList.add(taskObj);
 		masterList.add(taskObj);
 		
@@ -91,7 +90,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		return taskObj.get_messageToUser();
 	}
 	
-	/*// TODO get_id
+	
 	public static String deleteFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
@@ -99,22 +98,37 @@ public class TaskFormatToStorage extends StorageWriter {
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
 		
-		List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
+		List<Element> taskChildren = rootElement.getChildren();
+		//List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
 	    Iterator<Element> itr = taskChildren.iterator();
+	   // List<Element> elements = new ArrayList<Element>();
 	        
 	    while(itr.hasNext()){
 	    	
 	    		Element child = (Element) itr.next();
-	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
-	           //attribute is taskID, but task is task
-	           if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	    		String att = child.getChild("Event").getText();
+	    		
+	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	          
+	    		//attribute is taskID, but task is task
+	    		System.out.println(att + ":" + taskObj.get_task());
+	    		if(att.equals(taskObj.get_task())) {
+	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
 	        	   itr.remove();
 	        	   masterList.remove(taskObj);
 	        	   toBeDoneList.remove(taskObj);
 	           }
-	    	}
-	       return taskObj.get_messageToUser();
-	}*/
+	    }
+	    
+	    try{
+			StorageWriter.writeToStorage(document);
+		} catch(IOException e) {
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return taskObj.get_messageToUser();
+		}
+	    
+	    return taskObj.get_messageToUser();
+	}
 	
 	/*// TODO get_id
 	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {

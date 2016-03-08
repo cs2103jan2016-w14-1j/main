@@ -25,13 +25,13 @@ public class StorageParser {
 		if(commandType == COMMAND_ADD){
 			TaskFormatToStorage.addToStorage(taskObj);
 		} else if(commandType == COMMAND_DELETE) {
-			//TaskFormatToStorage.deleteFromStorage(taskObj);
+			TaskFormatToStorage.deleteFromStorage(taskObj);
 		} else if(commandType == COMMAND_DISPLAY) {
 			TaskFormatToStorage.displayFromStorage(taskObj);
 		} else if(commandType == COMMAND_CLEAR) {
 			TaskFormatToStorage.clearFromStorage(taskObj);
 		} else if(commandType == COMMAND_EDIT) {
-			//TaskFormatToStorage.editFromStorage(taskObj);
+			TaskFormatToStorage.editFromStorage(taskObj);
 		} else {
 			TaskFormatToStorage.invalidTaskToStorage(taskObj);
 		}
