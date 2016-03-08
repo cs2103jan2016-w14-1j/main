@@ -3,7 +3,7 @@ package parser;
 public class EventParser {
 	private static final String SYMBOL_WHITESPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
-	
+	private static final int COMMAND_WORD_INDEX = 1;
 	private static final int ARRAY_MINIMUM_LENGTH = 2; 
 	
 	public static String parseEvent(String userInput){
@@ -16,14 +16,11 @@ public class EventParser {
 		String[] inputArray = userInput.split(SYMBOL_WHITESPACE);
 		String remainingText = SYMBOL_EMPTY;
 		if(inputArray.length >= ARRAY_MINIMUM_LENGTH) {
-			for(int i = 1; i < inputArray.length; i++) {
-			
-				//for(String eachWord : inputArray){
-				//remainingText += eachWord; 	
-				// commented out here because it does not fulfill its method purpose, need debug
-				
-				remainingText += inputArray[i];
-				remainingText += SYMBOL_WHITESPACE;
+			for(int i = 0; i < inputArray.length; i++) {
+				if (i != COMMAND_WORD_INDEX){
+					remainingText += inputArray[i];
+					remainingText += SYMBOL_WHITESPACE;
+				}
 			}
 		}
 		return remainingText;
