@@ -47,12 +47,11 @@ public class ListInterfaceController {
     	
     	tasks.clear();
     	_storage.loadTask();
+    	ArrayList<Task> taskList = _storage.getToBeDoneList();
     	
     	if(!_storage.getToBeDoneList().isEmpty()) {
-    		 initToDoList();
+    		initToDoList();
     	}
-    	
-    	ArrayList<Task> taskList = _storage.getToBeDoneList();
     	
     	for(Task taskObj: taskList) {
     		HBox taskRow = new HBox(10);
@@ -82,15 +81,16 @@ public class ListInterfaceController {
 		if(tasks.isEmpty() && completed.isEmpty()) {
 			todoListContainer.setManaged(true);
 			todoListContainer.setOpacity(1);
-			todoList.setOpacity(1);
 			
-			main.removeWelcomeMsg();
+			if(main.welcomeMessage.isManaged()) {
+				main.removeWelcomeMsg();
 			
-			ScaleTransition st = new ScaleTransition(Duration.millis(800), todoList.getParent());
-			st.setFromX(0);
-			st.setToX(1);
-			st.setCycleCount(1);
-			st.play();
+				ScaleTransition st = new ScaleTransition(Duration.millis(800), todoList.getParent());
+				st.setFromX(0);
+				st.setToX(1);
+				st.setCycleCount(1);
+				st.play();
+			}
 		}
 	}
 
