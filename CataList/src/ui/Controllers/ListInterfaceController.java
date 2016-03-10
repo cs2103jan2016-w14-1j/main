@@ -77,7 +77,9 @@ public class ListInterfaceController {
     }
     
 	public void closeList() {
-		animateToDoList(CLOSE_LIST);
+		if(todoList.getParent().getScaleX() == 1) {
+			animateToDoList(CLOSE_LIST);
+		}
 	}
 
 	private void animateToDoList(boolean isOpen) {

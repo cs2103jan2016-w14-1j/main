@@ -50,12 +50,9 @@ public class CommandLineController {
     		} else if(command.toLowerCase().equals("help")) {
     			openHelpPage();
     		} else if(command.toLowerCase().equals("calendar")) {
-    			main.classListController.todoClass.setOpacity(0);
-    			CalendarGenerator.renderCalendar();
-    			main.classListController.classContainer.getChildren().add(CalendarGenerator.wb);
+    			openCalendar();
     		} else if(command.toLowerCase().equals("quit calendar")) {
-    			main.classListController.todoClass.setOpacity(1);
-    			main.classListController.classContainer.getChildren().remove(CalendarGenerator.wb);
+    			//closeCalendar();
     		} else {
     			if (getFirstWord(command).toLowerCase().equals("show")) {
     				String id = ParseBackground.parseInput(removeFirstWord(command));
@@ -78,6 +75,20 @@ public class CommandLineController {
     			getNextCommand();	
     	}
     }
+/*
+	private void closeCalendar() {
+		main.classListController.todoClass.setOpacity(1);
+		main.classListController.classContainer.getChildren().remove(CalendarGenerator.wb);
+	}
+*/
+	private void openCalendar() {
+		main.todoListController.closeList();
+		main.classListController.closeList();
+		CalendarGenerator.renderCalendar();
+		main.showMainPane();
+		main.welcomeMessage.getChildren().clear();
+		main.welcomeMessage.getChildren().add(CalendarGenerator.wb);
+	}
 
 	private void openHelpPage() throws IOException {
 		main.todoListController.closeList();

@@ -38,6 +38,8 @@ public class HelpPageController {
         
         helpList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
+        idCol.setStyle("-fx-alignment: TOP_RIGHT; -fx-text-fill: black");
+        
         readFromStorage();
         helpList.setItems(table);
         helpList.getColumns().addAll(idCol, commandCol);

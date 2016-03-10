@@ -49,7 +49,7 @@
             <VBox>
             	<VBox fx:id="welcomeMessage" prefHeight="800.0" prefWidth="200.0" spacing="20">
             		 <ImageView  fx:id="imageView" layoutX="29.0" layoutY="44.0" 
-            			 fitHeight="124.0" fitWidth="300.0" 
+            			 fitHeight="150.0" fitWidth="150.0" 
             		     pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Application/Stylesheets/Background/catalist_icon.png" />

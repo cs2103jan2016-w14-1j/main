@@ -49,7 +49,9 @@ public class ClassController {
 	}
 	
 	public void closeList() {
-		animateClassList(CLOSE_LIST);
+		if(todoClass.getParent().getScaleX() == 1) {
+			animateClassList(CLOSE_LIST);
+		}
 	}
 
 	private void animateClassList(boolean isOpen) {
