@@ -18,6 +18,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.util.IteratorIterable;
 import org.jdom2.Content.CType;
 
+import storage.StorageReader;
+
 
 public class Storage {
 	private static String fileName;
@@ -25,45 +27,42 @@ public class Storage {
 	private static File file;
 	private static ArrayList<Task> toBeDoneList;
 	private static ArrayList<Task> completedList;
-	private static ArrayList<ArrayList<Task>> masterList;
+	private static ArrayList<Task> masterList;
 	
 	/*** Constructor ***/
-	private Storage(){
+	public Storage(){
 		toBeDoneList = new ArrayList<Task>();
 		completedList = new ArrayList<Task>();
-		masterList = new ArrayList<ArrayList<Task>>();
+		masterList = new ArrayList<Task>();
 	}
 	
 	/*** Methods ***/
 	/**
 	 * This are the methods that Storage class will call
-	 */
-	
+	 */	
 	public static boolean initFile(){
-		if(!file.exists()){
+		if(!file.exists()) {
 			try{
 				file = new File(LISTNAME);
 				file.createNewFile();
-			}
-			catch (IOException ioe){
+			} catch (IOException ioe){
 				ioe.printStackTrace();
                 return false;
-				}
 			}
-		else{// file exists
+		} else{// file exists
 			//read file name
 			getFileInBytes(LISTNAME);
-			}
-		return true;
 		}
+		return true;
+	}
 	
 	public File getFile(String fileName){
 		File file = new File(fileName);
 		if(!file.exists()){
 			return null;
-			}
-		return file;
 		}
+		return file;
+	}
 	
 	public static byte[] getFileInBytes(String fileName) {
         byte[] content = null;
@@ -74,7 +73,19 @@ public class Storage {
             e.printStackTrace();
         }
         return content;
-    }
+	}
+	
+	public void loadTask() throws IOException, JDOMException {
+		toBeDoneList = StorageReader.readFromStorage();
+	}
+	
+	public ArrayList<Task> getToBeDoneList() {
+		return toBeDoneList;
+	}
+	
+	public ArrayList<Task> getCompletedList() {
+		return completedList;
+	}
 	
 	public static boolean XMlFileBuilder() throws JDOMException, IOException{
 		Element todoList;
@@ -97,9 +108,9 @@ public class Storage {
 	}
 	
 	//method takes in a task and then based on command does what is needed.
-	public String FormatToStorage(Task task){
+	public static String formatToStorage(Task task) throws IOException, JDOMException{
 		
-		TaskFormatToStorage toStorage = new TaskFormatToStorage(task, command);
+		StorageParser.StorageParse(task);
 		
 		return task.get_messageToUser();
 	}
