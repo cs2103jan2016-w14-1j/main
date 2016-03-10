@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.jdom2.JDOMException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,7 +14,7 @@ import javafx.scene.text.Text;
 import Controllers.CalendarGenerator;
 import logic.LogicHandler;
 
-public class CommandLineController extends CreateWindow {
+public class CommandLineController {
     
     private MainGUIController main;
     
@@ -21,6 +22,7 @@ public class CommandLineController extends CreateWindow {
     private static final String INIT_FEEDBACK = "How can I help you?";
     
     private static final String MESSAGE_INVALID = "Invalid background";
+    private final String HELP_PAGE_PATH = "/View/HelpPage.fxml";
     
     private final ArrayList<String> inputArray = new ArrayList<String>();
     
@@ -28,7 +30,7 @@ public class CommandLineController extends CreateWindow {
     private Text feedback;
     
     @FXML 
-    public TextField userInput;
+    private TextField userInput;
     
     String command = INITIALIZE;
     int index = 0;
@@ -46,7 +48,7 @@ public class CommandLineController extends CreateWindow {
     		} else if(command.toLowerCase().equals("complete") && !ListInterfaceController.completed.isEmpty()) {
     			main.todoListController.displayCompleted();
     		} else if(command.toLowerCase().equals("help")) {
-    			createWindow();
+    			openHelpPage();
     		} else if(command.toLowerCase().equals("calendar")) {
     			main.classListController.todoClass.setOpacity(0);
     			CalendarGenerator.renderCalendar();
@@ -65,10 +67,8 @@ public class CommandLineController extends CreateWindow {
     			} else {
     				
     				main.todoListController.loopTaskList();
+    				main.classListController.loopClassList();
 
-    				if(ClassController.classes.isEmpty() && !main.todoListController.tasks.isEmpty()) {
-    					main.classListController.initEmptyClassList();
-    				}
     			}
     		}
     	} else if (event.getCode() ==  KeyCode.UP) {
@@ -79,9 +79,20 @@ public class CommandLineController extends CreateWindow {
     	}
     }
 
+	private void openHelpPage() throws IOException {
+		main.todoListController.closeList();
+		main.classListController.closeList();
+		main.showMainPane();
+		main.welcomeMessage.getChildren().clear();
+		main.welcomeMessage.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
+	}
+
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
 			userInput.setText(inputArray.get(++index));
+			if(index == inputArray.size()-1) {
+				index++;
+			}
 		} else if(index == inputArray.size()-1) {
 			userInput.clear();
 		}

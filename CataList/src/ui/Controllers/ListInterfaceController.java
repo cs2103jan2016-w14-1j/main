@@ -62,7 +62,10 @@ public class ListInterfaceController {
     	}
     	
     	displayTaskList();
-    	closeList();
+    	
+    	if(tasks.isEmpty()) {
+    		closeList();
+    	}
     }
     
     public void displayPending() {
@@ -73,25 +76,25 @@ public class ListInterfaceController {
         todoList.setItems(completed);
     }
     
-	private void closeList() {
-		if(tasks.isEmpty()) {
-			animateToDoList(CLOSE_LIST);
-    	}
+	public void closeList() {
+		animateToDoList(CLOSE_LIST);
 	}
 
-	private void animateToDoList(Boolean command) {
-		if(!command) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
-			st.setFromX(1);
-			st.setToX(0);
-			st.setCycleCount(1);
-			st.play();
-		} else {
+	private void animateToDoList(boolean isOpen) {
+		if(isOpen) {
 			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
 			st.play();
+			todoList.getParent().setManaged(true);
+		} else {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
+			st.setFromX(1);
+			st.setToX(0);
+			st.setCycleCount(1);
+			st.play();
+			todoList.getParent().setManaged(false);
 		}
 	}
     
@@ -111,9 +114,11 @@ public class ListInterfaceController {
         	Label taskDate = new Label(taskObj.get_date());
         	
         	setProperties(taskName, taskTime, taskDate, taskRow);
-        	animateToDoList(OPEN_LIST);
-        	animateListCellFadeIn(taskRow);
         	
+        	if(todoList.getParent().getScaleX() == 0) {
+        		animateToDoList(OPEN_LIST);
+        	}
+       
         	isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
         	
         	taskRow.getChildren().addAll(isCompleted, taskName, taskTime, taskDate);
@@ -124,28 +129,21 @@ public class ListInterfaceController {
 
 	private void loadClassList() {
 		if(main.classListController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
-			main.classListController.initEmptyClassList();
+			main.classListController.loopClassList();
 		}
 	}
 
 	private void initToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
-			todoListContainer.setManaged(true);
-			todoListContainer.setOpacity(1);
 			
 			if(main.welcomeMessage.isManaged()) {
+				todoListContainer.setManaged(true);
+				todoListContainer.setOpacity(1);
+				
 				main.removeWelcomeMsg();
-			
 				animateToDoList(OPEN_LIST);
 			}
 		}
-	}
-
-	private void animateListCellFadeIn(HBox taskRow) {
-		FadeTransition ft = new FadeTransition(Duration.millis(500), taskRow);
-		ft.setFromValue(0.0);
-		ft.setToValue(1.0);
-		ft.play();
 	}
     
     private void handleCheckedBox(CheckBox cb, HBox hb) {

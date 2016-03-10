@@ -17,22 +17,22 @@ public class MainGUIController {
 	private final String INIT_LIST = "display";
 	
     @FXML 
-    CommandLineController commandLineController;  
+    public CommandLineController commandLineController;  
     @FXML 
-    ListInterfaceController todoListController;   
+    public ListInterfaceController todoListController;   
     @FXML 
-    ClassController classListController;
+    public ClassController classListController;
     @FXML 
-    TitleInterfaceController titleController;
+    public TitleInterfaceController titleController;
     
     @FXML 
-    AnchorPane mainAnchorPane;
+    public AnchorPane mainAnchorPane;
     @FXML 
-    Text titleMessage;
+    public Text titleMessage;
     @FXML 
-    Text subMessage;
+    public Text subMessage;
     @FXML 
-    VBox welcomeMessage;
+    public VBox welcomeMessage;
     
     public void initialize() throws IOException, JDOMException {
        commandLineController.init(this);
@@ -45,8 +45,17 @@ public class MainGUIController {
 		welcomeMessage.setManaged(false);
 		
 		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
-		ft.setFromValue(1.0);
-		ft.setToValue(0.0);
+		ft.setFromValue(1);
+		ft.setToValue(0);
 		ft.play();
 	}
+    
+    public void showMainPane() {
+    	welcomeMessage.setManaged(true);
+		
+		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
+    }
 }
