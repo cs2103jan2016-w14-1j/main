@@ -29,6 +29,9 @@ public class ListInterfaceController {
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	
+	private static final boolean OPEN_LIST = true;
+	private static final boolean CLOSE_LIST = false;
+	
     private MainGUIController main;
     
     @FXML 
@@ -43,17 +46,64 @@ public class ListInterfaceController {
     
     private Storage _storage = new Storage();
     
-    public void displayTaskList() throws IOException, JDOMException {
-    	
+    public void init(MainGUIController mainController) throws IOException, JDOMException {
+        main = mainController;
+        todoListContainer.setManaged(false);
+        todoListContainer.setOpacity(0);
+        loopTaskList();
+    }
+    
+    public void loopTaskList() throws IOException, JDOMException {
     	tasks.clear();
     	_storage.loadTask();
-    	ArrayList<Task> taskList = _storage.getToBeDoneList();
     	
     	if(!_storage.getToBeDoneList().isEmpty()) {
     		initToDoList();
     	}
     	
-    	for(Task taskObj: taskList) {
+    	displayTaskList();
+    	closeList();
+    }
+    
+    public void displayPending() {
+        todoList.setItems(tasks);
+    }
+    
+    public void displayCompleted() {
+        todoList.setItems(completed);
+    }
+    
+	private void closeList() {
+		if(tasks.isEmpty()) {
+			animateToDoList(CLOSE_LIST);
+    	}
+	}
+
+	private void animateToDoList(Boolean command) {
+		if(!command) {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
+			st.setFromX(1);
+			st.setToX(0);
+			st.setCycleCount(1);
+			st.play();
+		} else {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
+			st.setFromX(0);
+			st.setToX(1);
+			st.setCycleCount(1);
+			st.play();
+		}
+	}
+    
+    private void displayTaskList() throws IOException, JDOMException {
+    	ArrayList<Task> taskList = _storage.getToBeDoneList();
+    	addTaskToListCell(taskList);
+        todoList.setItems(tasks);
+        loadClassList();
+    }
+
+	private void addTaskToListCell(ArrayList<Task> taskList) {
+		for(Task taskObj: taskList) {
     		HBox taskRow = new HBox(10);
     		CheckBox isCompleted = new CheckBox();
         	Label taskName = new Label(taskObj.get_task());
@@ -61,6 +111,7 @@ public class ListInterfaceController {
         	Label taskDate = new Label(taskObj.get_date());
         	
         	setProperties(taskName, taskTime, taskDate, taskRow);
+        	animateToDoList(OPEN_LIST);
         	animateListCellFadeIn(taskRow);
         	
         	isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
@@ -69,13 +120,13 @@ public class ListInterfaceController {
         	
         	tasks.add(taskRow);
     	}
-    	
-        todoList.setItems(tasks);
-        
-        if(ClassController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+	}
+
+	private void loadClassList() {
+		if(main.classListController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
 			main.classListController.initEmptyClassList();
 		}
-    }
+	}
 
 	private void initToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
@@ -85,11 +136,7 @@ public class ListInterfaceController {
 			if(main.welcomeMessage.isManaged()) {
 				main.removeWelcomeMsg();
 			
-				ScaleTransition st = new ScaleTransition(Duration.millis(800), todoList.getParent());
-				st.setFromX(0);
-				st.setToX(1);
-				st.setCycleCount(1);
-				st.play();
+				animateToDoList(OPEN_LIST);
 			}
 		}
 	}
@@ -100,15 +147,6 @@ public class ListInterfaceController {
 		ft.setToValue(1.0);
 		ft.play();
 	}
-    
-    public void displayPending() {
-        todoList.setItems(tasks);
-    }
-    
-    public void displayCompleted() {
-        todoList.setItems(completed);
-    }
-    
     
     private void handleCheckedBox(CheckBox cb, HBox hb) {
         if(cb.isSelected()) {
@@ -139,12 +177,5 @@ public class ListInterfaceController {
     	HBox.setHgrow(tt, Priority.ALWAYS);
     	tt.setPrefWidth(110);
     	tt.setId(TIME_ID);
-    }
-    
-    public void init(MainGUIController mainController) throws IOException, JDOMException {
-        main = mainController;
-        todoListContainer.setManaged(false);
-        todoListContainer.setOpacity(0);
-        displayTaskList();
     }
 }

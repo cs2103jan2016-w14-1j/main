@@ -64,7 +64,7 @@ public class CommandLineController extends CreateWindow {
     				}
     			} else {
     				
-    				main.todoListController.displayTaskList();
+    				main.todoListController.loopTaskList();
 
     				if(ClassController.classes.isEmpty() && !main.todoListController.tasks.isEmpty()) {
     					main.classListController.initEmptyClassList();
@@ -72,13 +72,10 @@ public class CommandLineController extends CreateWindow {
     			}
     		}
     	} else if (event.getCode() ==  KeyCode.UP) {
-    		if (event.isAltDown()) {
     			getPreviousCommand();
-    		}
+    		
     	} else if (event.getCode() ==  KeyCode.DOWN) {
-    		if (event.isAltDown()) {
-    			getNextCommand();
-    		}
+    			getNextCommand();	
     	}
     }
 
