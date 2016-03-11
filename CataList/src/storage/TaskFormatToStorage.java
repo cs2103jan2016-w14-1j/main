@@ -250,21 +250,16 @@ public class TaskFormatToStorage extends StorageWriter {
 		return taskObj.get_messageToUser();
 	}
 	
-	public static String undoFromStorage(Task taskObj) throws IOException, JDOMException{
+	public LinkedList<ArrayList<Task>> stateReader() {
 		
-		File inputFile = new File(STORAGE_PATH);
-		SAXBuilder saxBuilder = new SAXBuilder();
-		Document document = saxBuilder.build(inputFile);
+		return states;
+	}
+	
+	/*public String undoFromStorage(Task taskObj) throws IOException, JDOMException{
+			
 		states.removeLast();
-		
-		try{
-			StorageWriter.writeToStorage(document);
-		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
-			return taskObj.get_messageToUser();
-		}
 		
 		return taskObj.get_messageToUser();
 		
-	}
+	}*/
 }
