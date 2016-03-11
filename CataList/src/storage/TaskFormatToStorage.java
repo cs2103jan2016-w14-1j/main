@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jdom2.Attribute;
@@ -53,6 +54,8 @@ public class TaskFormatToStorage extends StorageWriter {
 	private static ArrayList<Task> completedList = new ArrayList<Task>();
 	private static ArrayList<Task> masterList = new ArrayList<Task>();
 	
+	private static LinkedList<ArrayList<Task>> states = new LinkedList<ArrayList<Task>>();
+	
 	public static String addToStorage(Task taskObj) throws IOException, JDOMException {
 		File inputFile = new File(STORAGE_PATH);
 		Document toDoListDocument = null;
@@ -86,6 +89,8 @@ public class TaskFormatToStorage extends StorageWriter {
 			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return taskObj.get_messageToUser();
 		}
+		
+		states.add(StorageReader.readFromStorage());
 		
 		return taskObj.get_messageToUser();
 	}
@@ -140,12 +145,15 @@ public class TaskFormatToStorage extends StorageWriter {
 			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return taskObj.get_messageToUser();
 		}
+	    states.add(StorageReader.readFromStorage());
 	    
 	    return taskObj.get_messageToUser();
 	}
 	
 	
 	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
+		
+		int index = taskObj.get_index();
 		
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -160,15 +168,16 @@ public class TaskFormatToStorage extends StorageWriter {
 	    while(itr.hasNext()){
 	    	
 	    		Element child = (Element) itr.next();
-	    		String att = child.getChild(ELEMENT_EVENT).getText();
+	    		//String att = child.getChild(ELEMENT_EVENT).getText();
 	    		
-	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    		int attributeValue = Integer.parseInt(att);
 	          
 	    		//attribute is taskID, but task is task
 	    		//System.out.println(att + ":" + taskObj.get_task());
 	            //attribute is taskID, but task is task
 	    		
-	    		if(att.equals(taskObj.get_task())) {
+	    		if(attributeValue == index) {
 	           //if((Integer.parseInt(att)).equals(taskObj.get_id)){
 	    			//task = new Element(ELEMENT_TASK);
 	       			//Document toDoListDocument = new Document(task);
@@ -186,7 +195,10 @@ public class TaskFormatToStorage extends StorageWriter {
 			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return taskObj.get_messageToUser();
 		}
-	       return taskObj.get_messageToUser();
+	    
+	    states.add(StorageReader.readFromStorage());
+	    
+	    return taskObj.get_messageToUser();
 		
 	} 
 	
@@ -217,6 +229,8 @@ public class TaskFormatToStorage extends StorageWriter {
 			return taskObj.get_messageToUser();
 		}
 		
+		states.add(StorageReader.readFromStorage());
+		
 		return taskObj.get_messageToUser();
 	} 
 	
@@ -236,100 +250,16 @@ public class TaskFormatToStorage extends StorageWriter {
 		return taskObj.get_messageToUser();
 	}
 	
-	/*
-	public static boolean displayFromStorage(){
+	public LinkedList<ArrayList<Task>> stateReader() {
 		
-		  try {  
-			   // converted file to document object  
-			   Document document = saxBuilder.build(file);  
-	        for (int i = 0; i < index; i++) {
-	            Element masterTaskChild = masterList.get(i);
-	            
-	            if(taskObj.equals(masterTaskChild)){
-	            	masterList.remove(i);
-	            }
-	        }
-	        
-	        for (int i = 0; i < index; i++) {
-	            Element todoTaskChild = toBeDoneList.get(i);
-	            
-	            if(taskObj.equals(todoTaskChild)){
-	            	toBeDoneList.remove(i);
-	            }
-	        }
-	        
-	        for (int i = 0; i < index; i++) {
-	            Element completedChild = completedList.get(i);
-	            
-	            if(taskObj.equals(completedChild)){
-	            	completedList.remove(i);
-	            }
-	        }
-	        taskObj.detach();
-	        return taskObj.get_messageToUser();
+		return states;
 	}
 	
-	
-	public static void main(String args[]){
-		
-		String command = taskObj.get_cmd();
-		
-		switch(command){
-			case COMMAND_ADD: 
-				return addToStorage(taskObj);
-			case COMMAND_DELETE: 
-				return deleteFromStorage(taskObj);
-			case COMMAND_DISPLAY:
-				return displayFromStorage(taskObj);
-		}
-	}
-	
-	//junkcode
-	
-	/*public static boolean displayFromStorage(){
-		
-		  try {  
-			   // converted file to document object  
-			   Document document = SAXBuilder.build(file);  
-			     
-			   // get root node from xml  
-			   Element rootNode = document.getRootElement();  
-			     
-			   // got all xml elements(tasks) into a list  
-			      List<Task> taskList = rootNode.getChildren(ELEMENT_TASK);  
-			        
-			      for(int i=0; i<taskList.size(); i++){  
-			       Element element = taskList.get(i);  
-			       System.out.println(element);
-			      }  
-			      return true;
-			       
-			  } catch (JDOMException e) {  
-			   // TODO Auto-generated catch block  
-			   e.printStackTrace();  
-			  } catch (IOException e) {  
-			   // TODO Auto-generated catch block  
-			   e.printStackTrace();  
-			  } 
-	}
-	*/
-	
-	/* Aaron's previous code
-	public TaskFormatToStorage(Task task){
-		switch(task.get_task()){
-		case DEADLINE :
-			this.taskName = task.get_task();
-			break;
-		
-		case EVENT :
-			this.taskName = task.get_task();
-			break;
+	/*public String undoFromStorage(Task taskObj) throws IOException, JDOMException{
 			
-		//floating	
-		default:
-			this.taskName = task.get_task();
-			break;
-		}
-	}
-	*/
+		states.removeLast();
+		
+		return taskObj.get_messageToUser();
+		
+	}*/
 }
