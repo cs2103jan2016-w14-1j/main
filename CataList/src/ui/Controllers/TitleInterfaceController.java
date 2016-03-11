@@ -25,17 +25,17 @@ public class TitleInterfaceController extends QuoteGenerator{
 
 	private void animateQuote() {
 		animate.schedule(
-        	    new TimerTask() {
+				new TimerTask() {
 
-        	        @Override
-        	        public void run() {   	
-        	        	quote.setText(QuoteGenerator.generateRandomQuote());
-        	        	
-        	        	FadeTransition ft = new FadeTransition(Duration.millis(800), quote);
-        	    		ft.setFromValue(0.0);
-        	    		ft.setToValue(1.0);
-        	    		ft.play();
-        	        }
-        	    }, 0, 60000);
+					@Override
+					public void run() {   	
+						quote.setText(QuoteGenerator.generateRandomQuote());
+
+						FadeTransition ft = new FadeTransition(Duration.millis(800), quote);
+						ft.setFromValue(0.0);
+						ft.setToValue(1.0);
+						ft.play();
+					}
+				}, 0, 60000);
 	}
 }

@@ -32,20 +32,20 @@ public class ClassController {
 	
 	public void loopClassList() {
 		if(classes.isEmpty() && !main.todoListController.tasks.isEmpty()) {
-			main.classListController.initialiseClassList();
+			main.classListController.openClassList();
 		}
+		
 		if(todoClass.getParent().getScaleX() == 0) {
 			animateClassList(OPEN_LIST);
 		}
 	}
 	
-	private void initialiseClassList() {
-		if(classes.isEmpty()) {
+	private void openClassList() {
 			todoClass.getParent().setOpacity(1);
-			animateClassList(OPEN_LIST);
 			classes.add(DEFAULT);
 			todoClass.setItems(classes);
-		}
+			
+			animateClassList(OPEN_LIST);
 	}
 	
 	public void closeList() {
@@ -56,13 +56,15 @@ public class ClassController {
 
 	private void animateClassList(boolean isOpen) {
 		if(isOpen) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoClass.getParent());
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), 
+					todoClass.getParent());
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
 			st.play();
 		} else {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoClass.getParent());
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), 
+					todoClass.getParent());
 			st.setFromX(1);
 			st.setToX(0);
 			st.setCycleCount(1);

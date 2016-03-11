@@ -1,6 +1,5 @@
 package Controllers;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,17 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import storage.Storage;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.jdom2.JDOMException;
-
 import Controllers.MainGUIController;
-import storage.StorageReader;
 import logic.Task;
 
 public class ListInterfaceController {
@@ -58,7 +52,7 @@ public class ListInterfaceController {
     	_storage.loadTask();
     	
     	if(!_storage.getToBeDoneList().isEmpty()) {
-    		initToDoList();
+    		openToDoList();
     	}
     	
     	displayTaskList();
@@ -102,12 +96,12 @@ public class ListInterfaceController {
     
     private void displayTaskList() throws IOException, JDOMException {
     	ArrayList<Task> taskList = _storage.getToBeDoneList();
-    	addTaskToListCell(taskList);
+    	formatTaskToListCell(taskList);
         todoList.setItems(tasks);
         loadClassList();
     }
 
-	private void addTaskToListCell(ArrayList<Task> taskList) {
+	private void formatTaskToListCell(ArrayList<Task> taskList) {
 		for(Task taskObj: taskList) {
     		HBox taskRow = new HBox(10);
     		CheckBox isCompleted = new CheckBox();
@@ -135,14 +129,14 @@ public class ListInterfaceController {
 		}
 	}
 
-	private void initToDoList() {
+	private void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
 			
-			if(main.welcomeMessage.isManaged()) {
+			if(main.supportFeatureController.welcomeMessage.isManaged()) {
 				todoListContainer.setManaged(true);
 				todoListContainer.setOpacity(1);
 				
-				main.removeWelcomeMsg();
+				main.supportFeatureController.removeMainPane();
 				animateToDoList(OPEN_LIST);
 			}
 		}

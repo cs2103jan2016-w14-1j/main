@@ -13,57 +13,45 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
-            minHeight="-Infinity" minWidth="-Infinity" 
-            prefHeight="768.0" prefWidth="1024.0" 
-            styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
-            xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="Controllers.MainGUIController">
-   <padding>
-      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-   </padding>
-   
-   <children>
-      <BorderPane prefHeight="768.0" prefWidth="1024.0" 
-                  styleClass="borderPane" 
-                  AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" 
-                  AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
-          
-         <!-- Title -->
-         <top>
-            <fx:include fx:id="title" source="/View/TitleInterface.fxml" />
-         </top>
-         
-         <!-- Command Line -->
-         <bottom>
-            <fx:include fx:id="commandLine" source="/View/CommandLineInterface.fxml" />
-         </bottom> 
-         
-         <!-- Class -->
-         <left>
-            <fx:include fx:id="classList" source="/View/ClassInterface.fxml"/>
-         </left>
-         
-         <!-- to do list -->
-         <center>
-            <VBox>
-            	<VBox fx:id="welcomeMessage" prefHeight="800.0" prefWidth="200.0" spacing="20">
-            		 <ImageView  fx:id="imageView" layoutX="29.0" layoutY="44.0" 
-            			 fitHeight="150.0" fitWidth="150.0" 
-            		     pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Application/Stylesheets/Background/catalist_icon.png" />
-                           </image>
-                     </ImageView>
-           			 <Text fx:id="titleMessage" text="Welcome to CataList!" />
-           			 <Text fx:id="subMessage" text="Type 'help' for more information" />
-           	    </VBox>
-            <fx:include fx:id="todoList" source="/View/ListInterface.fxml"/>
-            </VBox>
-         </center>
-         
-      </BorderPane>
-   </children>
-   
-   
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
+	prefWidth="1024.0" styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainGUIController">
+	<padding>
+		<Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+
+	<children>
+		<BorderPane prefHeight="768.0" prefWidth="1024.0"
+			styleClass="borderPane" AnchorPane.bottomAnchor="50.0"
+			AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+			AnchorPane.topAnchor="30.0">
+
+			<!-- Title -->
+			<top>
+				<fx:include fx:id="title" source="/View/TitleInterface.fxml" />
+			</top>
+
+			<!-- Command Line -->
+			<bottom>
+				<fx:include fx:id="commandLine" source="/View/CommandLineInterface.fxml" />
+			</bottom>
+
+			<!-- Class -->
+			<left>
+				<fx:include fx:id="classList" source="/View/ClassInterface.fxml" />
+			</left>
+
+			<!-- to do list -->
+			<center>
+				<VBox>
+					<fx:include fx:id="supportFeature" source="/View/SupportFeatureInterface.fxml" />
+					<fx:include fx:id="todoList" source="/View/ListInterface.fxml" />
+				</VBox>
+			</center>
+
+		</BorderPane>
+	</children>
+
+
 </AnchorPane>

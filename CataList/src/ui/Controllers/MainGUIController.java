@@ -24,23 +24,25 @@ public class MainGUIController {
     public ClassController classListController;
     @FXML 
     public TitleInterfaceController titleController;
+    @FXML
+    public SupportFeatureController supportFeatureController;
     
     @FXML 
     public AnchorPane mainAnchorPane;
-    @FXML 
-    public Text titleMessage;
-    @FXML 
-    public Text subMessage;
-    @FXML 
-    public VBox welcomeMessage;
     
+    
+    
+    //TODO: refactor MainGUI - need more OO concepts
+    //TODO: complete the extraction of support feature
     public void initialize() throws IOException, JDOMException {
        commandLineController.init(this);
        classListController.init(this);
        titleController.init(this);
        todoListController.init(this);
+       supportFeatureController.init(this);
     }
-        
+    
+    /*
     public void removeWelcomeMsg() {
 		welcomeMessage.setManaged(false);
 		
@@ -57,5 +59,5 @@ public class MainGUIController {
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
-    }
+    }*/
 }
