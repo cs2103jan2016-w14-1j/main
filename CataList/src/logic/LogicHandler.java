@@ -1,9 +1,5 @@
 package logic;
 
-import storage.Storage;
-import parser.CommandParser;
-import parser.EventParser;
-
 public class LogicHandler {
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
 	
@@ -12,35 +8,18 @@ public class LogicHandler {
 	private static final int INPUT_DATE_INDEX = 2;
 	private static final int INPUT_TIME_INDEX = 3;
 	
+	private static final int EVENT_INDEX_NUMBER = 0;
+	
 	private static final int INPUT_LENGTH_NODATETIME = 2;  
 	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
 	
-	public static String processCommand(String userInput){
-	//TODO: parser
-	// incomplete dependencies. Only returns commands now.
-	//CommandParser is supposed to be a part of a bigger parser class, which combines
-	// all output into a String[]. Currently we initialize the array here, and will
-	// move it to Parser after.
-	//REFACTOR THIS PIECE OF SHIT WHEN PARSERHANDLER IS BORN
-		CommandParser commandParser = new CommandParser();
-		String formattedString = commandParser.parseCommand(userInput);
-		EventParser eventParser = new EventParser();
-		String extractedEvent = eventParser.parseEvent(userInput);
-		String[] inputArray = new String[1];
-		inputArray[0] = formattedString;
-		inputArray[1] = extractedEvent;
-		
-	// test if user input is receive. remove later	
-		System.out.println(inputArray[0]);
-		System.out.println(inputArray[1]);
-		
-		Task newTask = createTask(inputArray);
-		String receivedString = Storage.FormatToStorage(newTask);
-		return receivedString;
-	}
-	
-	private static Task createTask(String[] userInputArray){
+	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
+															,"edit"
+															,"markcomplete"
+															,"markincomplete"};
+
+	public static Task processCommand(String[] userInputArray){
 		int numberOfFields = userInputArray.length;
 		Task newTask;
 		if(numberOfFields == INPUT_LENGTH_NODATETIME){
@@ -52,9 +31,48 @@ public class LogicHandler {
 		} else {
 			newTask = createTaskWithParserError();
 		}
+		
+		updateTaskWithIndex(newTask);
 		return newTask;
 	}
 	
+	private static void updateTaskWithIndex(Task indexTask){
+		String commandWord = indexTask.get_cmd();
+		for(String eachCommand : COMMANDS_REQUIRING_INDEX){
+			if(commandWord.equalsIgnoreCase(eachCommand)){
+				registerIndex(indexTask);
+				break;
+			}
+		}
+	}
+	
+	private static void registerIndex(Task indexTask){
+		String eventPhrase = indexTask.get_task();
+		String eventPhraseWithoutIndex = removeFirstWord(eventPhrase);
+		indexTask.set_task(eventPhraseWithoutIndex);
+		int indexOfTask = eventPhraseIndexParse(eventPhrase);
+		indexTask.set_index(indexOfTask);
+	}
+		
+	private static String removeFirstWord(String eventPhrase){
+		String[] eventArray = eventPhrase.split(" ");
+		String secondWordOnwards = "";
+		int lastWordIndex = eventArray.length-1;
+		for(int i = 1 ; i <= lastWordIndex ; i++){
+			secondWordOnwards += eventArray[i];
+			if(i != lastWordIndex){
+				secondWordOnwards += " ";
+			}
+		}
+		return secondWordOnwards;
+	}
+	
+	private static int eventPhraseIndexParse(String eventPhrase){
+		String[] eventArray = eventPhrase.split(" ");
+		String indexWord = eventArray[EVENT_INDEX_NUMBER];
+		int parsedIndex = Integer.parseInt(indexWord);
+		return parsedIndex;
+	}
 	
 	private static Task createTaskNoDateTime(String[] checkString){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
@@ -75,7 +93,13 @@ public class LogicHandler {
 				return new RedoTask(userInputEvent);
 			case "undo" :
 				return new UndoTask(userInputEvent);
-			case "invalid":
+			case "search" :
+				return new SearchTask(userInputEvent);
+			case "markcomplete" :
+				return new MarkComplete(userInputEvent);
+			case "markincomplete" :
+				return new MarkIncomplete(userInputEvent);
+			case "invalid" :
 				return new InvalidTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
@@ -102,6 +126,12 @@ public class LogicHandler {
 				return new RedoTask(userInputEvent, userInputDate);
 			case "undo" :
 				return new UndoTask(userInputEvent, userInputDate);
+			case "search" :
+				return new SearchTask(userInputEvent);
+			case "markcomplete" :
+				return new MarkComplete(userInputEvent);
+			case "markincomplete" :
+				return new MarkIncomplete(userInputEvent);
 			case "invalid":
 				return new InvalidTask(userInputEvent);
 			default: 
@@ -130,6 +160,12 @@ public class LogicHandler {
 				return new RedoTask(userInputEvent, userInputDate, userInputTime);
 			case "undo" :
 				return new UndoTask(userInputEvent, userInputDate, userInputTime);
+			case "search" :
+				return new SearchTask(userInputEvent);
+			case "markcomplete" :
+				return new MarkComplete(userInputEvent);
+			case "markincomplete" :
+				return new MarkIncomplete(userInputEvent);
 			case "invalid":
 				return new InvalidTask(userInputEvent);
 			default: 

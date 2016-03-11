@@ -10,6 +10,9 @@ public class Task {
 	private String _date;
 	private String _time;
 	
+	private int operandIndex;
+	private boolean isComplete;
+	
 	public Task(boolean isChanged, String userInput, String cmd, String msg){
 		set_changeDataFlag(isChanged);
 		set_task(userInput);
@@ -39,7 +42,9 @@ public class Task {
 					&& isEqualTask(other) 
 					&& isSuccesful(other)
 					&& isSameDate(other)
-					&& isSameTime(other));
+					&& isSameTime(other)
+					&& isSameOperand(other)
+					&& isSameCompletionState(other));
 		}
 		return false;
 	}
@@ -82,6 +87,17 @@ public class Task {
 		}
 	}
 	
+	private boolean isSameCompletionState(Task other){
+		boolean otherState = other.get_completionState();
+		boolean thisState = this.get_completionState();
+		return thisState==otherState;
+	}
+	private boolean isSameOperand(Task other){
+		int otherIndex = other.get_index();
+		int thisIndex = this.get_index();
+		return thisIndex == otherIndex;
+	}
+	
 	/************GETTERS***********/
 	public boolean is_changed() {
 		return _changeDataFlag;
@@ -105,6 +121,14 @@ public class Task {
 
 	public String get_time() {
 		return _time;
+	}
+	
+	public int get_index(){
+		return operandIndex;
+	}
+	
+	public boolean get_completionState(){
+		return isComplete;
 	}
 
 	/************SETTERS***********/
@@ -131,6 +155,18 @@ public class Task {
 	public void set_time(String _time) {
 		this._time = _time;
 	}
+	
+	public void set_index(int newIndex){
+		this.operandIndex = newIndex;
+	}
+	
+	public void set_Complete(){
+		this.isComplete = true;
+	}
+	
+	public void set_Incomplete(){
+		this.isComplete = false;
+	}
 
 	public void setMessageErrorDefault(String errorMsg){
 		//Method to be implemented in all concrete classes
@@ -138,6 +174,10 @@ public class Task {
 	
 	public void setMessageErrorEmpty(String emptyMsg){
 		//ditto. Man I need to write better comments.
+	}
+	
+	public void setMessageErrorCustom(String customErrorMsg){
+		set_messageToUser(customErrorMsg);
 	}
 	
 }

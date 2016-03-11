@@ -5,7 +5,7 @@ public class CommandParser {
 	private static final int COMMAND_INDEX = 0;
 	private static final String SYMBOL_WHITESPACE = " ";
 	
-	public String parseCommand(String userInput){
+	public static String parseCommand(String userInput){
 		String firstWord = extractFirstWord(userInput);
 		String identifiedCommand = analyzeWord(firstWord);
 		return identifiedCommand;
@@ -43,6 +43,12 @@ public class CommandParser {
 			return "redo";
 		} else if (compareUndoKeywords(stringToTest)){
 			return "undo";
+		} else if (compareSearchKeywords(stringToTest)){
+			return "search";
+		} else if (compareMarkCompleteKeywords(stringToTest)){
+			return "markcomplete";
+		} else if (compareMarkIncompleteKeywords(stringToTest)){
+			return "markincomplete";
 		} else {
 			return "invalid";
 		}
@@ -90,7 +96,21 @@ public class CommandParser {
 		return isUndoKeyword;
 	}
 	
+	private static boolean compareSearchKeywords(String stringToTest){
+		boolean isSearchKeyword = false;
+		isSearchKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_SEARCH);
+		return isSearchKeyword;
+	}
 	
+	private static boolean compareMarkCompleteKeywords(String stringToTest){
+		boolean isMarkCompleteKeyword = false;
+		isMarkCompleteKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_MARK_COMPLETE);
+		return isMarkCompleteKeyword;
+	}
 	
-	
+	private static boolean compareMarkIncompleteKeywords(String stringToTest){
+		boolean isMarkIncompleteKeyword = false;
+		isMarkIncompleteKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_MARK_INCOMPLETE);
+		return isMarkIncompleteKeyword;
+	}
 }

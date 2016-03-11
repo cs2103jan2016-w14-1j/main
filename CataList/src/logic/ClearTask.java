@@ -17,7 +17,7 @@ public class ClearTask extends Task{
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_CLEAR_SUCCESS, date);
 	}
 	public ClearTask(String userInput, String date, String time){
-		super(isChange,userInput, COMMAND_TYPE, MESSAGE_CLEAR_SUCCESS, time, date);
+		super(IS_MUTATOR,userInput, COMMAND_TYPE, MESSAGE_CLEAR_SUCCESS, time, date);
 	}
 	
 	public void setMessageErrorEmpty(){
