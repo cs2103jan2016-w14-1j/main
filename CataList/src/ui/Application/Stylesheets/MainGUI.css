@@ -81,6 +81,43 @@
 	-fx-fill: white;
 }
 
+#calendarContainer {
+	-fx-background-color: rgb(255, 130, 0, 0.6);
+	-fx-background-radius: 20 20 20 20;
+	-fx-max-width: 800;
+	-fx-max-height: 800;
+	-fx-alignment: center;
+	-fx-padding: 20;
+}
+
+.date-picker-popup {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+	-fx-max-width: 500;
+	-fx-pref-height: 500;
+}
+
+.date-picker-popup > .month-year-pane {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+}
+
+.date-picker-popup > * {
+	-fx-background-color: rgb(0, 0, 0, 0);
+}
+
+.date-picker-popup > * > .day-cell {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+	-fx-border-color: transparent;
+        
+}
+
+.date-picker-popup > * > .today {
+	-fx-background-color: orangered;
+}
+
+
 #imageView {
 	-fx-opacity: 0.7;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,1) , 0,0,0,1 );

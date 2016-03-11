@@ -1,18 +1,31 @@
 package Controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.jdom2.JDOMException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import Controllers.CalendarGenerator;
 import logic.LogicHandler;
+import com.sun.javafx.scene.control.skin.DatePickerSkin;
 
 public class CommandLineController {
     
@@ -32,9 +45,9 @@ public class CommandLineController {
     @FXML 
     private TextField userInput;
     
-    String command = INITIALIZE;
-    int index = 0;
-    
+    private String command = INITIALIZE;
+    private int index = 0;
+    private Node calendar;
     
     @FXML 
     private void handleSubmitButtonAction(KeyEvent event) throws IOException, JDOMException {
@@ -51,8 +64,6 @@ public class CommandLineController {
     			openHelpPage();
     		} else if(command.toLowerCase().equals("calendar")) {
     			openCalendar();
-    		} else if(command.toLowerCase().equals("quit calendar")) {
-    			//closeCalendar();
     		} else {
     			if (getFirstWord(command).toLowerCase().equals("show")) {
     				String id = ParseBackground.parseInput(removeFirstWord(command));
@@ -75,19 +86,27 @@ public class CommandLineController {
     			getNextCommand();	
     	}
     }
-/*
-	private void closeCalendar() {
-		main.classListController.todoClass.setOpacity(1);
-		main.classListController.classContainer.getChildren().remove(CalendarGenerator.wb);
-	}
-*/
+    
 	private void openCalendar() {
+	//TODO: refactor here
 		main.todoListController.closeList();
 		main.classListController.closeList();
-		CalendarGenerator.renderCalendar();
+		VBox calendarContainer = new VBox(10);
+		Label label = new Label("Schedule");
+		label.setTextFill(Color.BLACK);
+		Image image = new Image(getClass().getResourceAsStream("/Application/Stylesheets/Background/time-icon.png"));
+		ImageView imageView = new ImageView(image);
+		imageView.setFitHeight(40);
+		imageView.setFitWidth(40);
+		imageView.setPreserveRatio(true);
+		label.setGraphic(imageView);
+		label.setFont(Font.font(20));
+		calendarContainer.setId("calendarContainer");
+		calendar = new DatePickerSkin(new DatePicker(LocalDate.now())).getPopupContent();
+		calendarContainer.getChildren().addAll(label, calendar);
 		main.showMainPane();
 		main.welcomeMessage.getChildren().clear();
-		main.welcomeMessage.getChildren().add(CalendarGenerator.wb);
+		main.welcomeMessage.getChildren().add(calendarContainer);
 	}
 
 	private void openHelpPage() throws IOException {
