@@ -4,17 +4,10 @@ import java.io.IOException;
 
 import org.jdom2.JDOMException;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
-import logic.LogicHandler;
 
 public class MainGUIController {
-	
-	private final String INIT_LIST = "display";
 	
     @FXML 
     public CommandLineController commandLineController;  
@@ -30,10 +23,6 @@ public class MainGUIController {
     @FXML 
     public AnchorPane mainAnchorPane;
     
-    
-    
-    //TODO: refactor MainGUI - need more OO concepts
-    //TODO: complete the extraction of support feature
     public void initialize() throws IOException, JDOMException {
        commandLineController.init(this);
        classListController.init(this);
@@ -67,20 +56,18 @@ public class MainGUIController {
     }
     
     public boolean isClassEmpty() {
-    	return classListController.classes.isEmpty();
+    	return classListController.getClasses().isEmpty();
     }
     
     public boolean isToDoListEmpty() {
-    	return todoListController.tasks.isEmpty();
+    	return todoListController.getTasks().isEmpty();
     }
     
     public boolean isCompletedEmpty() {
-    	return todoListController.completed.isEmpty();
+    	return todoListController.getCompleted().isEmpty();
     }
     
     public boolean isMainPaneManaged() {
-    	return supportFeatureController.welcomeMessage.isManaged();
+    	return supportFeatureController.getMainPane().isManaged();
     }
-    
-    
 }

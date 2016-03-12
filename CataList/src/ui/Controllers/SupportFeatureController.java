@@ -30,28 +30,32 @@ public class SupportFeatureController {
 	private Node calendar;
 	
 	@FXML 
-	public Text titleMessage;
+	private Text titleMessage;
 	@FXML 
-	public Text subMessage;
+	private Text subMessage;
 	@FXML 
-	public VBox welcomeMessage;
+	private VBox mainPane;
 	
 	public void init(MainGUIController mainController) {
         main = mainController;
         showMainPane();
     }
 	
+	public VBox getMainPane() {
+		return mainPane;
+	}
+	
 	public void loadHelpList() throws IOException {
-		main.todoListController.closeList();
-		main.classListController.closeList();
+		main.todoListController.closeToDoList();
+		main.classListController.closeClassList();
 		showMainPane();
-		welcomeMessage.getChildren().clear();
-		welcomeMessage.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
 	}
 	
 	public void loadCalendar() {
-    	main.todoListController.closeList();
-		main.classListController.closeList();
+    	main.todoListController.closeToDoList();
+		main.classListController.closeClassList();
 		VBox calendarContainer = new VBox(10);
 		Label label = new Label(CALENDAR_HEADING);
 		label.setTextFill(Color.BLACK);
@@ -66,14 +70,14 @@ public class SupportFeatureController {
 		calendar = new DatePickerSkin(new DatePicker(LocalDate.now())).getPopupContent();
 		calendarContainer.getChildren().addAll(label, calendar);
 		showMainPane();
-		welcomeMessage.getChildren().clear();
-		welcomeMessage.getChildren().add(calendarContainer);
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(calendarContainer);
     }
 	
 	public void removeMainPane() {
-		welcomeMessage.setManaged(false);
+		mainPane.setManaged(false);
 		
-		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
+		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
 		ft.setFromValue(1);
 		ft.setToValue(0);
 		ft.play();
@@ -81,9 +85,9 @@ public class SupportFeatureController {
     
     public void showMainPane() {
     	if(main.isToDoListEmpty()) {
-    		welcomeMessage.setManaged(true);
+    		mainPane.setManaged(true);
 
-    		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
+    		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
     		ft.setFromValue(0);
     		ft.setToValue(1);
     		ft.play();

@@ -18,11 +18,11 @@ public class ClassController {
 	private final boolean CLOSE_LIST = false;
 
 	@FXML 
-	public ListView<String> todoClass;
+	private ListView<String> todoClass;
 	@FXML
-	public VBox classContainer;
+	private VBox classContainer;
    
-	public static ObservableList<String> classes =
+	private static ObservableList<String> classes =
 			FXCollections.observableArrayList();
 
 	public void init(MainGUIController mainController) {
@@ -40,7 +40,7 @@ public class ClassController {
 		}
 	}
 	
-	private void openClassList() {
+	public void openClassList() {
 			todoClass.getParent().setOpacity(1);
 			classes.add(DEFAULT);
 			todoClass.setItems(classes);
@@ -48,10 +48,14 @@ public class ClassController {
 			animateClassList(OPEN_LIST);
 	}
 	
-	public void closeList() {
+	public void closeClassList() {
 		if(todoClass.getParent().getScaleX() == 1) {
 			animateClassList(CLOSE_LIST);
 		}
+	}
+	
+	public ObservableList<String> getClasses() {
+		return classes;
 	}
 
 	private void animateClassList(boolean isOpen) {

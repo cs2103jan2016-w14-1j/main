@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 
-<VBox fx:id="welcomeMessage" prefHeight="800.0" prefWidth="200.0"
+<VBox fx:id="mainPane" prefHeight="800.0" prefWidth="200.0"
 	spacing="20" xmlns:fx="http://javafx.com/fxml/1" 
 	fx:controller="Controllers.SupportFeatureController">
 	<ImageView fx:id="imageView" layoutX="29.0" layoutY="44.0"

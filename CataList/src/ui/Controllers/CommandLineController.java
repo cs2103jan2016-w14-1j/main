@@ -16,14 +16,11 @@ public class CommandLineController {
     
     private static final String INITIALIZE = "";
     private static final String INIT_FEEDBACK = "How can I help you?";
-    
     private static final String MESSAGE_INVALID = "Invalid background";
-   
     private final ArrayList<String> inputArray = new ArrayList<String>();
     
     @FXML 
     private Text feedback;
-    
     @FXML 
     private TextField userInput;
     
@@ -52,9 +49,9 @@ public class CommandLineController {
     		readUserInput();
     		
     		/**************** temp parser *******************/
-    		if(command.toLowerCase().equals("inbox") && !ListInterfaceController.tasks.isEmpty()) {
+    		if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
     			main.todoListController.displayPending();
-    		} else if(command.toLowerCase().equals("complete") && !ListInterfaceController.completed.isEmpty()) {
+    		} else if(command.toLowerCase().equals("complete") && !main.isCompletedEmpty()) {
     			main.todoListController.displayCompleted();
     		} else if(command.toLowerCase().equals("help")) {
     			main.supportFeatureController.loadHelpList();

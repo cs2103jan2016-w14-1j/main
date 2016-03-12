@@ -62,7 +62,7 @@
     -fx-min-width: 1020px;
 }
 
-#welcomeMessage {
+#mainPane {
 	-fx-alignment: center ; 
 	-fx-padding: 50 0 0 -230;
 }

@@ -33,9 +33,9 @@ public class ListInterfaceController {
     @FXML 
     private HBox todoListContainer;
     
-    public static ObservableList<HBox> tasks =
+    private static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
-    public static ObservableList<HBox> completed =
+    private static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
     
     private Storage _storage = new Storage();
@@ -58,7 +58,7 @@ public class ListInterfaceController {
     	displayTaskList();
     	
     	if(tasks.isEmpty()) {
-    		closeList();
+    		closeToDoList();
     	}
     }
     
@@ -70,10 +70,18 @@ public class ListInterfaceController {
         todoList.setItems(completed);
     }
     
-	public void closeList() {
+	public void closeToDoList() {
 		if(todoList.getParent().getScaleX() == 1) {
 			animateToDoList(CLOSE_LIST);
 		}
+	}
+	
+	public ObservableList<HBox> getTasks() {
+		return tasks;
+	}
+	
+	public ObservableList<HBox> getCompleted() {
+		return completed;
 	}
 
 	private void animateToDoList(boolean isOpen) {
