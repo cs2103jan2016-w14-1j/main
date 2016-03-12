@@ -124,19 +124,19 @@ public class ListInterfaceController {
 	}
 
 	private void loadClassList() {
-		if(main.classListController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
-			main.classListController.loopClassList();
+		if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+			main.refreshClassList();
 		}
 	}
 
 	private void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
 			
-			if(main.supportFeatureController.welcomeMessage.isManaged()) {
+			if(main.isMainPaneManaged()) {
 				todoListContainer.setManaged(true);
 				todoListContainer.setOpacity(1);
 				
-				main.supportFeatureController.removeMainPane();
+				main.removeMainPane();
 				animateToDoList(OPEN_LIST);
 			}
 		}
@@ -144,7 +144,7 @@ public class ListInterfaceController {
     
     private void handleCheckedBox(CheckBox cb, HBox hb) {
         if(cb.isSelected()) {
-            main.classListController.initCompletedClassList();
+            main.loadCompleted();
             completed.add(hb);
             tasks.remove(hb);
         }
@@ -152,7 +152,7 @@ public class ListInterfaceController {
         if(!cb.isSelected()) {
             completed.remove(hb);
             tasks.add(hb);
-            main.classListController.clearCompletedClassList();
+            main.clearCompleted();
         }
     }
     

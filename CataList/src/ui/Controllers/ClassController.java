@@ -31,8 +31,8 @@ public class ClassController {
 	}
 	
 	public void loopClassList() {
-		if(classes.isEmpty() && !main.todoListController.tasks.isEmpty()) {
-			main.classListController.openClassList();
+		if(classes.isEmpty() && !main.isToDoListEmpty()) {
+			openClassList();
 		}
 		
 		if(todoClass.getParent().getScaleX() == 0) {
@@ -74,13 +74,13 @@ public class ClassController {
 
 	/******* temp class parser *********/
 	public void initCompletedClassList() {
-		if(ListInterfaceController.completed.isEmpty()) {
+		if(main.isCompletedEmpty()) {
 			classes.add("complete");
 		}
 	}
 
 	public void clearCompletedClassList() {
-		if(ListInterfaceController.completed.isEmpty()) {
+		if(main.isCompletedEmpty()) {
 			classes.remove("complete");
 		}
 	}

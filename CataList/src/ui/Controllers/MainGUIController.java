@@ -42,22 +42,45 @@ public class MainGUIController {
        supportFeatureController.init(this);
     }
     
-    /*
-    public void removeWelcomeMsg() {
-		welcomeMessage.setManaged(false);
-		
-		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
-		ft.setFromValue(1);
-		ft.setToValue(0);
-		ft.play();
-	}
+    public void refreshClassList() {
+    	classListController.loopClassList();
+    }
     
-    public void showMainPane() {
-    	welcomeMessage.setManaged(true);
-		
-		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
-    }*/
+    public void clearCompleted() {
+    	classListController.clearCompletedClassList();
+    }
+    
+    public void loadCompleted() {
+    	classListController.initCompletedClassList();
+    }
+    
+    public void refreshToDoList() throws IOException, JDOMException {
+    	todoListController.loopTaskList();
+    }
+    
+    public void removeMainPane() {
+    	supportFeatureController.removeMainPane();
+    }
+    
+    public void openMainPane() {
+    	supportFeatureController.showMainPane();
+    }
+    
+    public boolean isClassEmpty() {
+    	return classListController.classes.isEmpty();
+    }
+    
+    public boolean isToDoListEmpty() {
+    	return todoListController.tasks.isEmpty();
+    }
+    
+    public boolean isCompletedEmpty() {
+    	return todoListController.completed.isEmpty();
+    }
+    
+    public boolean isMainPaneManaged() {
+    	return supportFeatureController.welcomeMessage.isManaged();
+    }
+    
+    
 }

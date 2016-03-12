@@ -22,6 +22,9 @@ import javafx.util.Duration;
 public class SupportFeatureController {
 	
 	private final String HELP_PAGE_PATH = "/View/HelpPage.fxml";
+	private final String ICON_PATH = "/Application/Stylesheets/Background/time-icon.png";
+	private final String CALENDAR_HEADING = "   Schedule";
+	private final String CALENDAR_ID = "calendarContainer";
 	
 	private MainGUIController main;
 	private Node calendar;
@@ -50,16 +53,16 @@ public class SupportFeatureController {
     	main.todoListController.closeList();
 		main.classListController.closeList();
 		VBox calendarContainer = new VBox(10);
-		Label label = new Label("Schedule");
+		Label label = new Label(CALENDAR_HEADING);
 		label.setTextFill(Color.BLACK);
-		Image image = new Image(getClass().getResourceAsStream("/Application/Stylesheets/Background/time-icon.png"));
+		Image image = new Image(getClass().getResourceAsStream(ICON_PATH));
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(40);
 		imageView.setFitWidth(40);
 		imageView.setPreserveRatio(true);
 		label.setGraphic(imageView);
 		label.setFont(Font.font(20));
-		calendarContainer.setId("calendarContainer");
+		calendarContainer.setId(CALENDAR_ID);
 		calendar = new DatePickerSkin(new DatePicker(LocalDate.now())).getPopupContent();
 		calendarContainer.getChildren().addAll(label, calendar);
 		showMainPane();
@@ -77,7 +80,7 @@ public class SupportFeatureController {
 	}
     
     public void showMainPane() {
-    	if(main.todoListController.tasks.isEmpty()) {
+    	if(main.isToDoListEmpty()) {
     		welcomeMessage.setManaged(true);
 
     		FadeTransition ft = new FadeTransition(Duration.millis(400), welcomeMessage);
