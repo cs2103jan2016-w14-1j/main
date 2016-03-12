@@ -107,22 +107,39 @@ public class Storage {
         return true;
 	}
 	
-	//method takes in a task and then based on command does what is needed.
-	public static String formatToStorage(Task task) throws IOException, JDOMException{
+	//Calls to TaskFormatToStorage various methods
+	public static String addToStorage(Task task) throws IOException, JDOMException{
 		
-		StorageParser.StorageParse(task);
+		TaskFormatToStorage.addToStorage(task);
 		
 		return task.get_messageToUser();
 	}
 	
+	public static String deleteFromStorage(Task task) throws IOException, JDOMException{
+			
+			TaskFormatToStorage.deleteFromStorage(task);
+			
+			return task.get_messageToUser();
+		}
+		
+	public static String editFromStorage(Task task) throws IOException, JDOMException{
+		
+		TaskFormatToStorage.editFromStorage(task);
+		
+		return task.get_messageToUser();
+	}
 	
-	//junk code i will return to
-	/*
-	IteratorIterable<Content> contents = todoList.getDescendants();
-    while (contents.hasNext()) {
-        Content todoList_content = contents.next();
-        if (!todoList_content.getCType().equals(CType.Text) && !todoList_content.getCType().equals(CType.Comment)) {
-            System.out.println(todoList_content.toString());
-        }
-    }*/
+	public static String clearFromStorage(Task task) throws IOException, JDOMException{
+		
+		TaskFormatToStorage.clearFromStorage(task);
+		
+		return task.get_messageToUser();
+	}
+	
+	public static String displayFromStorage(Task task) throws IOException, JDOMException{
+			
+			TaskFormatToStorage.displayFromStorage(task);
+			
+			return task.get_messageToUser();
+	}
 }
