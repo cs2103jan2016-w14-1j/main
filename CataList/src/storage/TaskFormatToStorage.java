@@ -48,7 +48,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
-			"/CataList/src/storage/test.xml";
+			"/src/storage/test.xml";
 	
 	private static ArrayList<Task> toBeDoneList = new ArrayList<Task>();
 	private static ArrayList<Task> completedList = new ArrayList<Task>();
@@ -78,6 +78,10 @@ public class TaskFormatToStorage extends StorageWriter {
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
         
+		taskObj.set_index(index);
+		
+		//System.out.println(taskObj.get_index());
+		
 		toBeDoneList.add(taskObj);
 		masterList.add(taskObj);
 		
@@ -96,64 +100,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	}
 	
 	
-	public static String deleteFromStorage(Task taskObj) throws JDOMException, IOException {
-		
-		File inputFile = new File(STORAGE_PATH);
-		SAXBuilder saxBuilder = new SAXBuilder();
-		Document document = saxBuilder.build(inputFile);
-		Element rootElement = document.getRootElement();
-		
-		List<Element> taskChildren = rootElement.getChildren();
-		//List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
-	    Iterator<Element> itr = taskChildren.iterator();
-	   // List<Element> elements = new ArrayList<Element>();
-	        
-	    while(itr.hasNext()){
-	    	
-	    		Element child = (Element) itr.next();
-	    		String att = child.getChild(ELEMENT_EVENT).getText();
-	    		
-	    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
-	          
-	    		//attribute is taskID, but task is task
-	    		//System.out.println(att + ":" + taskObj.get_task());
-	    		if(att.equals(taskObj.get_task())) {
-	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
-	    		
-	        	   itr.remove();
-	        	   masterList.remove(taskObj);
-	        	   toBeDoneList.remove(taskObj);
-	           }
-	    }
-	    
-	    for(int i=0; i<taskChildren.size(); i++){
-    		
-	    	Element child = taskChildren.get(i);
-	    	
-    		//child.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(i)));
-	    	child.getAttribute(ATTRIBUTE_NUM).setValue(Integer.toString(i+1));
-    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
-          
-    		//attribute is taskID, but task is task
-    		//System.out.println(att + ":" + taskObj.get_task());
-    		
-	    }
-	    
-	    try{
-			StorageWriter.writeToStorage(document);
-		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
-			return taskObj.get_messageToUser();
-		}
-	    states.add(StorageReader.readFromStorage());
-	    
-	    return taskObj.get_messageToUser();
-	}
-	
-	
-	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
-		
-		int index = taskObj.get_index();
+	public static String deleteFromStorage(Task taskObj, int testIndex) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -171,23 +118,78 @@ public class TaskFormatToStorage extends StorageWriter {
 	    		//String att = child.getChild(ELEMENT_EVENT).getText();
 	    		
 	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    		
 	    		int attributeValue = Integer.parseInt(att);
 	          
 	    		//attribute is taskID, but task is task
 	    		//System.out.println(att + ":" + taskObj.get_task());
+	    		if(attributeValue == testIndex) {
+	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
+	    		
+	        	   itr.remove();
+	        	   masterList.remove(taskObj);
+	        	   toBeDoneList.remove(taskObj);
+	           }
+	    }
+	    
+	    for(int i=0; i<taskChildren.size(); i++){
+    		
+	    	Element child = taskChildren.get(i);
+	    	
+    		//child.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(i)));
+	    	child.getAttribute(ATTRIBUTE_NUM).setValue(Integer.toString(i+1));
+    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
+    		//attribute is taskID, but task is task
+    		//System.out.println(att + ":" + taskObj.get_task());
+    		
+	    }
+	    
+	    try{
+			StorageWriter.writeToStorage(document);
+		} catch(IOException e) {
+			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return taskObj.get_messageToUser();
+		}
+	    states.add(StorageReader.readFromStorage());
+	    
+	    return taskObj.get_messageToUser();
+	}
+	
+	
+	public static String editFromStorage(Task taskObj, int testIndex) throws JDOMException, IOException {
+		
+		File inputFile = new File(STORAGE_PATH);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+				
+		List<Element> taskChildren = rootElement.getChildren();
+	    Iterator<Element> itr = taskChildren.iterator();
+	        
+	    while(itr.hasNext()){
+	    		
+	    		Element child = (Element) itr.next();
+	    		
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    		//System.out.println(att + ":" + taskObj.get_task());
+	    		
+	    		int attributeValue = Integer.parseInt(att);
+	    		
+	    		//attribute is taskID, but task is task
+	    		//System.out.println(att + ":" + taskObj.get_task());
 	            //attribute is taskID, but task is task
 	    		
-	    		if(attributeValue == index) {
-	           //if((Integer.parseInt(att)).equals(taskObj.get_id)){
-	    			//task = new Element(ELEMENT_TASK);
+	    		if(attributeValue == testIndex) {
 	       			//Document toDoListDocument = new Document(task);
 	       			//task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 	       			//task.setContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 	       			//task.setContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
-	    			child.getChild(ELEMENT_EVENT).setText(taskObj.get_task());
+	    		
+	       			child.getChild(ELEMENT_EVENT).setText(taskObj.get_task());
 	    			child.getChild(ELEMENT_DATE).setText(taskObj.get_time());
 	    			child.getChild(ELEMENT_TIME).setText(taskObj.get_date());
 	           }
+	    		
 	    	}
 	    try{
 			StorageWriter.writeToStorage(document);

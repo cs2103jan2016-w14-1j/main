@@ -35,7 +35,7 @@ public class StorageWriter {
 	
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
-            "/CataList/src/storage/test.xml";
+            "/src/storage/test.xml";
 
 	public static void writeToStorage(Document todoListDocument) throws IOException{
 		

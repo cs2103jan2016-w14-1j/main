@@ -16,7 +16,7 @@ public class StorageReader {
 	private static final String ELEMENT_TASK = "Task";
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
-            "/CataList/src/storage/test.xml";
+            "/src/storage/test.xml";
 	
 	private static final String ELEMENT_TIME = "Time";
 	private static final String ELEMENT_DATE = "Date";
