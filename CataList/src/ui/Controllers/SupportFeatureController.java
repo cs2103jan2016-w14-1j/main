@@ -3,6 +3,8 @@ package ui.Controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.jdom2.JDOMException;
+
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 
 import javafx.animation.FadeTransition;
@@ -21,8 +23,8 @@ import javafx.util.Duration;
 
 public class SupportFeatureController {
 	
-	private final String HELP_PAGE_PATH = "/View/HelpPage.fxml";
-	private final String ICON_PATH = "/Application/Stylesheets/Background/time-icon.png";
+	private final String HELP_PAGE_PATH = "/ui/View/HelpPage.fxml";
+	private final String ICON_PATH = "/ui/Application/Stylesheets/Background/time-icon.png";
 	private final String CALENDAR_HEADING = "   Schedule";
 	private final String CALENDAR_ID = "calendarContainer";
 	
@@ -50,7 +52,11 @@ public class SupportFeatureController {
 		main.classListController.closeClassList();
 		showMainPane();
 		mainPane.getChildren().clear();
-		mainPane.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
+		try {
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
+		} catch (IOException ioe)  {
+			
+		}
 	}
 	
 	public void loadCalendar() {

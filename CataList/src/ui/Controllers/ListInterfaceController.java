@@ -12,9 +12,12 @@ import javafx.scene.layout.Priority;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import org.jdom2.JDOMException;
 import ui.Controllers.MainGUIController;
 import logic.Task;
+import shared.LogHandler;
 
 public class ListInterfaceController {
     
@@ -37,25 +40,28 @@ public class ListInterfaceController {
     private static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
     
- //   private Storage _storage = new Storage();
+    private ArrayList<Task> operatingTaskFromLogic;
+    private Logger log = LogHandler.retriveLog();
     
-    public void init(MainGUIController mainController) throws IOException, JDOMException {
+    public void init(MainGUIController mainController) {
         main = mainController;
         todoListContainer.setManaged(false);
         todoListContainer.setOpacity(0);
         loopTaskList();
     }
     
-    public void loopTaskList() throws IOException, JDOMException {
+    public void loopTaskList() {
     	tasks.clear();
-    	//_storage.loadTask();
-    	/*
-    	if(!_storage.getToBeDoneList().isEmpty()) {
+    	operatingTaskFromLogic = main.refreshList();
+    	
+    	log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
+    	if(!operatingTaskFromLogic.isEmpty()) {
     		openToDoList();
-    	}*/
+    	}
     	
     	displayTaskList();
     	
+    	log.info("tasks empty? " + tasks.isEmpty());
     	if(tasks.isEmpty()) {
     		closeToDoList();
     	}
@@ -101,9 +107,9 @@ public class ListInterfaceController {
 		}
 	}
     
-    private void displayTaskList() throws IOException, JDOMException {
-    	//ArrayList<Task> taskList = _storage.getToBeDoneList();
-    	//formatTaskToListCell(taskList);
+    private void displayTaskList() {
+    	operatingTaskFromLogic = main.refreshList();
+    	formatTaskToListCell(operatingTaskFromLogic);
         todoList.setItems(tasks);
         loadClassList();
     }
@@ -131,7 +137,8 @@ public class ListInterfaceController {
 	}
 
 	private void loadClassList() {
-		/*if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+		/*
+		if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
 			main.refreshClassList();
 		} */
 	}

@@ -32,8 +32,8 @@ public class CommandLineController {
         feedback.setText(INIT_FEEDBACK);
     }
     
-    public void readUserInput() throws IOException, JDOMException {
-       // feedback.setText(uiToLogic());
+    public void readUserInput() {
+    	feedback.setText(uiToLogic());
         
         command = userInput.getText();
         userInput.clear();
@@ -43,7 +43,7 @@ public class CommandLineController {
     }
     
     @FXML 
-    private void handleSubmitButtonAction(KeyEvent event) throws IOException, JDOMException {
+    private void handleSubmitButtonAction(KeyEvent event) throws IOException {
     	
     	if (event.getCode() == KeyCode.ENTER) {
     		readUserInput();
@@ -97,10 +97,12 @@ public class CommandLineController {
 			userInput.setText(inputArray.get(--index));
 		}
 	}
-/*
-	private String uiToLogic() throws IOException, JDOMException {
-		return LogicHandler.processCommand(userInput.getText());
-	}*/
+
+	private String uiToLogic() {
+		String result = main.passInputToLogic(userInput.getText());
+		assert (result == null);
+		return result;
+	}
     
     private static String removeFirstWord(String userInput) {
 		return userInput.replace(getFirstWord(userInput), INITIALIZE).trim();

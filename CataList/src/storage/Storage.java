@@ -201,5 +201,6 @@ public class Storage {
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
 		}
+		return task.get_messageToUser();
 	}
 }
