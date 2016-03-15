@@ -16,7 +16,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
 	prefWidth="1024.0" styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainGUIController">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.MainGUIController">
 	<padding>
 		<Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
 	</padding>
@@ -29,24 +29,24 @@
 
 			<!-- Title -->
 			<top>
-				<fx:include fx:id="title" source="/View/TitleInterface.fxml" />
+				<fx:include fx:id="title" source="/ui/View/TitleInterface.fxml" />
 			</top>
 
 			<!-- Command Line -->
 			<bottom>
-				<fx:include fx:id="commandLine" source="/View/CommandLineInterface.fxml" />
+				<fx:include fx:id="commandLine" source="/ui/View/CommandLineInterface.fxml" />
 			</bottom>
 
 			<!-- Class -->
 			<left>
-				<fx:include fx:id="classList" source="/View/ClassInterface.fxml" />
+				<fx:include fx:id="classList" source="/ui/View/ClassInterface.fxml" />
 			</left>
 
 			<!-- to do list -->
 			<center>
 				<VBox>
-					<fx:include fx:id="supportFeature" source="/View/SupportFeatureInterface.fxml" />
-					<fx:include fx:id="todoList" source="/View/ListInterface.fxml" />
+					<fx:include fx:id="supportFeature" source="/ui/View/SupportFeatureInterface.fxml" />
+					<fx:include fx:id="todoList" source="/ui/View/ListInterface.fxml" />
 				</VBox>
 			</center>
 

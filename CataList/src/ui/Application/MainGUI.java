@@ -1,4 +1,4 @@
-package Application;
+package ui.Application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 public class MainGUI extends Application {
     
     private final String APP_NAME = "CataList";
-    private final String GUI_PATH = "/View/MainGUI.fxml";
-    private final String STYLESHEET_PATH = "/Application/Stylesheets/MainGUI.css";
-    private final String ICON_PATH = "/Application/Stylesheets/Background/catalist_icon.png";
+    private final String GUI_PATH = "/ui/View/MainGUI.fxml";
+    private final String STYLESHEET_PATH = "/ui/Application/Stylesheets/MainGUI.css";
+    private final String ICON_PATH = "/ui/Application/Stylesheets/Background/catalist_icon.png";
     
     @Override
     public void start(Stage stage) throws Exception {

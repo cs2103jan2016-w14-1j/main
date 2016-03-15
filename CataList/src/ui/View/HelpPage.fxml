@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HelpPageController">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.HelpPageController">
 	<children>
 		<StackPane layoutX="15.0" layoutY="10.0" prefHeight="390.0"
 			prefWidth="585.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="80"

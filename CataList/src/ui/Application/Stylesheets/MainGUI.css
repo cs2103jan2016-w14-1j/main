@@ -30,23 +30,23 @@
 
 
 #mainPaneDefault {
-    -fx-background-image: url("/Application/Stylesheets/Background/empty_wall.png");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/empty_wall.png");
 }
 
 #mainPaneSea {
-    -fx-background-image: url("/Application/Stylesheets/Background/sea_mtfuji.jpg");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/sea_mtfuji.jpg");
 }
 
 #mainPaneMountain {
-    -fx-background-image: url("/Application/Stylesheets/Background/mountains.jpg");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/mountains.jpg");
 }
 
 #mainPaneNight {
-    -fx-background-image: url("/Application/Stylesheets/Background/night_deathvalley.jpg");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/night_deathvalley.jpg");
 }
 
 #mainPaneSunrise {
-    -fx-background-image: url("/Application/Stylesheets/Background/sunrise_skye.jpg");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/sunrise_skye.jpg");
 }
 
 #mainPaneSunset {
@@ -54,7 +54,7 @@
 }
 
 #mainPaneWinter {
-    -fx-background-image: url("/Application/Stylesheets/Background/winter_netherlands.jpg");
+    -fx-background-image: url("/ui/Application/Stylesheets/Background/winter_netherlands.jpg");
 }
 
 .root {

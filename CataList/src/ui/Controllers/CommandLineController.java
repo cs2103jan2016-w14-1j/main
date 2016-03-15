@@ -1,4 +1,4 @@
-package Controllers;
+package ui.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class CommandLineController {
     }
     
     public void readUserInput() throws IOException, JDOMException {
-        feedback.setText(uiToLogic());
+       // feedback.setText(uiToLogic());
         
         command = userInput.getText();
         userInput.clear();
@@ -97,10 +97,10 @@ public class CommandLineController {
 			userInput.setText(inputArray.get(--index));
 		}
 	}
-
+/*
 	private String uiToLogic() throws IOException, JDOMException {
 		return LogicHandler.processCommand(userInput.getText());
-	}
+	}*/
     
     private static String removeFirstWord(String userInput) {
 		return userInput.replace(getFirstWord(userInput), INITIALIZE).trim();

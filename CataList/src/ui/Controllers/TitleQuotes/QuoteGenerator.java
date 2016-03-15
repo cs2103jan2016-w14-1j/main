@@ -1,6 +1,6 @@
-package Controllers.TitleQuotes;
+package ui.Controllers.TitleQuotes;
 
-import Controllers.TitleQuotes.QuoteStorageParser;
+import ui.Controllers.TitleQuotes.QuoteStorageParser;
 import java.util.Date;
 
 public class QuoteGenerator {

@@ -8,7 +8,7 @@
 
 <HBox prefHeight="500.0" prefWidth="700.0" BorderPane.alignment="CENTER" 
             xmlns:fx="http://javafx.com/fxml/1" fx:id="todoListContainer"
-            fx:controller="Controllers.ListInterfaceController" >
+            fx:controller="ui.Controllers.ListInterfaceController" >
             <children>
                   <ListView fx:id="todoList" HBox.hgrow="ALWAYS" 
                             prefHeight="500.0" prefWidth="700.0" />           

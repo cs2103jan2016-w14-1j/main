@@ -1,4 +1,4 @@
-package Controllers.HelpCommands;
+package ui.Controllers.HelpCommands;
 
 import java.io.File;
 import java.io.IOException;

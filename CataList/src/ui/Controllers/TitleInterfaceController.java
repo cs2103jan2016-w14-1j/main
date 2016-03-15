@@ -1,4 +1,4 @@
-package Controllers;
+package ui.Controllers;
 
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -6,12 +6,13 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import java.util.Timer;
 import java.util.TimerTask;
-import Controllers.MainGUIController;
-import Controllers.TitleQuotes.QuoteGenerator;
+import ui.Controllers.MainGUIController;
+import ui.Controllers.TitleQuotes.QuoteGenerator;
 
 public class TitleInterfaceController extends QuoteGenerator{
     
-    @FXML private Text quote;
+    @FXML
+    private Text quote;
     
     Timer animate = new Timer(true);
     

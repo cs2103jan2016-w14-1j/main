@@ -1,4 +1,4 @@
-package Controllers;
+package ui.Controllers;
 
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
@@ -10,11 +10,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.util.Duration;
-import storage.Storage;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.jdom2.JDOMException;
-import Controllers.MainGUIController;
+import ui.Controllers.MainGUIController;
 import logic.Task;
 
 public class ListInterfaceController {
@@ -38,7 +37,7 @@ public class ListInterfaceController {
     private static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
     
-    private Storage _storage = new Storage();
+ //   private Storage _storage = new Storage();
     
     public void init(MainGUIController mainController) throws IOException, JDOMException {
         main = mainController;
@@ -49,11 +48,11 @@ public class ListInterfaceController {
     
     public void loopTaskList() throws IOException, JDOMException {
     	tasks.clear();
-    	_storage.loadTask();
-    	
+    	//_storage.loadTask();
+    	/*
     	if(!_storage.getToBeDoneList().isEmpty()) {
     		openToDoList();
-    	}
+    	}*/
     	
     	displayTaskList();
     	
@@ -103,8 +102,8 @@ public class ListInterfaceController {
 	}
     
     private void displayTaskList() throws IOException, JDOMException {
-    	ArrayList<Task> taskList = _storage.getToBeDoneList();
-    	formatTaskToListCell(taskList);
+    	//ArrayList<Task> taskList = _storage.getToBeDoneList();
+    	//formatTaskToListCell(taskList);
         todoList.setItems(tasks);
         loadClassList();
     }
@@ -132,9 +131,9 @@ public class ListInterfaceController {
 	}
 
 	private void loadClassList() {
-		if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+		/*if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
 			main.refreshClassList();
-		}
+		} */
 	}
 
 	private void openToDoList() {
