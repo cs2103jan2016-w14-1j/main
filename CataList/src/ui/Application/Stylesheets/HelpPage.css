@@ -8,13 +8,25 @@
     src: url("Fonts/Delicious-SmallCaps.otf");
 }
 
+#helpListContainer {
+	-fx-background-color: rgb(255, 130, 0, 0.6);
+	-fx-background-radius: 20 20 20 20;
+	-fx-padding: 20;
+}
+
+#helpHeading {
+	-fx-font-size: 30px;
+    -fx-font-family: delicious-smallcaps;
+    -fx-text-fill: black;
+}
+
 .table-view {
     -fx-base: beige;
-    -fx-control-inner-background: white;
-    -fx-background-color: whitesmoke;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
+    -fx-background-radius: 20 20 20 20;
 }
 
 .table-view .column-header-background {
@@ -31,18 +43,23 @@
         derive(black, 80%) 
         transparent;
     -fx-border-insets: 0 10 1 0;
+    -fx-opacity: 0;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20px;
+    -fx-font-size: 10px;
     -fx-font-family: delicious-smallcaps;
     -fx-text-fill: black;
     -fx-alignment: center-left;
-    -fx-opacity: 1;
+    -fx-opacity: 0;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+.table-cell {
+	-fx-font-size: 12px;
 }
 
 .split-pane:horizontal > .split-pane-divider {

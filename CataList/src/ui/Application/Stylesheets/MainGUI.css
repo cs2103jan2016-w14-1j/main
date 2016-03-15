@@ -62,7 +62,7 @@
     -fx-min-width: 1020px;
 }
 
-#welcomeMessage {
+#mainPane {
 	-fx-alignment: center ; 
 	-fx-padding: 50 0 0 -230;
 }
@@ -81,6 +81,43 @@
 	-fx-fill: white;
 }
 
+#calendarContainer {
+	-fx-background-color: rgb(255, 130, 0, 0.6);
+	-fx-background-radius: 20 20 20 20;
+	-fx-max-width: 800;
+	-fx-max-height: 800;
+	-fx-alignment: center;
+	-fx-padding: 20;
+}
+
+.date-picker-popup {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+	-fx-max-width: 500;
+	-fx-pref-height: 500;
+}
+
+.date-picker-popup > .month-year-pane {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+}
+
+.date-picker-popup > * {
+	-fx-background-color: rgb(0, 0, 0, 0);
+}
+
+.date-picker-popup > * > .day-cell {
+	-fx-font-size: 15px;
+	-fx-background-color: rgb(0, 0, 0, 0);
+	-fx-border-color: transparent;
+        
+}
+
+.date-picker-popup > * > .today {
+	-fx-background-color: orangered;
+}
+
+
 #imageView {
 	-fx-opacity: 0.7;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,1) , 0,0,0,1 );
@@ -98,7 +135,7 @@
 
 /** list **/
 #todoList {
-	-fx-background-color: rgb(0, 0, 0, 0.3);
+	-fx-background-color: rgb(0, 0, 0, 0.2);
     -fx-font-size: 18px;
     -fx-font-family: delicious-roman;
     -fx-border-radius: 20 20 20 20;
@@ -117,7 +154,7 @@
 }
 
 #todoClass {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
+    -fx-background-color: rgb(0, 0, 0, 0.2);
     -fx-font-size: 20px;
     -fx-font-family: delicious-smallcaps;
     -fx-border-radius: 20 20 20 20;
@@ -143,7 +180,7 @@
 }
 
 .text-field {
-	-fx-background-color: rgb(255, 255, 255, 0.5);
+	-fx-background-color: rgb(255, 255, 255, 0.4);
 	-fx-background-radius: 20 20 20 20;
 	-fx-font-family: delicious-bold;
 	-fx-font-size: 20px;

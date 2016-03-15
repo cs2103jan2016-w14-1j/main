@@ -1,6 +1,5 @@
 package Controllers;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,17 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import storage.Storage;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.jdom2.JDOMException;
-
 import Controllers.MainGUIController;
-import storage.StorageReader;
 import logic.Task;
 
 public class ListInterfaceController {
@@ -39,9 +33,9 @@ public class ListInterfaceController {
     @FXML 
     private HBox todoListContainer;
     
-    public static ObservableList<HBox> tasks =
+    private static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
-    public static ObservableList<HBox> completed =
+    private static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
     
     private Storage _storage = new Storage();
@@ -58,11 +52,14 @@ public class ListInterfaceController {
     	_storage.loadTask();
     	
     	if(!_storage.getToBeDoneList().isEmpty()) {
-    		initToDoList();
+    		openToDoList();
     	}
     	
     	displayTaskList();
-    	closeList();
+    	
+    	if(tasks.isEmpty()) {
+    		closeToDoList();
+    	}
     }
     
     public void displayPending() {
@@ -73,36 +70,46 @@ public class ListInterfaceController {
         todoList.setItems(completed);
     }
     
-	private void closeList() {
-		if(tasks.isEmpty()) {
+	public void closeToDoList() {
+		if(todoList.getParent().getScaleX() == 1) {
 			animateToDoList(CLOSE_LIST);
-    	}
+		}
+	}
+	
+	public ObservableList<HBox> getTasks() {
+		return tasks;
+	}
+	
+	public ObservableList<HBox> getCompleted() {
+		return completed;
 	}
 
-	private void animateToDoList(Boolean command) {
-		if(!command) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
-			st.setFromX(1);
-			st.setToX(0);
-			st.setCycleCount(1);
-			st.play();
-		} else {
+	private void animateToDoList(boolean isOpen) {
+		if(isOpen) {
 			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
 			st.play();
+			todoList.getParent().setManaged(true);
+		} else {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoList.getParent());
+			st.setFromX(1);
+			st.setToX(0);
+			st.setCycleCount(1);
+			st.play();
+			todoList.getParent().setManaged(false);
 		}
 	}
     
     private void displayTaskList() throws IOException, JDOMException {
     	ArrayList<Task> taskList = _storage.getToBeDoneList();
-    	addTaskToListCell(taskList);
+    	formatTaskToListCell(taskList);
         todoList.setItems(tasks);
         loadClassList();
     }
 
-	private void addTaskToListCell(ArrayList<Task> taskList) {
+	private void formatTaskToListCell(ArrayList<Task> taskList) {
 		for(Task taskObj: taskList) {
     		HBox taskRow = new HBox(10);
     		CheckBox isCompleted = new CheckBox();
@@ -111,9 +118,11 @@ public class ListInterfaceController {
         	Label taskDate = new Label(taskObj.get_date());
         	
         	setProperties(taskName, taskTime, taskDate, taskRow);
-        	animateToDoList(OPEN_LIST);
-        	animateListCellFadeIn(taskRow);
         	
+        	if(todoList.getParent().getScaleX() == 0) {
+        		animateToDoList(OPEN_LIST);
+        	}
+       
         	isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
         	
         	taskRow.getChildren().addAll(isCompleted, taskName, taskTime, taskDate);
@@ -123,34 +132,27 @@ public class ListInterfaceController {
 	}
 
 	private void loadClassList() {
-		if(main.classListController.classes.isEmpty() && !_storage.getToBeDoneList().isEmpty()) {
-			main.classListController.initEmptyClassList();
+		if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+			main.refreshClassList();
 		}
 	}
 
-	private void initToDoList() {
+	private void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
-			todoListContainer.setManaged(true);
-			todoListContainer.setOpacity(1);
 			
-			if(main.welcomeMessage.isManaged()) {
-				main.removeWelcomeMsg();
-			
+			if(main.isMainPaneManaged()) {
+				todoListContainer.setManaged(true);
+				todoListContainer.setOpacity(1);
+				
+				main.removeMainPane();
 				animateToDoList(OPEN_LIST);
 			}
 		}
 	}
-
-	private void animateListCellFadeIn(HBox taskRow) {
-		FadeTransition ft = new FadeTransition(Duration.millis(500), taskRow);
-		ft.setFromValue(0.0);
-		ft.setToValue(1.0);
-		ft.play();
-	}
     
     private void handleCheckedBox(CheckBox cb, HBox hb) {
         if(cb.isSelected()) {
-            main.classListController.initCompletedClassList();
+            main.loadCompleted();
             completed.add(hb);
             tasks.remove(hb);
         }
@@ -158,7 +160,7 @@ public class ListInterfaceController {
         if(!cb.isSelected()) {
             completed.remove(hb);
             tasks.add(hb);
-            main.classListController.clearCompletedClassList();
+            main.clearCompleted();
         }
     }
     

@@ -9,7 +9,7 @@ public class EventParser {
 	public static String parseEvent(String userInput){
 		String inputEvent = removeCommandWord(userInput);
 		String resultingEvent = removeDateTime(inputEvent);
-		return resultingEvent;
+		return resultingEvent.trim();
 	}
 	
 	private static String removeCommandWord(String userInput){
@@ -33,10 +33,12 @@ public class EventParser {
 		String extractedEvent = SYMBOL_EMPTY;
 		String[] inputArray = userInput.split(SYMBOL_WHITESPACE);
 		
-		for(String eachWord : inputArray){
-			if(isNotDate(eachWord) || isNotTime(eachWord)){
-				extractedEvent += eachWord;
+		for(int i = 0 ; i <inputArray.length ; i++){
+			if(isNotDate(inputArray[i]) && isNotTime(inputArray[i])){
+				extractedEvent += inputArray[i];
 				extractedEvent += SYMBOL_WHITESPACE;
+			} else {
+				break;
 			}
 		}
 		return extractedEvent;
@@ -45,8 +47,8 @@ public class EventParser {
 	private static boolean isNotDate(String testString){
 		boolean noDate = true;
 		for(String eachFlag : KeywordConstraints.KW_DATE_FLAG){
-			if(testString.contains(eachFlag)){
-				noDate = true;
+			if(testString.equalsIgnoreCase(eachFlag)){
+				noDate = false;
 				return noDate;
 			}
 		}
@@ -56,8 +58,8 @@ public class EventParser {
 	private static boolean isNotTime(String testString){
 		boolean noTime = true;
 		for(String eachFlag : KeywordConstraints.KW_TIME_FLAG){
-			if(testString.contains(eachFlag)){
-				noTime = true;
+			if(testString.equalsIgnoreCase(eachFlag)){
+				noTime = false;
 				return noTime;
 			}
 		}

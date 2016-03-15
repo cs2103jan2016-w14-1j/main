@@ -14,43 +14,78 @@ public class ClassController {
 	private MainGUIController main;
 	
 	private final String DEFAULT = "inbox";
+	private final boolean OPEN_LIST = true;
+	private final boolean CLOSE_LIST = false;
 
 	@FXML 
-	ListView<String> todoClass;
+	private ListView<String> todoClass;
 	@FXML
-	VBox classContainer;
+	private VBox classContainer;
    
-	public static ObservableList<String> classes =
+	private static ObservableList<String> classes =
 			FXCollections.observableArrayList();
 
-	public void initEmptyClassList() {
-		if(classes.isEmpty()) {
+	public void init(MainGUIController mainController) {
+		main = mainController;
+		todoClass.getParent().setOpacity(0);
+	}
+	
+	public void loopClassList() {
+		if(classes.isEmpty() && !main.isToDoListEmpty()) {
+			openClassList();
+		}
+		
+		if(todoClass.getParent().getScaleX() == 0) {
+			animateClassList(OPEN_LIST);
+		}
+	}
+	
+	public void openClassList() {
 			todoClass.getParent().setOpacity(1);
-			ScaleTransition st = new ScaleTransition(Duration.millis(700), todoClass.getParent());
+			classes.add(DEFAULT);
+			todoClass.setItems(classes);
+			
+			animateClassList(OPEN_LIST);
+	}
+	
+	public void closeClassList() {
+		if(todoClass.getParent().getScaleX() == 1) {
+			animateClassList(CLOSE_LIST);
+		}
+	}
+	
+	public ObservableList<String> getClasses() {
+		return classes;
+	}
+
+	private void animateClassList(boolean isOpen) {
+		if(isOpen) {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), 
+					todoClass.getParent());
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
 			st.play();
-			classes.add(DEFAULT);
-			todoClass.setItems(classes);
+		} else {
+			ScaleTransition st = new ScaleTransition(Duration.millis(500), 
+					todoClass.getParent());
+			st.setFromX(1);
+			st.setToX(0);
+			st.setCycleCount(1);
+			st.play();
 		}
 	}
 
 	/******* temp class parser *********/
 	public void initCompletedClassList() {
-		if(ListInterfaceController.completed.isEmpty()) {
+		if(main.isCompletedEmpty()) {
 			classes.add("complete");
 		}
 	}
 
 	public void clearCompletedClassList() {
-		if(ListInterfaceController.completed.isEmpty()) {
+		if(main.isCompletedEmpty()) {
 			classes.remove("complete");
 		}
-	}
-
-	public void init(MainGUIController mainController) {
-		main = mainController;
-		todoClass.getParent().setOpacity(0);
 	}
 }
