@@ -45,6 +45,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	private static Element time;
 	private static Element date;
 	private static int index = 0;
+	private static int listPointer = 0;
 	
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
@@ -95,6 +96,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 		
 		states.add(StorageReader.readFromStorage());
+		listPointer++;
 		
 		return taskObj.get_messageToUser();
 	}
@@ -151,6 +153,7 @@ public class TaskFormatToStorage extends StorageWriter {
 			return taskObj.get_messageToUser();
 		}
 	    states.add(StorageReader.readFromStorage());
+	    listPointer++;
 	    
 	    return taskObj.get_messageToUser();
 	}
@@ -199,10 +202,35 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 	    
 	    states.add(StorageReader.readFromStorage());
+	    listPointer++;
 	    
 	    return taskObj.get_messageToUser();
 		
 	} 
+	
+	public static ArrayList<Task> undoFromStorage(Task taskObj) throws IOException, JDOMException{
+		
+		ArrayList<Task> undoneState = new ArrayList<Task>();
+		try{
+			undoneState = states.get(listPointer - 1);
+		} catch(NullPointerException npe){
+			npe.printStackTrace();
+		}
+	
+		return undoneState;
+	}
+	
+	public static ArrayList<Task> redoFromStorage(Task taskObj) throws IOException, JDOMException{
+		
+		ArrayList<Task> redoneState = new ArrayList<Task>();
+		try{
+			redoneState = states.get(listPointer + 1);
+		} catch(NullPointerException npe){
+			npe.printStackTrace();
+		}
+	
+		return redoneState;
+	}
 	
 	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
 
@@ -232,6 +260,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 		
 		states.add(StorageReader.readFromStorage());
+		listPointer++;
 		
 		return taskObj.get_messageToUser();
 	} 
