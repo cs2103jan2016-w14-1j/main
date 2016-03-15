@@ -5,6 +5,5 @@
 	<classpathentry kind="lib" path="C:/Users/asus/Desktop/EXTERNAL JAR/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/asus/Desktop/EXTERNAL JAR/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="C:/Users/asus/Desktop/EXTERNAL JAR/jdom-2.0.6.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/storage"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

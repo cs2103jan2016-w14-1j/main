@@ -3,6 +3,7 @@ package storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,8 +23,7 @@ import storage.StorageReader;
 
 
 public class Storage {
-	private static String fileName;
-	private static String LISTNAME = "todoList.xml";
+	private static String LISTNAME = "test.xml";
 	private static File file;
 	private static ArrayList<Task> toBeDoneList;
 	private static ArrayList<Task> completedList;
@@ -57,11 +57,19 @@ public class Storage {
 	}
 	
 	public File getFile(String fileName){
-		File file = new File(fileName);
-		if(!file.exists()){
-			return null;
-		}
+		URL url = getClass().getResource(LISTNAME);
+		File file = new File(url.getPath());
+		
 		return file;
+	}
+	
+	public void changeFilePath(String userFileName){
+		try {
+			Files.move(Paths.get(LISTNAME), Paths.get(userFileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static byte[] getFileInBytes(String fileName) {
@@ -75,6 +83,7 @@ public class Storage {
         return content;
 	}
 	
+	
 	public void loadTask() throws IOException, JDOMException {
 		toBeDoneList = StorageReader.readFromStorage();
 	}
@@ -87,7 +96,7 @@ public class Storage {
 		return completedList;
 	}
 	
-	public static boolean XMlFileBuilder() throws JDOMException, IOException{
+/*	public static boolean XMLFileBuilder() throws JDOMException, IOException{
 		Element todoList;
 		
 		SAXBuilder jdomBuilder = new SAXBuilder();
@@ -105,7 +114,7 @@ public class Storage {
 		Element firstItem = todoList.getChild("");
 		
         return true;
-	}
+	}*/
 	
 	//Calls to TaskFormatToStorage various methods
 	public static String addToStorage(Task task) throws IOException, JDOMException{
@@ -141,5 +150,20 @@ public class Storage {
 			TaskFormatToStorage.displayFromStorage(task);
 			
 			return task.get_messageToUser();
+	}
+	
+	public ArrayList<Task> undoFromStorage(Task task) throws IOException, JDOMException{
+		
+		masterList = TaskFormatToStorage.undoFromStorage(task);
+		
+		return masterList;
+
+	}
+	public ArrayList<Task> redoFromStorage(Task task) throws IOException, JDOMException{
+			
+		masterList = TaskFormatToStorage.redoFromStorage(task);
+			
+		return masterList;
+	
 	}
 }
