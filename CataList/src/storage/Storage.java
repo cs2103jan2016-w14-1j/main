@@ -115,16 +115,16 @@ public class Storage {
 		return task.get_messageToUser();
 	}
 	
-	public static String deleteFromStorage(Task task) throws IOException, JDOMException{
+	public static String deleteFromStorage(Task task, int testIndex) throws IOException, JDOMException{
 			
-			TaskFormatToStorage.deleteFromStorage(task);
+			TaskFormatToStorage.deleteFromStorage(task, testIndex);
 			
 			return task.get_messageToUser();
 		}
 		
-	public static String editFromStorage(Task task) throws IOException, JDOMException{
+	public static String editFromStorage(Task task, int testIndex) throws IOException, JDOMException{
 		
-		TaskFormatToStorage.editFromStorage(task);
+		TaskFormatToStorage.editFromStorage(task, testIndex);
 		
 		return task.get_messageToUser();
 	}
