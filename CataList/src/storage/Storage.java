@@ -153,18 +153,18 @@ public class Storage {
 	}
 
 	
-	public ArrayList<Task> undoFromStorage(Task task) throws IOException, JDOMException{
+	public String undoFromStorage(Task task) throws IOException, JDOMException{
 		
 		masterList = TaskFormatToStorage.undoFromStorage(task);
 		
-		return masterList;
+		return task.get_messageToUser();
 
 	}
-	public ArrayList<Task> redoFromStorage(Task task) throws IOException, JDOMException{
+	public String redoFromStorage(Task task) throws IOException, JDOMException{
 			
 		masterList = TaskFormatToStorage.redoFromStorage(task);
 			
-		return masterList;
+		return task.get_messageToUser();
 	
 	}
 }
