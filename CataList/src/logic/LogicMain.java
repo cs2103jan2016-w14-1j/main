@@ -65,26 +65,31 @@ public class LogicMain {
 	
 	private String doAdd(Task taskToOp){
 		String feedback = storageSystem.addToStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doDelete(Task taskToOp){
 		String feedback = storageSystem.deleteFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doClear(Task taskToOp){
 		String feedback = storageSystem.clearFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doDisplay(Task taskToOp){
 		String feedback = storageSystem.displayFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doEdit(Task taskToOp){
 		String feedback = storageSystem.editFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	

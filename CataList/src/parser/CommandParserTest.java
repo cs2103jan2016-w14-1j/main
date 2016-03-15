@@ -2,12 +2,18 @@ package parser;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.logging.Logger;
+
 import org.junit.Test;
 
 public class CommandParserTest {
-
+	 private static final Logger logger =
+		        Logger.getLogger(CommandParserTest.class.getName());
+	 
 	@Test
 	public void AddCommandTest(){
+		logger.entering(getClass().getName(), "AddTest");
+		
 		String userInput1 = "add \"Fire James 2GD";
 		String userInput2 = "/a Fire James 2GD";
 		String userInput3 = "-a Fire James 2GD";
@@ -24,6 +30,7 @@ public class CommandParserTest {
 		assertEquals(expectedResult, result2);
 		assertEquals(expectedResult, result3);
 		assertEquals(expectedResult, result4);
+		logger.exiting(getClass().getName(), "add test");
 	}
 	
 	@Test
