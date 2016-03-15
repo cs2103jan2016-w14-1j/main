@@ -85,8 +85,14 @@ public class Storage {
 	}
 	
 	
-	public void loadTask() throws IOException, JDOMException {
-		toBeDoneList = StorageReader.readFromStorage();
+	public void loadTask() {
+		try{
+			masterList = StorageReader.readFromStorage();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		} catch (JDOMException jdome) {
+			jdome.printStackTrace();
+		}
 	}
 	
 	public ArrayList<Task> getToBeDoneList() {
@@ -105,6 +111,7 @@ public class Storage {
 	public static String addToStorage(Task task) {
 		try{
 			TaskFormatToStorage.addToStorage(task);
+			masterList.add(task);
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
@@ -116,8 +123,11 @@ public class Storage {
 	}
 	
 	public static String deleteFromStorage(Task task){
+		int taskIndex;
 		try{
 			TaskFormatToStorage.deleteFromStorage(task);
+			taskIndex = task.get_index();
+			masterList.remove(taskIndex-1);
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
