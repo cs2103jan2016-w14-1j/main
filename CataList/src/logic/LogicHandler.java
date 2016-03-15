@@ -13,11 +13,11 @@ public class LogicHandler {
 	private static final int INPUT_LENGTH_NODATETIME = 2;  
 	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
 	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
-	
 	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
 															,"edit"
 															,"markcomplete"
 															,"markincomplete"};
+
 
 	public static Task processCommand(String[] userInputArray){
 		int numberOfFields = userInputArray.length;

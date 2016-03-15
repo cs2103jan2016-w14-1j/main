@@ -3,10 +3,6 @@ package parser;
 public class EventParser {
 	private static final String SYMBOL_WHITESPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
-<<<<<<< HEAD
-=======
-	
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 	private static final int COMMAND_WORD_INDEX = 0;
 	private static final int ARRAY_MINIMUM_LENGTH = 2; 
 	

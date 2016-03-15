@@ -51,11 +51,7 @@ public class DateTimeParser {
 				}
 			}
 		}
-<<<<<<< HEAD
-		return indexOfDate;
-=======
 		return indexOfDate + 1;
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 	}
 	
 	private static int searchForTimeFlagsIndex(String[] splittedInput){
@@ -68,11 +64,7 @@ public class DateTimeParser {
 				}
 			}
 		}
-<<<<<<< HEAD
-		return indexOfTime;
-=======
 		return indexOfTime + 1;
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 	}
 	
 	private static String parseForDate(String targetString){
@@ -93,12 +85,6 @@ public class DateTimeParser {
 		LocalDate targetDate = null;
 		String dateParsed = SYMBOL_EMPTY;
 		
-<<<<<<< HEAD
-		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITH_YEAR){
-			targetDate = DateTimeFormat.forPattern(eachKeyword).parseLocalDate(targetString)
-										.withYear(currentDate.getYear());
-			dateParsed = targetDate.toString(KeywordConstraints.KW_FORMAT_DATE_STORAGE);
-=======
 		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITHOUT_YEAR){
 			try{
 				targetDate = DateTimeFormat.forPattern(eachKeyword).parseLocalDate(targetString)
@@ -107,7 +93,6 @@ public class DateTimeParser {
 			} catch (IllegalArgumentException e) {
 				//nothing 
 			}
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 		}
 		return dateParsed;
 	}
@@ -116,11 +101,6 @@ public class DateTimeParser {
 		LocalDate targetDate = null;
 		String dateParsed = SYMBOL_EMPTY;
 		
-<<<<<<< HEAD
-		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITHOUT_YEAR){
-			targetDate = DateTimeFormat.forPattern(eachKeyword).parseLocalDate(targetString);
-			dateParsed = targetDate.toString(KeywordConstraints.KW_FORMAT_DATE_STORAGE);
-=======
 		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITH_YEAR){
 			try{
 				targetDate = DateTimeFormat.forPattern(eachKeyword).parseLocalDate(targetString);
@@ -128,7 +108,6 @@ public class DateTimeParser {
 			} catch (IllegalArgumentException e){
 				//nothing.
 			}
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 		}
 		
 		return dateParsed;
@@ -138,17 +117,12 @@ public class DateTimeParser {
 		LocalTime curTime = null;
 		String timeParsed = SYMBOL_EMPTY;
 		for(String eachKeyword : KeywordConstraints.KW_FORMAT_TIME){
-<<<<<<< HEAD
-			curTime = DateTimeFormat.forPattern(eachKeyword).parseLocalTime(targetString);
-			timeParsed = curTime.toString(KeywordConstraints.KW_FORMAT_TIME_STORAGE);
-=======
 			try{
 			curTime = DateTimeFormat.forPattern(eachKeyword).parseLocalTime(targetString);
 			timeParsed = curTime.toString(KeywordConstraints.KW_FORMAT_TIME_STORAGE);
 			} catch (IllegalArgumentException e){
 				//nothing
 			}
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
 		}
 		return timeParsed;
 	}

@@ -29,14 +29,6 @@ public class KeywordConstraints {
 																, "dd-MM-yy"
 																, "dd.MM.yy"
 																, "ddMMyy"
-<<<<<<< HEAD
-																,"dd.MMMM.yy" };
-	protected static final String[] KW_FORMAT_DATE_WITHOUT_YEAR = { "dd/MM"
-																, "dd-MM"
-																, "dd.MM"
-																, "ddMM",
-																"dd.MMMM" };
-=======
 																, "dd.MMMM.yy"
 																, "ddMMMMYY"
 																, "dd-MMMM-YY"};
@@ -47,7 +39,7 @@ public class KeywordConstraints {
 																, "dd.MMMM"
 																, "ddMMMM"
 																, "dd-MMMM"};
->>>>>>> 4bc2ba00decfba7f0731ebf36b9f10c652e35bf0
+
 	protected static final String[] KW_FORMAT_TIME = { "HHmm"
 														, "HH:mm"
 														, "HH.mm"
