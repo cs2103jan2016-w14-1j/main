@@ -41,13 +41,14 @@ public class ParserMain {
 		
 		formattedCommand.add(commandWords);
 		formattedCommand.add(eventWords);
-	
+
 		for(String eachWord : dateTimeWords){
 			formattedCommand.add(eachWord);
 		}
-		
+
 		checkForErrors();
 		String[] returnArray = formattedCommand.toArray(new String[0]);
+		formattedCommand.clear();
 		return returnArray;
 	}
 	
@@ -95,7 +96,8 @@ public class ParserMain {
 		boolean result = true;
 		int receivedIndex = 0;
 		if(isRequireIndex(receivedCommand)){
-			receivedIndex = parseInt(formattedCommand.get(EVENT_INDEX));
+			receivedIndex = parseInt(receivedCommand + " " 
+							+ formattedCommand.get(EVENT_INDEX));
 		}
 		
 		if(receivedIndex >=0){

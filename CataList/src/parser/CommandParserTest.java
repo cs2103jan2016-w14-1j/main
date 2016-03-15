@@ -50,7 +50,7 @@ public class CommandParserTest {
 		String result6 = CommandParser.parseCommand(userInput6);
 		
 		String expectedResult = "delete";
-		
+		System.out.println(result1);
 		assertEquals(expectedResult, result1);
 		assertEquals(expectedResult, result2);
 		assertEquals(expectedResult, result3);

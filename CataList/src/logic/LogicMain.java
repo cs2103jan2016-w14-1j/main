@@ -76,6 +76,7 @@ public class LogicMain {
 	}
 	
 	private String doClear(Task taskToOp){
+		System.out.print("Clearing");
 		String feedback = storageSystem.clearFromStorage(taskToOp);
 		operatingTasks = storageSystem.getMasterList();
 		return feedback;
