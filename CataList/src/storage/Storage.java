@@ -154,6 +154,7 @@ public class Storage {
 	public static String clearFromStorage(Task task){
 		try{
 			TaskFormatToStorage.clearFromStorage(task);
+			masterList.clear();
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
