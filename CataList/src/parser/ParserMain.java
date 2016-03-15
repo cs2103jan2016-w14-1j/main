@@ -47,7 +47,8 @@ public class ParserMain {
 		}
 		
 		checkForErrors();
-		return (String[]) formattedCommand.toArray();
+		String[] returnArray = formattedCommand.toArray(new String[0]);
+		return returnArray;
 	}
 	
 	private boolean isRequireIndex(String inputCommand){
