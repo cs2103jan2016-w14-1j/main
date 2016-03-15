@@ -31,7 +31,6 @@ public class LogicHandler {
 		} else {
 			newTask = createTaskWithParserError();
 		}
-		
 		updateTaskWithIndex(newTask);
 		return newTask;
 	}

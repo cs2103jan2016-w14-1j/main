@@ -1,5 +1,7 @@
 package parser;
 
+import java.util.Arrays;
+
 public class IndexParser {
 
 	private static final int FIRST_WORD_INDEX = 1;

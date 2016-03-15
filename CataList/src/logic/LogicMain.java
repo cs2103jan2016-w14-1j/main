@@ -65,26 +65,32 @@ public class LogicMain {
 	
 	private String doAdd(Task taskToOp){
 		String feedback = storageSystem.addToStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doDelete(Task taskToOp){
 		String feedback = storageSystem.deleteFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doClear(Task taskToOp){
+		System.out.print("Clearing");
 		String feedback = storageSystem.clearFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doDisplay(Task taskToOp){
 		String feedback = storageSystem.displayFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
 	private String doEdit(Task taskToOp){
 		String feedback = storageSystem.editFromStorage(taskToOp);
+		operatingTasks = storageSystem.getMasterList();
 		return feedback;
 	}
 	
@@ -99,10 +105,19 @@ public class LogicMain {
 	}
 	
 	private String doSearch(Task taskToOp){
-		//TODO:
+		String toFind = taskToOp.get_task();
+		ArrayList<Task> foundList = new ArrayList<Task>();
+		for(Task eachTask : storageSystem.getMasterList()){
+			if(eachTask.get_task().contains(toFind)){
+				foundList.add(eachTask);
+			}
+		}
+		operatingTasks = foundList;
+		return taskToOp.get_messageToUser();
 		//get ARRAYLIST<task> from storage
 		//do search.
 		//update operatingTasks
+		
 	}
 	
 	private String doMarkComplete(Task taskToOp){
