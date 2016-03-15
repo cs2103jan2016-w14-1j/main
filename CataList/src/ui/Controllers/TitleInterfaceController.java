@@ -11,16 +11,12 @@ import Controllers.TitleQuotes.QuoteGenerator;
 
 public class TitleInterfaceController extends QuoteGenerator{
     
-    private MainGUIController main;
-    
     @FXML private Text quote;
     
     Timer animate = new Timer(true);
     
     public void init(MainGUIController mainController) {
-        main = mainController;
         animateQuote();
-       
     }
 
 	private void animateQuote() {

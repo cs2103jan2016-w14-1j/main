@@ -32,7 +32,8 @@ public class HelpPageController {
     
     private ArrayList<ArrayList<String>> parsedStorage;
  
-    public void initialize() {
+    @SuppressWarnings("unchecked")
+	public void initialize() {
         TableColumn<Help, String> idCol = createColumn(ID_HEADER, ID_VALUE, ID_COL_WIDTH);
         TableColumn<Help, String> commandCol = createColumn(COMMAND_HEADER, COMMAND_VALUE, COMMAND_COL_WIDTH);
         
