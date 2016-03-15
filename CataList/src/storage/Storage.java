@@ -29,6 +29,7 @@ public class Storage {
 	private static ArrayList<Task> completedList;
 	private static ArrayList<Task> masterList;
 	
+	private static final String MESSAGE_DEFAULT_ERROR = "Error";
 	/*** Constructor ***/
 	public Storage(){
 		toBeDoneList = new ArrayList<Task>();
@@ -100,73 +101,95 @@ public class Storage {
 		return masterList;
 	}
 	
-/*	public static boolean XMLFileBuilder() throws JDOMException, IOException{
-		Element todoList;
-		
-		SAXBuilder jdomBuilder = new SAXBuilder();
-		
-		//building the document(xml file to be used)
-		Document toDoListDocument = jdomBuilder.build(LISTNAME);
-		
-		//this would be the root element of the document, check if element exists or not
-		if(toDoListDocument.getRootElement() == null){
-			todoList = new Element("masterList");
-		} else {
-			todoList = toDoListDocument.getRootElement();
-		}
-		
-		Element firstItem = todoList.getChild("");
-		
-        return true;
-	}*/
-	
 	//Calls to TaskFormatToStorage various methods
-	public static String addToStorage(Task task) throws IOException, JDOMException{
-		
-		TaskFormatToStorage.addToStorage(task);
-		
+	public static String addToStorage(Task task) {
+		try{
+			TaskFormatToStorage.addToStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
 		return task.get_messageToUser();
 	}
 	
-	public static String deleteFromStorage(Task task, int testIndex) throws IOException, JDOMException{
-			
-			TaskFormatToStorage.deleteFromStorage(task, testIndex);
-			
+	public static String deleteFromStorage(Task task){
+		try{
+			TaskFormatToStorage.deleteFromStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
 			return task.get_messageToUser();
 		}
 		
-	public static String editFromStorage(Task task, int testIndex) throws IOException, JDOMException{
-		
-		TaskFormatToStorage.editFromStorage(task, testIndex);
-		
+	public static String editFromStorage(Task task){
+		try{
+			TaskFormatToStorage.editFromStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
 		return task.get_messageToUser();
 	}
 	
-	public static String clearFromStorage(Task task) throws IOException, JDOMException{
-		
-		TaskFormatToStorage.clearFromStorage(task);
-		
+	public static String clearFromStorage(Task task){
+		try{
+			TaskFormatToStorage.clearFromStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
 		return task.get_messageToUser();
 	}
 	
-	public static String displayFromStorage(Task task) throws IOException, JDOMException{
-			
-			TaskFormatToStorage.displayFromStorage(task);
-			
+	public static String displayFromStorage(Task task){
+			try{
+				TaskFormatToStorage.displayFromStorage(task);
+			} catch (IOException ioe){
+				task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+				return task.get_messageToUser();
+			} catch (JDOMException jdome) {
+				task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+				return task.get_messageToUser();
+			}
 			return task.get_messageToUser();
 	}
 	
-	public String undoFromStorage(Task task) throws IOException, JDOMException{
-		
-		masterList = TaskFormatToStorage.undoFromStorage(task);
-		
-		return task.get_messageToUser();
-
-	}
-	public String redoFromStorage(Task task) throws IOException, JDOMException{
-			
-		masterList = TaskFormatToStorage.redoFromStorage(task);
-			
+	public String undoFromStorage(Task task){
+		try{
+			masterList = TaskFormatToStorage.undoFromStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
+			return task.get_messageToUser();
+	
+		}
+	public String redoFromStorage(Task task){
+		try{	
+			masterList = TaskFormatToStorage.redoFromStorage(task);
+		} catch (IOException ioe){
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		} catch (JDOMException jdome) {
+			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			return task.get_messageToUser();
+		}
 		return task.get_messageToUser();
 	
 	}
