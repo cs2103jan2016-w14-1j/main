@@ -188,8 +188,8 @@ public class Storage {
 			return task.get_messageToUser();
 		}
 			return task.get_messageToUser();
+	}
 	
-		}
 	public String redoFromStorage(Task task){
 		try{	
 			masterList = TaskFormatToStorage.redoFromStorage(task);
