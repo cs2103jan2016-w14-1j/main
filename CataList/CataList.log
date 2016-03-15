@@ -2,31 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-16T02:27:57</date>
-  <millis>1458066477049</millis>
+  <date>2016-03-16T02:42:15</date>
+  <millis>1458067335500</millis>
   <sequence>0</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loopTaskList</method>
-  <thread>12</thread>
-  <message>operatingTaskFromLogic empty? true</message>
-</record>
-<record>
-  <date>2016-03-16T02:27:57</date>
-  <millis>1458066477083</millis>
-  <sequence>1</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loopTaskList</method>
-  <thread>12</thread>
-  <message>tasks empty? true</message>
-</record>
-<record>
-  <date>2016-03-16T02:28:00</date>
-  <millis>1458066480936</millis>
-  <sequence>2</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
@@ -35,14 +13,14 @@
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-16T02:28:00</date>
-  <millis>1458066480944</millis>
-  <sequence>3</sequence>
+  <date>2016-03-16T02:42:19</date>
+  <millis>1458067339739</millis>
+  <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
   <thread>12</thread>
-  <message>tasks empty? false</message>
+  <message>operatingTaskFromLogic empty? false</message>
 </record>
 </log>

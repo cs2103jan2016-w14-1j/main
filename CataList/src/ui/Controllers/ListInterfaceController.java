@@ -10,11 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.util.Duration;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
-import org.jdom2.JDOMException;
 import ui.Controllers.MainGUIController;
 import logic.Task;
 import shared.LogHandler;
@@ -61,7 +58,6 @@ public class ListInterfaceController {
     	
     	displayTaskList();
     	
-    	log.info("tasks empty? " + tasks.isEmpty());
     	if(tasks.isEmpty()) {
     		closeToDoList();
     	}
@@ -137,10 +133,10 @@ public class ListInterfaceController {
 	}
 
 	private void loadClassList() {
-		/*
-		if(main.isClassEmpty() && !_storage.getToBeDoneList().isEmpty()) {
+		
+		if(main.isClassEmpty() && !operatingTaskFromLogic.isEmpty()) {
 			main.refreshClassList();
-		} */
+		} 
 	}
 
 	private void openToDoList() {

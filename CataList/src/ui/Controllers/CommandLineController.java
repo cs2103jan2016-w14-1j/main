@@ -99,9 +99,8 @@ public class CommandLineController {
 	}
 
 	private String uiToLogic() {
-		String result = main.passInputToLogic(userInput.getText());
-		assert (result == null);
-		return result;
+		assert (this != null);
+		return main.passInputToLogic(userInput.getText());
 	}
     
     private static String removeFirstWord(String userInput) {
