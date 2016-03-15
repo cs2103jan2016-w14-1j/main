@@ -28,4 +28,8 @@ public class AddTask extends Task {
 	public void setErrorMessageEmpty(){
 		this.set_messageToUser(MESSAGE_ADD_EMPTY);
 	}
+	
+	public static String getSuccessMessage(){
+		return MESSAGE_ADD_SUCCESS;
+	}
 }

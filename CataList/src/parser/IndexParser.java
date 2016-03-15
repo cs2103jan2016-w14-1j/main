@@ -1,7 +1,7 @@
 package parser;
 
 public class IndexParser {
-	private static final int FIRST_WORD_INDEX = 0;
+	private static final int FIRST_WORD_INDEX = 1;
 	
 	public static int parseIndex(String userInputEvent){
 		String IndexWord = findIndexWord(userInputEvent);

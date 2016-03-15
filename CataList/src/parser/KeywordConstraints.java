@@ -29,12 +29,16 @@ public class KeywordConstraints {
 																, "dd-MM-yy"
 																, "dd.MM.yy"
 																, "ddMMyy"
-																,"dd.MMMM.yy" };
+																, "dd.MMMM.yy"
+																, "ddMMMMYY"
+																, "dd-MMMM-YY"};
 	protected static final String[] KW_FORMAT_DATE_WITHOUT_YEAR = { "dd/MM"
 																, "dd-MM"
 																, "dd.MM"
-																, "ddMM",
-																"dd.MMMM" };
+																, "ddMM"
+																, "dd.MMMM"
+																, "ddMMMM"
+																, "dd-MMMM"};
 	protected static final String[] KW_FORMAT_TIME = { "HHmm"
 														, "HH:mm"
 														, "HH.mm"
