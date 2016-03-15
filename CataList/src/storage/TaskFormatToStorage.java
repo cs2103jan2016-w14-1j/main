@@ -102,13 +102,14 @@ public class TaskFormatToStorage extends StorageWriter {
 	}
 	
 	
-	public static String deleteFromStorage(Task taskObj, int testIndex) throws JDOMException, IOException {
+	public static String deleteFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
 		
+		int testIndex = taskObj.get_index();
 		List<Element> taskChildren = rootElement.getChildren();
 		//List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
 	    Iterator<Element> itr = taskChildren.iterator();
@@ -159,13 +160,14 @@ public class TaskFormatToStorage extends StorageWriter {
 	}
 	
 	
-	public static String editFromStorage(Task taskObj, int testIndex) throws JDOMException, IOException {
+	public static String editFromStorage(Task taskObj) throws JDOMException, IOException {
 		
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
 				
+		int testIndex = taskObj.get_index();
 		List<Element> taskChildren = rootElement.getChildren();
 	    Iterator<Element> itr = taskChildren.iterator();
 	        
