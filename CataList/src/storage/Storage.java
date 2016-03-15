@@ -96,6 +96,10 @@ public class Storage {
 		return completedList;
 	}
 	
+	public ArrayList<Task> getMasterList() {
+		return masterList;
+	}
+	
 /*	public static boolean XMLFileBuilder() throws JDOMException, IOException{
 		Element todoList;
 		
@@ -152,18 +156,18 @@ public class Storage {
 			return task.get_messageToUser();
 	}
 	
-	public ArrayList<Task> undoFromStorage(Task task) throws IOException, JDOMException{
+	public String undoFromStorage(Task task) throws IOException, JDOMException{
 		
 		masterList = TaskFormatToStorage.undoFromStorage(task);
 		
-		return masterList;
+		return task.get_messageToUser();
 
 	}
-	public ArrayList<Task> redoFromStorage(Task task) throws IOException, JDOMException{
+	public String redoFromStorage(Task task) throws IOException, JDOMException{
 			
 		masterList = TaskFormatToStorage.redoFromStorage(task);
 			
-		return masterList;
+		return task.get_messageToUser();
 	
 	}
 }
