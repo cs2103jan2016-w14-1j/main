@@ -127,8 +127,6 @@ public class TaskFormatToStorage extends StorageWriter {
 	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
 	    		
 	        	   itr.remove();
-	        	   masterList.remove(taskObj);
-	        	   toBeDoneList.remove(taskObj);
 	           }
 	    }
 	    

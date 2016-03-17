@@ -48,23 +48,20 @@ public class StorageTest {
 	
 	public void testDelete() throws JDOMException, IOException {
 		test = new Task(true, "find some bitches", "delete", "fuck yes", "0100", "32 March");
-		test.set_index(1);
-		int testIndex = test.get_index();
-		Storage.deleteFromStorage(test, testIndex);
+		test.set_index(2);
+		Storage.deleteFromStorage(test);
 	}
 	
 	public void testEdit1() throws JDOMException, IOException {
 		test = new Task(true, "find some putang ina", "edit", MESSAGE_ADD_SUCCESS, "1234", "03 March");
 		test.set_index(1);
-		int testIndex = test.get_index();
-		Storage.editFromStorage(test, testIndex);
+		Storage.editFromStorage(test);
 	}
 	
 	public void testEdit2() throws JDOMException, IOException {
 		test = new Task(true, "tang ina BOBO", "edit", MESSAGE_ADD_SUCCESS, "5555", "20 March");
 		test.set_index(3);
-		int testIndex = test.get_index();
-		Storage.editFromStorage(test, testIndex);
+		Storage.editFromStorage(test);
 	}
 	
 	public void testAddStorage() throws JDOMException, IOException {
@@ -72,11 +69,9 @@ public class StorageTest {
 		assertEquals(MESSAGE_ADD_SUCCESS, Storage.addToStorage(test));
 	}
 	
-	@Test
 	public void testEditStorage() throws JDOMException, IOException {
 		test = new Task(true, "find some putang ina", "edit", MESSAGE_ADD_SUCCESS, "1234", "03 March");
 		test.set_index(1);
-		int testIndex = test.get_index();
-		assertEquals(MESSAGE_ADD_SUCCESS, Storage.editFromStorage(test, testIndex));
+		assertEquals(MESSAGE_ADD_SUCCESS, Storage.editFromStorage(test));
 	}
 }

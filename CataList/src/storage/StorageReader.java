@@ -41,7 +41,7 @@ public class StorageReader {
 			
 			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
 					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
-			taskObj.set_index(i);
+			taskObj.set_index(i+1);
 			listOfTask.add(taskObj);
 			
 		}

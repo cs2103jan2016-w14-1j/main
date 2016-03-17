@@ -127,6 +127,8 @@ public class Storage {
 		try{
 			TaskFormatToStorage.deleteFromStorage(task);
 			taskIndex = task.get_index();
+			System.out.println(taskIndex);
+			
 			masterList.remove(taskIndex-1);
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
