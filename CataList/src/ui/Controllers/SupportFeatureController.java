@@ -3,8 +3,6 @@ package ui.Controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import org.jdom2.JDOMException;
-
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 
 import javafx.animation.FadeTransition;
@@ -40,7 +38,9 @@ public class SupportFeatureController {
 	
 	public void init(MainGUIController mainController) {
         main = mainController;
-        showMainPane();
+        if(main.isToDoListEmpty()) {
+        	showMainPane();
+        }
     }
 	
 	public VBox getMainPane() {
@@ -90,13 +90,11 @@ public class SupportFeatureController {
 	}
     
     public void showMainPane() {
-    	if(main.isToDoListEmpty()) {
     		mainPane.setManaged(true);
 
     		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
     		ft.setFromValue(0);
     		ft.setToValue(1);
     		ft.play();
-    	}
     }
 }

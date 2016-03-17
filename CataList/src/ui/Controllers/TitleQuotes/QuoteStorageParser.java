@@ -37,6 +37,7 @@ public class QuoteStorageParser {
       }catch(JDOMException | IOException e){
       }
       
+      
       return result;
    }
 

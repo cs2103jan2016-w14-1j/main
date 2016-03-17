@@ -17,7 +17,7 @@ public class TitleInterfaceController extends QuoteGenerator{
     Timer animate = new Timer(true);
     
     public void init(MainGUIController mainController) {
-        animateQuote();
+    	animateQuote();
     }
 
 	private void animateQuote() {

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class IndexParser {
 
-	private static final int FIRST_WORD_INDEX = 1;
+	private static final int FIRST_WORD_INDEX = 0;
 	
 	public static int parseIndex(String userInputEvent){
 		String IndexWord = findIndexWord(userInputEvent);

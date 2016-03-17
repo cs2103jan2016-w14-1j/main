@@ -17,7 +17,7 @@ public class LogicMainTest {
 	
 	@Test
 	public void testAdding(){
-		String userInput = " add Fire James 2GD";
+		String userInput = "add Fire James 2GD";
 		String testResult = logicTest.processCommand(userInput);
 		String expectedResult = "The event has been added.";
 		System.out.println(testResult);

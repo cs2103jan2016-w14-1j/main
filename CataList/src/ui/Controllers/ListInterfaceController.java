@@ -52,6 +52,7 @@ public class ListInterfaceController {
     	operatingTaskFromLogic = main.refreshList();
     	
     	log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
+    	
     	if(!operatingTaskFromLogic.isEmpty()) {
     		openToDoList();
     	}
@@ -114,7 +115,7 @@ public class ListInterfaceController {
 		for(Task taskObj: taskList) {
     		HBox taskRow = new HBox(10);
     		CheckBox isCompleted = new CheckBox();
-        	Label taskName = new Label(taskObj.get_task());
+        	Label taskName = new Label(taskObj.get_index() + " " + taskObj.get_task());
         	Label taskTime = new Label(taskObj.get_time());
         	Label taskDate = new Label(taskObj.get_date());
         	

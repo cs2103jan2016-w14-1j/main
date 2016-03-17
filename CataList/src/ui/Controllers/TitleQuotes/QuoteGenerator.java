@@ -13,6 +13,6 @@ public class QuoteGenerator {
 
     private static int randomGeneratorByDate() {
         Date date = new Date();
-        return (int) date.getTime() % NUM_QUOTES;
+        return (int) Math.abs(date.getTime() % NUM_QUOTES);
     }
 }
