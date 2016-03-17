@@ -2,9 +2,7 @@ package ui.Controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
-
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +47,7 @@ public class SupportFeatureController {
 	
 	public void loadHelpList() throws IOException {
 		main.todoListController.closeToDoList();
-		main.classListController.closeClassList();
+	//	main.classListController.closeClassList();
 		showMainPane();
 		mainPane.getChildren().clear();
 		try {
@@ -61,7 +59,7 @@ public class SupportFeatureController {
 	
 	public void loadCalendar() {
     	main.todoListController.closeToDoList();
-		main.classListController.closeClassList();
+	//	main.classListController.closeClassList();
 		VBox calendarContainer = new VBox(10);
 		Label label = new Label(CALENDAR_HEADING);
 		label.setTextFill(Color.BLACK);
@@ -89,12 +87,12 @@ public class SupportFeatureController {
 		ft.play();
 	}
     
-    public void showMainPane() {
-    		mainPane.setManaged(true);
+	public void showMainPane() {
+		mainPane.setManaged(true);
 
-    		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
-    		ft.setFromValue(0);
-    		ft.setToValue(1);
-    		ft.play();
-    }
+		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
+	}
 }

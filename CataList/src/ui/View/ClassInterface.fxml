@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox prefWidth="235.0" prefHeight="500.0" BorderPane.alignment="CENTER" 
-            xmlns:fx="http://javafx.com/fxml/1" fx:id="classContainer"
-            fx:controller="ui.Controllers.ClassController">
-            <children>
-                <ListView fx:id="todoClass" prefWidth="235.0" prefHeight="500.0" >
-                <VBox.margin>
-                    <Insets>
-                      <right>10</right>
-                    </Insets>
-                </VBox.margin>
-                </ListView>
-            </children>  
+<VBox prefWidth="235.0" prefHeight="500.0" BorderPane.alignment="CENTER"
+	xmlns:fx="http://javafx.com/fxml/1" fx:id="classContainer"
+	fx:controller="ui.Controllers.ClassController">
+	<children>
+		<ListView fx:id="todoClass" prefWidth="235.0" prefHeight="500.0">
+			<VBox.margin>
+				<Insets>
+					<right>10</right>
+				</Insets>
+			</VBox.margin>
+		</ListView>
+	</children>
 </VBox>

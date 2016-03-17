@@ -23,9 +23,9 @@
 
 	<children>
 		<BorderPane prefHeight="768.0" prefWidth="1024.0"
-			styleClass="borderPane" AnchorPane.bottomAnchor="50.0"
+			styleClass="borderPane" AnchorPane.bottomAnchor="30.0"
 			AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-			AnchorPane.topAnchor="30.0">
+			AnchorPane.topAnchor="0.0">
 
 			<!-- Title -->
 			<top>
@@ -36,11 +36,6 @@
 			<bottom>
 				<fx:include fx:id="commandLine" source="/ui/View/CommandLineInterface.fxml" />
 			</bottom>
-
-			<!-- Class -->
-			<left>
-				<fx:include fx:id="classList" source="/ui/View/ClassInterface.fxml" />
-			</left>
 
 			<!-- to do list -->
 			<center>

@@ -64,7 +64,7 @@
 
 #mainPane {
 	-fx-alignment: center ; 
-	-fx-padding: 50 0 0 -230;
+	-fx-padding: 50 0 0 0;
 }
 
 #titleMessage {
@@ -118,6 +118,28 @@
 }
 
 
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab-header-area {
+	-fx-padding: 0 0 0 20;
+}
+
+.tab-pane .tab {
+    -fx-background-color: rgb(255, 255, 255, 0.5);
+    -fx-border-radius: 20 20 20 20;
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+    -fx-font-size: 15px;
+    -fx-alignment: center;
+}
+
+.tab-pane .tab:selected  .tab-label{
+   -fx-text-fill: darkorange;
+}
+
+
 #imageView {
 	-fx-opacity: 0.7;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,1) , 0,0,0,1 );
@@ -165,6 +187,11 @@
 .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;    
+}
+
+.list-cell:selected {
+    -fx-background-color: beige;
+    -fx-text-fill: darkorange;    
 }
 
 #taskDate, #taskTime {

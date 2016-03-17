@@ -70,7 +70,7 @@ public class CommandLineController {
     			} else {
     				
     				main.todoListController.loopTaskList();
-    				main.classListController.loopClassList();
+//    				main.classListController.loopClassList();
 
     			}
     		}
@@ -85,17 +85,20 @@ public class CommandLineController {
 
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
+			log.info("command index " + index);
 			userInput.setText(inputArray.get(++index));
 			if(index == inputArray.size()-1) {
 				index++;
 			}
-		} else if(index == inputArray.size()-1) {
+		} else if(index >= inputArray.size()-1) {
 			userInput.clear();
+			index = inputArray.size();
 		}
 	}
 
 	private void getPreviousCommand() {
 		if(index > 0 && index <= inputArray.size()) {
+			log.info("command index " + index);
 			userInput.setText(inputArray.get(--index));
 		}
 	}
