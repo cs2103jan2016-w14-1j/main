@@ -2,13 +2,14 @@ package ui.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import org.jdom2.JDOMException;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import logic.LogicHandler;
+import shared.LogHandler;
 
 public class CommandLineController {
     
@@ -26,6 +27,7 @@ public class CommandLineController {
     
     private String command = INITIALIZE;
     private int index = 0;
+    private Logger log = LogHandler.retriveLog();
     
     public void init(MainGUIController mainController) {
         main = mainController;
