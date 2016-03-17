@@ -141,6 +141,8 @@ public class Storage {
 	public static String editFromStorage(Task task){
 		try{
 			TaskFormatToStorage.editFromStorage(task);
+			masterList.remove(task.get_index() -1);
+			masterList.add(task.get_index() - 1, task);
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();

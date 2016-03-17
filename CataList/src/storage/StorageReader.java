@@ -39,15 +39,11 @@ public class StorageReader {
 			
 			Element node = (Element) list.get(i);
 			
-			listOfTask.add(new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
-					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME)));
+			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
+					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
+			taskObj.set_index(i);
+			listOfTask.add(taskObj);
 			
-			/*
-			System.out.println(node.getAttributeValue(ATTRIBUTE_NUM));
-			System.out.println(node.getChildText(ELEMENT_EVENT));
-			System.out.println(node.getChildText(ELEMENT_DATE));
-			System.out.println(node.getChildText(ELEMENT_TIME));
-			*/
 		}
 		
 		return listOfTask;
