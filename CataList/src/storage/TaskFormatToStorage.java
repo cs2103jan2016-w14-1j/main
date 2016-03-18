@@ -80,9 +80,6 @@ public class TaskFormatToStorage extends StorageWriter {
         
 		taskObj.set_index(index);
 
-		toBeDoneList.add(taskObj);
-		masterList.add(taskObj);
-		
 		toDoListDocument.getRootElement().addContent(task);
 		
 		try{
@@ -108,38 +105,22 @@ public class TaskFormatToStorage extends StorageWriter {
 		
 		int testIndex = taskObj.get_index();
 		List<Element> taskChildren = rootElement.getChildren();
-		//List<Element> taskChildren = rootElement.getChildren(ATTRIBUTE_NUM);
 	    Iterator<Element> itr = taskChildren.iterator();
-	   // List<Element> elements = new ArrayList<Element>();
 	        
 	    while(itr.hasNext()){
 	    	
 	    		Element child = (Element) itr.next();
-	    		//String att = child.getChild(ELEMENT_EVENT).getText();
-	    		
 	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
-	    		
 	    		int attributeValue = Integer.parseInt(att);
 	          
-	    		//attribute is taskID, but task is task
-	    		//System.out.println(att + ":" + taskObj.get_task());
-	    		if(attributeValue == testIndex) {
-	            // if((Integer.parseInt(att)).equals(taskObj.get_id())){
-	    		
+	    		if(attributeValue == testIndex) {	    		
 	        	   itr.remove();
 	           }
 	    }
 	    
 	    for(int i=0; i<taskChildren.size(); i++){
-    		
 	    	Element child = taskChildren.get(i);
-	    	
-    		//child.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(i)));
 	    	child.getAttribute(ATTRIBUTE_NUM).setValue(Integer.toString(i+1));
-    		//String att = child.getAttributeValue(ATTRIBUTE_NUM);
-    		//attribute is taskID, but task is task
-    		//System.out.println(att + ":" + taskObj.get_task());
-    		
 	    }
 	    
 	    try{
@@ -168,23 +149,12 @@ public class TaskFormatToStorage extends StorageWriter {
 	        
 	    while(itr.hasNext()){
 	    		
-	    		Element child = (Element) itr.next();
-	    		
-	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
-	    		//System.out.println(att + ":" + taskObj.get_task());
-	    		
+	    		Element child = (Element) itr.next();	    		
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);	    		
 	    		int attributeValue = Integer.parseInt(att);
 	    		
-	    		//attribute is taskID, but task is task
-	    		//System.out.println(att + ":" + taskObj.get_task());
-	            //attribute is taskID, but task is task
-	    		
 	    		if(attributeValue == testIndex) {
-	       			//Document toDoListDocument = new Document(task);
-	       			//task.setContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
-	       			//task.setContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
-	       			//task.setContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
-	    		
+	       			
 	       			child.getChild(ELEMENT_EVENT).setText(taskObj.get_task());
 	    			child.getChild(ELEMENT_DATE).setText(taskObj.get_time());
 	    			child.getChild(ELEMENT_TIME).setText(taskObj.get_date());
@@ -283,11 +253,4 @@ public class TaskFormatToStorage extends StorageWriter {
 		return states;
 	}
 	
-	/*public String undoFromStorage(Task taskObj) throws IOException, JDOMException{
-			
-		states.removeLast();
-		
-		return taskObj.get_messageToUser();
-		
-	}*/
 }

@@ -124,12 +124,18 @@ public class Storage {
 	
 	public static String deleteFromStorage(Task task){
 		int taskIndex;
+		ArrayList<Task> tempList = new ArrayList<Task>();
 		try{
 			TaskFormatToStorage.deleteFromStorage(task);
 			taskIndex = task.get_index();
-			System.out.println(taskIndex);
 			
 			masterList.remove(taskIndex-1);
+			for(int i=0; i<masterList.size(); i++){
+				Task tempTask = masterList.get(i);
+				tempTask.set_index(i+1);
+				tempList.add(tempTask);
+			}
+			masterList = (ArrayList<Task>)tempList.clone();
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();

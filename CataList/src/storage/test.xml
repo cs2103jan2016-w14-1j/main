@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1">
-    <Event>2</Event>
-    <Date />
-    <Time />
+    <Event>pcc</Event>
+    <Date>0300</Date>
+    <Time>18/03/16</Time>
   </Task>
   <Task ID="2">
-    <Event>find some bitches</Event>
-    <Date>1300</Date>
-    <Time>5 March</Time>
-  </Task>
-  <Task ID="3">
-    <Event>go home and sleep</Event>
-    <Date>0100</Date>
-    <Time>32 March</Time>
-  </Task>
-  <Task ID="4">
-    <Event>do some coding</Event>
-    <Date>3000</Date>
-    <Time>59 March</Time>
+    <Event>dota</Event>
+    <Date>1800</Date>
+    <Time>18/03/16</Time>
   </Task>
 </TaskList>
