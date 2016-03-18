@@ -194,9 +194,14 @@
     -fx-text-fill: darkorange;    
 }
 
+#taskIndex {
+	-fx-font-size: 20px;
+}
+
 #taskDate, #taskTime {
-	-fx-font-family: Monospaced;
-	-fx-font-size: 17px;
+	-fx-font-family: delicious-roman;
+	-fx-font-size: 15px;
+	-fx-text-fill: orangered;
 }
 
 /** user input feedback **/

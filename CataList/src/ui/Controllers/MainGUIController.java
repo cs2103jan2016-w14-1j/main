@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.jdom2.JDOMException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import logic.LogicMain;
 import logic.Task;
@@ -82,5 +83,9 @@ public class MainGUIController {
     
     public ArrayList<Task> refreshList() {
     	return logic.getOperatingTasksForUI();
+    }
+    
+    public TabPane getTabPane() {
+    	return todoListController.getTabPane();
     }
 }
