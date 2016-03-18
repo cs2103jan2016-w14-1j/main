@@ -3,15 +3,20 @@ package ui.Controllers;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.util.Duration;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import ui.Controllers.MainGUIController;
@@ -36,11 +41,17 @@ public class ListInterfaceController {
     private HBox todoListContainer;
     @FXML
     private TabPane tabPane;
+    @FXML
+    private Tab tabInbox;
+    private Tab tabComplete = new Tab("Completed");
+    
     
     private static ObservableList<HBox> tasks =
             FXCollections.observableArrayList();
     private static ObservableList<HBox> completed =
             FXCollections.observableArrayList();
+    private static ArrayList<Tab> tabs =
+            new ArrayList<Tab>();
     
     private ArrayList<Task> operatingTaskFromLogic;
     private Logger log = LogHandler.retriveLog();
@@ -51,13 +62,30 @@ public class ListInterfaceController {
         todoListContainer.setManaged(false);
         todoListContainer.setOpacity(0);
         loopTaskList();
+        tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                System.out.println("Tab selected: " + newValue.getText());
+                System.out.println(newValue.getContent());
+                if (newValue.getContent() == null) {
+                	  System.out.println(newValue.equals(tabInbox));
+                	if(newValue.equals(tabInbox)) {
+                		displayPending();
+                	} else if (newValue.equals(tabComplete)) {
+                		displayCompleted();
+                	}
+                	newValue.setContent(todoList);
+                	oldValue.setContent(null);
+                }   
+            }
+        });
     }
     
     public void loopTaskList() {
     	tasks.clear();
     	operatingTaskFromLogic = main.refreshList();
     	
-    	log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
+    //	log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
     	
     	if(!operatingTaskFromLogic.isEmpty()) {
     		openToDoList();
@@ -114,7 +142,7 @@ public class ListInterfaceController {
     	operatingTaskFromLogic = main.refreshList();
     	formatTaskToListCell(operatingTaskFromLogic);
         todoList.setItems(tasks);
-     //   loadClassList();
+        loadClassList();
     }
 
 	private void formatTaskToListCell(ArrayList<Task> taskList) {
@@ -131,7 +159,8 @@ public class ListInterfaceController {
         	if(todoListContainer.getScaleX() == 0) {
         		animateToDoList(OPEN_LIST);
         	}
-       
+        	
+        	tabs.add(tabInbox);
         	isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
         	
         	taskRow.getChildren().addAll(isCompleted, taskIndex, taskName, taskTime, taskDate);
@@ -139,14 +168,16 @@ public class ListInterfaceController {
         	tasks.add(taskRow);
     	}
 	}
-/*
+	
 	private void loadClassList() {
-		
-		if(main.isClassEmpty() && !operatingTaskFromLogic.isEmpty()) {
-			main.refreshClassList();
+		System.out.println(tabs.size());
+		if(tabs.size() == 2 && !operatingTaskFromLogic.isEmpty()) {
+			tabs.add(tabComplete);
+			tabPane.getTabs().add(tabComplete);
+			
 		} 
 	}
-*/
+
 	private void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {
 			
@@ -162,6 +193,7 @@ public class ListInterfaceController {
     
     private void handleCheckedBox(CheckBox cb, HBox hb) {
         if(cb.isSelected()) {
+        	loadClassList();
            // main.loadCompleted();
             completed.add(hb);
             tasks.remove(hb);
