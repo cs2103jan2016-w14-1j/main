@@ -198,13 +198,13 @@
 #taskToday, #taskTomorrow {
 	-fx-font-family: delicious-smallcaps;
 	-fx-text-fill: red;    
-	-fx-font-size: 23px;
+	-fx-font-size: 20px;
 }
 
 #taskOthers, #taskFloat {
 	-fx-font-family: delicious-smallcaps;
 	-fx-text-fill: Blue;    
-	-fx-font-size: 23px;
+	-fx-font-size: 20px;
 }
 
 #taskIndex {
