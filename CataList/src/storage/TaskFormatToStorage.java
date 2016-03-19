@@ -22,28 +22,16 @@ public class TaskFormatToStorage extends StorageWriter {
 	private static final String ELEMENT_TIME = "Time";
 	private static final String ELEMENT_DATE = "Date";
 	private static final String ELEMENT_EVENT = "Event";
+	private static final String ATTRIBUTE_COMPLETE = "Complete";
+	private static final String ATTRIBUTE_INCOMPLETE = "Incomplete";
+	private static final String ATTRIBUTE_STATE = "State";
 	private static final String ATTRIBUTE_NUM = "ID";
-	
-	private String taskName;
-	private String startTime;
-	private String endTime;
-	private String deadline;
-	
-	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_DELETE = "delete";
-	private static final String COMMAND_EDIT = "edit";
-	private static final String COMMAND_UNDO = "undo";
-	private static final String COMMAND_CLEAR= "clear";
-	private static final String COMMAND_DISPLAY = "display";
-	private static final String COMMAND_SEARCH = "search";
-	private static final String COMMAND_SORT = "sort";
 	
 	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
 	
 	private static Element task;
-	private static Element event;
-	private static Element time;
-	private static Element date;
+	private static Element completed;
+	private static Element incompleted;
 	private static int index = 0;
 	private static int listPointer = 0;
 	
@@ -51,11 +39,7 @@ public class TaskFormatToStorage extends StorageWriter {
 			System.getProperty("user.dir") + 
 			"/src/storage/test.xml";
 	
-	private static ArrayList<Task> toBeDoneList = new ArrayList<Task>();
-	private static ArrayList<Task> completedList = new ArrayList<Task>();
-	private static ArrayList<Task> masterList = new ArrayList<Task>();
-	
-	private static LinkedList<ArrayList<Task>> states = new LinkedList<ArrayList<Task>>();
+	private static ArrayList<ArrayList<Task>> states = new ArrayList<ArrayList<Task>>();
 	
 	public static String addToStorage(Task taskObj) throws IOException, JDOMException {
 		File inputFile = new File(STORAGE_PATH);
@@ -69,11 +53,14 @@ public class TaskFormatToStorage extends StorageWriter {
 			toDoListDocument = new Document(taskList);
 		}
 		
+		//19th march 2016 code
+		
 		task = new Element(ELEMENT_TASK);
 		List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 
 		index = taskList.size() + 1;		
 		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
+		task.setAttribute(new Attribute(ATTRIBUTE_STATE, ATTRIBUTE_INCOMPLETE));
 		task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 		task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 		task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
@@ -142,15 +129,25 @@ public class TaskFormatToStorage extends StorageWriter {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
+		String completionString;
 				
 		int testIndex = taskObj.get_index();
+		boolean completion = taskObj.get_completionState();
+		if(completion == true){
+			completionString = ATTRIBUTE_COMPLETE;
+		} else {
+			completionString = ATTRIBUTE_INCOMPLETE;
+		}
+		
 		List<Element> taskChildren = rootElement.getChildren();
 	    Iterator<Element> itr = taskChildren.iterator();
 	        
 	    while(itr.hasNext()){
 	    		
 	    		Element child = (Element) itr.next();	    		
-	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);	    		
+	    		String att = child.getAttributeValue(ATTRIBUTE_NUM);
+	    		//from storage attribute
+	    		String storageCompletionAttribute = child.getAttributeValue(ATTRIBUTE_STATE);
 	    		int attributeValue = Integer.parseInt(att);
 	    		
 	    		if(attributeValue == testIndex) {
@@ -158,6 +155,9 @@ public class TaskFormatToStorage extends StorageWriter {
 	       			child.getChild(ELEMENT_EVENT).setText(taskObj.get_task());
 	    			child.getChild(ELEMENT_DATE).setText(taskObj.get_time());
 	    			child.getChild(ELEMENT_TIME).setText(taskObj.get_date());
+	    			if(completionString != storageCompletionAttribute){
+	    				child.getAttribute(ATTRIBUTE_STATE).setValue(completionString);
+	    			}
 	           }
 	    		
 	    	}
@@ -180,6 +180,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		ArrayList<Task> undoneState = new ArrayList<Task>();
 		try{
 			undoneState = states.get(listPointer - 1);
+			listPointer = listPointer - 1;
 		} catch(NullPointerException npe){
 			npe.printStackTrace();
 		}
@@ -192,6 +193,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		ArrayList<Task> redoneState = new ArrayList<Task>();
 		try{
 			redoneState = states.get(listPointer + 1);
+			listPointer = listPointer + 1;
 		} catch(NullPointerException npe){
 			npe.printStackTrace();
 		}
@@ -248,7 +250,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		return taskObj.get_messageToUser();
 	}
 	
-	public LinkedList<ArrayList<Task>> stateReader() {
+	public ArrayList<ArrayList<Task>> stateReader() {
 		
 		return states;
 	}
