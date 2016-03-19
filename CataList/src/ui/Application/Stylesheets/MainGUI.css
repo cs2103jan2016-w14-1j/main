@@ -177,7 +177,7 @@
 
 #todoClass {
     -fx-background-color: rgb(0, 0, 0, 0.2);
-    -fx-font-size: 20px;
+    -fx-font-size: 17px;
     -fx-font-family: delicious-smallcaps;
     -fx-border-radius: 20 20 20 20;
     -fx-background-radius: 20 20 20 20;
@@ -187,11 +187,24 @@
 .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;    
+    -fx-border: black;
 }
 
 .list-cell:selected {
     -fx-background-color: beige;
     -fx-text-fill: darkorange;    
+}
+
+#taskToday, #taskTomorrow {
+	-fx-font-family: delicious-smallcaps;
+	-fx-text-fill: red;    
+	-fx-font-size: 23px;
+}
+
+#taskOthers, #taskFloat {
+	-fx-font-family: delicious-smallcaps;
+	-fx-text-fill: Blue;    
+	-fx-font-size: 23px;
 }
 
 #taskIndex {

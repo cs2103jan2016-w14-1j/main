@@ -89,7 +89,7 @@ public class CommandLineController {
 			getPreviousCommand();
 		} else if (event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
-		} else if (event.getCode() == KeyCode.BACK_SLASH) {
+		} else if (event.getCode() == KeyCode.F12) {
 			switch(screenSizeToggle) {
 			case FULL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
