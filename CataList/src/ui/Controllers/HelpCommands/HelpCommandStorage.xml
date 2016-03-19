@@ -34,7 +34,15 @@
       <id>get more recent command</id>
       <command> DOWN</command>
    </help>
-   <help number="9">
+    <help number="9">
+      <id>toggle inbox and complete class</id>
+      <command> RIGHT</command>
+   </help>
+    <help number="10">
+      <id>toggle screen size (full, default, small)</id>
+      <command> F12</command>
+   </help>
+   <help number="11">
       <id>quit application</id>
       <command> ESC</command>
    </help>

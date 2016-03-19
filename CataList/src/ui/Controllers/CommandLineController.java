@@ -19,16 +19,25 @@ public class CommandLineController {
 	private static final String INITIALIZE = "";
 	private static final String INIT_FEEDBACK = "How can I help you?";
 	private static final String MESSAGE_INVALID = "Invalid background";
-	private final ArrayList<String> inputArray = new ArrayList<String>();
 
+	private final int FULL_SCREEN = 1;
+	private final int DEFAULT_SCREEN = 0;
+	private final int SMALL_SCREEN = -1;
+	
+	private final int START_INPUT_INDEX = 0;
+	private final int INBOX_TAB = 0;
+	private final int COMPLETE_TAB = 1;
+	
 	@FXML 
 	private Text feedback;
 	@FXML 
 	private TextField userInput;
 
 	private String command = INITIALIZE;
-	private int index = 0;
-	private int screenSizeToggle = 1;
+	private int index = START_INPUT_INDEX;
+	private int screenSizeToggle = FULL_SCREEN;
+	private int tabToggle = COMPLETE_TAB;
+	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
 
 	public void init(MainGUIController mainController) {
@@ -72,27 +81,27 @@ public class CommandLineController {
 				} else {
 
 					main.todoListController.loopTaskList();
-					//    				main.classListController.loopClassList();
+					//   main.classListController.loopClassList();
 
 				}
 			}
-		} else if (event.getCode() ==  KeyCode.UP) {
+		} else if (event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
-		} else if (event.getCode() ==  KeyCode.DOWN) {
+		} else if (event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
-		} else if (event.getCode() == KeyCode.BACK_SLASH) {
+		} else if (event.getCode() == KeyCode.F12) {
 			switch(screenSizeToggle) {
-			case 1:
+			case FULL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
 				screenSizeToggle = -1;
 				break;
-			case 0:
+			case DEFAULT_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
 				((Stage) userInput.getScene().getWindow()).setWidth(1024);
 				((Stage) userInput.getScene().getWindow()).setHeight(768);
 				screenSizeToggle = 1;
 				break;
-			case -1:
+			case SMALL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
 				((Stage) userInput.getScene().getWindow()).setWidth(500);
 				((Stage) userInput.getScene().getWindow()).setHeight(500);
@@ -102,6 +111,13 @@ public class CommandLineController {
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
 				screenSizeToggle = 0;
 				break;
+			} 
+		} else if (event.getCode() == KeyCode.RIGHT) {
+			main.getTabPane().getSelectionModel().select(tabToggle);
+			if (tabToggle == INBOX_TAB) {
+				tabToggle = COMPLETE_TAB;
+			} else if (tabToggle == COMPLETE_TAB) {
+				tabToggle = INBOX_TAB;
 			}
 		}
 	}
