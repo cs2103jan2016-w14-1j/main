@@ -59,7 +59,7 @@ public class StorageTest {
 		test.set_index(2);
 		Storage.deleteFromStorage(test);
 	}
-	
+	@Test
 	public void testEdit1() throws JDOMException, IOException {
 		test = new Task(true, "find idk what", "edit", MESSAGE_ADD_SUCCESS, "4321", "02 March");
 		test.set_index(1);
@@ -68,7 +68,7 @@ public class StorageTest {
 		storageSystem.loadTask();
 		Storage.editFromStorage(test);
 	}
-	
+	@Test
 	public void testEdit2() throws JDOMException, IOException {
 		test = new Task(true, "find hello", "edit", MESSAGE_ADD_SUCCESS, "5555", "20 March");
 		test.set_index(3);

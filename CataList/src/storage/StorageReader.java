@@ -74,7 +74,7 @@ public class StorageReader {
 			
 			Element node = (Element) list.get(i);
 			String completion = node.getAttributeValue(ATTRIBUTE_STATE);
-			if(completion == ATTRIBUTE_COMPLETE){
+			if(completion.equals(ATTRIBUTE_COMPLETE)){
 				Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
 						node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
 				taskObj.set_index(completeIndex+1);
@@ -99,7 +99,7 @@ public class StorageReader {
 			
 			Element node = (Element) list.get(i);
 			String completion = node.getAttributeValue(ATTRIBUTE_STATE);
-			if(completion == ATTRIBUTE_INCOMPLETE){
+			if(completion.equals(ATTRIBUTE_INCOMPLETE)){
 				Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
 						node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
 				taskObj.set_index(incompleteIndex+1);
