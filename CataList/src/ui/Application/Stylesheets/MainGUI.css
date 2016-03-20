@@ -207,6 +207,11 @@
 	-fx-font-size: 20px;
 }
 
+#numTask {
+	-fx-font-size: 15px;
+}
+
+
 #taskIndex {
 	-fx-font-size: 20px;
 }

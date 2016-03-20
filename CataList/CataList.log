@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
+<record>
+  <date>2016-03-20T16:31:01</date>
+  <millis>1458462661404</millis>
+  <sequence>0</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-20T16:31:01</date>
+  <millis>1458462661517</millis>
+  <sequence>1</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 0</message>
+</record>
+<record>
+  <date>2016-03-20T16:31:10</date>
+  <millis>1458462670744</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-20T16:31:10</date>
+  <millis>1458462670767</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
 </log>
