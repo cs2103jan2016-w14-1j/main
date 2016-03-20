@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import org.jdom2.JDOMException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import logic.LogicMain;
 import logic.Task;
 
@@ -88,5 +92,17 @@ public class MainGUIController {
 
 	public TabPane getTabPane() {
 		return todoListController.getTabPane();
+	}
+	
+	public TextField getCommandLine() {
+		return commandLineController.getCommandLine();
+	}
+	
+	public Text getFeedback() {
+		return commandLineController.getFeedback();
+	}
+	
+	public ListView<HBox> getList() {
+		return todoListController.getList();
 	}
 }

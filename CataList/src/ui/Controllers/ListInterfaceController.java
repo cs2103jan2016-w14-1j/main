@@ -245,5 +245,9 @@ public class ListInterfaceController {
 	public ObservableList<HBox> getCompleted() {
 		return completed;
 	}
+	
+	public ListView<HBox> getList() {
+		return todoList;
+	}
 
 }
