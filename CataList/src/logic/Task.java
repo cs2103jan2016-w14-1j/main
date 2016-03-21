@@ -49,6 +49,7 @@ public class Task {
 		return false;
 	}
 	
+
 	public boolean isEqualCmd(Task other){
 		return (other.get_cmd() == this._cmd);
 	}
@@ -168,11 +169,11 @@ public class Task {
 		this.isComplete = false;
 	}
 
-	public void setMessageErrorDefault(String errorMsg){
+	public void setMessageErrorDefault(){
 		//Method to be implemented in all concrete classes
 	}
 	
-	public void setMessageErrorEmpty(String emptyMsg){
+	public void setMessageErrorEmpty(){
 		//ditto. Man I need to write better comments.
 	}
 	

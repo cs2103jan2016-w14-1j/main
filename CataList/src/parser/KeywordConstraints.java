@@ -19,6 +19,7 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_UNDO = { "undo", "/u", "-u" };
 	protected static final String[] KW_TASK_REDO = { "redo", "/r", "-r" };
 	protected static final String[] KW_TASK_EXIT = { "exit", "quit", "-x", "/x"};
+	protected static final String[] KW_TASK_HELP = { "-help", "help", "-h", "man"};
 
 	// Keywords for TIME/DATE
 	protected static final String[] KW_DATE_FLAG = { "-d", "-date" };

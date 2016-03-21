@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1" State="Incomplete">
-    <Event />
+    <Event>todo</Event>
     <Date />
-    <Time />
-    <Event>shit</Event>
-    <Date />
-    <Time>20/03/16</Time>
+    <Time>0800</Time>
   </Task>
   <Task ID="2" State="Incomplete">
-    <Event>more shit</Event>
-    <Date />
-    <Time>20/03/16</Time>
+    <Event>todo</Event>
+    <Date>0800</Date>
+    <Time>20/02/16</Time>
   </Task>
   <Task ID="3" State="Incomplete">
-    <Event>gay</Event>
-    <Date />
-    <Time>20/03/16</Time>
-  </Task>
-  <Task ID="7" State="Incomplete">
-    <Event>bobo</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="8" State="Incomplete">
-    <Event>bobo</Event>
-    <Date />
-    <Time>0100</Time>
+    <Event>todo</Event>
+    <Date>0800</Date>
+    <Time>20/02/16</Time>
   </Task>
 </TaskList>

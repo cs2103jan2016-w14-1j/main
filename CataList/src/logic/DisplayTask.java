@@ -3,7 +3,7 @@ package logic;
 public class DisplayTask extends Task {
 
 	private static final String MESSAGE_DISPLAY_SUCCESS = "Displaying Event";
-	private static final String MESSAGE_DISPLAY_FAILURE = "Unable to display event.";
+	private static final String MESSAGE_DISPLAY_FAILURE = "Unable to display.";
 	private static final String MESSAGE_DISPLAY_EMPTY = "Nothing to display.";
 	private static final String COMMAND_TYPE = "display";
 	

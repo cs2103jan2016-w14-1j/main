@@ -6,10 +6,21 @@ import parser.ParserMain;
 import storage.Storage;
 
 public class LogicMain {
-	private final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Nothing to delete at this index!";
+	private final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Index out of bounds. Please try again.";
 	private final String COMPLETE_TASK_SUCCESS = "Marked as complete.";
 	private final String INCOMPLETE_TASK_SUCCESS = "Marked as incomplete.";
+	
+	private ArrayList<Task> completeTasks;
+	private ArrayList<Task> incompleteTasks;
+	private ArrayList<Task> masterListTasks;
+	
 	private ArrayList<Task> operatingTasks;
+	
+	private ArrayList<ArrayList<Task>> state;
+	
+	private static final int INCOMPLETE_LIST_INDEX = 0;
+	private static final int COMPLETE_LIST_INDEX = 1;
+	private static final int MASTER_LIST_INDEX = 2;
 	
 	ParserMain inputParser;
 	Storage storageSystem;
@@ -17,21 +28,39 @@ public class LogicMain {
 	public LogicMain(){
 		inputParser = new ParserMain();
 		storageSystem = new Storage();
-		storageSystem.loadTask();
-		operatingTasks = storageSystem.getMasterList();
+		
+		masterListTasks = new ArrayList<Task>();
+		completeTasks = new ArrayList<Task>();
+		incompleteTasks = new ArrayList<Task>();
+		
+		masterListTasks = storageSystem.loadTask();
+		operatingTasks = masterListTasks;
+		state.add(masterListTasks);
 	}
 	
 	public String processCommand(String userInput){
 		String[] formattedInput = inputParser.processInput(userInput);
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
 		String feedbackToUI = operateOnTask(newCreatedTask);
-		return feedbackToUI;
 		
+		regenerateSubListsFromMasterList();
+		//TODO: MAINTAIN A STATE? AARON PLS.
+		//state.add(masterListTasks);
+		return feedbackToUI;
 	}
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
 		return operatingTasks;
+		/*
+		if (operatingOn == 1){
+			return completeTasks;
+		} else if (operatingOn == 2){
+			return incompleteTasks;
+		} else {
+			return masterListTasks;
+		}
+		*/
 	}
 	
 	private String operateOnTask(Task requestedTask){
@@ -64,69 +93,133 @@ public class LogicMain {
 		}
 	}
 	
+	private void regenerateSubListsFromMasterList(){
+		incompleteTasks.clear();
+		completeTasks.clear();
+		for(Task eachTask : masterListTasks){
+			if(eachTask.get_completionState()){
+				completeTasks.add(eachTask);
+			} else {
+				incompleteTasks.add(eachTask);
+			}
+		}
+	}
+	/*
+	private void saveBackToOriginalList(){
+		if(operatingOn == MASTER_LIST_INDEX){
+			masterListTasks = operatingTasks;
+		} else if (operatingOn == COMPLETE_LIST_INDEX){
+			completeTasks = operatingTasks;
+		} else if (operatingOn == INCOMPLETE_LIST_INDEX){
+			incompleteTasks = operatingTasks;
+		}
+	}
+	*/
+	
 	private String doAdd(Task taskToOp){
-		String feedback = storageSystem.addToStorage(taskToOp);
-		operatingTasks = storageSystem.getMasterList();
+		masterListTasks.add(taskToOp);
+		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
 	
 	private String doDelete(Task taskToOp){
-		String feedback = storageSystem.deleteFromStorage(taskToOp);
-		operatingTasks = storageSystem.getMasterList();
+		int operateIndex = taskToOp.get_index();
+		
+		try{
+			operatingTasks.remove(operateIndex);
+		} catch (IndexOutOfBoundsException e){
+			taskToOp.setMessageErrorEmpty();
+		}
+		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
 	
 	private String doClear(Task taskToOp){
-		System.out.print("Clearing");
-		String feedback = storageSystem.clearFromStorage(taskToOp);
-		operatingTasks = storageSystem.getMasterList();
+		String feedback = taskToOp.get_messageToUser();
+		
+		incompleteTasks.clear();
+		completeTasks.clear();
+		masterListTasks.clear();
+		
+		operatingTasks = masterListTasks;
 		return feedback;
 	}
 	
 	private String doDisplay(Task taskToOp){
-		String feedback = storageSystem.displayFromStorage(taskToOp);
-		operatingTasks = storageSystem.getMasterList();
+		int listToDisplay = taskToOp.get_index();
+		
+		if(listToDisplay == COMPLETE_LIST_INDEX){
+			operatingTasks = completeTasks;
+		} else if (listToDisplay == INCOMPLETE_LIST_INDEX){
+			operatingTasks = incompleteTasks;
+		} else if(listToDisplay == MASTER_LIST_INDEX){
+			operatingTasks = masterListTasks;
+		} else {
+			taskToOp.setMessageErrorDefault();
+			return taskToOp.get_messageToUser();
+		}
+		
+		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
 	
 	private String doEdit(Task taskToOp){
-		String feedback = storageSystem.editFromStorage(taskToOp);
-		operatingTasks = storageSystem.getMasterList();
+		int operateIndex = taskToOp.get_index();
+		Task toEdit = operatingTasks.get(operateIndex);
+		
+		try{
+			//find and change inside masterList 
+			for(int i = 0 ; i < masterListTasks.size() ; i++){
+				if(masterListTasks.get(i).equals(toEdit)){
+					masterListTasks.set(i, taskToOp);
+				}
+			}
+		
+			operatingTasks.set(operateIndex, taskToOp);
+		
+		} catch (IndexOutOfBoundsException e){
+			taskToOp.setMessageErrorEmpty();
+		}
+		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
 	
+	/*
 	private String doUndo(Task taskToOp){
-		String feedback = storageSystem.undoFromStorage(taskToOp);
-		return feedback;
+		previousMasterList = state
 	}
 	
 	private String doRedo(Task taskToOp){
 		String feedback = storageSystem.redoFromStorage(taskToOp);
 		return feedback;
 	}
+	*/
 	
 	private String doSearch(Task taskToOp){
 		String toFind = taskToOp.get_task();
 		ArrayList<Task> foundList = new ArrayList<Task>();
-		for(Task eachTask : storageSystem.getMasterList()){
+		
+		for(Task eachTask : masterListTasks){
 			if(eachTask.get_task().contains(toFind)){
 				foundList.add(eachTask);
 			}
 		}
 		operatingTasks = foundList;
 		return taskToOp.get_messageToUser();
-		//get ARRAYLIST<task> from storage
-		//do search.
-		//update operatingTasks
-		
 	}
 	
 	private String doMarkComplete(Task taskToOp){
-		// takes the current operating list.
-		int operateOnIndex = taskToOp.get_index();
+		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateOnIndex);
-			operateOn.set_Complete();
+			Task operateOn = operatingTasks.get(operateIndex);
+			
+			for(int i = 0 ; i < masterListTasks.size() ; i++){
+				if(masterListTasks.get(i).equals(operateOn)){
+					masterListTasks.get(i).set_Complete();
+				}
+			}
+			operatingTasks.get(operateIndex).set_Complete();
+			
 			return COMPLETE_TASK_SUCCESS;
 		} catch(IndexOutOfBoundsException e) {
 			return INDEX_OUT_OF_BOUNDS_MESSAGE;
@@ -134,10 +227,17 @@ public class LogicMain {
 	}
 	
 	private String doMarkIncomplete(Task taskToOp){
-		int operateOnIndex = taskToOp.get_index();
+		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateOnIndex);
-			operateOn.set_Incomplete();
+			Task operateOn = operatingTasks.get(operateIndex);
+			
+			for(int i = 0 ; i < masterListTasks.size() ; i++){
+				if(masterListTasks.get(i).equals(operateOn)){
+					masterListTasks.get(i).set_Incomplete();
+				}
+			}
+			
+			operatingTasks.get(operateIndex).set_Incomplete();
 			return INCOMPLETE_TASK_SUCCESS;
 		} catch (IndexOutOfBoundsException e){
 			return INDEX_OUT_OF_BOUNDS_MESSAGE;
