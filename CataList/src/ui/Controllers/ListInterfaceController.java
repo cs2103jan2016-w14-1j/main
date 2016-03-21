@@ -4,7 +4,6 @@ import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -129,7 +128,7 @@ public class ListInterfaceController {
 	private void formatTaskToListCell(ArrayList<Task> taskList) {	
 		for(Task taskObj: taskList) {
 			HBox taskRow = new HBox(10);
-			CheckBox isCompleted = new CheckBox();
+			//CheckBox isCompleted = new CheckBox();
 			Label taskIndex = new Label(taskObj.get_index() + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
@@ -149,8 +148,8 @@ public class ListInterfaceController {
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
 			}
-			isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
-			taskRow.getChildren().addAll(isCompleted, taskIndex, taskName, taskTime, taskDate);
+			//isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
+			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
 			
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
@@ -158,6 +157,7 @@ public class ListInterfaceController {
 		taskFilter.addSortedClasses(tasks);
 	}
 
+	/*
 	private void handleCheckedBox(CheckBox cb, HBox hb) {
 		if(cb.isSelected()) {
 			loadClassList();
@@ -171,7 +171,7 @@ public class ListInterfaceController {
 			tasks.add(hb);
 			// main.clearCompleted();
 		}
-	}
+	}*/
 
 	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
 		task.setPrefWidth(600);
@@ -244,6 +244,10 @@ public class ListInterfaceController {
 
 	public ObservableList<HBox> getCompleted() {
 		return completed;
+	}
+	
+	public ListView<HBox> getList() {
+		return todoList;
 	}
 
 }

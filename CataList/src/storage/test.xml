@@ -4,31 +4,19 @@
     <Event />
     <Date />
     <Time />
+    <Event>shit</Event>
+    <Date />
+    <Time>20/03/16</Time>
   </Task>
   <Task ID="2" State="Incomplete">
-    <Event>uh</Event>
+    <Event>more shit</Event>
     <Date />
-    <Time />
+    <Time>20/03/16</Time>
   </Task>
-  <Task ID="3" State="Complete">
-    <Event>find hello</Event>
-    <Date>5555</Date>
-    <Time>20 March</Time>
-  </Task>
-  <Task ID="4" State="Incomplete">
-    <Event>go home and sleep</Event>
-    <Date>0100</Date>
-    <Time>32 March</Time>
-  </Task>
-  <Task ID="5" State="Incomplete">
-    <Event>tang</Event>
+  <Task ID="3" State="Incomplete">
+    <Event>gay</Event>
     <Date />
-    <Time />
-  </Task>
-  <Task ID="6" State="Incomplete">
-    <Event>hahaha</Event>
-    <Date />
-    <Time />
+    <Time>20/03/16</Time>
   </Task>
   <Task ID="7" State="Incomplete">
     <Event>bobo</Event>

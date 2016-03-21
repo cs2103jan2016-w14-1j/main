@@ -70,6 +70,8 @@ public class CommandLineController {
 				main.supportFeatureController.loadHelpList();
 			} else if(command.toLowerCase().equals("calendar")) {
 				main.supportFeatureController.loadCalendar();
+			} else if(command.toLowerCase().equals("tutorial")) {
+				main.supportFeatureController.loadTutorial();
 			} else {
 				if (getFirstWord(command).toLowerCase().equals("show")) {
 					String id = ParseBackground.parseInput(removeFirstWord(command));
@@ -112,7 +114,7 @@ public class CommandLineController {
 				screenSizeToggle = 0;
 				break;
 			} 
-		} else if (event.getCode() == KeyCode.RIGHT) {
+		} else if (event.getCode() == KeyCode.F11) {
 			main.getTabPane().getSelectionModel().select(tabToggle);
 			if (tabToggle == INBOX_TAB) {
 				tabToggle = COMPLETE_TAB;
@@ -146,6 +148,14 @@ public class CommandLineController {
 	private String uiToLogic() {
 		assert (this != null);
 		return main.passInputToLogic(userInput.getText());
+	}
+	
+	public TextField getCommandLine() {
+		return userInput;
+	}
+	
+	public Text getFeedback() {
+		return feedback;
 	}
 
 	private static String removeFirstWord(String userInput) {
