@@ -89,7 +89,7 @@ public class Storage {
 	/**
 	 * new methods loadincompleteTask and loadcompletetask
 	 */
-	public void loadTask() {
+	public ArrayList<Task> loadTask() {
 		try{
 			masterList = StorageReader.readFromStorage();
 		} catch(IOException ioe) {
@@ -97,9 +97,10 @@ public class Storage {
 		} catch (JDOMException jdome) {
 			jdome.printStackTrace();
 		}
+		return masterList;
 	}
 	
-	public void loadIncompleteTask() {
+	public ArrayList<Task> loadIncompleteTask() {
 		try{
 			masterList = StorageReader.readUncompletedTasks();
 		} catch(IOException ioe) {
@@ -107,9 +108,10 @@ public class Storage {
 		} catch (JDOMException jdome) {
 			jdome.printStackTrace();
 		}
+		return masterList;
 	}
 	
-	public void loadCompleteTask() {
+	public ArrayList<Task> loadCompleteTask() {
 		try{
 			masterList = StorageReader.readCompletedTasks();
 		} catch(IOException ioe) {
@@ -117,6 +119,7 @@ public class Storage {
 		} catch (JDOMException jdome) {
 			jdome.printStackTrace();
 		}
+		return masterList;
 	}
 	
 	public ArrayList<Task> getToBeDoneList() {
