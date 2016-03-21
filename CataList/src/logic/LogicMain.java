@@ -17,7 +17,8 @@ public class LogicMain {
 	public LogicMain(){
 		inputParser = new ParserMain();
 		storageSystem = new Storage();
-		operatingTasks = new ArrayList<Task>();
+		storageSystem.loadTask();
+		operatingTasks = storageSystem.getMasterList();
 	}
 	
 	public String processCommand(String userInput){

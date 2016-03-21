@@ -2,31 +2,39 @@
 
 <helpList>
     
-   <help number="0">
-      <id>add task</id>
-      <command> add [task] &#xD; add [task] by [time] &#xD; add [task] by [date][month] from [start time] - [end time] </command>
+   <help number="1">
+      <id>add task to list</id>
+      <command> add [task] &#xD; add [task] -d [time] &#xD; add [task] -d [date] -t time</command>
    </help>
-   <help nunber="1">
-      <id>delete task</id>
-      <command> delete [task number] </command>
-   </help>
-   <help number="2">
-      <id>clear all</id>
-      <command> clear</command>
+   <help nunber="2">
+      <id>delete task from list</id>
+      <command> delete [task number]</command>
    </help>
    <help number="3">
-      <id>display list</id>
-      <command> display (default) &#xD; display [class]</command>
+      <id>clear list</id>
+      <command> clear</command>
    </help>
    <help number="4">
-      <id>edit task</id>
-      <command> edit[task number] &#xD; edit[task number] by [time] &#xD; edit[task number] by [date][month] from [start time] - [end time]</command>
+      <id>display a particular class</id>
+      <command> display [class]</command>
    </help>
    <help number="5">
+      <id>edit task in list</id>
+      <command> edit [task number] &#xD; edit [task number] on [time] &#xD; edit[task number] by [date][month] from [start time] - [end time]</command>
+   </help>
+   <help number="6">
       <id>undo previous action</id>
       <command> undo</command>
    </help>
-   <help number="6">
+    <help number="7">
+      <id>get previous command</id>
+      <command> UP</command>
+   </help>
+   <help number="8">
+      <id>get more recent command</id>
+      <command> DOWN</command>
+   </help>
+   <help number="9">
       <id>quit application</id>
       <command> ESC</command>
    </help>

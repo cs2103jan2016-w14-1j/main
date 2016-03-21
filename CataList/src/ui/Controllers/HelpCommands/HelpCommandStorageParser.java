@@ -1,4 +1,4 @@
-package Controllers.HelpCommands;
+package ui.Controllers.HelpCommands;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class HelpCommandStorageParser {
     private static final String COMMAND = "command";
     private static final String HELP_FILE_PATH = 
             System.getProperty("user.dir") + 
-            "/CataList/src/ui/Controllers/HelpCommands/HelpCommandStorage.xml";
+            "/src/ui/Controllers/HelpCommands/HelpCommandStorage.xml";
     
     private static ArrayList<ArrayList<String>> result = new ArrayList<>();
     

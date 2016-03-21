@@ -9,7 +9,7 @@
 
 <VBox fx:id="mainPane" prefHeight="800.0" prefWidth="200.0"
 	spacing="20" xmlns:fx="http://javafx.com/fxml/1" 
-	fx:controller="Controllers.SupportFeatureController">
+	fx:controller="ui.Controllers.SupportFeatureController">
 	<ImageView fx:id="imageView" layoutX="29.0" layoutY="44.0"
 		fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
 		<image>

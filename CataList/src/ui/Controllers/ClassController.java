@@ -1,4 +1,4 @@
-package Controllers;
+package ui.Controllers;
 
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import Controllers.MainGUIController;
+import ui.Controllers.MainGUIController;
 
 public class ClassController {
     

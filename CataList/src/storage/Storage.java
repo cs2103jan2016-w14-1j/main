@@ -15,8 +15,11 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.util.IteratorIterable;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.jdom2.Content.CType;
 
 import storage.StorageReader;
@@ -83,11 +86,32 @@ public class Storage {
         }
         return content;
 	}
-	
-	
+	/**
+	 * new methods loadincompleteTask and loadcompletetask
+	 */
 	public void loadTask() {
 		try{
 			masterList = StorageReader.readFromStorage();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		} catch (JDOMException jdome) {
+			jdome.printStackTrace();
+		}
+	}
+	
+	public void loadIncompleteTask() {
+		try{
+			masterList = StorageReader.readUncompletedTasks();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		} catch (JDOMException jdome) {
+			jdome.printStackTrace();
+		}
+	}
+	
+	public void loadCompleteTask() {
+		try{
+			masterList = StorageReader.readCompletedTasks();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		} catch (JDOMException jdome) {
@@ -124,10 +148,18 @@ public class Storage {
 	
 	public static String deleteFromStorage(Task task){
 		int taskIndex;
+		ArrayList<Task> tempList = new ArrayList<Task>();
 		try{
 			TaskFormatToStorage.deleteFromStorage(task);
 			taskIndex = task.get_index();
+			
 			masterList.remove(taskIndex-1);
+			for(int i=0; i<masterList.size(); i++){
+				Task tempTask = masterList.get(i);
+				tempTask.set_index(i+1);
+				tempList.add(tempTask);
+			}
+			masterList = (ArrayList<Task>)tempList.clone();
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
@@ -141,6 +173,8 @@ public class Storage {
 	public static String editFromStorage(Task task){
 		try{
 			TaskFormatToStorage.editFromStorage(task);
+			masterList.remove(task.get_index() -1);
+			masterList.add(task.get_index() - 1, task);
 		} catch (IOException ioe){
 			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
 			return task.get_messageToUser();
@@ -202,6 +236,5 @@ public class Storage {
 			return task.get_messageToUser();
 		}
 		return task.get_messageToUser();
-	
 	}
 }

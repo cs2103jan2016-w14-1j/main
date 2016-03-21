@@ -1,7 +1,7 @@
-package Controllers;
+package ui.Controllers;
 
-import Controllers.HelpCommands.Help;
-import Controllers.HelpCommands.HelpCommandStorageParser;
+import ui.Controllers.HelpCommands.Help;
+import ui.Controllers.HelpCommands.HelpCommandStorageParser;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

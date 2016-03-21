@@ -9,21 +9,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="99.0" prefWidth="419.0" 
-      BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="Controllers.CommandLineController">
-    <children>
-        <TextField fx:id="userInput" alignment="CENTER" 
-                   onKeyPressed="#handleSubmitButtonAction" 
-                   prefHeight="35.0" prefWidth="774.0">
-            <VBox.margin>
-                <Insets bottom="10.0" />
-            </VBox.margin>
-        </TextField>
-        <Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0" 
-              textAlignment="CENTER" wrappingWidth="500" />
-    </children>
-    <BorderPane.margin>
-        <Insets left="50.0" right="50.0" />
-    </BorderPane.margin>
+<VBox alignment="CENTER" prefHeight="50.0" prefWidth="419.0"
+	BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="ui.Controllers.CommandLineController" spacing="10">
+	<children>
+		<Pane />
+		<TextField fx:id="userInput" alignment="CENTER"
+			onKeyPressed="#handleSubmitButtonAction" prefHeight="35.0" prefWidth="780.0">
+		</TextField>
+		<Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0"
+			textAlignment="CENTER" wrappingWidth="500" />
+	</children>
+	<BorderPane.margin>
+		<Insets left="50.0" right="50.0" />
+	</BorderPane.margin>
 </VBox>

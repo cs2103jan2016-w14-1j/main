@@ -1,4 +1,4 @@
-package Controllers.HelpCommands;
+package ui.Controllers.HelpCommands;
 
 public class Help {
     private String helpId;

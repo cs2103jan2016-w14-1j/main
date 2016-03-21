@@ -1,6 +1,6 @@
-package Controllers.TitleQuotes;
+package ui.Controllers.TitleQuotes;
 
-import Controllers.TitleQuotes.QuoteStorageParser;
+import ui.Controllers.TitleQuotes.QuoteStorageParser;
 import java.util.Date;
 
 public class QuoteGenerator {
@@ -13,6 +13,6 @@ public class QuoteGenerator {
 
     private static int randomGeneratorByDate() {
         Date date = new Date();
-        return (int) date.getTime() % NUM_QUOTES;
+        return (int) Math.abs(date.getTime() % NUM_QUOTES);
     }
 }

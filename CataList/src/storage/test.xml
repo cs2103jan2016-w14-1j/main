@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
-  <Task ID="1">
-    <Event>find some putang ina</Event>
-    <Date>1234</Date>
-    <Time>03 March</Time>
+  <Task ID="1" State="Complete">
+    <Event>find idk what</Event>
+    <Date>4321</Date>
+    <Time>02 March</Time>
   </Task>
-  <Task ID="2">
+  <Task ID="2" State="Incomplete">
+    <Event>uh</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="3" State="Complete">
+    <Event>find hello</Event>
+    <Date>5555</Date>
+    <Time>20 March</Time>
+  </Task>
+  <Task ID="4" State="Incomplete">
     <Event>go home and sleep</Event>
     <Date>0100</Date>
     <Time>32 March</Time>
   </Task>
-  <Task ID="3">
-    <Event>go home and sleep</Event>
-    <Date>0100</Date>
-    <Time>32 March</Time>
+  <Task ID="5" State="Incomplete">
+    <Event>tang</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="6" State="Incomplete">
+    <Event>hahaha</Event>
+    <Date />
+    <Time />
   </Task>
 </TaskList>
