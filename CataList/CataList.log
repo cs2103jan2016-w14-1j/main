@@ -1,4 +1,301 @@
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
+<record>
+  <date>2016-03-21T16:54:41</date>
+  <millis>1458550481817</millis>
+  <sequence>0</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:07</date>
+  <millis>1458550507369</millis>
+  <sequence>1</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:08</date>
+  <millis>1458550508226</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 5</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:08</date>
+  <millis>1458550508692</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 4</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:08</date>
+  <millis>1458550508906</millis>
+  <sequence>4</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 5</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:09</date>
+  <millis>1458550509561</millis>
+  <sequence>5</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:27</date>
+  <millis>1458550527210</millis>
+  <sequence>6</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:28</date>
+  <millis>1458550528251</millis>
+  <sequence>7</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:33</date>
+  <millis>1458550533421</millis>
+  <sequence>8</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 9</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:36</date>
+  <millis>1458550536975</millis>
+  <sequence>9</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 8</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:39</date>
+  <millis>1458550539189</millis>
+  <sequence>10</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:39</date>
+  <millis>1458550539982</millis>
+  <sequence>11</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 9</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:40</date>
+  <millis>1458550540200</millis>
+  <sequence>12</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 8</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:40</date>
+  <millis>1458550540401</millis>
+  <sequence>13</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:40</date>
+  <millis>1458550540587</millis>
+  <sequence>14</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:40</date>
+  <millis>1458550540788</millis>
+  <sequence>15</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 5</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:41</date>
+  <millis>1458550541260</millis>
+  <sequence>16</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 4</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:41</date>
+  <millis>1458550541525</millis>
+  <sequence>17</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 5</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:41</date>
+  <millis>1458550541760</millis>
+  <sequence>18</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:41</date>
+  <millis>1458550541992</millis>
+  <sequence>19</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getNextCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:42</date>
+  <millis>1458550542851</millis>
+  <sequence>20</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 9</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:43</date>
+  <millis>1458550543124</millis>
+  <sequence>21</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 8</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:43</date>
+  <millis>1458550543779</millis>
+  <sequence>22</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 7</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:44</date>
+  <millis>1458550544010</millis>
+  <sequence>23</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 6</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:44</date>
+  <millis>1458550544244</millis>
+  <sequence>24</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 5</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:44</date>
+  <millis>1458550544470</millis>
+  <sequence>25</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 4</message>
+</record>
+<record>
+  <date>2016-03-21T16:55:44</date>
+  <millis>1458550544697</millis>
+  <sequence>26</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>getPreviousCommand</method>
+  <thread>13</thread>
+  <message>command index 3</message>
+</record>
 </log>

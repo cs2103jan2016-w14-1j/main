@@ -102,6 +102,8 @@ public class LogicHandler {
 				return new MarkIncomplete(userInputEvent);
 			case "invalid" :
 				return new InvalidTask(userInputEvent);
+			case "help":
+				return new HelpTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
@@ -135,6 +137,8 @@ public class LogicHandler {
 				return new MarkIncomplete(userInputEvent);
 			case "invalid":
 				return new InvalidTask(userInputEvent);
+			case "help":
+				return new HelpTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
@@ -169,6 +173,8 @@ public class LogicHandler {
 				return new MarkIncomplete(userInputEvent);
 			case "invalid":
 				return new InvalidTask(userInputEvent);
+			case "help":
+				return new HelpTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
