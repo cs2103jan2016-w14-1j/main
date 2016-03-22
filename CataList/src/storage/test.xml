@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1" State="Incomplete">
-    <Event>123123</Event>
+    <Event>5</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="2" State="Incomplete">
-    <Event>12223</Event>
+    <Event>345</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="3" State="Incomplete">
-    <Event>123456</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="4" State="Incomplete">
-    <Event>55555</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="5" State="Incomplete">
-    <Event>123</Event>
+    <Event>4</Event>
     <Date />
     <Time />
   </Task>

@@ -46,16 +46,17 @@ public class LogicMain {
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
 		String feedbackToUI = operateOnTask(newCreatedTask);
 		
-		regenerateSubListsFromMasterList();
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
 			ArrayList<ArrayList<Task>> updateState = new ArrayList<ArrayList<Task>>();
-			for(int i = 0 ; i < pointingAt ; i++){
+			for(int i = 0 ; i <= pointingAt ; i++){
 				updateState.add(state.get(i));
 			}
 			state = updateState;
 			state.add(masterListTasks);
 			pointingAt++;
 		}
+
+		regenerateSubListsFromMasterList();
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
@@ -153,9 +154,12 @@ public class LogicMain {
 		
 		try{
 			//find and change inside masterList 
+			System.out.println(masterListTasks);
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toDelete)){
+					System.out.println("deleting " + i);
 					masterListTasks.remove(i);
+					break;
 				}
 			}
 			operatingTasks.remove(operateIndex - 1);
@@ -205,6 +209,7 @@ public class LogicMain {
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toEdit)){
 					masterListTasks.set(i, taskToOp);
+					break;
 				}
 			}
 		
