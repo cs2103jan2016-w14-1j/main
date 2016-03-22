@@ -3,7 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import parser.ParserMain;
-import storage.Storage;
+import storage.StorageMain;
 
 public class LogicMain {
 	private final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Index out of bounds. Please try again.";
@@ -17,25 +17,27 @@ public class LogicMain {
 	private ArrayList<Task> operatingTasks;
 	
 	private ArrayList<ArrayList<Task>> state;
+	private int pointingAt;
 	
 	private static final int INCOMPLETE_LIST_INDEX = 0;
 	private static final int COMPLETE_LIST_INDEX = 1;
 	private static final int MASTER_LIST_INDEX = 2;
 	
 	ParserMain inputParser;
-	Storage storageSystem;
+	StorageMain storageSystem;
 	
 	public LogicMain(){
 		inputParser = new ParserMain();
-		storageSystem = new Storage();
+		storageSystem = new StorageMain();
 		
 		masterListTasks = new ArrayList<Task>();
 		completeTasks = new ArrayList<Task>();
 		incompleteTasks = new ArrayList<Task>();
-		
+		state = new ArrayList<ArrayList<Task>>();
 		masterListTasks = storageSystem.loadTask();
 		operatingTasks = masterListTasks;
 		state.add(masterListTasks);
+		pointingAt = 0;
 	}
 	
 	public String processCommand(String userInput){
@@ -44,8 +46,15 @@ public class LogicMain {
 		String feedbackToUI = operateOnTask(newCreatedTask);
 		
 		regenerateSubListsFromMasterList();
-		//TODO: MAINTAIN A STATE? AARON PLS.
-		//state.add(masterListTasks);
+		if(isMutatorAndNotUndoRedo(newCreatedTask)){
+			ArrayList<ArrayList<Task>> updateState = new ArrayList<ArrayList<Task>>();
+			for(int i = 0 ; i < pointingAt ; i++){
+				updateState.add(state.get(i));
+			}
+			state = updateState;
+			state.add(masterListTasks);
+			pointingAt++;
+		}
 		return feedbackToUI;
 	}
 	
@@ -116,6 +125,19 @@ public class LogicMain {
 	}
 	*/
 	
+	private boolean isMutatorAndNotUndoRedo(Task inputTask){
+		boolean result = false;
+		if(inputTask.get_cmd().equalsIgnoreCase("undo") ||inputTask.get_cmd().equalsIgnoreCase("redo")){
+			 result = false;
+		}
+		
+		if(inputTask.is_changed()){
+			result = true;
+		} 
+		return result;
+		
+	}
+	
 	private String doAdd(Task taskToOp){
 		masterListTasks.add(taskToOp);
 		String feedback = taskToOp.get_messageToUser();
@@ -184,16 +206,28 @@ public class LogicMain {
 		return feedback;
 	}
 	
-	/*
+	
 	private String doUndo(Task taskToOp){
-		previousMasterList = state
+		try{
+			pointingAt--;
+			masterListTasks = state.get(pointingAt);
+		} catch (IndexOutOfBoundsException e){
+			taskToOp.setMessageErrorDefault();
+		}
+		return taskToOp.get_messageToUser();
+		
 	}
 	
 	private String doRedo(Task taskToOp){
-		String feedback = storageSystem.redoFromStorage(taskToOp);
-		return feedback;
+		try{
+			pointingAt++;
+			masterListTasks = state.get(pointingAt);
+		} catch (IndexOutOfBoundsException e){
+			taskToOp.setMessageErrorDefault();
+		}
+		return taskToOp.get_messageToUser();
 	}
-	*/
+	
 	
 	private String doSearch(Task taskToOp){
 		String toFind = taskToOp.get_task();
