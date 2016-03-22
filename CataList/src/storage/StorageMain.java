@@ -25,16 +25,36 @@ public class StorageMain {
 	private static final String ATTRIBUTE_STATE = "State";
 	private static final String ATTRIBUTE_NUM = "ID";
 	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
-
+	private ArrayList<Task> masterList;
+	
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
 			"/src/storage/test.xml";
+
+	public ArrayList<Task> loadTask() {
+		try{
+			masterList = StorageReader.readFromStorage();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		} catch (JDOMException jdome) {
+			jdome.printStackTrace();
+		}
+		return masterList;
+	}
 	
-	public boolean storageWrite(ArrayList<Task> masterList){
+	boolean storageWrite(ArrayList<Task> masterList){
 			Element task;
 			int index;
-			Task tempTask;
-			TaskFormatToStorage.clearFromStorage(tempTask);
+			Task tempTask = null;
+			try {
+				TaskFormatToStorage.clearFromStorage(tempTask);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JDOMException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				File inputFile = new File(STORAGE_PATH);
 				SAXBuilder saxBuilder = new SAXBuilder();
