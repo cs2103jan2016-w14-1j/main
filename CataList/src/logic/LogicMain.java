@@ -61,7 +61,7 @@ public class LogicMain {
 		storageSystem.storageWrite(masterListTasks);
 		System.out.println(state.size());
 		System.out.println("pointing at: " + pointingAt);
-		System.out.println(state.get(pointingAt).size());
+		System.out.println(masterListTasks.size());
 		return feedbackToUI;
 	}
 	
