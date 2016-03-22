@@ -59,9 +59,9 @@ public class LogicMain {
 			pointingAt++;
 		}
 		storageSystem.storageWrite(masterListTasks);
-		System.out.println(state.size());
-		System.out.println("pointing at: " + pointingAt);
-		System.out.println(state.get(pointingAt).size());
+		//System.out.println(state.size());
+		//System.out.println("pointing at: " + pointingAt);
+		//System.out.println(state.get(pointingAt).size());
 		return feedbackToUI;
 	}
 	
@@ -161,7 +161,7 @@ public class LogicMain {
 					masterListTasks.remove(i);
 				}
 			}
-			operatingTasks.remove(operateIndex - 1);
+			//operatingTasks.remove(operateIndex - 1);  this cause it to double delete?
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
 		}
@@ -210,8 +210,8 @@ public class LogicMain {
 					masterListTasks.set(i, taskToOp);
 				}
 			}
-		
-			operatingTasks.set(operateIndex, taskToOp);
+			
+			//operatingTasks.set(operateIndex, taskToOp);  this cause it to double edit?
 		
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
