@@ -67,7 +67,7 @@ public class LogicMain {
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return masterListTasks;
+		return operatingTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
@@ -120,6 +120,7 @@ public class LogicMain {
 			}
 		}
 	}
+	
 	/*
 	private void saveBackToOriginalList(){
 		if(operatingOn == MASTER_LIST_INDEX){
@@ -151,12 +152,20 @@ public class LogicMain {
 	
 	private String doDelete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
+		Task toDelete = operatingTasks.get(operateIndex - 1);
 		
 		try{
-			operatingTasks.remove(operateIndex);
+			//find and change inside masterList 
+			for(int i = 0 ; i < masterListTasks.size() ; i++){
+				if(masterListTasks.get(i).equals(toDelete)){
+					masterListTasks.remove(i);
+				}
+			}
+			operatingTasks.remove(operateIndex - 1);
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
 		}
+		
 		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
@@ -192,7 +201,7 @@ public class LogicMain {
 	
 	private String doEdit(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		Task toEdit = operatingTasks.get(operateIndex);
+		Task toEdit = operatingTasks.get(operateIndex - 1);
 		
 		try{
 			//find and change inside masterList 
@@ -250,7 +259,7 @@ public class LogicMain {
 	private String doMarkComplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex-1);
+			Task operateOn = operatingTasks.get(operateIndex - 1);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){
@@ -268,7 +277,7 @@ public class LogicMain {
 	private String doMarkIncomplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex-1);
+			Task operateOn = operatingTasks.get(operateIndex - 1);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){

@@ -5,7 +5,7 @@ public class SearchTask extends Task {
 	private static final String MESSAGE_SEARCH_SUCCESS = "Your search query has returned:";
 	private static final String MESSAGE_SEARCH_FAILURE = "Unable to perform search.";
 	private static final String MESSAGE_SEARCH_EMPTY = "Nothing to return.";
-	private static final String COMMAND_TYPE = "add";
+	private static final String COMMAND_TYPE = "search";
 	
 	private static final boolean IS_MUTATOR = true;
 	
