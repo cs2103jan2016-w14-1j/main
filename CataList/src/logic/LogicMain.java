@@ -47,15 +47,16 @@ public class LogicMain {
 		String feedbackToUI = operateOnTask(newCreatedTask);
 		
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
+			System.out.println("undo redo working?");
 			ArrayList<ArrayList<Task>> updateState = new ArrayList<ArrayList<Task>>();
-			for(int i = 0 ; i <= pointingAt ; i++){
+			for(int i = 0 ; i < pointingAt ; i++){
 				updateState.add(state.get(i));
 			}
 			state = updateState;
-			state.add(masterListTasks);
+			ArrayList<Task> addToState = masterListTasks;
+			state.add(addToState);
 			pointingAt++;
 		}
-
 		regenerateSubListsFromMasterList();
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
@@ -63,7 +64,7 @@ public class LogicMain {
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return operatingTasks;
+		return masterListTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
@@ -116,7 +117,6 @@ public class LogicMain {
 			}
 		}
 	}
-	
 	/*
 	private void saveBackToOriginalList(){
 		if(operatingOn == MASTER_LIST_INDEX){
@@ -133,9 +133,7 @@ public class LogicMain {
 		boolean result = false;
 		if(inputTask.get_cmd().equalsIgnoreCase("undo") ||inputTask.get_cmd().equalsIgnoreCase("redo")){
 			 result = false;
-		}
-		
-		if(inputTask.is_changed()){
+		} else if(inputTask.is_changed()){
 			result = true;
 		} 
 		return result;
@@ -150,23 +148,12 @@ public class LogicMain {
 	
 	private String doDelete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		Task toDelete = operatingTasks.get(operateIndex - 1);
 		
 		try{
-			//find and change inside masterList 
-			System.out.println(masterListTasks);
-			for(int i = 0 ; i < masterListTasks.size() ; i++){
-				if(masterListTasks.get(i).equals(toDelete)){
-					System.out.println("deleting " + i);
-					masterListTasks.remove(i);
-					break;
-				}
-			}
 			operatingTasks.remove(operateIndex - 1);
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
 		}
-		
 		String feedback = taskToOp.get_messageToUser();
 		return feedback;
 	}
@@ -206,14 +193,14 @@ public class LogicMain {
 		
 		try{
 			//find and change inside masterList 
+			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toEdit)){
 					masterListTasks.set(i, taskToOp);
-					break;
 				}
 			}
 		
-			operatingTasks.set(operateIndex, taskToOp);
+			operatingTasks.set(operateIndex -1, taskToOp);
 		
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
@@ -261,7 +248,7 @@ public class LogicMain {
 	private String doMarkComplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex - 1);
+			Task operateOn = operatingTasks.get(operateIndex);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){
