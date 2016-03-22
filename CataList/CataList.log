@@ -2,13 +2,10 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-<<<<<<< HEAD
   <date>2016-03-22T19:04:32</date>
   <millis>1458644672436</millis>
-=======
   <date>2016-03-23T01:26:48</date>
   <millis>1458667608318</millis>
->>>>>>> refs/remotes/origin/ParserAndLogicRework
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -18,13 +15,10 @@
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-<<<<<<< HEAD
   <date>2016-03-22T19:04:32</date>
   <millis>1458644672647</millis>
-=======
   <date>2016-03-23T01:26:48</date>
   <millis>1458667608386</millis>
->>>>>>> refs/remotes/origin/ParserAndLogicRework
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -32,8 +26,6 @@
   <method>loadClassList</method>
   <thread>14</thread>
   <message>Tab Size? 0</message>
-<<<<<<< HEAD
-=======
 </record>
 <record>
   <date>2016-03-23T01:26:52</date>
@@ -56,7 +48,6 @@
   <method>loadClassList</method>
   <thread>14</thread>
   <message>Tab Size? 1</message>
->>>>>>> refs/remotes/origin/ParserAndLogicRework
 </record>
 <record>
   <date>2016-03-23T01:26:55</date>

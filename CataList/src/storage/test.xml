@@ -1,15 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?><TaskList  <Task ID="1" State="Incomplete">
+<?xml ve="1.0" encoding="UTF-8"?><TaskList  <Task ID="1" State="Incomplete">
     <Event>345</Event>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<TaskList>
+  <Task ID="1" State="Incomplete">
+    <Event>16</Event>
+>>>>>>> refs/remotes/origin/ericewe
     <Date />
     <Time />
   </Task>
   <Task ID="2" State="Incomplete">
+<<<<<<< HEAD
     <Event>lol</Event>
+=======
+    <Event>15</Event>
+>>>>>>> refs/remotes/origin/ericewe
     <Date />
     <Time />
   </Task>
   <Task ID="3" State="Incomplete">
+<<<<<<< HEAD
     <Event>2321</Event>
+    <Date />
+    <Time />
+  </Task>
+</TaskList>
+=======
+    <Event>18</Event>
     <Date />
     <Time />
   </Task>
