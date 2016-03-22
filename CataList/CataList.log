@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-22T18:24:18</date>
-  <millis>1458642258743</millis>
+  <date>2016-03-22T19:04:32</date>
+  <millis>1458644672436</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-22T18:24:18</date>
-  <millis>1458642258942</millis>
+  <date>2016-03-22T19:04:32</date>
+  <millis>1458644672647</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -22,26 +22,4 @@
   <method>loadClassList</method>
   <thread>14</thread>
   <message>Tab Size? 0</message>
-</record>
-<record>
-  <date>2016-03-22T18:24:25</date>
-  <millis>1458642265652</millis>
-  <sequence>2</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loopTaskList</method>
-  <thread>14</thread>
-  <message>operatingTaskFromLogic empty? false</message>
-</record>
-<record>
-  <date>2016-03-22T18:24:25</date>
-  <millis>1458642265820</millis>
-  <sequence>3</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loadClassList</method>
-  <thread>14</thread>
-  <message>Tab Size? 1</message>
 </record>

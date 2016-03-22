@@ -48,15 +48,20 @@ public class LogicMain {
 		
 		regenerateSubListsFromMasterList();
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
+			System.out.println("undo redo working?");
 			ArrayList<ArrayList<Task>> updateState = new ArrayList<ArrayList<Task>>();
 			for(int i = 0 ; i < pointingAt ; i++){
 				updateState.add(state.get(i));
 			}
 			state = updateState;
-			state.add(masterListTasks);
+			ArrayList<Task> addToState = masterListTasks;
+			state.add(addToState);
 			pointingAt++;
 		}
 		storageSystem.storageWrite(masterListTasks);
+		System.out.println(state.size());
+		System.out.println("pointing at: " + pointingAt);
+		System.out.println(state.get(pointingAt).size());
 		return feedbackToUI;
 	}
 	
@@ -131,9 +136,7 @@ public class LogicMain {
 		boolean result = false;
 		if(inputTask.get_cmd().equalsIgnoreCase("undo") ||inputTask.get_cmd().equalsIgnoreCase("redo")){
 			 result = false;
-		}
-		
-		if(inputTask.is_changed()){
+		} else if(inputTask.is_changed()){
 			result = true;
 		} 
 		return result;
