@@ -17,16 +17,11 @@ import logic.Task;
 
 public class MainGUIController {
 
-	@FXML 
-	public CommandLineController commandLineController;  
-	@FXML 
-	public ListInterfaceController todoListController;   
-	@FXML 
-	public TitleInterfaceController titleController;
-	@FXML
-	public SupportFeatureController supportFeatureController;
-	@FXML 
-	public AnchorPane mainAnchorPane;
+	@FXML public CommandLineController commandLineController;  
+	@FXML public ListInterfaceController todoListController;   
+	@FXML public TitleInterfaceController titleController;
+	@FXML public SupportFeatureController supportFeatureController;
+	@FXML public AnchorPane mainAnchorPane;
 
 	private LogicMain logic = new LogicMain();
 

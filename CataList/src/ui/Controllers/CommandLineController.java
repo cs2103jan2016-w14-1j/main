@@ -4,7 +4,6 @@ import java.io.IOException;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
