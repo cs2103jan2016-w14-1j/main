@@ -139,11 +139,12 @@ public class Storage {
 		try{
 			TaskFormatToStorage.addToStorage(task);
 			masterList.add(task);
+			System.out.println("tang ina");
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 		return task.get_messageToUser();
@@ -164,10 +165,10 @@ public class Storage {
 			}
 			masterList = (ArrayList<Task>)tempList.clone();
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 			return task.get_messageToUser();
@@ -179,10 +180,10 @@ public class Storage {
 			masterList.remove(task.get_index() -1);
 			masterList.add(task.get_index() - 1, task);
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 		return task.get_messageToUser();
@@ -193,10 +194,10 @@ public class Storage {
 			TaskFormatToStorage.clearFromStorage(task);
 			masterList.clear();
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 		return task.get_messageToUser();
@@ -206,10 +207,10 @@ public class Storage {
 			try{
 				TaskFormatToStorage.displayFromStorage(task);
 			} catch (IOException ioe){
-				task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+				task.setMessageErrorDefault();
 				return task.get_messageToUser();
 			} catch (JDOMException jdome) {
-				task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+				task.setMessageErrorDefault();
 				return task.get_messageToUser();
 			}
 			return task.get_messageToUser();
@@ -219,10 +220,10 @@ public class Storage {
 		try{
 			masterList = TaskFormatToStorage.undoFromStorage(task);
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 			return task.get_messageToUser();
@@ -232,10 +233,10 @@ public class Storage {
 		try{	
 			masterList = TaskFormatToStorage.redoFromStorage(task);
 		} catch (IOException ioe){
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		} catch (JDOMException jdome) {
-			task.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			task.setMessageErrorDefault();
 			return task.get_messageToUser();
 		}
 		return task.get_messageToUser();

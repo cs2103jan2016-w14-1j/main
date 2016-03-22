@@ -56,12 +56,13 @@ public class LogicMain {
 			state.add(masterListTasks);
 			pointingAt++;
 		}
+		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return operatingTasks;
+		return masterListTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
@@ -246,7 +247,7 @@ public class LogicMain {
 	private String doMarkComplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex);
+			Task operateOn = operatingTasks.get(operateIndex-1);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){
@@ -264,7 +265,7 @@ public class LogicMain {
 	private String doMarkIncomplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex);
+			Task operateOn = operatingTasks.get(operateIndex-1);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){

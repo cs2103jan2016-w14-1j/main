@@ -43,7 +43,6 @@ public class Task {
 					&& isSuccesful(other)
 					&& isSameDate(other)
 					&& isSameTime(other)
-					&& isSameOperand(other)
 					&& isSameCompletionState(other));
 		}
 		return false;

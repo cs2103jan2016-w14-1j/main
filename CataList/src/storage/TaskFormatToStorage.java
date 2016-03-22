@@ -72,7 +72,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		try{
 			StorageWriter.writeToStorage(toDoListDocument);
 		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 		
@@ -113,7 +113,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    try{
 			StorageWriter.writeToStorage(document);
 		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 	    states.add(StorageReader.readFromStorage());
@@ -164,7 +164,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	    try{
 			StorageWriter.writeToStorage(document);
 		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 	    
@@ -201,7 +201,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		return redoneState;
 	}
 	
-	public static String clearFromStorage(Task taskObj) throws IOException, JDOMException {
+	public static void clearFromStorage(Task taskObj) throws IOException, JDOMException {
 
 		File inputFile = new File(STORAGE_PATH);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -224,14 +224,12 @@ public class TaskFormatToStorage extends StorageWriter {
 		try{
 			StorageWriter.writeToStorage(document);
 		} catch(IOException e) {
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
-			return taskObj.get_messageToUser();
+			taskObj.setMessageErrorDefault();
 		}
 		
 		states.add(StorageReader.readFromStorage());
 		listPointer++;
-		
-		return taskObj.get_messageToUser();
+
 	} 
 	
 	public static String displayFromStorage(Task taskObj) throws IOException, JDOMException{
@@ -239,7 +237,7 @@ public class TaskFormatToStorage extends StorageWriter {
 		try{
 			StorageReader.readFromStorage();
 		} catch(IOException|JDOMException e) { 
-			taskObj.setMessageErrorDefault(MESSAGE_DEFAULT_ERROR);
+			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 		return taskObj.get_messageToUser();

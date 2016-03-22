@@ -42,7 +42,7 @@ public class StorageMain {
 		return masterList;
 	}
 	
-	boolean storageWrite(ArrayList<Task> masterList){
+	public boolean storageWrite(ArrayList<Task> masterList){
 			Element task;
 			int index;
 			Task tempTask = null;
