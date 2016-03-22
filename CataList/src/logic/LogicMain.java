@@ -36,7 +36,7 @@ public class LogicMain {
 		state = new ArrayList<ArrayList<Task>>();
 		
 		masterListTasks = storageSystem.loadTask();
-		operatingTasks = masterListTasks;
+		operatingTasks = new ArrayList<Task>(masterListTasks);
 		state.add(masterListTasks);
 		pointingAt = 0;
 	}
@@ -64,7 +64,7 @@ public class LogicMain {
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return masterListTasks;
+		return operatingTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
@@ -148,8 +148,14 @@ public class LogicMain {
 	
 	private String doDelete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
+		Task toDelete = operatingTasks.get(operateIndex - 1);
 		
 		try{
+			for(int i = 0 ; i < masterListTasks.size() ; i++){
+				if(masterListTasks.get(i).equals(toDelete)){
+					masterListTasks.remove(i);
+				}
+			}
 			operatingTasks.remove(operateIndex - 1);
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorEmpty();
