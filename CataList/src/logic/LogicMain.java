@@ -34,6 +34,7 @@ public class LogicMain {
 		completeTasks = new ArrayList<Task>();
 		incompleteTasks = new ArrayList<Task>();
 		state = new ArrayList<ArrayList<Task>>();
+		
 		masterListTasks = storageSystem.loadTask();
 		operatingTasks = masterListTasks;
 		state.add(masterListTasks);
