@@ -1,91 +1,158 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-22T19:17:21</date>
-  <millis>1458645441289</millis>
+  <date>2016-03-22T23:07:17</date>
+  <millis>1458659237220</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:21</date>
-  <millis>1458645441379</millis>
+  <date>2016-03-22T23:07:17</date>
+  <millis>1458659237283</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loadClassList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>Tab Size? 0</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:24</date>
-  <millis>1458645444361</millis>
+  <date>2016-03-22T23:07:22</date>
+  <millis>1458659242884</millis>
   <sequence>2</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:24</date>
-  <millis>1458645444380</millis>
+  <date>2016-03-22T23:07:22</date>
+  <millis>1458659242897</millis>
   <sequence>3</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loadClassList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>Tab Size? 1</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:26</date>
-  <millis>1458645446100</millis>
+  <date>2016-03-22T23:07:28</date>
+  <millis>1458659248097</millis>
   <sequence>4</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:26</date>
-  <millis>1458645446117</millis>
+  <date>2016-03-22T23:07:28</date>
+  <millis>1458659248106</millis>
   <sequence>5</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loadClassList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>Tab Size? 2</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:28</date>
-  <millis>1458645448943</millis>
+  <date>2016-03-22T23:07:37</date>
+  <millis>1458659257047</millis>
   <sequence>6</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-22T19:17:28</date>
-  <millis>1458645448959</millis>
+  <date>2016-03-22T23:07:37</date>
+  <millis>1458659257057</millis>
   <sequence>7</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loadClassList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>Tab Size? 2</message>
 </record>
+<record>
+  <date>2016-03-22T23:07:45</date>
+  <millis>1458659265409</millis>
+  <sequence>8</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>14</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-22T23:07:45</date>
+  <millis>1458659265413</millis>
+  <sequence>9</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>14</thread>
+  <message>Tab Size? 2</message>
+</record>
+<record>
+  <date>2016-03-22T23:07:48</date>
+  <millis>1458659268198</millis>
+  <sequence>10</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>14</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-22T23:07:48</date>
+  <millis>1458659268199</millis>
+  <sequence>11</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>14</thread>
+  <message>Tab Size? 2</message>
+</record>
+<record>
+  <date>2016-03-22T23:07:52</date>
+  <millis>1458659272158</millis>
+  <sequence>12</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>14</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-22T23:07:52</date>
+  <millis>1458659272166</millis>
+  <sequence>13</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>14</thread>
+  <message>Tab Size? 2</message>
+</record>
+</log>
