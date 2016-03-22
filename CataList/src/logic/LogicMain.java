@@ -59,12 +59,13 @@ public class LogicMain {
 		}
 		regenerateSubListsFromMasterList();
 		storageSystem.storageWrite(masterListTasks);
+		//figure out a better method for sorting and searching
 		return feedbackToUI;
 	}
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return operatingTasks;
+		return masterListTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
