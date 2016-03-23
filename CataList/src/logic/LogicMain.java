@@ -73,7 +73,7 @@ public class LogicMain {
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return operatingTasks;
+		return masterListTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
