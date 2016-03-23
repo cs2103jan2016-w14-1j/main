@@ -252,3 +252,8 @@
 	-fx-font-size: 14px;
 }
 
+#tutorialSamples {
+	-fx-font-family: Monospaced;
+	-fx-fill: blue;
+}
+

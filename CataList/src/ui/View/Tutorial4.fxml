@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300" prefWidth="300" 
+<AnchorPane prefHeight="200" prefWidth="200" 
 xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<StackPane AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20"
@@ -18,8 +18,14 @@ xmlns:fx="http://javafx.com/fxml/1">
 			<children>
 				<VBox spacing="10" fx:id="tutorialContainer">
 					<children>
-					<Text fx:id="tutorialMessage" />
-					<Text fx:id="exitMessage" text="Press ESC to quit" />
+					<Text fx:id="tutorialMessage"
+							text="Here, your task has been added!
+					&#10;You may noticed that the time is
+					&#10;input the '-t' flag and date is
+					&#10;the '-d' flag. Now you can start
+					&#10;creating your own tasks!" />
+						<Text fx:id="exitMessage" text="Press LEFT to go back a step." />
+						<Text fx:id="exitMessage" text="Press ESC to quit." />
 					</children>
 				</VBox>
 			</children>
