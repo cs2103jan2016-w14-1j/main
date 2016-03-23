@@ -64,7 +64,6 @@ public class LogicMain {
 		}
 		storageSystem.storageWrite(masterListTasks);
 		//figure out a better method for sorting and searching
-		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
 	
@@ -266,7 +265,7 @@ public class LogicMain {
 				foundList.add(eachTask);
 			}
 		}
-		operatingTasks =new ArrayList<Task>(foundList);
+		operatingTasks = new ArrayList<Task>(foundList);
 		return taskToOp.get_messageToUser();
 	}
 	
