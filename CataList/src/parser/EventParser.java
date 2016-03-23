@@ -38,7 +38,7 @@ public class EventParser {
 				extractedEvent += inputArray[i];
 				extractedEvent += SYMBOL_WHITESPACE;
 			} else {
-				break;
+				i++;
 			}
 		}
 		return extractedEvent;
