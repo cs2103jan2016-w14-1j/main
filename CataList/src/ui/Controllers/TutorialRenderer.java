@@ -17,22 +17,25 @@ import javafx.util.Duration;
 public class TutorialRenderer {
 	private final int LIST_OFFSET_Y = 125;
 	private final int LIST_OFFSET_X = 100;
-			
+
 	private final int CL_OFFSET_X = 600;
 
 	private final String TUTORIAL_1_PATH = "/ui/View/Tutorial1.fxml";
 	private final String TUTORIAL_2_PATH = "/ui/View/Tutorial2.fxml";
 	private final String TUTORIAL_3_PATH = "/ui/View/Tutorial3.fxml";
 	private final String TUTORIAL_4_PATH = "/ui/View/Tutorial4.fxml";
+	private final String TUTORIAL_5_PATH = "/ui/View/Tutorial5.fxml";
 
 	private final int INTERFACE_TUTORIAL = 1;
 	private final int COMMAND_TUTORIAL = 2;
 	private final int READ_LIST_TUTORIAL = 3;
+	private final int HELP_TUTORIAL = 4;
 
 	private PopOver commandLineTutorial;
 	private PopOver listTutorial;
 	private PopOver commandTutorial; 
 	private PopOver readListTutorial;
+	private PopOver helpTutorial;
 
 	private MainGUIController main;
 
@@ -51,31 +54,34 @@ public class TutorialRenderer {
 		listTutorial = new PopOver();
 		commandTutorial = new PopOver();
 		readListTutorial = new PopOver();
+		helpTutorial = new PopOver();
 	}
 
 	public void loadTutorial() throws IOException {
 		initPopOver();
+		
+		tutorialFlag = true;
 
-		if(currentTutorial > READ_LIST_TUTORIAL) {
-			currentTutorial = COMMAND_TUTORIAL;
+		if(currentTutorial > HELP_TUTORIAL) {
+			currentTutorial = HELP_TUTORIAL;
 		} if(currentTutorial < INTERFACE_TUTORIAL) {
 			currentTutorial = INTERFACE_TUTORIAL;
 		}
-		
+
 		if(currentTutorial == INTERFACE_TUTORIAL) {
 
 			commandLineTutorial.setContentNode(FXMLLoader.load(getClass().getResource(TUTORIAL_1_PATH)));
 			getCoordinates(commandLineTutorial, main.getCommandLine());
 			setPopOverProperties(commandLineTutorial);
 			commandLineTutorial.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
-			commandLineTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.ONE);
+			commandLineTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.millis(300));
 
 			listTutorial.setContentNode(FXMLLoader.load(getClass().getResource(TUTORIAL_2_PATH)));
 			getCoordinates(listTutorial, main.getList());
 			setPopOverProperties(listTutorial);
 			listTutorial.setArrowLocation(ArrowLocation.TOP_CENTER);
-			listTutorial.show(main.getList(), coordinateX+LIST_OFFSET_X, coordinateY+LIST_OFFSET_Y, Duration.ONE);
-			
+			listTutorial.show(main.getList(), coordinateX+LIST_OFFSET_X, coordinateY+LIST_OFFSET_Y, Duration.millis(300));
+
 			tutorialKeyHandler(listTutorial);
 
 		} else if(currentTutorial == COMMAND_TUTORIAL) {
@@ -84,7 +90,7 @@ public class TutorialRenderer {
 			getCoordinates(commandTutorial, main.getCommandLine());
 			setPopOverProperties(commandTutorial);
 			commandTutorial.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
-			commandTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.ONE);
+			commandTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.millis(300));
 
 			tutorialKeyHandler(commandTutorial);
 
@@ -94,20 +100,29 @@ public class TutorialRenderer {
 			getCoordinates(readListTutorial, main.getList());
 			setPopOverProperties(readListTutorial);
 			readListTutorial.setArrowLocation(ArrowLocation.TOP_CENTER);
-			readListTutorial.show(main.getList(), coordinateX+LIST_OFFSET_X, coordinateY+LIST_OFFSET_Y, Duration.ONE);
+			readListTutorial.show(main.getList(), coordinateX+LIST_OFFSET_X, coordinateY+LIST_OFFSET_Y, Duration.millis(300));
 
 			tutorialKeyHandler(readListTutorial);
 			
-		}
-	
+		} else if(currentTutorial == HELP_TUTORIAL) {
+			
+			helpTutorial.setContentNode(FXMLLoader.load(getClass().getResource(TUTORIAL_5_PATH)));
+			getCoordinates(helpTutorial, main.getCommandLine());
+			setPopOverProperties(helpTutorial);
+			helpTutorial.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
+			helpTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.millis(300));
+
+			tutorialKeyHandler(helpTutorial);
 		}
 
+	}
 
 	private void hideAll() {
 		commandLineTutorial.hide(Duration.ONE);
 		listTutorial.hide(Duration.ONE);
 		commandTutorial.hide(Duration.ONE);
 		readListTutorial.hide(Duration.ONE);
+		helpTutorial.hide(Duration.ONE);
 	}
 
 	private void getCoordinates(PopOver target, Node targetContent) {
@@ -137,9 +152,10 @@ public class TutorialRenderer {
 			@Override
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.ENTER) {
-						currentTutorial++;
+					currentTutorial++;
 					try {
-						if(currentTutorial == INTERFACE_TUTORIAL+1) {
+						if(currentTutorial == INTERFACE_TUTORIAL+1 ||
+								currentTutorial == READ_LIST_TUTORIAL+1) {
 							event.consume();
 						}
 						hideAll();
@@ -148,7 +164,7 @@ public class TutorialRenderer {
 						e.printStackTrace();
 					}
 				} else if (event.getCode() == KeyCode.LEFT) {
-						currentTutorial--;
+					currentTutorial--;
 					try {
 						event.consume();
 						hideAll();

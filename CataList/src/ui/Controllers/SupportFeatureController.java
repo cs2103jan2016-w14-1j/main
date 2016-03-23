@@ -114,10 +114,20 @@ public class SupportFeatureController {
 
 	public void showMainPane() {
 		mainPane.setManaged(true);
+		insertTutorialToggle();
 
 		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
+	}
+	
+	private void insertTutorialToggle() {
+		Text tutorialLabel = new Text("Tutorial Mode: " + main.getTutorialMode());
+		if(mainPane.getChildren().size() > 3) {
+			mainPane.getChildren().set(mainPane.getChildren().size()-1, tutorialLabel);
+		} else {
+			mainPane.getChildren().add(tutorialLabel);
+		}
 	}
 }
