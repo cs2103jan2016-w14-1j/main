@@ -58,6 +58,10 @@ public class LogicMain {
 			pointingAt++;
 		}
 		regenerateSubListsFromMasterList();
+		if(!isSearchOrSort(newCreatedTask)){
+			//the operating tasks should become the masterList
+			operatingTasks = new ArrayList<Task>(masterListTasks);
+		}
 		storageSystem.storageWrite(masterListTasks);
 		//figure out a better method for sorting and searching
 		return feedbackToUI;
@@ -77,6 +81,13 @@ public class LogicMain {
 		*/
 	}
 	
+	private boolean isSearchOrSort(Task taskInput){
+		boolean result = false;
+		if(taskInput.get_cmd().equalsIgnoreCase("search")){
+			result = true;
+		}
+		return result;
+	}
 	private String operateOnTask(Task requestedTask){
 		String commandType = requestedTask.get_cmd();
 		switch(commandType){
@@ -149,9 +160,10 @@ public class LogicMain {
 	
 	private String doDelete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		Task toDelete = operatingTasks.get(operateIndex - 1);
-		
+	
 		try{
+			Task toDelete = operatingTasks.get(operateIndex - 1);
+			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toDelete)){
 					masterListTasks.remove(i);
@@ -159,7 +171,10 @@ public class LogicMain {
 			}
 			operatingTasks.remove(operateIndex - 1);
 		} catch (IndexOutOfBoundsException e){
-			taskToOp.setMessageErrorEmpty();
+			//STUPID METHOD CURRENTLY NEED TO REWORK
+			taskToOp.set_messageToUser("Nothing to be deleted!");
+			//taskToOp.setMessageErrorEmpty();
+			System.out.println(taskToOp.get_messageToUser());
 		}
 		String feedback = taskToOp.get_messageToUser();
 		return feedback;
@@ -172,7 +187,7 @@ public class LogicMain {
 		completeTasks.clear();
 		masterListTasks.clear();
 		
-		operatingTasks = masterListTasks;
+		operatingTasks.clear();
 		return feedback;
 	}
 	
@@ -180,11 +195,11 @@ public class LogicMain {
 		int listToDisplay = taskToOp.get_index();
 		
 		if(listToDisplay == COMPLETE_LIST_INDEX){
-			operatingTasks = completeTasks;
+			operatingTasks = new ArrayList<Task>(completeTasks);
 		} else if (listToDisplay == INCOMPLETE_LIST_INDEX){
-			operatingTasks = incompleteTasks;
+			operatingTasks = new ArrayList<Task>(incompleteTasks);
 		} else if(listToDisplay == MASTER_LIST_INDEX){
-			operatingTasks = masterListTasks;
+			operatingTasks = new ArrayList<Task>(masterListTasks);
 		} else {
 			taskToOp.setMessageErrorDefault();
 			return taskToOp.get_messageToUser();
@@ -196,11 +211,11 @@ public class LogicMain {
 	
 	private String doEdit(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		Task toEdit = operatingTasks.get(operateIndex - 1);
 		
 		try{
 			//find and change inside masterList 
-			
+			Task toEdit = operatingTasks.get(operateIndex - 1);
+				
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toEdit)){
 					masterListTasks.set(i, taskToOp);
@@ -210,7 +225,8 @@ public class LogicMain {
 			operatingTasks.set(operateIndex -1, taskToOp);
 		
 		} catch (IndexOutOfBoundsException e){
-			taskToOp.setMessageErrorEmpty();
+			taskToOp.set_messageToUser("Nothing to be edited!");
+			
 		}
 		String feedback = taskToOp.get_messageToUser();
 		return feedback;
@@ -248,7 +264,7 @@ public class LogicMain {
 				foundList.add(eachTask);
 			}
 		}
-		operatingTasks = foundList;
+		operatingTasks =new ArrayList<Task>(foundList);
 		return taskToOp.get_messageToUser();
 	}
 	
