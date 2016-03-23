@@ -59,21 +59,12 @@ public class LogicMain {
 		}
 		regenerateSubListsFromMasterList();
 		storageSystem.storageWrite(masterListTasks);
-
-		System.out.println(state.size());
-		System.out.println("pointing at: " + pointingAt);
-		System.out.println(masterListTasks.size());
-
-		//System.out.println(state.size());
-		//System.out.println("pointing at: " + pointingAt);
-		//System.out.println(state.get(pointingAt).size());
-
 		return feedbackToUI;
 	}
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return operatingTasks;
+		return masterListTasks;
 		/*
 		if (operatingOn == 1){
 			return completeTasks;
