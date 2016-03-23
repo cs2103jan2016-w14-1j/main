@@ -62,8 +62,8 @@ public class LogicMain {
 			//the operating tasks should become the masterList
 			operatingTasks = new ArrayList<Task>(masterListTasks);
 		}
-		storageSystem.storageWrite(masterListTasks);
 		//figure out a better method for sorting and searching
+		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
 	

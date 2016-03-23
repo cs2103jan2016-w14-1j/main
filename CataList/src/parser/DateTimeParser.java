@@ -18,18 +18,28 @@ public class DateTimeParser {
 		
 		if(hasDateFlag(userInput)){
 			int dateIndex = searchForDateFlagsIndex(splitInput);
-			String dateWord = splitInput[dateIndex];
+			String dateWord;
+			try{
+				dateWord = splitInput[dateIndex];
+			} catch (IndexOutOfBoundsException e){
+				dateWord = SYMBOL_EMPTY;
+			}
 			
 			if(dateWord != null){
 				dateTimeArgs.add(parseForDate(dateWord));
 			} else {
 				dateTimeArgs.add(INVALID_DATE_MESSAGE);
 			}
-		}
+		} 
 		
 		if(hasTimeFlag(userInput)){
 			int timeIndex = searchForTimeFlagsIndex(splitInput);
-			String timeWord = splitInput[timeIndex];
+			String timeWord;
+			try{
+				 timeWord = splitInput[timeIndex];
+			} catch (IndexOutOfBoundsException e){
+				timeWord = SYMBOL_EMPTY;
+			}
 			
 			if(timeWord != null){
 				dateTimeArgs.add(parseForTime(timeWord));
@@ -37,7 +47,6 @@ public class DateTimeParser {
 				dateTimeArgs.add(INVALID_TIME_MESSAGE);
 			}
 		}
-		
 		return dateTimeArgs;
 	}
 	

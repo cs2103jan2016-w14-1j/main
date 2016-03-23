@@ -34,4 +34,34 @@ public class EventParserTest {
 		System.out.println(testResult);
 		assertEquals(testResult, expectedResult);
 	}
+	
+	@Test
+	public void parseEventWithDateWithTimeReOrganized(){
+		String userInput = "add Steal -d 22-march ramzes666's keyboard -t 322pm";
+		String testResult = EventParser.parseEvent(userInput);
+		String expectedResult = "Steal ramzes666's keyboard";
+		
+		System.out.println(testResult);
+		assertEquals(testResult, expectedResult);
+	}
+	
+	@Test
+	public void parseEventWithDateWith2Time(){
+		String userInput = "add Steal -t 22-march ramzes666's keyboard -t 322pm";
+		String testResult = EventParser.parseEvent(userInput);
+		String expectedResult = "Steal ramzes666's keyboard";
+		
+		System.out.println(testResult);
+		assertEquals(testResult, expectedResult);
+	}
+	
+	@Test
+	public void parseEventWithNothing(){
+		String userInput = "add";
+		String testResult = EventParser.parseEvent(userInput);
+		String expectedResult = "";
+		
+		System.out.println(testResult);
+		assertEquals(testResult, expectedResult);
+	}
 }
