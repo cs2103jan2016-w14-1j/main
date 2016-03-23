@@ -14,21 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/ui/Application/Stylesheets/Background/list.png</name>
-			<type>1</type>
-			<location>/Users/ericewe/temp/CataList/src/ui/Application/Stylesheets/Background/list.png</location>
-		</link>
-		<link>
-			<name>src/ui/Application/Stylesheets/Background/task_details.png</name>
-			<type>1</type>
-			<location>/Users/ericewe/temp/CataList/src/ui/Application/Stylesheets/Background/task_details.png</location>
-		</link>
-		<link>
-			<name>src/ui/Application/Stylesheets/Background/task_time.png</name>
-			<type>1</type>
-			<location>/Users/ericewe/temp/CataList/src/ui/Application/Stylesheets/Background/task_time.png</location>
-		</link>
-	</linkedResources>
 </projectDescription>
