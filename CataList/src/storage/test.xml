@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
-  <Task ID="1" State="Incomplete"><Event><Evnt>
+  <Task ID="1" State="Incomplete">
+    <Event>lel</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="2" State="Incomplete">
-    <Event>345</Event>
+    <Event>lel</Event>
+    <Date />
+    <Time>24/03/16</Time>
+  </Task>
+  <Task ID="3" State="Incomplete">
+    <Event>ooo</Event>
     <Date />
     <Time />
   </Task>
-  <Task ID="3" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time>1700</Time>
-  </Task>
   <Task ID="4" State="Incomplete">
-    <Event>shit</Event>
+    <Event>???</Event>
     <Date />
-    <Time>23/04/16</Time>
+    <Time />
   </Task>
   <Task ID="5" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time>23/04/16</Time>
+    <Event>my funeral</Event>
+    <Date>2200</Date>
+    <Time />
   </Task>
   <Task ID="6" State="Incomplete">
-    <Event>shit</Event> ID="7" State="Incomplete">
-    <Event>shit</Event>
+    <Event>potato</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="7" State="Incomplete">
+    <Event>re</Event>
     <Date />
     <Time />
   </Task>
@@ -41,23 +46,13 @@
     <Time />
   </Task>
   <Task ID="10" State="Incomplete">
-    <Event>wqdas</Event>
+    <Event>rat</Event>
     <Date />
-    <Time>23/03/16</Time>
+    <Time />
   </Task>
   <Task ID="11" State="Incomplete">
-    <Event>wqdas</Event>
+    <Event>rat</Event>
     <Date />
-    <Time>23/03/16</Time>
-  </Task>
-  <Task ID="12" State="Incomplete">
-    <Event>wadfsd</Event>
-    <Date />
-    <Time>23/03/16</Time>
-  </Task>
-  <Task ID="13" State="Incomplete">
-    <Event>dasd</Event>
-    <Date />
-    <Time>1600</Time>
+    <Time>1700</Time>
   </Task>
 </TaskList>
