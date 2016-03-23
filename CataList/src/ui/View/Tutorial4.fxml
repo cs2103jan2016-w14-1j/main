@@ -11,7 +11,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="300" prefWidth="300" 
-xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.TutorialController">
+xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<StackPane AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20"
 			AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">

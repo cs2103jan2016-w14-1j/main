@@ -9,18 +9,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
-<AnchorPane prefHeight="300" prefWidth="300" 
-xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.TutorialController">
+<AnchorPane prefHeight="300" prefWidth="300"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<StackPane AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20"
-			AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+		<StackPane AnchorPane.bottomAnchor="20"
+			AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+			AnchorPane.topAnchor="20">
 			<children>
 				<VBox spacing="10" fx:id="tutorialContainer">
 					<children>
-					<Text fx:id="tutorialMessage" />
-					<Text fx:id="exitMessage" text="Press RIGHT to move on" />
-					<Text fx:id="exitMessage" text="Press ESC to quit" />
+						<Text fx:id="tutorialMessage"
+							text="This is the command line. Type here 
+					&#10;to tell the application what to do.
+					&#10;
+					&#10;The feedback for each input is shown
+					&#10;below the command line." />
+						<ImageView layoutX="40.0" layoutY="44.0" fitHeight="200.0"
+							fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../Application/Stylesheets/Background/cli.png" />
+							</image>
+						</ImageView>
+						<Text fx:id="exitMessage" text="Press RIGHT to move on" />
+						<Text fx:id="exitMessage" text="Press ESC to quit" />
 					</children>
 				</VBox>
 			</children>

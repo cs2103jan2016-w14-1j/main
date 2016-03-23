@@ -30,7 +30,7 @@ public class CommandLineController {
 	@FXML 
 	private Text feedback;
 	@FXML 
-	private TextField userInput;
+	public TextField userInput;
 
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
@@ -44,12 +44,10 @@ public class CommandLineController {
 		feedback.setText(INIT_FEEDBACK);
 	}
 
-	public void readUserInput() {
-		feedback.setText(uiToLogic());
-
+	private void readUserInput() {
 		command = userInput.getText();
+		feedback.setText(uiToLogic(command));
 		userInput.clear();
-
 		inputArray.add(command);
 		index++;
 	}
@@ -58,8 +56,9 @@ public class CommandLineController {
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
 
 		if (event.getCode() == KeyCode.ENTER) {
+			event.consume();
 			readUserInput();
-
+			
 			/**************** temp parser *******************/
 			if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
 				main.todoListController.displayPending();
@@ -70,7 +69,7 @@ public class CommandLineController {
 			} else if(command.toLowerCase().equals("calendar")) {
 				main.supportFeatureController.loadCalendar();
 			} else if(command.toLowerCase().equals("tutorial")) {
-				main.supportFeatureController.loadTutorial();
+				main.supportFeatureController.renderTutorial();
 			} else {
 				if (getFirstWord(command).toLowerCase().equals("show")) {
 					String id = ParseBackground.parseInput(removeFirstWord(command));
@@ -144,9 +143,9 @@ public class CommandLineController {
 		}
 	}
 
-	private String uiToLogic() {
+	public String uiToLogic(String input) {
 		assert (this != null);
-		return main.passInputToLogic(userInput.getText());
+		return main.passInputToLogic(input);
 	}
 	
 	public TextField getCommandLine() {

@@ -243,3 +243,12 @@
 	-fx-border-color: darkorange;
 	-fx-border-width: 2;
 }
+
+#tutorialContainer {
+	-fx-font-size: 17px;
+}
+
+#exitMessage {
+	-fx-font-size: 14px;
+}
+
