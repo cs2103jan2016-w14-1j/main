@@ -2,8 +2,13 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
+<<<<<<< HEAD
   <date>2016-03-23T13:52:36</date>
   <millis>1458712356401</millis>
+=======
+  <date>2016-03-23T02:06:44</date>
+  <millis>1458670004151</millis>
+>>>>>>> refs/remotes/origin/ericewe
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -13,8 +18,13 @@
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
+<<<<<<< HEAD
   <date>2016-03-23T13:52:36</date>
   <millis>1458712356594</millis>
+=======
+  <date>2016-03-23T02:06:44</date>
+  <millis>1458670004226</millis>
+>>>>>>> refs/remotes/origin/ericewe
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -24,6 +34,7 @@
   <message>Tab Size? 0</message>
 </record>
 <record>
+<<<<<<< HEAD
   <date>2016-03-23T13:52:40</date>
   <millis>1458712360224</millis>
   <sequence>2</sequence>
@@ -200,3 +211,48 @@
   <message>Tab Size? 2</message>
 </record>
 </log>
+=======
+  <date>2016-03-23T02:06:46</date>
+  <millis>1458670006452</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>14</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-23T02:06:46</date>
+  <millis>1458670006460</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>14</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-23T02:06:49</date>
+  <millis>1458670009142</millis>
+  <sequence>4</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>14</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-23T02:06:49</date>
+  <millis>1458670009150</millis>
+  <sequence>5</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>14</thread>
+  <message>Tab Size? 2</message>
+</record>
+>>>>>>> refs/remotes/origin/ericewe

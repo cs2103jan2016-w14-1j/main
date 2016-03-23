@@ -10,17 +10,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300" prefWidth="300" 
-xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.TutorialController">
+<AnchorPane prefHeight="100" prefWidth="200" 
+xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<StackPane AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20"
 			AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 			<children>
 				<VBox spacing="10" fx:id="tutorialContainer">
 					<children>
-					<Text fx:id="tutorialMessage" />
-					<Text fx:id="exitMessage" text="Press RIGHT to move on" />
-					<Text fx:id="exitMessage" text="Press ESC to quit" />
+					<Text fx:id="tutorialMessage"
+							text="Let's try it out! Type in the following
+					&#10;of some input of the similar format:" />
+					<Text fx:id="tutorialSamples"
+							text="add work -t 8am -d 1/4/16" />
+					<Text fx:id="tutorialMessage"
+							text="You may choose to omit the words after 'work'.
+					&#10;Once you are done, press ENTER!" />
+						<Text fx:id="exitMessage" text="Press LEFT to go back a step." />
+						<Text fx:id="exitMessage" text="Press ESC to quit." />
 					</children>
 				</VBox>
 			</children>
