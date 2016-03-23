@@ -64,6 +64,7 @@ public class LogicMain {
 		}
 		storageSystem.storageWrite(masterListTasks);
 		//figure out a better method for sorting and searching
+		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
 	
@@ -169,7 +170,7 @@ public class LogicMain {
 					masterListTasks.remove(i);
 				}
 			}
-			operatingTasks.remove(operateIndex - 1);
+			//operatingTasks.remove(operateIndex - 1);  this cause it to double delete?
 		} catch (IndexOutOfBoundsException e){
 			//STUPID METHOD CURRENTLY NEED TO REWORK
 			taskToOp.set_messageToUser("Nothing to be deleted!");
@@ -221,6 +222,7 @@ public class LogicMain {
 					masterListTasks.set(i, taskToOp);
 				}
 			}
+
 		
 			operatingTasks.set(operateIndex -1, taskToOp);
 		

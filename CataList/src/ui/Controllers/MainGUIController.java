@@ -31,19 +31,6 @@ public class MainGUIController {
 		titleController.init(this);
 		supportFeatureController.init(this);
 	}
-	/*
-    public void refreshClassList() {
-    	classListController.loopClassList();
-    }
-
-    public void clearCompleted() {
-    	classListController.clearCompletedClassList();
-    }
-
-    public void loadCompleted() {
-    	classListController.initCompletedClassList();
-    }
-	 */ 
 	
 	public void refreshToDoList() throws IOException, JDOMException {
 		todoListController.loopTaskList();
@@ -56,11 +43,7 @@ public class MainGUIController {
 	public void openMainPane() {
 		supportFeatureController.showMainPane();
 	}
-	/*
-    public boolean isClassEmpty() {
-    	return classListController.getClasses().isEmpty();
-    }
-	 */
+	
 	public boolean isToDoListEmpty() {
 		return todoListController.getTasks().isEmpty();
 	}

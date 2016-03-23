@@ -60,6 +60,7 @@ public class ListInterfaceController {
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
+		
 		hideToDoList();
 		loopTaskList();
 		initTabPane();
@@ -126,10 +127,12 @@ public class ListInterfaceController {
 	}
 
 	private void formatTaskToListCell(ArrayList<Task> taskList) {	
+		int index = 0;
 		for(Task taskObj: taskList) {
+			index++;
 			HBox taskRow = new HBox(10);
 			//CheckBox isCompleted = new CheckBox();
-			Label taskIndex = new Label(taskObj.get_index() + ".");
+			Label taskIndex = new Label(index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
 			if(taskObj.get_time().isEmpty()) {
