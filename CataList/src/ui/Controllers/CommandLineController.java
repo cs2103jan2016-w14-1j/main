@@ -28,7 +28,9 @@ public class CommandLineController {
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
+	private boolean tutorialToggle = TUTORIAL_ON;
 
+	
 	@FXML 
 	private Text feedback;
 	@FXML 
@@ -38,8 +40,6 @@ public class CommandLineController {
 	private int index = START_INPUT_INDEX;
 	private int screenSizeToggle = FULL_SCREEN;
 	private int tabToggle = COMPLETE_TAB;
-	private boolean tutorialToggle = TUTORIAL_ON;
-
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
 
@@ -62,7 +62,7 @@ public class CommandLineController {
 		if (event.getCode() == KeyCode.ENTER) {
 			event.consume();
 			readUserInput();
-
+			
 			/**************** temp parser *******************/
 			if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
 				main.todoListController.displayPending();
@@ -87,15 +87,15 @@ public class CommandLineController {
 				} else {
 
 					main.todoListController.loopTaskList();
+					//   main.classListController.loopClassList();
+
 				}
 			}
-
-			/***********************************************/
-		} else if(event.getCode() == KeyCode.UP) {
+		} else if (event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
-		} else if(event.getCode() == KeyCode.DOWN) {
+		} else if (event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
-		} else if(event.getCode() == KeyCode.F12) {
+		} else if (event.getCode() == KeyCode.F12) {
 			switch(screenSizeToggle) {
 			case FULL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
@@ -118,11 +118,11 @@ public class CommandLineController {
 				screenSizeToggle = 0;
 				break;
 			} 
-		} else if(event.getCode() == KeyCode.F11) {
+		} else if (event.getCode() == KeyCode.F11) {
 			main.getTabPane().getSelectionModel().select(tabToggle);
-			if(tabToggle == INBOX_TAB) {
+			if (tabToggle == INBOX_TAB) {
 				tabToggle = COMPLETE_TAB;
-			} else if(tabToggle == COMPLETE_TAB) {
+			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
 			}
 		} else if(event.getCode() == KeyCode.RIGHT) {
@@ -164,15 +164,15 @@ public class CommandLineController {
 		assert (this != null);
 		return main.passInputToLogic(input);
 	}
-
+	
 	public TextField getCommandLine() {
 		return userInput;
 	}
-
+	
 	public Text getFeedback() {
 		return feedback;
 	}
-
+	
 	public void updateTutorialToggle() {
 		if(tutorialToggle) {
 			tutorialToggle = TUTORIAL_OFF;

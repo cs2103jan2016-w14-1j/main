@@ -59,12 +59,10 @@ public class TutorialRenderer {
 
 	public void loadTutorial() throws IOException {
 		initPopOver();
-		
-		tutorialFlag = true;
 
 		if(currentTutorial > HELP_TUTORIAL) {
 			currentTutorial = HELP_TUTORIAL;
-		} if(currentTutorial < INTERFACE_TUTORIAL) {
+		} else if(currentTutorial < INTERFACE_TUTORIAL) {
 			currentTutorial = INTERFACE_TUTORIAL;
 		}
 
@@ -103,9 +101,9 @@ public class TutorialRenderer {
 			readListTutorial.show(main.getList(), coordinateX+LIST_OFFSET_X, coordinateY+LIST_OFFSET_Y, Duration.millis(300));
 
 			tutorialKeyHandler(readListTutorial);
-			
+
 		} else if(currentTutorial == HELP_TUTORIAL) {
-			
+
 			helpTutorial.setContentNode(FXMLLoader.load(getClass().getResource(TUTORIAL_5_PATH)));
 			getCoordinates(helpTutorial, main.getCommandLine());
 			setPopOverProperties(helpTutorial);
@@ -113,8 +111,8 @@ public class TutorialRenderer {
 			helpTutorial.show(main.getCommandLine(), coordinateX+CL_OFFSET_X, coordinateY, Duration.millis(300));
 
 			tutorialKeyHandler(helpTutorial);
-		}
 
+		}
 	}
 
 	private void hideAll() {
@@ -124,6 +122,7 @@ public class TutorialRenderer {
 		readListTutorial.hide(Duration.ONE);
 		helpTutorial.hide(Duration.ONE);
 	}
+
 
 	private void getCoordinates(PopOver target, Node targetContent) {
 		Scene scene = targetContent.getScene();

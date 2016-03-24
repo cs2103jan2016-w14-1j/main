@@ -27,8 +27,6 @@ public class TaskFilter {
 	private static final String FLOAT_CLASS = "Float";
 	private static final String OTHERS_CLASS = "Upcoming";
 	private static final String OVERDUE_CLASS = "Overdue";
-	
-	private static final int NULL_INT = 0;
 
 	private ArrayList<HBox> tasksToday;
 	private ArrayList<HBox> tasksTomorrow;
@@ -41,12 +39,6 @@ public class TaskFilter {
 	private HBox taskClassOthers;
 	private HBox taskClassFloat;
 	private HBox taskClassOverdue;
-
-	private int numCompleteToday;
-	private int numCompleteTomorrow;
-	private int numCompleteOther;
-	private int numCompleteFloat;
-	private int numCompleteOverdue;
 	
 
 	public TaskFilter() {
@@ -56,16 +48,7 @@ public class TaskFilter {
 		tasksFloat = new ArrayList<HBox>();
 		tasksOverdue = new ArrayList<HBox>();
 
-		initNumComplete();
 		initClasses();
-	}
-
-	private void initNumComplete() {
-		numCompleteToday = NULL_INT;
-		numCompleteTomorrow = NULL_INT;
-		numCompleteOther = NULL_INT;
-		numCompleteFloat = NULL_INT;
-		numCompleteOverdue = NULL_INT;
 	}
 
 	private void initClasses() {

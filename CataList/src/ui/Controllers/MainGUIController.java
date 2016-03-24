@@ -87,4 +87,5 @@ public class MainGUIController {
 	public String getTutorialMode() {
 		return commandLineController.getTutorialToggle();
 	}
+
 }

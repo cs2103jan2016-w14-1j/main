@@ -130,7 +130,7 @@ public class ListInterfaceController {
 			index++;
 			HBox taskRow = new HBox(10);
 			//CheckBox isCompleted = new CheckBox();
-			Label taskIndex = new Label("#" + index + " ");
+			Label taskIndex = new Label(index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
 			if(taskObj.get_time().isEmpty()) {
@@ -226,6 +226,10 @@ public class ListInterfaceController {
 		todoListContainer.setManaged(false);
 		todoListContainer.setOpacity(0);
 	}
+	
+	public TabPane getTabPane() {
+		return tabPane;
+	}
 
 	public void displayPending() {
 		todoList.setItems(tasks);
@@ -241,10 +245,6 @@ public class ListInterfaceController {
 
 	public ObservableList<HBox> getCompleted() {
 		return completed;
-	}
-	
-	public TabPane getTabPane() {
-		return tabPane;
 	}
 	
 	public ListView<HBox> getList() {
