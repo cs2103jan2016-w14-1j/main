@@ -127,7 +127,7 @@ public class CommandLineController {
 			}
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
-				tutorialToggle = TUTORIAL_OFF;
+				updateTutorialToggle();
 				main.supportFeatureController.showMainPane();
 			} else {
 				if(tutorialToggle == TUTORIAL_ON) {

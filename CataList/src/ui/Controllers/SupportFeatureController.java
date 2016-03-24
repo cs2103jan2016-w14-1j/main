@@ -123,7 +123,7 @@ public class SupportFeatureController {
 	}
 	
 	private void insertTutorialToggle() {
-		Text tutorialLabel = new Text("Tutorial Mode: " + main.getTutorialMode());
+		Text tutorialLabel = new Text("Tutorial Mode: " + main.getTutorialMode() + ", SHIFT+RIGHT to toggle");
 		if(mainPane.getChildren().size() > 3) {
 			mainPane.getChildren().set(mainPane.getChildren().size()-1, tutorialLabel);
 		} else {

@@ -178,12 +178,12 @@ public class ListInterfaceController {
 		task.setPrefWidth(600);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		index.setPrefWidth(30);
+		index.setPrefWidth(50);
 		index.setMaxWidth(Double.MAX_VALUE);
 		index.setId(INDEX_ID);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		name.setPrefWidth(400);
+		name.setPrefWidth(380);
 		name.setMaxWidth(Double.MAX_VALUE);
 		name.setId(TASK_ID);
 
