@@ -39,7 +39,6 @@
 								<Image url="@../Application/Stylesheets/Background/task_time.png" />
 							</image>
 						</ImageView>
-						<Text fx:id="exitMessage" text="Press LEFT go back" />
 						<Text fx:id="exitMessage" text="Press RIGHT to move on" />
 						<Text fx:id="exitMessage" text="Press ESC to quit" />
 					</children>

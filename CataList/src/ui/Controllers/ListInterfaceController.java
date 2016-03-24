@@ -1,5 +1,6 @@
 package ui.Controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,12 +16,20 @@ import javafx.util.Duration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
 import ui.Controllers.MainGUIController;
+import ui.Controllers.TitleQuotes.QuoteGenerator;
 import logic.Task;
 import shared.LogHandler;
 
-public class ListInterfaceController {
+public class ListInterfaceController extends NotificationRenderer {
 
 	private static final String COMPLETED_TAB = "Completed";
 	private static final String INBOX_TAB = "Inbox";
@@ -29,6 +38,8 @@ public class ListInterfaceController {
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String DUE = "Due by ";
+	private static final String DATE_FORMAT = "dd/MM/yy";
+	private static final String TIME_FORMAT = "HHmm";
 
 	private static final boolean OPEN_LIST = true;
 	private static final boolean CLOSE_LIST = false;
@@ -55,15 +66,16 @@ public class ListInterfaceController {
 
 	private ArrayList<Task> operatingTaskFromLogic;
 	private Logger log = LogHandler.retriveLog();
-	
+
 	private TaskFilter taskFilter = new TaskFilter();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
-		
-		hideToDoList();
+
 		loopTaskList();
+		hideToDoList();
 		initTabPane();
+		loopCheckTasksForReminder();
 	}
 
 	private void initTabPane() {
@@ -92,12 +104,20 @@ public class ListInterfaceController {
 		log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
 
 		openToDoList();
-
 		displayTaskList();
+		
+		loopCheckTasksForReminder();
+	}
 
-		if(tasks.isEmpty()) {
-			closeToDoList();
-		}
+	// TODO: FIX BUG
+	private void loopCheckTasksForReminder() {
+		Timer checkTasks = new Timer(true);
+		checkTasks.schedule(new TimerTask() {
+			@Override
+			public void run() {   	
+				checkTasksForReminder();
+			}
+		}, 0, 60000);
 	}
 
 	private void animateToDoList(boolean isOpen) {
@@ -124,7 +144,7 @@ public class ListInterfaceController {
 		loadClassList();
 	}
 
-	private void formatTaskToListCell(ArrayList<Task> taskList) {	
+	private void formatTaskToListCell(ArrayList<Task> taskList) {
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
@@ -151,7 +171,7 @@ public class ListInterfaceController {
 			}
 			//isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-			
+
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
 
@@ -195,6 +215,25 @@ public class ListInterfaceController {
 		time.setPrefWidth(100);
 		time.setId(TIME_ID);
 	}
+	
+	private void checkTasksForReminder() {
+		if(!operatingTaskFromLogic.isEmpty()) {
+			int todo = 0;
+			LocalDateTime localDateTime = new LocalDateTime();
+			LocalDate localDate = localDateTime.toLocalDate();
+			LocalTime localTime = localDateTime.toLocalTime();
+			for(Task taskObj: operatingTaskFromLogic) {
+				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT))) {
+					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
+						todo++;
+					}
+				}
+			}
+			if(todo > 0) {
+				loadNotification(todo);
+			}
+		}
+	}
 
 	private void loadClassList() {
 		log.info("Tab Size? " + tabs.size());
@@ -204,7 +243,7 @@ public class ListInterfaceController {
 		} 
 	}
 
-	private void openToDoList() {
+	public void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {	
 			if(main.isMainPaneManaged()) {
 				todoListContainer.setManaged(true);
@@ -223,10 +262,13 @@ public class ListInterfaceController {
 	}
 
 	public void hideToDoList() {
-		todoListContainer.setManaged(false);
-		todoListContainer.setOpacity(0);
+		if(tasks.isEmpty()) {
+			todoListContainer.setManaged(false);
+			todoListContainer.setOpacity(0);
+			closeToDoList();
+		}
 	}
-	
+
 	public TabPane getTabPane() {
 		return tabPane;
 	}
@@ -246,9 +288,8 @@ public class ListInterfaceController {
 	public ObservableList<HBox> getCompleted() {
 		return completed;
 	}
-	
+
 	public ListView<HBox> getList() {
 		return todoList;
 	}
-
 }

@@ -103,8 +103,8 @@ public class CommandLineController {
 				break;
 			case DEFAULT_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setWidth(1024);
-				((Stage) userInput.getScene().getWindow()).setHeight(768);
+				((Stage) userInput.getScene().getWindow()).setWidth(800);
+				((Stage) userInput.getScene().getWindow()).setHeight(640);
 				screenSizeToggle = 1;
 				break;
 			case SMALL_SCREEN:
@@ -126,11 +126,11 @@ public class CommandLineController {
 				tabToggle = INBOX_TAB;
 			}
 		} else if(event.getCode() == KeyCode.RIGHT) {
-			if(event.isAltDown()) {
+			if(event.isAltDown() && main.isToDoListEmpty()) {
 				updateTutorialToggle();
 				main.supportFeatureController.showMainPane();
 			} else {
-				if(tutorialToggle == TUTORIAL_ON) {
+				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
 					main.todoListController.loopTaskList();
 					main.supportFeatureController.renderTutorial();
 					tutorialToggle = TUTORIAL_OFF;

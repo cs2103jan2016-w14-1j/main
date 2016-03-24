@@ -14,16 +14,16 @@
 <?import javafx.scene.layout.StackPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
-	prefWidth="1024.0" styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0"
+	prefWidth="768.0" styleClass="root" id="mainPaneDefault" fx:id="mainAnchorPane"
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.MainGUIController">
 	<padding>
 		<Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
 	</padding>
 
 	<children>
-		<BorderPane prefHeight="768.0" prefWidth="1024.0"
-			styleClass="borderPane" AnchorPane.bottomAnchor="30.0"
+		<BorderPane prefHeight="640.0" prefWidth="768.0"
+			styleClass="borderPane" AnchorPane.bottomAnchor="0.0"
 			AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
 			AnchorPane.topAnchor="0.0">
 
