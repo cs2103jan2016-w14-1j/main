@@ -3,6 +3,7 @@ package ui.Controllers;
 import java.util.ArrayList;
 
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import logic.Task;
 
 public class TaskFilter {
 	private static final String DATE_FORMAT = "dd/MM/yy";
+	private static final String TIME_FORMAT = "HHmm";
 
 	private static final String FLOAT_ID = "taskFloat";
 	private static final String OTHERS_ID = "taskOthers";
@@ -163,11 +165,18 @@ public class TaskFilter {
 		String dateTomorrow = localDate.plusDays(1).toString(DATE_FORMAT);
 		
 		LocalDateTime taskDate = new LocalDateTime();
+		LocalTime taskTime = new LocalTime();
+		LocalTime timeNow = new LocalTime();
+		
 		if(taskObj.get_date() != "") {
 			taskDate = LocalDateTime.parse(taskObj.get_date(), DateTimeFormat.forPattern(DATE_FORMAT));
+			if(taskObj.get_time() != "") {
+				taskTime = LocalDateTime.parse(taskObj.get_time(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+			}
 		}
 		
-		if(taskDate.plusDays(1).isBefore(localDate)) {
+		if(taskDate.plusDays(1).isBefore(localDate) || 
+				(taskObj.get_date().equals(dateToday) && taskTime.isBefore(timeNow))) {
 			if(!tasksOverdue.contains(taskClassOverdue)) {
 				tasksOverdue.add(taskClassOverdue);
 			}

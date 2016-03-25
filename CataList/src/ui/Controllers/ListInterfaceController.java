@@ -1,7 +1,7 @@
 package ui.Controllers;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,12 +25,15 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
 import ui.Controllers.MainGUIController;
-import ui.Controllers.TitleQuotes.QuoteGenerator;
 import logic.Task;
 import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
+	private static final int REMINDER_TIME = 15;
+	private static final int TIME_FLAG = 1;
+	private static final int DAY_FLAG = 0;
+	
 	private static final String COMPLETED_TAB = "Completed";
 	private static final String INBOX_TAB = "Inbox";
 	private static final String INDEX_ID = "taskIndex";
@@ -66,7 +69,6 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private ArrayList<Task> operatingTaskFromLogic;
 	private Logger log = LogHandler.retriveLog();
-
 	private TaskFilter taskFilter = new TaskFilter();
 
 	public void init(MainGUIController mainController) {
@@ -105,17 +107,19 @@ public class ListInterfaceController extends NotificationRenderer {
 
 		openToDoList();
 		displayTaskList();
-		
-		loopCheckTasksForReminder();
 	}
 
-	// TODO: FIX BUG
 	private void loopCheckTasksForReminder() {
 		Timer checkTasks = new Timer(true);
 		checkTasks.schedule(new TimerTask() {
 			@Override
-			public void run() {   	
-				checkTasksForReminder();
+			public void run() {  
+				Platform.runLater(new Runnable() {
+					public void run() {
+						checkTasksForReminder();
+					}
+				});
+
 			}
 		}, 0, 60000);
 	}
@@ -215,22 +219,27 @@ public class ListInterfaceController extends NotificationRenderer {
 		time.setPrefWidth(100);
 		time.setId(TIME_ID);
 	}
-	
+
 	private void checkTasksForReminder() {
 		if(!operatingTaskFromLogic.isEmpty()) {
-			int todo = 0;
+			int todoTime = 0;
+			int todoDay = 0;
 			LocalDateTime localDateTime = new LocalDateTime();
 			LocalDate localDate = localDateTime.toLocalDate();
-			LocalTime localTime = localDateTime.toLocalTime();
+			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTaskFromLogic) {
 				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT))) {
 					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
-						todo++;
+						todoTime++;
 					}
+					todoDay++;
 				}
 			}
-			if(todo > 0) {
-				loadNotification(todo);
+			
+			if(todoTime > 0) {
+				loadNotification(todoTime, TIME_FLAG);
+			} else if(todoDay > 0 && todoTime == 0) {
+				loadNotification(todoDay, DAY_FLAG);
 			}
 		}
 	}

@@ -14,7 +14,10 @@ import org.controlsfx.control.Notifications;
 
 public class NotificationRenderer {
 
-	public void loadNotification(int todo) {
+	private static final int TIME_FLAG = 1;
+	private static final int DAY_FLAG = 0;
+
+	public void loadNotification(int todo, int flag) {
 		Stage notificationOwner = new Stage(StageStyle.TRANSPARENT);
 		StackPane root = new StackPane();
 		root.setStyle("-fx-background-color: TRANSPARENT");
@@ -26,11 +29,19 @@ public class NotificationRenderer {
 		notificationOwner.setAlwaysOnTop(true);
 		notificationOwner.show();
 		quitNotification(notificationOwner);
-		
-		if(todo > 1) {
-			showNotificationPlural(todo);
-		} else {
-			showNotificationSingular(todo);
+
+		if(flag == TIME_FLAG) {
+			if(todo > 1) {
+				showNotificationTimePlural(todo);
+			} else if (todo == 1) {
+				showNotificationTimeSingular(todo);
+			}
+		} else if(flag == DAY_FLAG) {
+			if(todo > 1) {
+				showNotificationDayPlural(todo);
+			} else if (todo == 1){
+				showNotificationDaySingular(todo);
+			}
 		}
 	}
 
@@ -41,22 +52,40 @@ public class NotificationRenderer {
 			}
 		});
 	}
-	
-	private void showNotificationPlural(int todo) {
+
+	private void showNotificationTimePlural(int todo) {
 		Notifications.create()
-			.title("Reminder!")
-			.text("You have " + todo + " pending tasks now!")
-			.position(Pos.TOP_RIGHT)
-			.hideAfter(Duration.seconds(5))
-			.showWarning();
+		.title("Reminder!")
+		.text("You have " + todo + " pending tasks in 15 minutes!")
+		.position(Pos.TOP_RIGHT)
+		.hideAfter(Duration.seconds(5))
+		.showWarning();
+	}
+
+	private void showNotificationTimeSingular(int todo) {
+		Notifications.create()
+		.title("Reminder!")
+		.text("You have " + todo + " pending task in 15 minutes!")
+		.position(Pos.TOP_RIGHT)
+		.hideAfter(Duration.seconds(5))
+		.showWarning();
 	}
 	
-	private void showNotificationSingular(int todo) {
+	private void showNotificationDayPlural(int todo) {
 		Notifications.create()
-			.title("Reminder!")
-			.text("You have " + todo + " pending task now!")
-			.position(Pos.TOP_RIGHT)
-			.hideAfter(Duration.seconds(5))
-			.showWarning();
+		.title("Reminder!")
+		.text("You have " + todo + " tasks today!")
+		.position(Pos.TOP_RIGHT)
+		.hideAfter(Duration.seconds(5))
+		.showWarning();
+	}
+
+	private void showNotificationDaySingular(int todo) {
+		Notifications.create()
+		.title("Reminder!")
+		.text("You have " + todo + " task today!")
+		.position(Pos.TOP_RIGHT)
+		.hideAfter(Duration.seconds(5))
+		.showWarning();
 	}
 }
