@@ -1,108 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1" State="Incomplete">
-    <Event>lel</Event>
+    <Event>yo</Event>
     <Date />
-    <Time>1700</Time>
+    <Time />
   </Task>
   <Task ID="2" State="Incomplete">
-    <Event>shit</Event>
+    <Event>yo</Event>
     <Date />
-    <Time>23/04/16</Time>
+    <Time />
   </Task>
   <Task ID="3" State="Incomplete">
-    <Event>shit</Event>
+    <Event>yo</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="4" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time />
+    <Event>hello</Event>
+    <Date>0341</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="5" State="Incomplete">
-    <Event>shit</Event>
+    <Event>hello</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="6" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time />
+    <Event>yo</Event>
+    <Date>0347</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="7" State="Incomplete">
-    <Event>wqdas</Event>
-    <Date />
-    <Time>23/03/16</Time>
+    <Event>holy</Event>
+    <Date>1210</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="8" State="Incomplete">
-    <Event>wqdas</Event>
-    <Date />
-    <Time>23/03/16</Time>
+    <Event>yo</Event>
+    <Date>1213</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="9" State="Incomplete">
-    <Event>wadfsd</Event>
-    <Date />
-    <Time>23/03/16</Time>
+    <Event>go</Event>
+    <Date>1215</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="10" State="Incomplete">
-    <Event>dasd</Event>
-    <Date />
-    <Time>1600</Time>
+    <Event>yo</Event>
+    <Date>1228</Date>
+    <Time>25/03/16</Time>
   </Task>
   <Task ID="11" State="Incomplete">
-    <Event>"%@$%@#*&amp;^"</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="12" State="Incomplete">
-    <Event>lel</Event>
-    <Date />
-    <Time>24/03/16</Time>
-  </Task>
-  <Task ID="3" State="Incomplete">
-    <Event>ooo</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="4" State="Incomplete">
-    <Event>???</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="5" State="Incomplete">
-    <Event>my funeral</Event>
-    <Date>2200</Date>
-    <Time />
-  </Task>
-  <Task ID="6" State="Incomplete">
-    <Event>potato</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="7" State="Incomplete">
-    <Event>re</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="8" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="9" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="10" State="Incomplete">
-    <Event>rat</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="11" State="Incomplete">
-    <Event>rat</Event>
-    <Date />
-    <Time>1700</Time>
+    <Event>fuck</Event>
+    <Date>1231</Date>
+    <Time>25/03/16</Time>
   </Task>
 </TaskList>

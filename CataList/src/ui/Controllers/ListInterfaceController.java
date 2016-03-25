@@ -1,6 +1,7 @@
 package ui.Controllers;
 
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,13 +16,24 @@ import javafx.util.Duration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
 import ui.Controllers.MainGUIController;
 import logic.Task;
 import shared.LogHandler;
 
-public class ListInterfaceController {
+public class ListInterfaceController extends NotificationRenderer {
 
+	private static final int REMINDER_TIME = 15;
+	private static final int TIME_FLAG = 1;
+	private static final int DAY_FLAG = 0;
+	
 	private static final String COMPLETED_TAB = "Completed";
 	private static final String INBOX_TAB = "Inbox";
 	private static final String INDEX_ID = "taskIndex";
@@ -29,6 +41,8 @@ public class ListInterfaceController {
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String DUE = "Due by ";
+	private static final String DATE_FORMAT = "dd/MM/yy";
+	private static final String TIME_FORMAT = "HHmm";
 
 	private static final boolean OPEN_LIST = true;
 	private static final boolean CLOSE_LIST = false;
@@ -55,15 +69,15 @@ public class ListInterfaceController {
 
 	private ArrayList<Task> operatingTaskFromLogic;
 	private Logger log = LogHandler.retriveLog();
-	
 	private TaskFilter taskFilter = new TaskFilter();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
-		
-		hideToDoList();
+
 		loopTaskList();
+		hideToDoList();
 		initTabPane();
+		loopCheckTasksForReminder();
 	}
 
 	private void initTabPane() {
@@ -91,15 +105,23 @@ public class ListInterfaceController {
 
 		log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
 
-		if(!operatingTaskFromLogic.isEmpty()) {
-			openToDoList();
-		}
-
+		openToDoList();
 		displayTaskList();
+	}
 
-		if(tasks.isEmpty()) {
-			closeToDoList();
-		}
+	private void loopCheckTasksForReminder() {
+		Timer checkTasks = new Timer(true);
+		checkTasks.schedule(new TimerTask() {
+			@Override
+			public void run() {  
+				Platform.runLater(new Runnable() {
+					public void run() {
+						checkTasksForReminder();
+					}
+				});
+
+			}
+		}, 0, 60000);
 	}
 
 	private void animateToDoList(boolean isOpen) {
@@ -126,7 +148,7 @@ public class ListInterfaceController {
 		loadClassList();
 	}
 
-	private void formatTaskToListCell(ArrayList<Task> taskList) {	
+	private void formatTaskToListCell(ArrayList<Task> taskList) {
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
@@ -153,7 +175,7 @@ public class ListInterfaceController {
 			}
 			//isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-			
+
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
 
@@ -180,12 +202,12 @@ public class ListInterfaceController {
 		task.setPrefWidth(600);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		index.setPrefWidth(30);
+		index.setPrefWidth(50);
 		index.setMaxWidth(Double.MAX_VALUE);
 		index.setId(INDEX_ID);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		name.setPrefWidth(400);
+		name.setPrefWidth(380);
 		name.setMaxWidth(Double.MAX_VALUE);
 		name.setId(TASK_ID);
 
@@ -198,6 +220,30 @@ public class ListInterfaceController {
 		time.setId(TIME_ID);
 	}
 
+	private void checkTasksForReminder() {
+		if(!operatingTaskFromLogic.isEmpty()) {
+			int todoTime = 0;
+			int todoDay = 0;
+			LocalDateTime localDateTime = new LocalDateTime();
+			LocalDate localDate = localDateTime.toLocalDate();
+			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
+			for(Task taskObj: operatingTaskFromLogic) {
+				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT))) {
+					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
+						todoTime++;
+					}
+					todoDay++;
+				}
+			}
+			
+			if(todoTime > 0) {
+				loadNotification(todoTime, TIME_FLAG);
+			} else if(todoDay > 0 && todoTime == 0) {
+				loadNotification(todoDay, DAY_FLAG);
+			}
+		}
+	}
+
 	private void loadClassList() {
 		log.info("Tab Size? " + tabs.size());
 		if(tabs.size() == 1 && !operatingTaskFromLogic.isEmpty()) {
@@ -206,7 +252,7 @@ public class ListInterfaceController {
 		} 
 	}
 
-	private void openToDoList() {
+	public void openToDoList() {
 		if(tasks.isEmpty() && completed.isEmpty()) {	
 			if(main.isMainPaneManaged()) {
 				todoListContainer.setManaged(true);
@@ -225,10 +271,13 @@ public class ListInterfaceController {
 	}
 
 	public void hideToDoList() {
-		todoListContainer.setManaged(false);
-		todoListContainer.setOpacity(0);
+		if(tasks.isEmpty()) {
+			todoListContainer.setManaged(false);
+			todoListContainer.setOpacity(0);
+			closeToDoList();
+		}
 	}
-	
+
 	public TabPane getTabPane() {
 		return tabPane;
 	}
@@ -248,9 +297,8 @@ public class ListInterfaceController {
 	public ObservableList<HBox> getCompleted() {
 		return completed;
 	}
-	
+
 	public ListView<HBox> getList() {
 		return todoList;
 	}
-
 }

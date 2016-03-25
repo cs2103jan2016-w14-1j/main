@@ -1,6 +1,7 @@
 package ui.Application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,8 +22,8 @@ public class MainGUI extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(GUI_PATH));
         
         stage.getIcons().add(new Image(ICON_PATH));
-        stage.setTitle(APP_NAME);
-        
+        stage.setTitle(APP_NAME);   
+      
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource(STYLESHEET_PATH).toExternalForm());
         stage.setScene(scene);
@@ -37,12 +38,12 @@ public class MainGUI extends Application {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {
             if (evt.getCode().equals(KeyCode.ESCAPE)) {
             	stage.close();
+            	Platform.exit();
             }
         });
     }
 
     public static void main(String[] args) {
         launch(args);
-    }
-   
+    }  
 }

@@ -83,4 +83,9 @@ public class MainGUIController {
 	public ListView<HBox> getList() {
 		return todoListController.getList();
 	}
+	
+	public String getTutorialMode() {
+		return commandLineController.getTutorialToggle();
+	}
+
 }

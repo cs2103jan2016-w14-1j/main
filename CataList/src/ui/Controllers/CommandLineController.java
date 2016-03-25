@@ -18,14 +18,18 @@ public class CommandLineController {
 	private static final String INITIALIZE = "";
 	private static final String INIT_FEEDBACK = "How can I help you?";
 	private static final String MESSAGE_INVALID = "Invalid background";
+	private static final boolean TUTORIAL_ON = true;
+	private static final boolean TUTORIAL_OFF = false;
 
-	private final int FULL_SCREEN = 1;
-	private final int DEFAULT_SCREEN = 0;
-	private final int SMALL_SCREEN = -1;
-	
-	private final int START_INPUT_INDEX = 0;
-	private final int INBOX_TAB = 0;
-	private final int COMPLETE_TAB = 1;
+	private static final int FULL_SCREEN = 1;
+	private static final int DEFAULT_SCREEN = 0;
+	private static final int SMALL_SCREEN = -1;
+
+	private static final int START_INPUT_INDEX = 0;
+	private static final int INBOX_TAB = 0;
+	private static final int COMPLETE_TAB = 1;
+	private boolean tutorialToggle = TUTORIAL_ON;
+
 	
 	@FXML 
 	private Text feedback;
@@ -69,7 +73,9 @@ public class CommandLineController {
 			} else if(command.toLowerCase().equals("calendar")) {
 				main.supportFeatureController.loadCalendar();
 			} else if(command.toLowerCase().equals("tutorial")) {
-				main.supportFeatureController.renderTutorial();
+				if(main.supportFeatureController.getMainPane().isManaged() == false) {
+					main.supportFeatureController.renderTutorial();
+				}
 			} else {
 				if (getFirstWord(command).toLowerCase().equals("show")) {
 					String id = ParseBackground.parseInput(removeFirstWord(command));
@@ -97,8 +103,8 @@ public class CommandLineController {
 				break;
 			case DEFAULT_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setWidth(1024);
-				((Stage) userInput.getScene().getWindow()).setHeight(768);
+				((Stage) userInput.getScene().getWindow()).setWidth(800);
+				((Stage) userInput.getScene().getWindow()).setHeight(640);
 				screenSizeToggle = 1;
 				break;
 			case SMALL_SCREEN:
@@ -118,6 +124,17 @@ public class CommandLineController {
 				tabToggle = COMPLETE_TAB;
 			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
+			}
+		} else if(event.getCode() == KeyCode.RIGHT) {
+			if(event.isAltDown() && main.isToDoListEmpty()) {
+				updateTutorialToggle();
+				main.supportFeatureController.showMainPane();
+			} else {
+				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
+					main.todoListController.loopTaskList();
+					main.supportFeatureController.renderTutorial();
+					tutorialToggle = TUTORIAL_OFF;
+				}
 			}
 		}
 	}
@@ -154,6 +171,22 @@ public class CommandLineController {
 	
 	public Text getFeedback() {
 		return feedback;
+	}
+	
+	public void updateTutorialToggle() {
+		if(tutorialToggle) {
+			tutorialToggle = TUTORIAL_OFF;
+		} else {
+			tutorialToggle = TUTORIAL_ON;
+		}
+	}
+
+	public String getTutorialToggle() {
+		if(tutorialToggle) {
+			return "ON";
+		} else {
+			return "OFF";
+		}
 	}
 
 	private static String removeFirstWord(String userInput) {
