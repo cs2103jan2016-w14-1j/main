@@ -45,7 +45,7 @@ public class NotificationRenderer {
 		}
 	}
 
-	public void quitNotification(Stage stage) {
+	private void quitNotification(Stage stage) {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {
 			if (evt.getCode().equals(KeyCode.ESCAPE)) {
 				stage.close();
@@ -56,7 +56,8 @@ public class NotificationRenderer {
 	private void showNotificationTimePlural(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " pending tasks in 15 minutes!")
+		.text("You have " + todo + " pending tasks in 15 minutes!"
+				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
 		.showWarning();
@@ -65,16 +66,18 @@ public class NotificationRenderer {
 	private void showNotificationTimeSingular(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " pending task in 15 minutes!")
+		.text("You have " + todo + " pending task in 15 minutes!"
+				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
 		.showWarning();
 	}
-	
+
 	private void showNotificationDayPlural(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " tasks today!")
+		.text("You have " + todo + " tasks today!"
+				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
 		.showWarning();
@@ -83,7 +86,8 @@ public class NotificationRenderer {
 	private void showNotificationDaySingular(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " task today!")
+		.text("You have " + todo + " task today!"
+				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
 		.showWarning();

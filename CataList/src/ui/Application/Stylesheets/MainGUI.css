@@ -66,6 +66,11 @@
 	-fx-padding: 20;
 }
 
+#calendarTime {
+	-fx-text-fill: maroon;
+	-fx-font-size: 25px;
+}
+
 .date-picker-popup {
 	-fx-font-size: 15px;
 	-fx-background-color: rgb(0, 0, 0, 0);
@@ -103,8 +108,7 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: rgb(255, 255, 255, 0.5);
-    -fx-border-radius: 20 20 20 20;
+    -fx-background-color: rgb(255, 255, 255, 0.7);
     -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-font-size: 15px;
@@ -113,6 +117,7 @@
 
 .tab-pane .tab:selected  .tab-label{
    -fx-text-fill: darkorange;
+   -fx-padding: 0 0 0 30;
 }
 
 
@@ -126,19 +131,24 @@
 }
 
 #quote {
-     -fx-font-family: infinity;
+     -fx-font-family: "Comic Neue Angular";
      -fx-font-size: 20px;
      -fx-fill: white;
 }
 
 /** list **/
 #todoList {
-	-fx-background-color: rgb(255, 255, 255, 0.5);
+	-fx-background-color: rgb(255, 255, 255, 0.7);
     -fx-font-size: 18px;
     -fx-font-family: delicious-roman;
     -fx-border-radius: 20 20 20 20;
     -fx-background-radius: 20 20 20 20;
     -fx-padding: 10;
+}
+
+.list-view:focused{
+	-fx-border-color: lightblue;
+	-fx-border-width: 2;
 }
 
 .label {
@@ -151,19 +161,29 @@
     -fx-padding: -7;
 }
 
-#todoClass {
-    -fx-background-color: rgb(0, 0, 0, 0.2);
-    -fx-font-size: 17px;
-    -fx-font-family: delicious-smallcaps;
-    -fx-border-radius: 20 20 20 20;
-    -fx-background-radius: 20 20 20 20;
-    -fx-padding: 10;
+.table-view .scroll-bar:horizontal, .scroll-bar:vertical {
+	-fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.list-cell #taskOverdue {   
+    -fx-border-width: 0 0 0 5;
+    -fx-border-color: grey;
+}
+
+.list-cell #taskToday, .list-cell #taskTomorrow {   
+    -fx-border-width: 0 0 0 5;
+    -fx-border-color: red;
+}
+
+.list-cell #taskFloat, .list-cell #taskOthers {   
+    -fx-border-width: 0 0 0 5;
+    -fx-border-color: blue;
 }
 
 .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;    
-    -fx-border: black;
 }
 
 .list-cell:selected {
@@ -171,15 +191,21 @@
     -fx-text-fill: darkorange;    
 }
 
-#taskToday, #taskTomorrow {
+#classOverdue {
+	-fx-font-family: delicious-smallcaps;
+	-fx-text-fill: grey;    
+	-fx-font-size: 16px;
+}
+
+#classToday, #classTomorrow {
 	-fx-font-family: delicious-smallcaps;
 	-fx-text-fill: red;    
 	-fx-font-size: 16px;
 }
 
-#taskOthers, #taskFloat {
+#classOthers, #classFloat {
 	-fx-font-family: delicious-smallcaps;
-	-fx-text-fill: Blue;    
+	-fx-text-fill: blue;    
 	-fx-font-size: 16px;
 }
 

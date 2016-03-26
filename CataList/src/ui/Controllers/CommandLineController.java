@@ -95,6 +95,9 @@ public class CommandLineController {
 			getPreviousCommand();
 		} else if (event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
+			if(event.isAltDown()) {
+				main.getList().requestFocus();
+			}
 		} else if (event.getCode() == KeyCode.F12) {
 			switch(screenSizeToggle) {
 			case FULL_SCREEN:
@@ -136,7 +139,7 @@ public class CommandLineController {
 					tutorialToggle = TUTORIAL_OFF;
 				}
 			}
-		}
+		} 
 	}
 
 

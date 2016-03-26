@@ -41,6 +41,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String DUE = "Due by ";
+	private static final String NULL = "";
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
@@ -154,7 +155,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			index++;
 			HBox taskRow = new HBox(10);
 			//CheckBox isCompleted = new CheckBox();
-			Label taskIndex = new Label(index + ".");
+			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
 			if(taskObj.get_time().isEmpty()) {
@@ -228,7 +229,8 @@ public class ListInterfaceController extends NotificationRenderer {
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTaskFromLogic) {
-				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT))) {
+				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
+						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
 					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
 						todoTime++;
 					}

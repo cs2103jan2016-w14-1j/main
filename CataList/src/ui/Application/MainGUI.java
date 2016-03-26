@@ -33,8 +33,7 @@ public class MainGUI extends Application {
     }
 
     
-    private void quitProgram(Scene scene, Stage stage) {
-    	
+    private void quitProgram(Scene scene, Stage stage) {	
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {
             if (evt.getCode().equals(KeyCode.ESCAPE)) {
             	stage.close();
