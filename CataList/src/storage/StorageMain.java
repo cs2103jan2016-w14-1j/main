@@ -1,7 +1,11 @@
 package storage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,7 @@ public class StorageMain {
 	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
 	private ArrayList<Task> masterList;
 	
-	private static final String STORAGE_PATH = 
+	private static String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
 			"/src/storage/test.xml";
 
@@ -89,5 +93,48 @@ public class StorageMain {
 				return false;
 			}
 		return true;
+	}
+	
+	public String setPath(String newFileLocation){
+		String result;
+		
+		InputStream inStream = null;
+		OutputStream outStream = null;
+		
+		try{
+    		
+    	    File oldFile = new File(STORAGE_PATH);
+    	    File newFile = new File(newFileLocation);
+    		
+    	    inStream = new FileInputStream(oldFile);
+    	    outStream = new FileOutputStream(newFile);
+        	
+    	    byte[] buffer = new byte[1024];
+    		
+    	    String name = oldFile.getName();
+    	    System.out.println(name);
+    	    
+    	    String oldPath = oldFile.getAbsolutePath();
+    	    System.out.println(oldPath);
+    	    
+    	    System.out.println("new path location: " + newFileLocation);
+    	    
+    	    int length;
+    	    while ((length = inStream.read(buffer)) > 0){
+    	    	outStream.write(buffer, 0, length);
+    	    }
+    	 
+    	    inStream.close();
+    	    outStream.close();
+    	    result = "File copied successful!";
+    	    System.out.println(result);
+    	    
+    	    STORAGE_PATH = newFileLocation;
+    	}catch(IOException e){
+    		result = "File failed to copy!";
+    		e.printStackTrace();
+    		return result;
+    	}
+		return result;
 	}
 }
