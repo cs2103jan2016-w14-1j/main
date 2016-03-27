@@ -47,6 +47,9 @@ public class StorageMain {
 	}
 	
 	public boolean storageWrite(ArrayList<Task> masterList){
+		
+		
+		
 			Element task;
 			int index;
 			Task tempTask = null;
@@ -102,7 +105,7 @@ public class StorageMain {
 		return true;
 	}
 	
-	public String setPath(String newFileLocation){
+	public String copySaveFile(String newFileLocation){
 		String result;
 		
 		InputStream inStream = null;
