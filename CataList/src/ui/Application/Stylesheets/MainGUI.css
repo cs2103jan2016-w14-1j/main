@@ -112,11 +112,11 @@
     -fx-pref-height: 30;
     -fx-font-size: 15px;
     -fx-alignment: center;
+    -fx-padding: 0 0 0 30;
 }
 
 .tab-pane .tab:selected  .tab-label{
    -fx-text-fill: darkorange;
-   -fx-padding: 0 0 0 30;
 }
 
 
@@ -246,7 +246,8 @@
 }
 
 #tutorialContainer {
-	-fx-font-size: 17px;
+	-fx-font-size: 18px;
+	-fx-font-family: infinity;
 }
 
 #exitMessage {

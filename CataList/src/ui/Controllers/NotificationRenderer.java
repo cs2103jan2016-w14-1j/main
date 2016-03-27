@@ -16,6 +16,14 @@ public class NotificationRenderer {
 
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
+	
+	private boolean dayNotification;
+	private boolean timeNotification;
+	
+	public NotificationRenderer() {
+		dayNotification = false;
+		timeNotification = false;
+	}
 
 	public void loadNotification(int todo, int flag) {
 		Stage notificationOwner = new Stage(StageStyle.TRANSPARENT);
@@ -24,24 +32,25 @@ public class NotificationRenderer {
 		Scene scene = new Scene(root, 1, 1);
 		scene.setFill(Color.TRANSPARENT);
 		notificationOwner.setScene(scene);
+		notificationOwner.setAlwaysOnTop(true);
 		notificationOwner.setWidth(1);
 		notificationOwner.setHeight(1);
-		notificationOwner.setAlwaysOnTop(true);
 		notificationOwner.show();
 		quitNotification(notificationOwner);
 
-		if(flag == TIME_FLAG) {
+		if(flag == TIME_FLAG && timeNotification == false) {
 			if(todo > 1) {
 				showNotificationTimePlural(todo);
 			} else if (todo == 1) {
 				showNotificationTimeSingular(todo);
 			}
-		} else if(flag == DAY_FLAG) {
+		} else if(flag == DAY_FLAG && dayNotification == false) {
 			if(todo > 1) {
 				showNotificationDayPlural(todo);
 			} else if (todo == 1){
 				showNotificationDaySingular(todo);
 			}
+			dayNotification = true;
 		}
 	}
 
@@ -56,7 +65,7 @@ public class NotificationRenderer {
 	private void showNotificationTimePlural(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " pending tasks in 15 minutes!"
+		.text("\nYou have " + todo + " pending tasks in 15 minutes!"
 				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
@@ -66,7 +75,7 @@ public class NotificationRenderer {
 	private void showNotificationTimeSingular(int todo) {
 		Notifications.create()
 		.title("Reminder!")
-		.text("You have " + todo + " pending task in 15 minutes!"
+		.text("\nYou have " + todo + " pending task in 15 minutes!"
 				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
@@ -75,8 +84,8 @@ public class NotificationRenderer {
 
 	private void showNotificationDayPlural(int todo) {
 		Notifications.create()
-		.title("Reminder!")
-		.text("You have " + todo + " tasks today!"
+		.title("Reminder!\n")
+		.text("\nYou have " + todo + " tasks today!"
 				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
@@ -85,11 +94,11 @@ public class NotificationRenderer {
 
 	private void showNotificationDaySingular(int todo) {
 		Notifications.create()
-		.title("Reminder!")
-		.text("You have " + todo + " task today!"
+		.title("Reminder!\n")
+		.text("\nYou have " + todo + " task today!"
 				+ "\nPress ESC twice to return to main window." )
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(5))
-		.showWarning();
+		.show();
 	}
 }

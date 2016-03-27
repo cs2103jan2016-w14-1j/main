@@ -27,11 +27,11 @@ public class MainGUI extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource(STYLESHEET_PATH).toExternalForm());
         stage.setScene(scene);
+        stage.requestFocus();
         stage.show();
         
         quitProgram(scene, stage);
     }
-
     
     private void quitProgram(Scene scene, Stage stage) {	
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent evt) -> {

@@ -71,6 +71,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private ArrayList<Task> operatingTaskFromLogic;
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
+	private NotificationRenderer notification = new NotificationRenderer();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
@@ -239,9 +240,9 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 			
 			if(todoTime > 0) {
-				loadNotification(todoTime, TIME_FLAG);
+				notification.loadNotification(todoTime, TIME_FLAG);
 			} else if(todoDay > 0 && todoTime == 0) {
-				loadNotification(todoDay, DAY_FLAG);
+				notification.loadNotification(todoDay, DAY_FLAG);
 			}
 		}
 	}

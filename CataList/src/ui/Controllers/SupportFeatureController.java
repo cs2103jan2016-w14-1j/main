@@ -31,7 +31,8 @@ public class SupportFeatureController {
 	private static final String CALENDAR_HEADING = "   SCHEDULE";
 	private static final String CALENDAR_ID = "calendarContainer";
 	private static final String TIME_ID = "calendarTime";
-	private static final String TIME_FORMAT = "hh:mm:ss";
+	private static final String TIME_FORMAT = "HH:mm:ss";
+	private static final int TIME_LABEL_INDEX = 1;
 
 	private MainGUIController main;
 	private TutorialRenderer tutorialRenderer;
@@ -108,8 +109,7 @@ public class SupportFeatureController {
 						if(calendarContainer.getChildren().isEmpty()) {
 							calendarContainer.getChildren().addAll(heading, time, calendar);
 						} else {
-							calendarContainer.getChildren().setAll(heading, time);
-							calendarContainer.getChildren().add(calendar);
+							calendarContainer.getChildren().set(TIME_LABEL_INDEX, time);
 						}
 					}
 				});
