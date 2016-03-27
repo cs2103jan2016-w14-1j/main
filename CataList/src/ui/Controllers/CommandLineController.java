@@ -17,7 +17,6 @@ public class CommandLineController {
 
 	private static final String INITIALIZE = "";
 	private static final String INIT_FEEDBACK = "How can I help you?";
-	private static final String MESSAGE_INVALID = "Invalid background";
 	private static final boolean TUTORIAL_ON = true;
 	private static final boolean TUTORIAL_OFF = false;
 
@@ -42,6 +41,7 @@ public class CommandLineController {
 	private int tabToggle = COMPLETE_TAB;
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
+	private ColorRenderer backgroundColor = new ColorRenderer();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
@@ -77,28 +77,25 @@ public class CommandLineController {
 					main.supportFeatureController.renderTutorial();
 				}
 			} else {
-				if (getFirstWord(command).toLowerCase().equals("show")) {
-					String id = ParseBackground.parseInput(removeFirstWord(command));
-					if(id.equals(MESSAGE_INVALID)) {
-						feedback.setText(MESSAGE_INVALID);
-					} else {
-						main.mainAnchorPane.setId(id);
-					}
-				} else {
 
 					main.todoListController.loopTaskList();
 					//   main.classListController.loopClassList();
 
-				}
+			
 			}
-		} else if (event.getCode() == KeyCode.UP) {
+		} else if(event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
-		} else if (event.getCode() == KeyCode.DOWN) {
+		} else if(event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
+		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
-				main.getList().requestFocus();
+				backgroundColor.toggleColorPlus(main.getBackgroundPane());
 			}
-		} else if (event.getCode() == KeyCode.F12) {
+		} else if(event.getCode() == KeyCode.LEFT) {
+			if(event.isAltDown()) {
+				backgroundColor.toggleColorMinus(main.getBackgroundPane());
+			}
+		} else if(event.getCode() == KeyCode.F12) {
 			switch(screenSizeToggle) {
 			case FULL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
@@ -128,7 +125,7 @@ public class CommandLineController {
 			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
 			}
-		} else if(event.getCode() == KeyCode.RIGHT) {
+		} else if(event.getCode() == KeyCode.SPACE) {
 			if(event.isAltDown() && main.isToDoListEmpty()) {
 				updateTutorialToggle();
 				main.supportFeatureController.showMainPane();
@@ -190,14 +187,5 @@ public class CommandLineController {
 		} else {
 			return "OFF";
 		}
-	}
-
-	private static String removeFirstWord(String userInput) {
-		return userInput.replace(getFirstWord(userInput), INITIALIZE).trim();
-	}
-
-
-	private static String getFirstWord(String userInput) {
-		return userInput.trim().split("\\s+")[0];
 	}
 }

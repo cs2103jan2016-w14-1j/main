@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-27T03:41:06</date>
-  <millis>1459021266628</millis>
+  <date>2016-03-27T16:04:23</date>
+  <millis>1459065863756</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 <record>
-  <date>2016-03-27T03:41:06</date>
-  <millis>1459021266731</millis>
+  <date>2016-03-27T16:04:23</date>
+  <millis>1459065863894</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>

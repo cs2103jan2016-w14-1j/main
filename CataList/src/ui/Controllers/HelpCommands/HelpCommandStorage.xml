@@ -25,6 +25,10 @@
       <id>undo previous action</id>
       <command> undo</command>
    </help>
+   <help>
+      <id>display time and calendar</id>
+      <command> calendar</command>
+   </help>
     <help>
       <id>get previous command</id>
       <command> UP</command>
@@ -34,8 +38,8 @@
       <command> DOWN</command>
    </help>
     <help>
-      <id>toggle Inbox and Complete class</id>
-      <command> RIGHT</command>
+      <id>toggle background colors</id>
+      <command> ALT + RIGHT &#xD; ALT + LEFT</command>
    </help>
     <help>
       <id>toggle interface selection</id>

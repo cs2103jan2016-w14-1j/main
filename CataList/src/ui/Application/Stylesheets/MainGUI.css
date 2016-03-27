@@ -28,14 +28,13 @@
 	src: url("Fonts/Docker-One.ttf");
 }
 
-
-#mainPaneDefault {
-    -fx-background: orange;
-}
-
 .root {
 	-fx-background-size: cover;
   
+}
+
+#backgroundPane {
+	-fx-background: #FF9900;
 }
 
 #mainPane {

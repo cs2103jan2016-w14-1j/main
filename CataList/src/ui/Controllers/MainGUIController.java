@@ -21,7 +21,7 @@ public class MainGUIController {
 	@FXML public ListInterfaceController todoListController;   
 	@FXML public TitleInterfaceController titleController;
 	@FXML public SupportFeatureController supportFeatureController;
-	@FXML public AnchorPane mainAnchorPane;
+	@FXML public AnchorPane backgroundPane;
 
 	private LogicMain logic = new LogicMain();
 
@@ -30,6 +30,10 @@ public class MainGUIController {
 		commandLineController.init(this);
 		titleController.init(this);
 		supportFeatureController.init(this);
+	}
+	
+	public AnchorPane getBackgroundPane() {
+		return backgroundPane;
 	}
 	
 	public void refreshToDoList() throws IOException, JDOMException {
