@@ -68,12 +68,19 @@ public class StorageMain {
 				for(int i=0; i<masterList.size(); i++){
 					Task taskObj = masterList.get(i);
 					task = new Element(ELEMENT_TASK);
+					String completeStateString;
+					boolean completeState = taskObj.get_completionState();
+					if(completeState){
+						completeStateString = ATTRIBUTE_COMPLETE;
+					} else {
+						completeStateString = ATTRIBUTE_INCOMPLETE;
+					}
 					
 					List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 					index = taskList.size() + 1;
 					
 					task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
-					task.setAttribute(new Attribute(ATTRIBUTE_STATE, ATTRIBUTE_INCOMPLETE));
+					task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
 					task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 					task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 					task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
