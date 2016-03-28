@@ -130,8 +130,7 @@ public class CommandLineController {
 				break;
 			case SMALL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setWidth(500);
-				((Stage) userInput.getScene().getWindow()).setHeight(500);
+				((Stage) userInput.getScene().getWindow()).setIconified(true);
 				screenSizeToggle = 0;
 				break;
 			default:
