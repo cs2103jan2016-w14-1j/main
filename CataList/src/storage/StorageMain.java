@@ -1,7 +1,11 @@
 package storage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,7 @@ public class StorageMain {
 	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
 	private ArrayList<Task> masterList;
 	
-	private static final String STORAGE_PATH = 
+	private static String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
 			"/src/storage/test.xml";
 
@@ -43,6 +47,9 @@ public class StorageMain {
 	}
 	
 	public boolean storageWrite(ArrayList<Task> masterList){
+		
+		
+		
 			Element task;
 			int index;
 			Task tempTask = null;
@@ -64,12 +71,19 @@ public class StorageMain {
 				for(int i=0; i<masterList.size(); i++){
 					Task taskObj = masterList.get(i);
 					task = new Element(ELEMENT_TASK);
+					String completeStateString;
+					boolean completeState = taskObj.get_completionState();
+					if(completeState){
+						completeStateString = ATTRIBUTE_COMPLETE;
+					} else {
+						completeStateString = ATTRIBUTE_INCOMPLETE;
+					}
 					
 					List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 					index = taskList.size() + 1;
 					
 					task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
-					task.setAttribute(new Attribute(ATTRIBUTE_STATE, ATTRIBUTE_INCOMPLETE));
+					task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
 					task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
 					task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
 					task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
@@ -89,5 +103,48 @@ public class StorageMain {
 				return false;
 			}
 		return true;
+	}
+	
+	public String copySaveFile(String newFileLocation){
+		String result;
+		
+		InputStream inStream = null;
+		OutputStream outStream = null;
+		
+		try{
+    		
+    	    File oldFile = new File(STORAGE_PATH);
+    	    File newFile = new File(newFileLocation);
+    		
+    	    inStream = new FileInputStream(oldFile);
+    	    outStream = new FileOutputStream(newFile);
+        	
+    	    byte[] buffer = new byte[1024];
+    		
+    	    String name = oldFile.getName();
+    	    System.out.println(name);
+    	    
+    	    String oldPath = oldFile.getAbsolutePath();
+    	    System.out.println(oldPath);
+    	    
+    	    System.out.println("new path location: " + newFileLocation);
+    	    
+    	    int length;
+    	    while ((length = inStream.read(buffer)) > 0){
+    	    	outStream.write(buffer, 0, length);
+    	    }
+    	 
+    	    inStream.close();
+    	    outStream.close();
+    	    result = "File copied successful!";
+    	    System.out.println(result);
+    	    
+    	    STORAGE_PATH = newFileLocation;
+    	}catch(IOException e){
+    		result = "File failed to copy!";
+    		e.printStackTrace();
+    		return result;
+    	}
+		return result;
 	}
 }

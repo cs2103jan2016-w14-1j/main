@@ -23,8 +23,8 @@ public class HelpPageController {
     private static int ARRAY_ID = 0;
     private static int ARRAY_COMMAND = 1;
     
-    private static final int ID_COL_WIDTH = 125;
-    private static final int COMMAND_COL_WIDTH = 370;
+    private static final int ID_COL_WIDTH = 200;
+    private static final int COMMAND_COL_WIDTH = 290;
     
             
     private final ObservableList<Help> table = 

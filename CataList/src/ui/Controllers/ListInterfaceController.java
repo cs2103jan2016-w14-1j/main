@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,7 +41,13 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String TASK_ID = "taskName";
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
+	
+	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
+	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
+	private static final String EMPTY_LIST_ID = "emptyRow";
 	private static final String DUE = "Due by ";
+	private static final String NULL = "";
+	
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
@@ -70,6 +77,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private ArrayList<Task> operatingTaskFromLogic;
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
+	private NotificationRenderer notification = new NotificationRenderer();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
@@ -104,7 +112,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		operatingTaskFromLogic = main.getFromLogic();
 
 		log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
-
+		
 		openToDoList();
 		displayTaskList();
 	}
@@ -126,17 +134,19 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void animateToDoList(boolean isOpen) {
 		if(isOpen) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
+			st.setDelay(Duration.millis(200));
 			st.play();
 			todoListContainer.setManaged(true);
 		} else {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
 			st.setFromX(1);
 			st.setToX(0);
 			st.setCycleCount(1);
+			st.setDelay(Duration.millis(200));
 			st.play();
 			todoListContainer.setManaged(false);
 		}
@@ -154,7 +164,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			index++;
 			HBox taskRow = new HBox(10);
 			//CheckBox isCompleted = new CheckBox();
-			Label taskIndex = new Label(index + ".");
+			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
 			if(taskObj.get_time().isEmpty()) {
@@ -180,6 +190,22 @@ public class ListInterfaceController extends NotificationRenderer {
 		}	
 
 		taskFilter.addSortedClasses(tasks);
+
+		insertFeedbackForEmptyList(taskList);
+	}
+
+	private void insertFeedbackForEmptyList(ArrayList<Task> taskList) {
+		if(taskList.isEmpty() ) {
+			HBox emptyRow = new HBox();
+			VBox rowContainer = new VBox(10);
+			Label feedback = new Label(EMPTY_LIST_FEEDBACK);
+			Label message = new Label(EMPTY_LIST_MESSAGE);
+			emptyRow.setId(EMPTY_LIST_ID);
+			rowContainer.setId(EMPTY_LIST_ID);
+			rowContainer.getChildren().addAll(feedback, message);
+			emptyRow.getChildren().add(rowContainer);
+			tasks.add(emptyRow);
+		}
 	}
 
 	/*
@@ -228,7 +254,8 @@ public class ListInterfaceController extends NotificationRenderer {
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTaskFromLogic) {
-				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT))) {
+				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
+						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
 					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
 						todoTime++;
 					}
@@ -237,9 +264,9 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 			
 			if(todoTime > 0) {
-				loadNotification(todoTime, TIME_FLAG);
+				notification.loadNotification(todoTime, TIME_FLAG);
 			} else if(todoDay > 0 && todoTime == 0) {
-				loadNotification(todoDay, DAY_FLAG);
+				notification.loadNotification(todoDay, DAY_FLAG);
 			}
 		}
 	}
@@ -271,7 +298,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void hideToDoList() {
-		if(tasks.isEmpty()) {
+		if(tasks.size() <= 1) {
 			todoListContainer.setManaged(false);
 			todoListContainer.setOpacity(0);
 			closeToDoList();

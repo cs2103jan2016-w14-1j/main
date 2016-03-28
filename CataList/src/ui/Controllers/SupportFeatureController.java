@@ -2,9 +2,14 @@ package ui.Controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.joda.time.LocalTime;
 
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,14 +26,19 @@ import javafx.util.Duration;
 @SuppressWarnings("restriction")
 public class SupportFeatureController {
 	
-	private final String HELP_PAGE_PATH = "/ui/View/HelpPage.fxml";
-	private final String ICON_PATH = "/ui/Application/Stylesheets/Background/time-icon.png";
-	private final String CALENDAR_HEADING = "   Schedule";
-	private final String CALENDAR_ID = "calendarContainer";
+	private static final String HELP_PAGE_PATH = "/ui/View/HelpPage.fxml";
+	private static final String ICON_PATH = "/ui/Application/Stylesheets/Background/time-icon.png";
+	private static final String CALENDAR_HEADING = "   SCHEDULE";
+	private static final String CALENDAR_ID = "calendarContainer";
+	private static final String TIME_ID = "calendarTime";
+	private static final String TIME_FORMAT = "HH:mm:ss";
+	private static final int TIME_LABEL_INDEX = 1;
 
 	private MainGUIController main;
 	private TutorialRenderer tutorialRenderer;
 	private Node calendar;
+	private Label heading;
+	private Label time;
 
 	@FXML 
 	private Text titleMessage;
@@ -41,7 +51,7 @@ public class SupportFeatureController {
 		main = mainController;
 		tutorialRenderer = new TutorialRenderer(main);
 		
-		if(main.isToDoListEmpty()) {
+		if(main.getTaskList().size() <= 1) {
 			showMainPane();
 		}
 	}
@@ -80,14 +90,39 @@ public class SupportFeatureController {
 	}
 
 	private void setCalendarProperties(VBox calendarContainer) {
-		ImageView imageView = setImageViewProperties();
-		Label label = setLabelProperties(imageView);
-		calendarContainer.setId(CALENDAR_ID);
 		calendar = new DatePickerSkin(new DatePicker(LocalDate.now())).getPopupContent();
-		calendarContainer.getChildren().addAll(label, calendar);
+		loopCheckTime(calendarContainer);
 	}
 
-	private Label setLabelProperties(ImageView imageView) {
+	private void loopCheckTime(VBox calendarContainer) {
+		Timer checkTasks = new Timer(true);
+		checkTasks.schedule(new TimerTask() {
+			@Override
+			public void run() {  
+				Platform.runLater(new Runnable() {
+					public void run() {
+						ImageView imageView = setImageViewProperties();
+						heading = setHeadingProperties(imageView);
+						time = new Label(setTimeProperties());
+						time.setId(TIME_ID);
+						calendarContainer.setId(CALENDAR_ID);
+						if(calendarContainer.getChildren().isEmpty()) {
+							calendarContainer.getChildren().addAll(heading, time, calendar);
+						} else {
+							calendarContainer.getChildren().set(TIME_LABEL_INDEX, time);
+						}
+					}
+				});
+
+			}
+		}, 0, 1000);
+	}
+
+	private String setTimeProperties() {
+		return new LocalTime().toString(TIME_FORMAT);
+	}
+
+	private Label setHeadingProperties(ImageView imageView) {
 		Label label = new Label(CALENDAR_HEADING);
 		label.setTextFill(Color.BLACK);
 		label.setGraphic(imageView);
@@ -107,7 +142,7 @@ public class SupportFeatureController {
 	public void removeMainPane() {
 		mainPane.setManaged(false);
 
-		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
+		FadeTransition ft = new FadeTransition(Duration.millis(200), mainPane);
 		ft.setFromValue(1);
 		ft.setToValue(0);
 		ft.play();
@@ -117,7 +152,7 @@ public class SupportFeatureController {
 		mainPane.setManaged(true);
 		insertTutorialToggle();
 
-		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
+		FadeTransition ft = new FadeTransition(Duration.millis(200), mainPane);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();

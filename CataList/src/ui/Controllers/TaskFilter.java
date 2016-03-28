@@ -15,12 +15,18 @@ public class TaskFilter {
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
-	private static final String FLOAT_ID = "taskFloat";
-	private static final String OTHERS_ID = "taskOthers";
-	private static final String TOMORROW_ID = "taskTomorrow";
-	private static final String TODAY_ID = "taskToday";
-	private static final String OVERDUE_ID = "taskOverdue";
+	private static final String FLOAT_ID = "classFloat";
+	private static final String OTHERS_ID = "classOthers";
+	private static final String TOMORROW_ID = "classTomorrow";
+	private static final String TODAY_ID = "classToday";
+	private static final String OVERDUE_ID = "classOverdue";
 	private static final String NUM_ID = "numTask";
+	
+	private static final String FLOAT_TASK_ID = "taskFloat";
+	private static final String OTHERS_TASK_ID = "taskOthers";
+	private static final String TOMORROW_TASK_ID = "taskTomorrow";
+	private static final String TODAY_TASK_ID = "taskToday";
+	private static final String OVERDUE_TASK_ID = "taskOverdue";
 
 	private static final int CLASS_SPACE = 20;
 
@@ -76,7 +82,7 @@ public class TaskFilter {
 		
 		taskClassOverdue = new HBox(CLASS_SPACE);
 		Label taskOverdue = new Label(OVERDUE_CLASS);
-		taskFloat.setId(OVERDUE_ID);
+		taskOverdue.setId(OVERDUE_ID);
 		taskClassOverdue.getChildren().add(taskOverdue);
 	}
 
@@ -180,6 +186,7 @@ public class TaskFilter {
 			if(!tasksOverdue.contains(taskClassOverdue)) {
 				tasksOverdue.add(taskClassOverdue);
 			}
+			taskRow.setId(OVERDUE_TASK_ID);
 			tasksOverdue.add(taskRow);
 		}
 		else if(taskObj.get_date().equals(dateToday) 
@@ -187,21 +194,25 @@ public class TaskFilter {
 			if(!tasksToday.contains(taskClassToday)) {
 				tasksToday.add(taskClassToday);	
 			}
+			taskRow.setId(TODAY_TASK_ID);
 			tasksToday.add(taskRow);
 		} else if(taskObj.get_date().equals(dateTomorrow)) {
 			if(!tasksTomorrow.contains(taskClassTomorrow)) {
 				tasksTomorrow.add(taskClassTomorrow);
 			}
+			taskRow.setId(TOMORROW_TASK_ID);
 			tasksTomorrow.add(taskRow);
 		} else if(taskObj.get_time().isEmpty() && taskObj.get_date().isEmpty()) {
 			if(!tasksFloat.contains(taskClassFloat)) {
 				tasksFloat.add(taskClassFloat);
 			}
+			taskRow.setId(FLOAT_TASK_ID);
 			tasksFloat.add(taskRow);
 		} else {
 			if(!tasksOthers.contains(taskClassOthers)) {
 				tasksOthers.add(taskClassOthers);
 			}
+			taskRow.setId(OTHERS_TASK_ID);
 			tasksOthers.add(taskRow);
 		}
 	}
