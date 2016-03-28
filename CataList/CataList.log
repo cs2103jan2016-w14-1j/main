@@ -2,19 +2,19 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-27T18:02:57</date>
-  <millis>1459072977267</millis>
+  <date>2016-03-28T14:16:53</date>
+  <millis>1459145813132</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
   <thread>12</thread>
-  <message>operatingTaskFromLogic empty? false</message>
+  <message>operatingTaskFromLogic empty? true</message>
 </record>
 <record>
-  <date>2016-03-27T18:02:57</date>
-  <millis>1459072977406</millis>
+  <date>2016-03-28T14:16:53</date>
+  <millis>1459145813186</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -22,5 +22,115 @@
   <method>loadClassList</method>
   <thread>12</thread>
   <message>Tab Size? 0</message>
+</record>
+<record>
+  <date>2016-03-28T14:16:54</date>
+  <millis>1459145814888</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T14:16:54</date>
+  <millis>1459145814890</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:10</date>
+  <millis>1459145830125</millis>
+  <sequence>4</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:10</date>
+  <millis>1459145830131</millis>
+  <sequence>5</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:11</date>
+  <millis>1459145831092</millis>
+  <sequence>6</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:11</date>
+  <millis>1459145831098</millis>
+  <sequence>7</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:11</date>
+  <millis>1459145831621</millis>
+  <sequence>8</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:11</date>
+  <millis>1459145831625</millis>
+  <sequence>9</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:12</date>
+  <millis>1459145832118</millis>
+  <sequence>10</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T14:17:12</date>
+  <millis>1459145832122</millis>
+  <sequence>11</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
 </record>
 </log>
