@@ -75,6 +75,14 @@ public class LogicMain {
 		return operatingTasks;
 	}
 	
+	public ArrayList<Task> getCompleteTasksForUI(){
+		return completeTasks;
+	}
+	
+	public ArrayList<Task> getIncompleteTasksForUI(){
+		return incompleteTasks;
+	}
+	
 	private boolean isSearchOrSort(Task taskInput){
 		boolean result = false;
 		if(taskInput.get_cmd().equalsIgnoreCase("search")){
