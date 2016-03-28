@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,15 +34,24 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
+	private static final int INIT_SCROLL = 0;
 	
 	private static final String COMPLETED_TAB = "Completed";
-	private static final String INBOX_TAB = "Inbox";
+	private static final String INBOX_TAB = "All Tasks";
+	private static final String PENDING_TAB = "Pending";
+	
 	private static final String INDEX_ID = "taskIndex";
 	private static final String TASK_ID = "taskName";
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
+	private static final String COMPLETED_TASK_ID = "completedTaskName";
+	
+	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
+	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
+	private static final String EMPTY_LIST_ID = "emptyRow";
 	private static final String DUE = "Due by ";
 	private static final String NULL = "";
+	
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
@@ -50,16 +60,13 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private MainGUIController main;
 
-	@FXML 
-	private ListView<HBox> todoList;
-	@FXML 
-	private HBox todoListContainer;
-	@FXML
-	private TabPane tabPane;
-	@FXML
-	private Tab tabInbox = new Tab(INBOX_TAB);
+	@FXML private ListView<HBox> todoList;
+	@FXML private HBox todoListContainer;
+	@FXML private TabPane tabPane;
+	@FXML private Tab tabInbox = new Tab(INBOX_TAB);
+	
 	private Tab tabComplete = new Tab(COMPLETED_TAB);
-
+	private Tab tabPending = new Tab(PENDING_TAB);
 
 	private static ObservableList<HBox> tasks =
 			FXCollections.observableArrayList();
@@ -68,7 +75,13 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static ArrayList<Tab> tabs =
 			new ArrayList<Tab>();
 
-	private ArrayList<Task> operatingTaskFromLogic;
+	private ArrayList<Task> operatingTasksFromLogic = new ArrayList<Task>();
+	private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
+	private ArrayList<Task> completedTasksFromLogic = new ArrayList<Task>();
+	
+	private int previousTasksSize;
+	private int previousCompletedSize;
+	private HBox scrollSelection = new HBox();
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
@@ -80,10 +93,12 @@ public class ListInterfaceController extends NotificationRenderer {
 		hideToDoList();
 		initTabPane();
 		loopCheckTasksForReminder();
+		setTaskIntoViewIndex(INIT_SCROLL);
 	}
 
 	private void initTabPane() {
 		tabs.add(tabInbox);
+		//tabs.add(tabPending);
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
@@ -102,11 +117,18 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void loopTaskList() {
+		previousTasksSize = operatingTasksFromLogic.size();
+		previousCompletedSize = completedTasksFromLogic.size();
+		
 		tasks.clear();
-		operatingTaskFromLogic = main.getFromLogic();
+		completed.clear();
+		
+		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+		completedTasksFromLogic = main.getCompletedTasksFromLogic();
+		pendingTasksFromLogic = main.getPendingTasksFromLogic();
 
-		log.info("operatingTaskFromLogic empty? " + operatingTaskFromLogic.isEmpty());
-
+		log.info("operatingTaskFromLogic empty? " + operatingTasksFromLogic.isEmpty());
+		
 		openToDoList();
 		displayTaskList();
 	}
@@ -128,34 +150,35 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void animateToDoList(boolean isOpen) {
 		if(isOpen) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
+			st.setDelay(Duration.millis(200));
 			st.play();
 			todoListContainer.setManaged(true);
 		} else {
-			ScaleTransition st = new ScaleTransition(Duration.millis(500), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
 			st.setFromX(1);
 			st.setToX(0);
 			st.setCycleCount(1);
+			st.setDelay(Duration.millis(200));
 			st.play();
 			todoListContainer.setManaged(false);
 		}
 	}
 
 	private void displayTaskList() {
-		formatTaskToListCell(operatingTaskFromLogic);
-		todoList.setItems(tasks);
+		formatPendingTaskToListCell(operatingTasksFromLogic);
+		setTaskIntoViewObject(scrollSelection);
 		loadClassList();
 	}
 
-	private void formatTaskToListCell(ArrayList<Task> taskList) {
+	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
 			HBox taskRow = new HBox(10);
-			//CheckBox isCompleted = new CheckBox();
 			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
@@ -175,30 +198,70 @@ public class ListInterfaceController extends NotificationRenderer {
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
 			}
-			//isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
+			
+			if(index == taskList.size() && taskList.size() != previousTasksSize) {
+				scrollSelection = taskRow;
+			} 
+			
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
-
 		taskFilter.addSortedClasses(tasks);
+		insertFeedbackForEmptyList(taskList);
+		todoList.setItems(tasks);
+	}
+	
+	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
+		int index = 0;
+		for(Task taskObj: taskList) {
+			index++;
+			HBox taskRow = new HBox(10);
+			Label taskIndex = new Label("  " + index + ".");
+			Label taskName = new Label(taskObj.get_task());
+			Label taskTime;
+			if(taskObj.get_time().isEmpty()) {
+				taskTime = new Label(taskObj.get_time());
+			} else {
+				taskTime = new Label(DUE + taskObj.get_time());
+			}
+			Label taskDate;
+			if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
+				taskDate = new Label(DUE + taskObj.get_date());
+			} else {
+				taskDate = new Label(taskObj.get_date());
+			} 
+			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
+			taskName.setId(COMPLETED_TASK_ID);
+			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
+			completed.add(taskRow);
+		}
+	}
+	
+	private void setTaskIntoViewIndex(int index) {
+		if(tasks.size() > 1) {
+			todoList.scrollTo(index);
+		}
+	}
+	
+	private void setTaskIntoViewObject(HBox obj) {
+		if(tasks.contains(obj)) {
+			todoList.scrollTo(obj);
+		}
 	}
 
-	/*
-	private void handleCheckedBox(CheckBox cb, HBox hb) {
-		if(cb.isSelected()) {
-			loadClassList();
-			// main.loadCompleted();
-			completed.add(hb);
-			tasks.remove(hb);
+	private void insertFeedbackForEmptyList(ArrayList<Task> taskList) {
+		if(taskList.isEmpty() ) {
+			HBox emptyRow = new HBox();
+			VBox rowContainer = new VBox(10);
+			Label feedback = new Label(EMPTY_LIST_FEEDBACK);
+			Label message = new Label(EMPTY_LIST_MESSAGE);
+			emptyRow.setId(EMPTY_LIST_ID);
+			rowContainer.setId(EMPTY_LIST_ID);
+			rowContainer.getChildren().addAll(feedback, message);
+			emptyRow.getChildren().add(rowContainer);
+			tasks.add(emptyRow);
 		}
-
-		if(!cb.isSelected()) {
-			completed.remove(hb);
-			tasks.add(hb);
-			// main.clearCompleted();
-		}
-	}*/
+	}
 
 	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
 		task.setPrefWidth(600);
@@ -223,13 +286,13 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void checkTasksForReminder() {
-		if(!operatingTaskFromLogic.isEmpty()) {
+		if(!operatingTasksFromLogic.isEmpty()) {
 			int todoTime = 0;
 			int todoDay = 0;
 			LocalDateTime localDateTime = new LocalDateTime();
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
-			for(Task taskObj: operatingTaskFromLogic) {
+			for(Task taskObj: operatingTasksFromLogic) {
 				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
 						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
 					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
@@ -248,11 +311,12 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void loadClassList() {
-		log.info("Tab Size? " + tabs.size());
-		if(tabs.size() == 1 && !operatingTaskFromLogic.isEmpty()) {
+		//log.info("Tab Size? " + tabs.size());
+		if(tabs.size() == 1 && !completedTasksFromLogic.isEmpty()) {
 			tabs.add(tabComplete);
 			tabPane.getTabs().add(tabComplete);
 		} 
+		formatCompletedTaskToListCell(completedTasksFromLogic);
 	}
 
 	public void openToDoList() {
@@ -274,7 +338,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void hideToDoList() {
-		if(tasks.isEmpty()) {
+		if(tasks.size() <= 1) {
 			todoListContainer.setManaged(false);
 			todoListContainer.setOpacity(0);
 			closeToDoList();

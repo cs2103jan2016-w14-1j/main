@@ -2,8 +2,12 @@ package ui.Controllers;
 
 import java.io.IOException;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -16,7 +20,7 @@ public class CommandLineController {
 	private MainGUIController main;
 
 	private static final String INITIALIZE = "";
-	private static final String INIT_FEEDBACK = "How can I help you?";
+	private static final String INIT_FEEDBACK = "How can I be of help?";
 	private static final boolean TUTORIAL_ON = true;
 	private static final boolean TUTORIAL_OFF = false;
 
@@ -29,7 +33,6 @@ public class CommandLineController {
 	private static final int COMPLETE_TAB = 1;
 	private boolean tutorialToggle = TUTORIAL_ON;
 
-	
 	@FXML 
 	private Text feedback;
 	@FXML 
@@ -50,10 +53,19 @@ public class CommandLineController {
 
 	private void readUserInput() {
 		command = userInput.getText();
-		feedback.setText(uiToLogic(command));
+		loadFeedback();
 		userInput.clear();
 		inputArray.add(command);
 		index++;
+	}
+
+	private void loadFeedback() {
+		feedback.setText(uiToLogic(command));
+
+		FadeTransition ft = new FadeTransition(Duration.millis(200), feedback);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 	}
 
 	@FXML 
@@ -62,7 +74,7 @@ public class CommandLineController {
 		if (event.getCode() == KeyCode.ENTER) {
 			event.consume();
 			readUserInput();
-			
+
 			/**************** temp parser *******************/
 			if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
 				main.todoListController.displayPending();
@@ -78,10 +90,10 @@ public class CommandLineController {
 				}
 			} else {
 
-					main.todoListController.loopTaskList();
-					//   main.classListController.loopClassList();
+				main.todoListController.loopTaskList();
+				//   main.classListController.loopClassList();
 
-			
+
 			}
 		} else if(event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
@@ -90,6 +102,15 @@ public class CommandLineController {
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
 				backgroundColor.toggleColorPlus(main.getBackgroundPane());
+			} else if(event.isShiftDown() && main.isToDoListEmpty()) {
+				updateTutorialToggle();
+				main.supportFeatureController.showMainPane();
+			} else {
+				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
+					main.todoListController.loopTaskList();
+					main.supportFeatureController.renderTutorial();
+					tutorialToggle = TUTORIAL_OFF;
+				}
 			}
 		} else if(event.getCode() == KeyCode.LEFT) {
 			if(event.isAltDown()) {
@@ -109,8 +130,7 @@ public class CommandLineController {
 				break;
 			case SMALL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setWidth(500);
-				((Stage) userInput.getScene().getWindow()).setHeight(500);
+				((Stage) userInput.getScene().getWindow()).setIconified(true);
 				screenSizeToggle = 0;
 				break;
 			default:
@@ -124,17 +144,6 @@ public class CommandLineController {
 				tabToggle = COMPLETE_TAB;
 			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
-			}
-		} else if(event.getCode() == KeyCode.SPACE) {
-			if(event.isAltDown() && main.isToDoListEmpty()) {
-				updateTutorialToggle();
-				main.supportFeatureController.showMainPane();
-			} else {
-				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
-					main.todoListController.loopTaskList();
-					main.supportFeatureController.renderTutorial();
-					tutorialToggle = TUTORIAL_OFF;
-				}
 			}
 		} 
 	}
@@ -164,15 +173,15 @@ public class CommandLineController {
 		assert (this != null);
 		return main.passInputToLogic(input);
 	}
-	
+
 	public TextField getCommandLine() {
 		return userInput;
 	}
-	
+
 	public Text getFeedback() {
 		return feedback;
 	}
-	
+
 	public void updateTutorialToggle() {
 		if(tutorialToggle) {
 			tutorialToggle = TUTORIAL_OFF;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
@@ -26,8 +27,8 @@ public class MainGUIController {
 	private LogicMain logic = new LogicMain();
 
 	public void initialize() throws IOException, JDOMException {
-		todoListController.init(this);
 		commandLineController.init(this);
+		todoListController.init(this);
 		titleController.init(this);
 		supportFeatureController.init(this);
 	}
@@ -51,6 +52,10 @@ public class MainGUIController {
 	public boolean isToDoListEmpty() {
 		return todoListController.getTasks().isEmpty();
 	}
+	
+	public ObservableList<HBox> getTaskList() {
+		return todoListController.getTasks();
+	}
 
 	public boolean isCompletedEmpty() {
 		return todoListController.getCompleted().isEmpty();
@@ -68,8 +73,16 @@ public class MainGUIController {
 		return logic.processCommand(input);
 	}
 
-	public ArrayList<Task> getFromLogic() {
+	public ArrayList<Task> getOperatingTasksFromLogic() {
 		return logic.getOperatingTasksForUI();
+	}
+	
+	public ArrayList<Task> getCompletedTasksFromLogic() {
+		return logic.getCompleteTasksForUI();
+	}
+	
+	public ArrayList<Task> getPendingTasksFromLogic() {
+		return logic.getIncompleteTasksForUI();
 	}
 
 	public TabPane getTabPane() {

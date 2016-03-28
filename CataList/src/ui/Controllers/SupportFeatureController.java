@@ -51,7 +51,7 @@ public class SupportFeatureController {
 		main = mainController;
 		tutorialRenderer = new TutorialRenderer(main);
 		
-		if(main.isToDoListEmpty()) {
+		if(main.getTaskList().size() <= 1) {
 			showMainPane();
 		}
 	}
@@ -142,7 +142,7 @@ public class SupportFeatureController {
 	public void removeMainPane() {
 		mainPane.setManaged(false);
 
-		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
+		FadeTransition ft = new FadeTransition(Duration.millis(200), mainPane);
 		ft.setFromValue(1);
 		ft.setToValue(0);
 		ft.play();
@@ -152,7 +152,7 @@ public class SupportFeatureController {
 		mainPane.setManaged(true);
 		insertTutorialToggle();
 
-		FadeTransition ft = new FadeTransition(Duration.millis(400), mainPane);
+		FadeTransition ft = new FadeTransition(Duration.millis(200), mainPane);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();

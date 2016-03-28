@@ -53,12 +53,31 @@ public class StorageMainTest {
 		assertEquals(testList.get(0).get_task(), masterList.get(0).get_task());
 	}
 	
-	@Test
 	public void testSave() throws JDOMException, IOException {
 		StorageMain storeMain = new StorageMain();
 		
 		String newLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
 		
-		storeMain.copySaveFile(newLocation);
+		storeMain.exportFile(newLocation);
 	}
+	
+	
+	public void testPathFileRead() throws JDOMException, IOException {
+		StorageMain storeMain = new StorageMain();
+		
+		String fileLocation = storeMain.filePathReader();
+		
+		System.out.println(fileLocation);
+	}
+	
+	@Test
+	public void testPathFileWrite() throws JDOMException, IOException {
+		StorageMain storeMain = new StorageMain();
+		
+		//String fileLocation = storeMain.filePathReader();
+		String fileLocation = "tang ina bobo noob";
+		storeMain.filePathWriter(fileLocation);
+		
+	}
+	
 }

@@ -37,7 +37,7 @@ public class LogicMain {
 		
 		masterListTasks = storageSystem.loadTask();
 		operatingTasks = new ArrayList<Task>(masterListTasks);
-		state.add(masterListTasks);
+		state.add(new ArrayList<Task>(masterListTasks));
 		pointingAt = 0;
 	}
 	
@@ -47,13 +47,7 @@ public class LogicMain {
 		String feedbackToUI = operateOnTask(newCreatedTask);
 		
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
-			System.out.println("undo redo working?");
-			ArrayList<ArrayList<Task>> updateState = new ArrayList<ArrayList<Task>>();
-			for(int i = 0 ; i < pointingAt ; i++){
-				updateState.add(state.get(i));
-			}
-			state = updateState;
-			ArrayList<Task> addToState = masterListTasks;
+			ArrayList<Task> addToState = new ArrayList<Task>(masterListTasks);
 			state.add(addToState);
 			pointingAt++;
 		}
@@ -62,6 +56,15 @@ public class LogicMain {
 			//the operating tasks should become the masterList
 			operatingTasks = new ArrayList<Task>(masterListTasks);
 		}
+		//debugging
+		for(ArrayList<Task> eachList : state){
+			System.out.println(eachList);
+			System.out.println(" >>>> ------ <<<<");
+			for(Task eachTask : eachList){
+				System.out.println(eachTask.get_completionState());
+			}
+		}
+		//
 		storageSystem.storageWrite(masterListTasks);
 		//figure out a better method for sorting and searching
 		return feedbackToUI;
@@ -69,16 +72,15 @@ public class LogicMain {
 	
 	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
-		return masterListTasks;
-		/*
-		if (operatingOn == 1){
-			return completeTasks;
-		} else if (operatingOn == 2){
-			return incompleteTasks;
-		} else {
-			return masterListTasks;
-		}
-		*/
+		return operatingTasks;
+	}
+	
+	public ArrayList<Task> getCompleteTasksForUI(){
+		return completeTasks;
+	}
+	
+	public ArrayList<Task> getIncompleteTasksForUI(){
+		return incompleteTasks;
 	}
 	
 	private boolean isSearchOrSort(Task taskInput){
@@ -169,7 +171,7 @@ public class LogicMain {
 					masterListTasks.remove(i);
 				}
 			}
-			//operatingTasks.remove(operateIndex - 1);  this cause it to double delete?
+			operatingTasks.remove(operateIndex - 1);
 		} catch (IndexOutOfBoundsException e){
 			//STUPID METHOD CURRENTLY NEED TO REWORK
 			taskToOp.set_messageToUser("Nothing to be deleted!");
@@ -221,10 +223,7 @@ public class LogicMain {
 					masterListTasks.set(i, taskToOp);
 				}
 			}
-
-		
-			operatingTasks.set(operateIndex -1, taskToOp);
-		
+			operatingTasks.set(operateIndex -1, taskToOp);	
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.set_messageToUser("Nothing to be edited!");
 			
@@ -237,7 +236,7 @@ public class LogicMain {
 	private String doUndo(Task taskToOp){
 		try{
 			pointingAt--;
-			masterListTasks = state.get(pointingAt);
+			masterListTasks = new ArrayList<Task>(state.get(pointingAt));
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorDefault();
 		}
@@ -248,7 +247,7 @@ public class LogicMain {
 	private String doRedo(Task taskToOp){
 		try{
 			pointingAt++;
-			masterListTasks = state.get(pointingAt);
+			masterListTasks =  new ArrayList<Task>(state.get(pointingAt));
 		} catch (IndexOutOfBoundsException e){
 			taskToOp.setMessageErrorDefault();
 		}
@@ -272,14 +271,14 @@ public class LogicMain {
 	private String doMarkComplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		try{
-			Task operateOn = operatingTasks.get(operateIndex);
+			Task operateOn = operatingTasks.get(operateIndex - 1);
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){
 					masterListTasks.get(i).set_Complete();
 				}
 			}
-			operatingTasks.get(operateIndex).set_Complete();
+			operatingTasks.get(operateIndex - 1).set_Complete();
 			
 			return COMPLETE_TASK_SUCCESS;
 		} catch(IndexOutOfBoundsException e) {

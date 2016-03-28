@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -31,9 +34,9 @@ public class StorageMain {
 	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
 	private ArrayList<Task> masterList;
 	
-	private static String STORAGE_PATH = 
-			System.getProperty("user.dir") + 
-			"/src/storage/test.xml";
+	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
+	
+	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
 
 	public ArrayList<Task> loadTask() {
 		try{
@@ -48,8 +51,6 @@ public class StorageMain {
 	
 	public boolean storageWrite(ArrayList<Task> masterList){
 		
-		
-		
 			Element task;
 			int index;
 			Task tempTask = null;
@@ -63,7 +64,9 @@ public class StorageMain {
 				e1.printStackTrace();
 			}
 			try {
-				File inputFile = new File(STORAGE_PATH);
+				String storagePath = filePathReader();
+				File inputFile = new File(storagePath);
+				//File inputFile = new File(STORAGE_PATH);
 				SAXBuilder saxBuilder = new SAXBuilder();
 				Document toDoListDocument;
 				toDoListDocument = saxBuilder.build(inputFile);
@@ -105,7 +108,7 @@ public class StorageMain {
 		return true;
 	}
 	
-	public String copySaveFile(String newFileLocation){
+	public String exportFile(String newFileLocation){
 		String result;
 		
 		InputStream inStream = null;
@@ -139,7 +142,6 @@ public class StorageMain {
     	    result = "File copied successful!";
     	    System.out.println(result);
     	    
-    	    STORAGE_PATH = newFileLocation;
     	}catch(IOException e){
     		result = "File failed to copy!";
     		e.printStackTrace();
@@ -147,4 +149,46 @@ public class StorageMain {
     	}
 		return result;
 	}
+	
+	public String filePathReader(){
+		
+		List<String> stringList = new ArrayList<String>();
+		
+		String pointerFilePath, stringPath;
+		
+		pointerFilePath = STORAGE_FILE_PATH;
+		
+		Path oldPath = Paths.get(pointerFilePath);
+		
+		try {
+			stringList = Files.readAllLines(oldPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("cannot print");
+			e.printStackTrace();
+			return "cannot print";
+		}
+		
+		stringPath = stringList.get(0);
+		
+		
+		return stringPath;
+	}
+	
+	public void filePathWriter(String path) {
+		
+		String newPath = path;
+		
+		try {
+			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("cannot write");
+			e.printStackTrace();
+			return;
+		}
+		
+		System.out.println("write file path correctly");
+	}
+
 }
