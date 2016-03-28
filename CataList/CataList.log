@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-28T17:39:35</date>
-  <millis>1459157975464</millis>
+  <date>2016-03-28T18:03:31</date>
+  <millis>1459159411590</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>operatingTaskFromLogic empty? true</message>
 </record>
 <record>
-  <date>2016-03-28T17:39:35</date>
-  <millis>1459157975493</millis>
+  <date>2016-03-28T18:03:31</date>
+  <millis>1459159411694</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -22,5 +22,49 @@
   <method>loadClassList</method>
   <thread>12</thread>
   <message>Tab Size? 0</message>
+</record>
+<record>
+  <date>2016-03-28T18:06:23</date>
+  <millis>1459159583370</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? true</message>
+</record>
+<record>
+  <date>2016-03-28T18:06:23</date>
+  <millis>1459159583389</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
+</record>
+<record>
+  <date>2016-03-28T18:06:53</date>
+  <millis>1459159613793</millis>
+  <sequence>4</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loopTaskList</method>
+  <thread>12</thread>
+  <message>operatingTaskFromLogic empty? false</message>
+</record>
+<record>
+  <date>2016-03-28T18:06:53</date>
+  <millis>1459159613916</millis>
+  <sequence>5</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>loadClassList</method>
+  <thread>12</thread>
+  <message>Tab Size? 1</message>
 </record>
 </log>
