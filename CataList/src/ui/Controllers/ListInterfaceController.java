@@ -34,6 +34,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
+	private static final int INIT_SCROLL = 0;
 	
 	private static final String COMPLETED_TAB = "Completed";
 	private static final String INBOX_TAB = "Inbox";
@@ -66,7 +67,6 @@ public class ListInterfaceController extends NotificationRenderer {
 	private Tab tabInbox = new Tab(INBOX_TAB);
 	private Tab tabComplete = new Tab(COMPLETED_TAB);
 
-
 	private static ObservableList<HBox> tasks =
 			FXCollections.observableArrayList();
 	private static ObservableList<HBox> completed =
@@ -75,6 +75,8 @@ public class ListInterfaceController extends NotificationRenderer {
 			new ArrayList<Tab>();
 
 	private ArrayList<Task> operatingTaskFromLogic;
+	private HBox scrollSelection = new HBox();
+	
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
@@ -86,6 +88,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		hideToDoList();
 		initTabPane();
 		loopCheckTasksForReminder();
+		setTaskIntoViewIndex(INIT_SCROLL);
 	}
 
 	private void initTabPane() {
@@ -154,7 +157,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void displayTaskList() {
 		formatTaskToListCell(operatingTaskFromLogic);
-		todoList.setItems(tasks);
+		setTaskIntoViewObject(scrollSelection);
 		loadClassList();
 	}
 
@@ -163,7 +166,6 @@ public class ListInterfaceController extends NotificationRenderer {
 		for(Task taskObj: taskList) {
 			index++;
 			HBox taskRow = new HBox(10);
-			//CheckBox isCompleted = new CheckBox();
 			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
@@ -183,15 +185,29 @@ public class ListInterfaceController extends NotificationRenderer {
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
 			}
-			//isCompleted.setOnAction(e -> handleCheckedBox(isCompleted, taskRow));
+			if(index == taskList.size()) {
+				scrollSelection = taskRow;
+			}
+			
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
 
 		taskFilter.addSortedClasses(tasks);
-
 		insertFeedbackForEmptyList(taskList);
+		todoList.setItems(tasks);
+	}
+	
+	private void setTaskIntoViewIndex(int index) {
+		if(tasks.size() > 1) {
+			todoList.scrollTo(index);
+		}
+	}
+	
+	private void setTaskIntoViewObject(HBox obj) {
+		if(tasks.contains(obj)) {
+			todoList.scrollTo(obj);
+		}
 	}
 
 	private void insertFeedbackForEmptyList(ArrayList<Task> taskList) {
@@ -207,22 +223,6 @@ public class ListInterfaceController extends NotificationRenderer {
 			tasks.add(emptyRow);
 		}
 	}
-
-	/*
-	private void handleCheckedBox(CheckBox cb, HBox hb) {
-		if(cb.isSelected()) {
-			loadClassList();
-			// main.loadCompleted();
-			completed.add(hb);
-			tasks.remove(hb);
-		}
-
-		if(!cb.isSelected()) {
-			completed.remove(hb);
-			tasks.add(hb);
-			// main.clearCompleted();
-		}
-	}*/
 
 	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
 		task.setPrefWidth(600);
