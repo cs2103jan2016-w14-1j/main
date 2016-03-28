@@ -10,7 +10,7 @@
     <Date />
     <Time />
   </Task>
-  <Task ID="3" State="Incomplete">
+  <Task ID="3" State="Complete">
     <Event>3</Event>
     <Date />
     <Time />
@@ -85,7 +85,7 @@
     <Date />
     <Time>30/03/16</Time>
   </Task>
-  <Task ID="18" State="Incomplete">
+  <Task ID="18" State="Complete">
     <Event>asgwevsfvwefqevewv</Event>
     <Date />
     <Time />
@@ -95,7 +95,7 @@
     <Date />
     <Time />
   </Task>
-  <Task ID="20" State="Incomplete">
+  <Task ID="20" State="Complete">
     <Event>today faggot</Event>
     <Date />
     <Time>29/03/16</Time>
@@ -122,6 +122,11 @@
   </Task>
   <Task ID="25" State="Incomplete">
     <Event>yes</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="26" State="Incomplete">
+    <Event>hello</Event>
     <Date />
     <Time />
   </Task>

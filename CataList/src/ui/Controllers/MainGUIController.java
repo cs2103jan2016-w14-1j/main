@@ -73,8 +73,16 @@ public class MainGUIController {
 		return logic.processCommand(input);
 	}
 
-	public ArrayList<Task> getFromLogic() {
+	public ArrayList<Task> getOperatingTasksFromLogic() {
 		return logic.getOperatingTasksForUI();
+	}
+	
+	public ArrayList<Task> getCompletedTasksFromLogic() {
+		return logic.getCompleteTasksForUI();
+	}
+	
+	public ArrayList<Task> getPendingTasksFromLogic() {
+		return logic.getIncompleteTasksForUI();
 	}
 
 	public TabPane getTabPane() {

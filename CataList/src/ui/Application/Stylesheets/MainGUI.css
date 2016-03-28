@@ -235,12 +235,8 @@
 	-fx-font-size: 20px;
 }
 
-.check-box .box {
-	-fx-background-color: rgb(255, 255, 255, 0);
-	-fx-background-radius: 50 50 50 50;
-	-fx-border-radius: 50 50 50 50;
-	-fx-border-color: darkorange;
-	-fx-border-width: 2;
+#completedTaskName .text {
+	-fx-strikethrough: true;
 }
 
 #tutorialContainer {
