@@ -18,8 +18,12 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_MARK_INCOMPLETE = { "undone", "unmark", "notdone", "incomplete", "-ic", "/ic" };
 	protected static final String[] KW_TASK_UNDO = { "undo", "/u", "-u" };
 	protected static final String[] KW_TASK_REDO = { "redo", "/r", "-r" };
+	//UI SPECIFIC KW
 	protected static final String[] KW_TASK_EXIT = { "exit", "quit", "-x", "/x"};
 	protected static final String[] KW_TASK_HELP = { "-help", "help", "-h", "man"};
+	protected static final String[] KW_TASK_CALENDAR = { "calendar", "cal", "-cal", "/cal"};
+	protected static final String[] KW_TASK_TUTORIAL = { "tutorial", "tut", "walkthrough", "/tut"};
+	
 
 	// Keywords for TIME/DATE
 	protected static final String[] KW_DATE_FLAG = { "-d", "-date" };

@@ -30,7 +30,9 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_DATE_MESSAGE);
 			}
-		} 
+		} else {
+			dateTimeArgs.add("");
+		}
 		
 		if(hasTimeFlag(userInput)){
 			int timeIndex = searchForTimeFlagsIndex(splitInput);
