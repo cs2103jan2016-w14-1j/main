@@ -22,7 +22,6 @@ import logic.Task;
 
 public class StorageMain {
 	
-	private static final String ELEMENT_TASKLIST = "TaskList";
 	private static final String ELEMENT_TASK = "Task";
 	private static final String ELEMENT_TIME = "Time";
 	private static final String ELEMENT_DATE = "Date";
@@ -31,7 +30,6 @@ public class StorageMain {
 	private static final String ATTRIBUTE_INCOMPLETE = "Incomplete";
 	private static final String ATTRIBUTE_STATE = "State";
 	private static final String ATTRIBUTE_NUM = "ID";
-	private static final String MESSAGE_DEFAULT_ERROR = "You've got error bitch!";
 	private ArrayList<Task> masterList;
 	
 	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
@@ -64,9 +62,9 @@ public class StorageMain {
 				e1.printStackTrace();
 			}
 			try {
-				String storagePath = filePathReader();
-				File inputFile = new File(storagePath);
-				//File inputFile = new File(STORAGE_PATH);
+				//String storagePath = filePathReader();
+				//File inputFile = new File(storagePath);
+				File inputFile = new File(STORAGE_PATH);
 				SAXBuilder saxBuilder = new SAXBuilder();
 				Document toDoListDocument;
 				toDoListDocument = saxBuilder.build(inputFile);
@@ -115,9 +113,16 @@ public class StorageMain {
 		OutputStream outStream = null;
 		
 		try{
-    		
-    	    File oldFile = new File(STORAGE_PATH);
+			String storagePath = filePathReader();
+			File oldFile = new File(storagePath);
+			if(oldFile.exists()){
+				oldFile.createNewFile();
+			}
+    	    //File oldFile = new File(STORAGE_PATH);
     	    File newFile = new File(newFileLocation);
+    	    if(!newFile.exists()){
+    	    	newFile.createNewFile();
+    	    }
     		
     	    inStream = new FileInputStream(oldFile);
     	    outStream = new FileOutputStream(newFile);
@@ -125,12 +130,12 @@ public class StorageMain {
     	    byte[] buffer = new byte[1024];
     		
     	    String name = oldFile.getName();
-    	    System.out.println(name);
+    	    System.out.println("exportFile: " + name);
     	    
     	    String oldPath = oldFile.getAbsolutePath();
-    	    System.out.println(oldPath);
+    	    System.out.println("exportFile: old path: " + oldPath);
     	    
-    	    System.out.println("new path location: " + newFileLocation);
+    	    System.out.println("exportFile: saved file location: " + newFileLocation);
     	    
     	    int length;
     	    while ((length = inStream.read(buffer)) > 0){
@@ -178,6 +183,16 @@ public class StorageMain {
 	public void filePathWriter(String path) {
 		
 		String newPath = path;
+		File pathFile = new File(STORAGE_FILE_PATH);
+		if(!pathFile.exists()){
+			try {
+				pathFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("path file cannot be created");
+				e.printStackTrace();
+			}
+		}
 		
 		try {
 			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
@@ -188,7 +203,15 @@ public class StorageMain {
 			return;
 		}
 		
-		System.out.println("write file path correctly");
+		System.out.println("filePathWriter: write file path correctly");
+	}
+	
+	public String saveFileLocation(String newFileLocation){
+		
+		exportFile(newFileLocation);
+		filePathWriter(newFileLocation);
+		
+		return newFileLocation;
 	}
 
 }

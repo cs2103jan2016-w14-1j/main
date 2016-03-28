@@ -70,14 +70,23 @@ public class StorageMainTest {
 		System.out.println(fileLocation);
 	}
 	
-	@Test
 	public void testPathFileWrite() throws JDOMException, IOException {
 		StorageMain storeMain = new StorageMain();
 		
 		//String fileLocation = storeMain.filePathReader();
-		String fileLocation = "tang ina bobo noob";
+		String fileLocation = System.getProperty("user.dir") + "/src/storage/test.xml";
 		storeMain.filePathWriter(fileLocation);
 		
 	}
 	
+	@Test
+	public void testFileSaveLocation() throws JDOMException, IOException {
+		StorageMain storeMain = new StorageMain();
+		
+		//String fileLocation = storeMain.filePathReader();
+		String fileLocation = "C:\\Users\\asus\\git\\main\\newmain\\CataList\\src\\storage\\test.xml";
+		//String fileLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
+		storeMain.saveFileLocation(fileLocation);
+		
+	}
 }

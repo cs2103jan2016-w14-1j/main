@@ -1,164 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TaskList><Task ID="1" State="Complete">
-    <Event>lets try again</Event> State="Incomplete">
-    <Event>1</Event><Date />
+<TaskList>
+  <Task ID="1" State="Incomplete">
+    <Event>why u so weird</Event>
+    <Date />
     <Time />
   </Task>
   <Task ID="2" State="Incomplete">
-<<<<<<< HEAD
     <Event>hello</Event>
-=======
-    <Event>2</Event>
->>>>>>> refs/remotes/origin/ericewe
     <Date />
     <Time />
-<<<<<<< HEAD
-=======
   </Task>
   <Task ID="3" State="Incomplete">
-    <Event>3</Event>
+    <Event>oops</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="4" State="Incomplete">
-    <Event>4</Event>
+    <Event>okok</Event>
     <Date />
     <Time />
-  </Task>
-  <Task ID="5" State="Incomplete">
-    <Event>5</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="6" State="Incomplete">
-    <Event>6</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="7" State="Incomplete">
-    <Event>7</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="8" State="Incomplete">
-    <Event>8</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="9" State="Incomplete">
-    <Event>9</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="10" State="Incomplete">
-    <Event>10</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="11" State="Incomplete">
-    <Event>11</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="12" State="Incomplete">
-    <Event>12</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="13" State="Incomplete">
-    <Event>13</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="14" State="Incomplete">
-    <Event>14</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="15" State="Complete">
-    <Event>15</Event>
-    <Date />
-    <Time>29/03/16</Time>
-  </Task>
-  <Task ID="16" State="Incomplete">
-    <Event>asdasd</Event>
-    <Date />
-    <Time>29/03/16</Time>
-  </Task>
-  <Task ID="17" State="Incomplete">
-    <Event>asdasd</Event>
-    <Date />
-    <Time>30/03/16</Time>
-  </Task>
-  <Task ID="18" State="Incomplete">
-    <Event>asgwevsfvwefqevewv</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="19" State="Incomplete">
-    <Event>faggot</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="20" State="Incomplete">
-    <Event>today faggot</Event>
-    <Date />
-    <Time>29/03/16</Time>
-  </Task>
-  <Task ID="21" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time>30/03/16</Time>
-  </Task>
-  <Task ID="22" State="Incomplete">
-    <Event>why</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="23" State="Incomplete">
-    <Event>fuck</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="24" State="Incomplete">
-    <Event>shit today</Event>
-    <Date />
-    <Time>30/03/16</Time>
-  </Task>
-  <Task ID="25" State="Incomplete">
-    <Event>yes</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="26" State="Incomplete">
-    <Event>hello</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="27" State="Incomplete">
-    <Event>16</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="28" State="Complete">
-    <Event>hajsd</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="29" State="Incomplete">
-    <Event>asca</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="30" State="Incomplete">
-    <Event>afqef</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="31" State="Incomplete">
-    <Event>shit</Event>
-    <Date />
-    <Time>30/04/16</Time>
->>>>>>> refs/remotes/origin/ericewe
   </Task>
 </TaskList>
