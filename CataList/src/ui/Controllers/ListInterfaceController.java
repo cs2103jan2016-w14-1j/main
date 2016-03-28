@@ -64,6 +64,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	@FXML private HBox todoListContainer;
 	@FXML private TabPane tabPane;
 	@FXML private Tab tabInbox = new Tab(INBOX_TAB);
+	
 	private Tab tabComplete = new Tab(COMPLETED_TAB);
 	private Tab tabPending = new Tab(PENDING_TAB);
 
@@ -74,11 +75,13 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static ArrayList<Tab> tabs =
 			new ArrayList<Tab>();
 
-	private ArrayList<Task> operatingTasksFromLogic;
-	private ArrayList<Task> pendingTasksFromLogic;
-	private ArrayList<Task> completedTasksFromLogic;
-	private HBox scrollSelection = new HBox();
+	private ArrayList<Task> operatingTasksFromLogic = new ArrayList<Task>();
+	private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
+	private ArrayList<Task> completedTasksFromLogic = new ArrayList<Task>();
 	
+	private int previousTasksSize;
+	private int previousCompletedSize;
+	private HBox scrollSelection = new HBox();
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
@@ -114,6 +117,9 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void loopTaskList() {
+		previousTasksSize = operatingTasksFromLogic.size();
+		previousCompletedSize = completedTasksFromLogic.size();
+		
 		tasks.clear();
 		completed.clear();
 		
@@ -192,14 +198,14 @@ public class ListInterfaceController extends NotificationRenderer {
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
 			}
-			if(index == taskList.size()) {
+			
+			if(index == taskList.size() && taskList.size() != previousTasksSize) {
 				scrollSelection = taskRow;
-			}
+			} 
 			
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
-
 		taskFilter.addSortedClasses(tasks);
 		insertFeedbackForEmptyList(taskList);
 		todoList.setItems(tasks);
