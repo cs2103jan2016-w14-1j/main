@@ -52,7 +52,7 @@ public class CommandLineController {
 		FeedbackGenerator.generateDefaultFeedback(feedbackMain);
 		
 		userInput.textProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue.isEmpty()) {
+			if(newValue.trim().isEmpty()) {
 				FeedbackGenerator.clearFeedback(feedbackHelp);
 			} else if(newValue.split(" ")[0].equalsIgnoreCase(COMMAND_ADD)) {
 				FeedbackGenerator.generateAddFeedback(feedbackHelp);

@@ -13,6 +13,8 @@ public class FeedbackGenerator {
 	private static final String FEEDBACK_SEARCH = "search [keyword]";
 	
 	private static final String MAIN_FEEDBACK_DEFAULT = "How can I be of help?";
+	private static final String MAIN_FEEDBACK_INVALID = "Unrecognised command";
+	private static final String MAIN_FEEDBACK_EMPTY = "Awaiting your orders";
 	private static final String MAIN_FEEDBACK_TIP = "You can hold SHIFT + SPACE to complete or correct your commands";
 	
 	private static final String FEEDBACK_AUTOCOMPLETE = "Is %1s what you meant?";
@@ -51,8 +53,16 @@ public class FeedbackGenerator {
 		feedback.setText(FEEDBACK_SEARCH);
 	}
 	
+	public static void generateInvalidFeedback(Text feedback) {
+			feedback.setText(MAIN_FEEDBACK_INVALID);
+	}
+	
+	public static void generateNullFeedback(Text feedback) {
+		feedback.setText(MAIN_FEEDBACK_EMPTY);
+	}
+	
 	public static void generateHelpFeedback(Text feedback) {
-			feedback.setText(FEEDBACK_COMMANDS);
+		feedback.setText(FEEDBACK_COMMANDS);
 	}
 	
 	public static void generateTipFeedback(Text feedback) {
