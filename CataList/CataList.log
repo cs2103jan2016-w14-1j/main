@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-29T13:42:58</date>
-  <millis>1459230178879</millis>
+  <date>2016-03-29T18:27:28</date>
+  <millis>1459247248177</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>

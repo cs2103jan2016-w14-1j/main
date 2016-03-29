@@ -36,6 +36,7 @@ public class LogicMain {
 		state = new ArrayList<ArrayList<Task>>();
 		
 		masterListTasks = storageSystem.loadTask();
+		regenerateSubListsFromMasterList();
 		operatingTasks = new ArrayList<Task>(masterListTasks);
 		state.add(new ArrayList<Task>(masterListTasks));
 		pointingAt = 0;
