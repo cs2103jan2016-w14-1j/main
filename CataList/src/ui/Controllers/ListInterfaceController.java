@@ -171,7 +171,8 @@ public class ListInterfaceController extends NotificationRenderer {
 	private void displayTaskList() {
 		formatPendingTaskToListCell(operatingTasksFromLogic);
 		setTaskIntoViewObject(scrollSelection);
-		loadClassList();
+		openCompleteTab();
+		formatCompletedTaskToListCell(completedTasksFromLogic);
 	}
 
 	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
@@ -310,13 +311,12 @@ public class ListInterfaceController extends NotificationRenderer {
 		}
 	}
 
-	private void loadClassList() {
+	private void openCompleteTab() {
 		//log.info("Tab Size? " + tabs.size());
 		if(tabs.size() == 1 && !completedTasksFromLogic.isEmpty()) {
 			tabs.add(tabComplete);
 			tabPane.getTabs().add(tabComplete);
 		} 
-		formatCompletedTaskToListCell(completedTasksFromLogic);
 	}
 
 	public void openToDoList() {
