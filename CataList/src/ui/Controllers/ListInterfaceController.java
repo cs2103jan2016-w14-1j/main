@@ -89,9 +89,9 @@ public class ListInterfaceController extends NotificationRenderer {
 	public void init(MainGUIController mainController) {
 		main = mainController;
 
+		initTabPane();
 		loopTaskList();
 		hideToDoList();
-		initTabPane();
 		loopCheckTasksForReminder();
 		setTaskIntoViewIndex(INIT_SCROLL);
 	}
@@ -313,6 +313,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void openCompleteTab() {
 		//log.info("Tab Size? " + tabs.size());
+		//System.out.println(tabs.size());
 		if(tabs.size() == 1 && !completedTasksFromLogic.isEmpty()) {
 			tabs.add(tabComplete);
 			tabPane.getTabs().add(tabComplete);

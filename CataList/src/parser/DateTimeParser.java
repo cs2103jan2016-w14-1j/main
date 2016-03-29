@@ -31,13 +31,14 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_DATE_MESSAGE);
 			}
-		} else {
-			dateTimeArgs.add(getToday());
 		}
 		
 		if(hasTimeFlag(userInput)){
 			int timeIndex = searchForTimeFlagsIndex(splitInput);
 			String timeWord;
+			if(!hasDateFlag(userInput)){
+				dateTimeArgs.add(getToday());
+			}
 			try{
 				 timeWord = splitInput[timeIndex];
 			} catch (IndexOutOfBoundsException e){
@@ -49,7 +50,8 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_TIME_MESSAGE);
 			}
-		}
+
+		} 
 		return dateTimeArgs;
 	}
 	
