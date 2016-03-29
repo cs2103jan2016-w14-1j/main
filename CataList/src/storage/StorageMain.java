@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,10 +36,17 @@ public class StorageMain {
 	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
 	
 	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
-
+	
+	StoragePathMain storagePathMain;
+	//Constructor
+	public StorageMain() {
+		storagePathMain = new StoragePathMain();
+	}
+	
 	public ArrayList<Task> loadTask() {
 		try{
-			masterList = StorageReader.readFromStorage();
+			String path = storagePathMain.filePathReader();
+			masterList = StorageReader.readFromStorage(path);
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		} catch (JDOMException jdome) {
@@ -53,7 +61,8 @@ public class StorageMain {
 			int index;
 			Task tempTask = null;
 			try {
-				TaskFormatToStorage.clearFromStorage(tempTask);
+				//TaskFormatToStorage.clearFromStorage(tempTask);
+				clearFromStorage(tempTask);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -62,9 +71,9 @@ public class StorageMain {
 				e1.printStackTrace();
 			}
 			try {
-				//String storagePath = filePathReader();
-				//File inputFile = new File(storagePath);
-				File inputFile = new File(STORAGE_PATH);
+				String storagePath = storagePathMain.filePathReader();
+				File inputFile = new File(storagePath);
+				//File inputFile = new File(STORAGE_PATH);
 				SAXBuilder saxBuilder = new SAXBuilder();
 				Document toDoListDocument;
 				toDoListDocument = saxBuilder.build(inputFile);
@@ -92,7 +101,7 @@ public class StorageMain {
 					toDoListDocument.getRootElement().addContent(task);
 					
 					try{
-						StorageWriter.writeToStorage(toDoListDocument);
+						StorageWriter.writeToStorage(toDoListDocument, storagePath);
 					} catch(IOException e) {
 						taskObj.setMessageErrorDefault();
 						return false;
@@ -104,6 +113,36 @@ public class StorageMain {
 				return false;
 			}
 		return true;
+	}
+	
+	public void clearFromStorage(Task taskObj) throws IOException, JDOMException {
+		
+		String path = storagePathMain.filePathReader();
+		//File inputFile = new File(STORAGE_PATH);
+		File inputFile = new File(path);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+
+		List<Element> taskList = rootElement.getChildren();
+		Iterator<Element> itr = taskList.iterator();
+		List<Element> elements = new ArrayList<Element>();
+
+		while(itr.hasNext()) {
+			Element subchild = (Element)itr.next();
+			elements.add(subchild);
+		}
+
+		for(Element e: elements) {
+			e.getParent().removeContent(e);
+		}
+
+		try{
+			StorageWriter.writeToStorage(document, path);
+		} catch(IOException e) {
+			taskObj.setMessageErrorDefault();
+		}
+
 	}
 	
 	public String exportFile(String newFileLocation){
@@ -208,8 +247,8 @@ public class StorageMain {
 	
 	public String saveFileLocation(String newFileLocation){
 		
-		exportFile(newFileLocation);
-		filePathWriter(newFileLocation);
+		storagePathMain.exportFile(newFileLocation);
+		storagePathMain.filePathWriter(newFileLocation);
 		
 		return newFileLocation;
 	}
