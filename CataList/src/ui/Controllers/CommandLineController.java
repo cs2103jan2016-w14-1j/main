@@ -20,35 +20,58 @@ public class CommandLineController {
 	private MainGUIController main;
 
 	private static final String INITIALIZE = "";
-	private static final String INIT_FEEDBACK = "How can I be of help?";
 	private static final boolean TUTORIAL_ON = true;
 	private static final boolean TUTORIAL_OFF = false;
-
-	private static final int FULL_SCREEN = 1;
-	private static final int DEFAULT_SCREEN = 0;
-	private static final int SMALL_SCREEN = -1;
+	
+	private static final String COMMAND_ADD = "add";
+	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_EDIT = "edit";
+	private static final String COMMAND_MARK = "mark";
+	private static final String COMMAND_UNMARK = "unmark";
+	private static final String COMMAND_SEARCH = "search";
 
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
 	private boolean tutorialToggle = TUTORIAL_ON;
 
-	@FXML 
-	private Text feedback;
-	@FXML 
-	public TextField userInput;
+	@FXML private Text feedbackMain;
+	@FXML private Text feedbackHelp;
+	@FXML public TextField userInput;
 
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
-	private int screenSizeToggle = FULL_SCREEN;
 	private int tabToggle = COMPLETE_TAB;
+
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
 	private ColorRenderer backgroundColor = new ColorRenderer();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
-		feedback.setText(INIT_FEEDBACK);
+		FeedbackGenerator.generateDefaultFeedback(feedbackMain);
+		
+		userInput.textProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue.isEmpty()) {
+				FeedbackGenerator.clearFeedback(feedbackHelp);
+			} else if(newValue.split(" ")[0].equalsIgnoreCase(COMMAND_ADD)) {
+				FeedbackGenerator.generateAddFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DELETE)) {
+				FeedbackGenerator.generateDeleteFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_EDIT)) {
+				FeedbackGenerator.generateEditFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_MARK)) {
+				FeedbackGenerator.generateMarkFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNMARK)) {
+				FeedbackGenerator.generateUnmarkFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_SEARCH)) {
+				FeedbackGenerator.generateSearchFeedback(feedbackHelp);
+			} else {
+				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
+				FeedbackGenerator.generateTipFeedback(feedbackMain);
+			}
+			
+		});
 	}
 
 	private void readUserInput() {
@@ -60,9 +83,9 @@ public class CommandLineController {
 	}
 
 	private void loadFeedback() {
-		feedback.setText(uiToLogic(command));
+		feedbackMain.setText(uiToLogic(command));
 
-		FadeTransition ft = new FadeTransition(Duration.millis(200), feedback);
+		FadeTransition ft = new FadeTransition(Duration.millis(200), feedbackMain);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
@@ -70,7 +93,7 @@ public class CommandLineController {
 
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
-
+		
 		if (event.getCode() == KeyCode.ENTER) {
 			event.consume();
 			readUserInput();
@@ -89,11 +112,7 @@ public class CommandLineController {
 					main.supportFeatureController.renderTutorial();
 				}
 			} else {
-
 				main.todoListController.loopTaskList();
-				//   main.classListController.loopClassList();
-
-
 			}
 		} else if(event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
@@ -116,28 +135,6 @@ public class CommandLineController {
 			if(event.isAltDown()) {
 				backgroundColor.toggleColorMinus(main.getBackgroundPane());
 			}
-		} else if(event.getCode() == KeyCode.F12) {
-			switch(screenSizeToggle) {
-			case FULL_SCREEN:
-				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
-				screenSizeToggle = -1;
-				break;
-			case DEFAULT_SCREEN:
-				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setWidth(800);
-				((Stage) userInput.getScene().getWindow()).setHeight(640);
-				screenSizeToggle = 1;
-				break;
-			case SMALL_SCREEN:
-				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				((Stage) userInput.getScene().getWindow()).setIconified(true);
-				screenSizeToggle = 0;
-				break;
-			default:
-				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
-				screenSizeToggle = 0;
-				break;
-			} 
 		} else if (event.getCode() == KeyCode.F11) {
 			main.getTabPane().getSelectionModel().select(tabToggle);
 			if (tabToggle == INBOX_TAB) {
@@ -145,7 +142,11 @@ public class CommandLineController {
 			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
 			}
-		} 
+		} else if(event.getCode() == KeyCode.SPACE) {
+			if(event.isShiftDown()) {
+				AutoCompleteCommands.autoComplete(userInput, feedbackMain);
+			}
+		}
 	}
 
 
@@ -179,7 +180,7 @@ public class CommandLineController {
 	}
 
 	public Text getFeedback() {
-		return feedback;
+		return feedbackMain;
 	}
 
 	public void updateTutorialToggle() {

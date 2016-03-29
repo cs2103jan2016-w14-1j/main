@@ -222,10 +222,16 @@
 }
 
 /** user input feedback **/
-#feedback {
+#feedbackMain {
 	-fx-font-family: "Comic Neue Angular";
-    -fx-font-size: 25px;
+    -fx-font-size: 18px;
     -fx-fill: white;
+}
+
+#feedbackHelp {
+	-fx-font-family: "Comic Neue Angular";
+    -fx-font-size: 15px;
+    -fx-fill: beige;
 }
 
 .text-field {
@@ -235,12 +241,8 @@
 	-fx-font-size: 20px;
 }
 
-.check-box .box {
-	-fx-background-color: rgb(255, 255, 255, 0);
-	-fx-background-radius: 50 50 50 50;
-	-fx-border-radius: 50 50 50 50;
-	-fx-border-color: darkorange;
-	-fx-border-width: 2;
+#completedTaskName .text {
+	-fx-strikethrough: true;
 }
 
 #tutorialContainer {

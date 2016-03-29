@@ -17,8 +17,10 @@
 		<TextField fx:id="userInput" alignment="CENTER"
 			onKeyPressed="#handleSubmitButtonAction" prefHeight="35.0" prefWidth="780.0">
 		</TextField>
-		<Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0"
+		<Text fx:id="feedbackHelp" strokeType="OUTSIDE" strokeWidth="0.0"
 			textAlignment="CENTER" wrappingWidth="500" />
+		<Text fx:id="feedbackMain" strokeType="OUTSIDE" strokeWidth="0.0"
+			textAlignment="CENTER" wrappingWidth="600" />
 	</children>
 	<BorderPane.margin>
 		<Insets left="50.0" right="50.0" />
