@@ -27,7 +27,12 @@ public class AutoCompleteCommands {
 	public static void autoComplete(TextField userInput, Text feedback) {
 		initAutoComplete();
 		
-		String autoCompleteCheck = userInput.getText(START_INDEX, END_INDEX);
+		String autoCompleteCheck = new String();
+		if(autoCompleteCheck.isEmpty()) {
+			FeedbackGenerator.generateNullFeedback(feedback);
+		} else {
+			autoCompleteCheck = userInput.getText(START_INDEX, END_INDEX);
+		}
 		for(int i = 0; i < autoCompleteList.size(); i++) {
 			if(autoCompleteCheck.equals(autoCompleteList.get(i).substring(START_INDEX, END_INDEX))) {
 				String splitInput[] = userInput.getText().split(SPACE_REGEX);
@@ -42,7 +47,7 @@ public class AutoCompleteCommands {
 				userInput.setText(sb.toString());
 				userInput.end();
 				FeedbackGenerator.generateAutoCompleteFeedback(feedback, autoCompleteList.get(i));
-			}
+			}	
 		}
 	}
 }
