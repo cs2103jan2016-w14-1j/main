@@ -45,6 +45,10 @@ public class LogicMain {
 	public String processCommand(String userInput){
 		String[] formattedInput = inputParser.processInput(userInput);
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
+		if(!isSearchOrSort(newCreatedTask)){
+			//the operating tasks should become the masterList
+			operatingTasks = new ArrayList<Task>(masterListTasks);
+		}
 		String feedbackToUI = operateOnTask(newCreatedTask);
 		
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
@@ -170,7 +174,7 @@ public class LogicMain {
 	
 		try{
 			Task toDelete = operatingTasks.get(operateIndex - 1);
-			
+
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toDelete)){
 					masterListTasks.remove(i);
@@ -275,6 +279,7 @@ public class LogicMain {
 	
 	private String doMarkComplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
+		System.out.println(operateIndex);
 		try{
 			Task operateOn = operatingTasks.get(operateIndex - 1);
 			
