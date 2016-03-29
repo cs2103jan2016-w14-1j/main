@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
-  <Task ID="1" State="Incomplete">
-    <Event>why u so weird</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="2" State="Incomplete">
+  <Task ID="1" State="Complete">
     <Event>hello</Event>
     <Date />
     <Time />
   </Task>
-  <Task ID="3" State="Incomplete">
+  <Task ID="2" State="Complete">
     <Event>oops</Event>
     <Date />
     <Time />
   </Task>
-  <Task ID="4" State="Incomplete">
+  <Task ID="3" State="Complete">
     <Event>okok</Event>
     <Date />
     <Time />
   </Task>
-  <Task ID="2" State="Incomplete">
+  <Task ID="4" State="Complete">
     <Event>w</Event>
     <Date>1300</Date>
     <Time />
   </Task>
-  <Task ID="3" State="Incomplete">
-    <Event>qwe 13.00</Event>
-    <Date />
-    <Time />
-  </Task>
-  <Task ID="4" State="Incomplete">
-    <Event>qwe</Event>
-    <Date>1300</Date>
-    <Time />
-  </Task>
   <Task ID="5" State="Incomplete">
-    <Event>qwe</Event>
+    <Event>1</Event>
     <Date />
-    <Time />
+    <Time>30/03/16</Time>
   </Task>
   <Task ID="6" State="Incomplete">
-    <Event>hi</Event>
-    <Date>2300</Date>
-    <Time>28/03/16</Time>
+    <Event>2</Event>
+    <Date />
+    <Time>30/03/16</Time>
   </Task>
 </TaskList>
