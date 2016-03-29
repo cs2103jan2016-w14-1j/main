@@ -33,10 +33,11 @@ public class StorageReader {
 	private static int completeIndex = 0;
 	private static int incompleteIndex = 0;
 	
-	public static ArrayList<Task> readFromStorage() throws IOException, JDOMException{
+	public static ArrayList<Task> readFromStorage(String path) throws IOException, JDOMException{
 		
 		SAXBuilder builder = new SAXBuilder();
-		File xmlFile = new File(STORAGE_PATH);
+		File xmlFile = new File(path);
+		//File xmlFile = new File(STORAGE_PATH);
 		
 		Document todoListDocument = (Document) builder.build(xmlFile);
 		Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
