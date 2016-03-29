@@ -298,6 +298,7 @@ public class LogicMain {
 	
 	private String doMarkIncomplete(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
+		System.out.println("DOING UNMARK");
 		try{
 			Task operateOn = operatingTasks.get(operateIndex - 1);
 			
@@ -307,7 +308,7 @@ public class LogicMain {
 				}
 			}
 			
-			operatingTasks.get(operateIndex).set_Incomplete();
+			operatingTasks.get(operateIndex - 1).set_Incomplete();
 			return INCOMPLETE_TASK_SUCCESS;
 		} catch (IndexOutOfBoundsException e){
 			return INDEX_OUT_OF_BOUNDS_MESSAGE;

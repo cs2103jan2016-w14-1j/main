@@ -5,7 +5,7 @@ public class MarkIncomplete extends Task{
 	private static final String MESSAGE_MARK_UNCOMPLETE_SUCCESS = "Event marked as incomplete.";
 	private static final String MESSAGE_MARK_UNCOMPLETE_FAILURE = "Unable to mark event as incomplete.";
 	private static final String MESSAGE_MARK_UNCOMPLETE_EMPTY = "Nothing to mark as incomplete.";
-	private static final String COMMAND_TYPE = "markuncomplete";
+	private static final String COMMAND_TYPE = "markincomplete";
 	
 	private static final boolean IS_MUTATOR = true;
 	
