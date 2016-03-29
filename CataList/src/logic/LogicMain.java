@@ -62,6 +62,7 @@ public class LogicMain {
 			System.out.println(eachList);
 			System.out.println(" >>>> ------ <<<<");
 			for(Task eachTask : eachList){
+				System.out.println(eachTask.get_date());
 				System.out.println(eachTask.get_completionState());
 			}
 		}

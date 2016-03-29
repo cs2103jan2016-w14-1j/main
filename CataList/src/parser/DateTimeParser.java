@@ -36,6 +36,9 @@ public class DateTimeParser {
 		if(hasTimeFlag(userInput)){
 			int timeIndex = searchForTimeFlagsIndex(splitInput);
 			String timeWord;
+			if(!hasDateFlag(userInput)){
+				dateTimeArgs.add(getToday());
+			}
 			try{
 				 timeWord = splitInput[timeIndex];
 			} catch (IndexOutOfBoundsException e){
@@ -47,9 +50,7 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_TIME_MESSAGE);
 			}
-			if(!hasDateFlag(userInput)){
-					dateTimeArgs.add(getToday());
-			}
+
 		} 
 		return dateTimeArgs;
 	}
