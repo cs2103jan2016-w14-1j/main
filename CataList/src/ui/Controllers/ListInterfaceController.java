@@ -117,17 +117,19 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void loopTaskList() {
-		previousTasksSize = operatingTasksFromLogic.size();
+		//System.out.println(previousTasksSize + "a");
 		previousCompletedSize = completedTasksFromLogic.size();
 		
 		tasks.clear();
 		completed.clear();
 		
-		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+		operatingTasksFromLogic = main.getPendingTasksFromLogic();
+		//System.out.println(operatingTasksFromLogic.size() + "b");
+		//operatingTasksFromLogic = main.getOperatingTasksFromLogic();
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
-		pendingTasksFromLogic = main.getPendingTasksFromLogic();
+		//pendingTasksFromLogic = main.getPendingTasksFromLogic();
 
-		log.info("operatingTaskFromLogic empty? " + operatingTasksFromLogic.isEmpty());
+		//log.info("operatingTaskFromLogic empty? " + operatingTasksFromLogic.isEmpty());
 		
 		openToDoList();
 		displayTaskList();
@@ -200,8 +202,10 @@ public class ListInterfaceController extends NotificationRenderer {
 				animateToDoList(OPEN_LIST);
 			}
 			
+			//System.out.println(taskList.size() + " " + previousTasksSize);
 			if(index == taskList.size() && taskList.size() != previousTasksSize) {
 				scrollSelection = taskRow;
+				previousTasksSize = operatingTasksFromLogic.size();
 			} 
 			
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);

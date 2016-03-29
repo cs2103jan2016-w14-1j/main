@@ -130,7 +130,7 @@ public class TaskFilter {
 						tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().add(taskTomorrowNum);
 					}
 				}
-				list.add(tasksTomorrow.get(taskNum-tasksToday.size()-1));
+				list.add(tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1));
 
 			} else if(taskNum >= tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() && 
 					(taskNum <= tasksOthers.size() + tasksTomorrow.size() + tasksOverdue.size() + tasksToday.size())) {
