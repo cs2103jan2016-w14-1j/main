@@ -2,6 +2,7 @@ package parser;
 
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -31,7 +32,7 @@ public class DateTimeParser {
 				dateTimeArgs.add(INVALID_DATE_MESSAGE);
 			}
 		} else {
-			dateTimeArgs.add("");
+			dateTimeArgs.add(getToday());
 		}
 		
 		if(hasTimeFlag(userInput)){
@@ -77,7 +78,12 @@ public class DateTimeParser {
 		}
 		return indexOfTime + 1;
 	}
-	
+	private static String getToday(){
+		DateTime now = new DateTime();
+		LocalDate today = now.toLocalDate();
+		String dateParsed = today.toString(KeywordConstraints.KW_FORMAT_DATE_STORAGE);
+		return dateParsed;
+	}
 	private static String parseForDate(String targetString){
 		LocalDate curDate = new LocalDate();
 		String dateParsed = SYMBOL_EMPTY;
