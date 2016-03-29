@@ -70,13 +70,13 @@ public class TaskFormatToStorage extends StorageWriter {
 		toDoListDocument.getRootElement().addContent(task);
 		
 		try{
-			StorageWriter.writeToStorage(toDoListDocument);
+			StorageWriter.writeToStorage(toDoListDocument, "");
 		} catch(IOException e) {
 			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 		
-		states.add(StorageReader.readFromStorage());
+		states.add(StorageReader.readFromStorage(""));
 		listPointer++;
 		
 		return taskObj.get_messageToUser();
@@ -111,12 +111,12 @@ public class TaskFormatToStorage extends StorageWriter {
 	    }
 	    
 	    try{
-			StorageWriter.writeToStorage(document);
+			StorageWriter.writeToStorage(document, "");
 		} catch(IOException e) {
 			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
-	    states.add(StorageReader.readFromStorage());
+	    states.add(StorageReader.readFromStorage(""));
 	    listPointer++;
 	    
 	    return taskObj.get_messageToUser();
@@ -162,13 +162,13 @@ public class TaskFormatToStorage extends StorageWriter {
 	    		
 	    	}
 	    try{
-			StorageWriter.writeToStorage(document);
+			StorageWriter.writeToStorage(document, "");
 		} catch(IOException e) {
 			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();
 		}
 	    
-	    states.add(StorageReader.readFromStorage());
+	    states.add(StorageReader.readFromStorage(""));
 	    listPointer++;
 	    
 	    return taskObj.get_messageToUser();
@@ -222,12 +222,12 @@ public class TaskFormatToStorage extends StorageWriter {
 		}
 
 		try{
-			StorageWriter.writeToStorage(document);
+			StorageWriter.writeToStorage(document, "");
 		} catch(IOException e) {
 			taskObj.setMessageErrorDefault();
 		}
 		
-		states.add(StorageReader.readFromStorage());
+		states.add(StorageReader.readFromStorage(""));
 		listPointer++;
 
 	} 
@@ -235,7 +235,7 @@ public class TaskFormatToStorage extends StorageWriter {
 	public static String displayFromStorage(Task taskObj) throws IOException, JDOMException{
 		
 		try{
-			StorageReader.readFromStorage();
+			StorageReader.readFromStorage("");
 		} catch(IOException|JDOMException e) { 
 			taskObj.setMessageErrorDefault();
 			return taskObj.get_messageToUser();

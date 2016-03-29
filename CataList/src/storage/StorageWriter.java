@@ -20,12 +20,13 @@ public class StorageWriter {
 			System.getProperty("user.dir") + 
             "/src/storage/test.xml";
 
-	public static void writeToStorage(Document todoListDocument) throws IOException{
+	public static void writeToStorage(Document todoListDocument, String path) throws IOException{
 		
 		
 		XMLOutputter serializer = new XMLOutputter();
 	    
 	    serializer.setFormat(Format.getPrettyFormat());
-	    serializer.output(todoListDocument, new FileWriter(STORAGE_PATH));
+	    //serializer.output(todoListDocument, new FileWriter(STORAGE_PATH));
+	    serializer.output(todoListDocument, new FileWriter(path));
 	}
 }
