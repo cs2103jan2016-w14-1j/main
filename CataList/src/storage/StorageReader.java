@@ -51,7 +51,7 @@ public class StorageReader {
 			Element node = (Element) list.get(i);
 			
 			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
-					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
+					node.getChildText(ELEMENT_TIME), node.getChildText(ELEMENT_DATE));
 			String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
 			if(attribute.equals(ATTRIBUTE_COMPLETE)){
 				taskObj.set_Complete();
