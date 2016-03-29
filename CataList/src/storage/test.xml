@@ -1,53 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
   <Task ID="1" State="Incomplete">
-    <Event>oops</Event>
+    <Event>v0.3</Event>
+    <Date>30/03/16</Date>
+    <Time>1400</Time>
+  </Task>
+  <Task ID="2" State="Incomplete">
+    <Event>remind Jun Lem his promise to give more marks</Event>
+    <Date>30/03/16</Date>
+    <Time />
+  </Task>
+  <Task ID="3" State="Incomplete">
+    <Event>3241 lab1</Event>
+    <Date>01/04/16</Date>
+    <Time />
+  </Task>
+  <Task ID="4" State="Incomplete">
+    <Event>sleep</Event>
     <Date />
     <Time />
   </Task>
-  <Task ID="2" State="Complete">
-    <Event>okok</Event>
+  <Task ID="5" State="Incomplete">
+    <Event>dota</Event>
     <Date />
     <Time />
-  </Task>
-  <Task ID="3" State="Complete">
-    <Event>w</Event>
-    <Date>1300</Date>
-    <Time />
-  </Task>
-  <Task ID="4" State="Complete">
-    <Event>1</Event>
-    <Date />
-    <Time>30/03/16</Time>
-  </Task>
-  <Task ID="5" State="Complete">
-    <Event>2</Event>
-    <Date />
-    <Time>30/03/16</Time>
   </Task>
   <Task ID="6" State="Incomplete">
-    <Event>1</Event>
+    <Event>skip 3230 lecture</Event>
     <Date />
-    <Time>30/03/16</Time>
+    <Time />
   </Task>
   <Task ID="7" State="Incomplete">
-    <Event>1</Event>
+    <Event>sleep more</Event>
     <Date />
-    <Time>30/03/16</Time>
+    <Time />
   </Task>
   <Task ID="8" State="Incomplete">
-    <Event>2</Event>
-    <Date />
+    <Event>cs2101 presentation</Event>
+    <Date>01/04/16</Date>
     <Time />
   </Task>
   <Task ID="9" State="Incomplete">
-    <Event>task</Event>
-    <Date>1300</Date>
-    <Time>10/03/16</Time>
+    <Event>practice presentation</Event>
+    <Date>30/03/16</Date>
+    <Time>1500</Time>
   </Task>
   <Task ID="10" State="Incomplete">
-    <Event>ttt</Event>
-    <Date>1300</Date>
-    <Time>30/03/16</Time>
+    <Event>asdasd</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="11" State="Incomplete">
+    <Event>qweq</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="12" State="Incomplete">
+    <Event>qwf</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="13" State="Incomplete">
+    <Event>ntg more to add liao</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="14" State="Incomplete">
+    <Event>where got ppl with 20 to dos</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="15" State="Incomplete">
+    <Event>more marks</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="16" State="Incomplete">
+    <Event>give more marks pls</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="17" State="Incomplete">
+    <Event>cap 5</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="18" State="Incomplete">
+    <Event>dean's list</Event>
+    <Date>01/04/00</Date>
+    <Time />
+  </Task>
+  <Task ID="19" State="Incomplete">
+    <Event>sleep now</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="20" State="Incomplete">
+    <Event>sien</Event>
+    <Date />
+    <Time />
+  </Task>
+  <Task ID="21" State="Complete">
+    <Event>yes 20 tasks!</Event>
+    <Date />
+    <Time />
   </Task>
 </TaskList>
