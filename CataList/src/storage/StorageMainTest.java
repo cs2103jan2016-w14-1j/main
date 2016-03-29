@@ -41,7 +41,7 @@ public class StorageMainTest {
 	 * @throws IOException
 	 */
 	public void testRead() throws JDOMException, IOException {
-		test = new Task(true, "hello", "add", "", "1300", "5 March");
+		test = new Task(true, "hello", "add", "", "5 March", "2359");
 		masterList = new ArrayList<Task>();
 		masterList.add(test);
 		
