@@ -33,6 +33,8 @@ public class CommandLineController {
 	private static final int COMPLETE_TAB = 1;
 	private boolean tutorialToggle = TUTORIAL_ON;
 
+	private static final String SPACE_REGEX = " ";
+
 	@FXML 
 	private Text feedback;
 	@FXML 
@@ -42,13 +44,25 @@ public class CommandLineController {
 	private int index = START_INPUT_INDEX;
 	private int screenSizeToggle = FULL_SCREEN;
 	private int tabToggle = COMPLETE_TAB;
+
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
 	private ColorRenderer backgroundColor = new ColorRenderer();
+	private ArrayList<String> autoCompleteList = new ArrayList<String>();
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
+		initAutoComplete();
 		feedback.setText(INIT_FEEDBACK);
+	}
+
+	private void initAutoComplete() {
+		autoCompleteList.add("add");
+		autoCompleteList.add("delete");
+		autoCompleteList.add("edit");
+		autoCompleteList.add("clear");
+		autoCompleteList.add("mark");
+		autoCompleteList.add("unmark");
 	}
 
 	private void readUserInput() {
@@ -117,7 +131,7 @@ public class CommandLineController {
 				backgroundColor.toggleColorMinus(main.getBackgroundPane());
 			}
 		} else if(event.getCode() == KeyCode.F12) {
-			switch(screenSizeToggle) {
+			/*	switch(screenSizeToggle) {
 			case FULL_SCREEN:
 				((Stage) userInput.getScene().getWindow()).setFullScreen(true);
 				screenSizeToggle = -1;
@@ -137,7 +151,7 @@ public class CommandLineController {
 				((Stage) userInput.getScene().getWindow()).setFullScreen(false);
 				screenSizeToggle = 0;
 				break;
-			} 
+			}  */
 		} else if (event.getCode() == KeyCode.F11) {
 			main.getTabPane().getSelectionModel().select(tabToggle);
 			if (tabToggle == INBOX_TAB) {
@@ -145,7 +159,27 @@ public class CommandLineController {
 			} else if (tabToggle == COMPLETE_TAB) {
 				tabToggle = INBOX_TAB;
 			}
-		} 
+		} else if(event.getCode() == KeyCode.SPACE) {
+			if(event.isShiftDown()) {
+				String autoCompleteCheck = userInput.getText(0, 1);
+				for(int i = 0; i < autoCompleteList.size(); i++) {
+					if(autoCompleteCheck.equals(autoCompleteList.get(i).substring(0, 1))) {
+						String splitInput[] = userInput.getText().split(SPACE_REGEX);
+						splitInput[0] = autoCompleteList.get(i);
+						StringBuilder sb = new StringBuilder();
+						for (String string : splitInput) {
+							if (sb.length() > 0) {
+								sb.append(SPACE_REGEX);
+							}
+							sb.append(string);
+						}
+						userInput.setText(sb.toString());
+						userInput.end();
+						feedback.setText("Is " + autoCompleteList.get(i) + " what you meant?");
+					}
+				}
+			}
+		}
 	}
 
 

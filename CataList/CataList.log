@@ -1,26 +1,15 @@
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-29T05:40:58</date>
-  <millis>1459201258881</millis>
+  <date>2016-03-29T13:42:58</date>
+  <millis>1459230178879</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>14</thread>
-  <message>operatingTaskFromLogic empty? true</message>
-</record>
-<record>
-  <date>2016-03-29T05:41:03</date>
-  <millis>1459201263960</millis>
-  <sequence>1</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loopTaskList</method>
-  <thread>14</thread>
+  <thread>12</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
 </log>
