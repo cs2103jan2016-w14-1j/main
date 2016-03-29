@@ -95,8 +95,8 @@ public class StorageMain {
 					task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
 					task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
 					task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
-					task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
-					task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
+					task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_date()));
+					task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_time()));
 					
 					toDoListDocument.getRootElement().addContent(task);
 					
