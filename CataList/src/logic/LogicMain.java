@@ -46,8 +46,7 @@ public class LogicMain {
 		String[] formattedInput = inputParser.processInput(userInput);
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
 		String feedbackToUI = operateOnTask(newCreatedTask);
-		
-		
+
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
 			ArrayList<Task> addToState = new ArrayList<Task>(masterListTasks);
 			state.add(addToState);
@@ -79,14 +78,14 @@ public class LogicMain {
 	
 	public ArrayList<Task> getCompleteTasksForUI(){
 		//editted to work for UI?
-		operatingTasks = new ArrayList<Task>(completeTasks);
-		return operatingTasks;
+		//operatingTasks = new ArrayList<Task>(completeTasks);
+		return completeTasks;
 	}
 	
 	public ArrayList<Task> getIncompleteTasksForUI(){
 		//editted to work for UI?
-		operatingTasks = new ArrayList<Task>(incompleteTasks);
-		return operatingTasks;
+		//operatingTasks = new ArrayList<Task>(incompleteTasks);
+		return incompleteTasks;
 	}
 	
 	private boolean isSearchOrSort(Task taskInput){

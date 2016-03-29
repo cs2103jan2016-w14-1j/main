@@ -31,8 +31,6 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_DATE_MESSAGE);
 			}
-		} else {
-			dateTimeArgs.add(getToday());
 		}
 		
 		if(hasTimeFlag(userInput)){
@@ -49,7 +47,10 @@ public class DateTimeParser {
 			} else {
 				dateTimeArgs.add(INVALID_TIME_MESSAGE);
 			}
-		}
+			if(!hasDateFlag(userInput)){
+					dateTimeArgs.add(getToday());
+			}
+		} 
 		return dateTimeArgs;
 	}
 	
