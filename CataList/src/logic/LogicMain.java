@@ -45,11 +45,8 @@ public class LogicMain {
 	public String processCommand(String userInput){
 		String[] formattedInput = inputParser.processInput(userInput);
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
-		if(!isSearchOrSort(newCreatedTask)){
-			//the operating tasks should become the masterList
-			operatingTasks = new ArrayList<Task>(masterListTasks);
-		}
 		String feedbackToUI = operateOnTask(newCreatedTask);
+		
 		
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
 			ArrayList<Task> addToState = new ArrayList<Task>(masterListTasks);
