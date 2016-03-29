@@ -49,6 +49,14 @@ public class CommandParser {
 			return "markcomplete";
 		} else if (compareMarkIncompleteKeywords(stringToTest)){
 			return "markincomplete";
+		} else if (compareExitKeywords(stringToTest)){
+			return "exit";
+		} else if (compareHelpKeywords(stringToTest)){
+			return "help";
+		} else if (compareCalendarKeywords(stringToTest)){
+			return "calendar";
+		} else if (compareTutorialKeywords(stringToTest)){
+			return "tutorial";
 		} else {
 			return "invalid";
 		}
@@ -112,5 +120,29 @@ public class CommandParser {
 		boolean isMarkIncompleteKeyword = false;
 		isMarkIncompleteKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_MARK_INCOMPLETE);
 		return isMarkIncompleteKeyword;
+	}
+	
+	private static boolean compareExitKeywords(String stringToTest){
+		boolean isExitKeyword = false;
+		isExitKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		return isExitKeyword;
+	}
+	
+	private static boolean compareHelpKeywords(String stringToTest){
+		boolean isHelpKeyword = false;
+		isHelpKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		return isHelpKeyword;
+	}
+	
+	private static boolean compareCalendarKeywords(String stringToTest){
+		boolean isCalKeyword = false;
+		isCalKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		return isCalKeyword;
+	}
+	
+	private static boolean compareTutorialKeywords(String stringToTest){
+		boolean isTutKeyword = false;
+		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		return isTutKeyword;
 	}
 }

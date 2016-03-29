@@ -76,11 +76,15 @@ public class LogicMain {
 	}
 	
 	public ArrayList<Task> getCompleteTasksForUI(){
-		return completeTasks;
+		//editted to work for UI?
+		operatingTasks = new ArrayList<Task>(completeTasks);
+		return operatingTasks;
 	}
 	
 	public ArrayList<Task> getIncompleteTasksForUI(){
-		return incompleteTasks;
+		//editted to work for UI?
+		operatingTasks = new ArrayList<Task>(incompleteTasks);
+		return operatingTasks;
 	}
 	
 	private boolean isSearchOrSort(Task taskInput){
