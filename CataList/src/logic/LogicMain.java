@@ -219,7 +219,7 @@ public class LogicMain {
 	
 	private String doEdit(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		
+		System.out.println("THE DATE = " + taskToOp.get_date());
 		try{
 			//find and change inside masterList 
 			Task toEdit = operatingTasks.get(operateIndex - 1);

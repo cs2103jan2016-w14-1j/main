@@ -17,7 +17,7 @@ public class DeleteTask extends Task{
 	public DeleteTask(String userInput, String date){
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS, date);
 	}
-	public DeleteTask(String userInput, String time, String date){
+	public DeleteTask(String userInput, String date, String time){
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DELETE_SUCCESS, time, date);
 	}
 	

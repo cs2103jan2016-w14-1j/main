@@ -17,7 +17,7 @@ public class EditTask extends Task{
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_EDIT_SUCCESS, date);
 	}
 
-	public EditTask(String userInput, String time, String date){
+	public EditTask(String userInput, String date, String time){
 		super(IS_MUTATOR,userInput, COMMAND_TYPE, MESSAGE_EDIT_SUCCESS, time, date);
 	}
 	
