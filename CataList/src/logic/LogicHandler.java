@@ -32,6 +32,7 @@ public class LogicHandler {
 			newTask = createTaskWithParserError();
 		}
 		updateTaskWithIndex(newTask);
+		System.out.println(newTask.get_date());
 		return newTask;
 	}
 	

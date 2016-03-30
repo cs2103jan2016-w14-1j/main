@@ -17,7 +17,7 @@ public class DisplayTask extends Task {
 	public DisplayTask(String userInput, String date){
 		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_DISPLAY_SUCCESS, date);
 	}
-	public DisplayTask(String userInput, String time, String date){
+	public DisplayTask(String userInput, String date, String time){
 		super(IS_MUTATOR,userInput, COMMAND_TYPE, MESSAGE_DISPLAY_SUCCESS, time, date);
 	}
 	

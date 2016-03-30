@@ -51,7 +51,8 @@ public class DateTimeParser {
 				dateTimeArgs.add(INVALID_TIME_MESSAGE);
 			}
 
-		} 
+		}
+		System.out.println(dateTimeArgs);
 		return dateTimeArgs;
 	}
 	
