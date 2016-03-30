@@ -10,7 +10,7 @@
     <Date>30/03/16</Date>
     <Time />
   </Task>
-  <Task ID="3" State="Incomplete">
+  <Task ID="3" State="Complete">
     <Event>3241 lab1</Event>
     <Date>01/04/16</Date>
     <Time />
@@ -85,7 +85,7 @@
     <Date />
     <Time />
   </Task>
-  <Task ID="18" State="Incomplete">
+  <Task ID="18" State="Complete">
     <Event>dean's list</Event>
     <Date>01/04/00</Date>
     <Time />

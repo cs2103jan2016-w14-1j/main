@@ -123,9 +123,9 @@ public class ListInterfaceController extends NotificationRenderer {
 		tasks.clear();
 		completed.clear();
 		
-		operatingTasksFromLogic = main.getPendingTasksFromLogic();
+		//operatingTasksFromLogic = main.getPendingTasksFromLogic();
 		//System.out.println(operatingTasksFromLogic.size() + "b");
-		//operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 		//pendingTasksFromLogic = main.getPendingTasksFromLogic();
 

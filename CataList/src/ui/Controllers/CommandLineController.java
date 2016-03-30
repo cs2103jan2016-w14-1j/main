@@ -1,6 +1,9 @@
 package ui.Controllers;
 
+import java.io.File;
 import java.io.IOException;
+
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -111,6 +114,13 @@ public class CommandLineController {
 				if(main.supportFeatureController.getMainPane().isManaged() == false) {
 					main.supportFeatureController.renderTutorial();
 				}
+			} else if(command.toLowerCase().equals("save")) {
+				FileChooser fileChooser = new FileChooser();
+	            fileChooser.setTitle("Save Image");
+	            File file = fileChooser.showSaveDialog(new Stage());
+	            if (file != null) {
+	            		System.out.println(file.getAbsolutePath());
+	            }
 			} else {
 				main.todoListController.loopTaskList();
 			}
