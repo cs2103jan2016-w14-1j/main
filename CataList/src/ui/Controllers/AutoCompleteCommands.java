@@ -27,7 +27,7 @@ public class AutoCompleteCommands {
 	public static void autoComplete(TextField userInput, Text feedback) {
 		initAutoComplete();
 		
-		String autoCompleteCheck = new String();
+		String autoCompleteCheck = userInput.getText();
 		if(autoCompleteCheck.isEmpty()) {
 			FeedbackGenerator.generateNullFeedback(feedback);
 		} else {

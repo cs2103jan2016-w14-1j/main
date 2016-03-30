@@ -51,12 +51,12 @@
     <Time />
   </Task>
   <Task ID="11" State="Incomplete">
-    <Event>qweq</Event>
+    <Event>shower</Event>
     <Date />
     <Time />
   </Task>
   <Task ID="12" State="Incomplete">
-    <Event>qwf</Event>
+    <Event>eat</Event>
     <Date />
     <Time />
   </Task>
