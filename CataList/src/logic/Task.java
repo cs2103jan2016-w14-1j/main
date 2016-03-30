@@ -1,60 +1,95 @@
 package logic;
 
-public class Task {
+import java.util.ArrayList;
+
+public class Task implements Cloneable {
 	private static final String SYMBOL_NULL = "";
 	
 	private boolean _changeDataFlag;
 	private String _task;
 	private String _cmd;
-	private String _messageToUser;
-	private String _date;
-	private String _time;
+	private String _messageToUserSuccess;
+	private String _messageToUserFail;
+	private String _startDate;
+	private String _startTime;
+	private String _endDate;
+	private String _endTime;
 	
 	private int operandIndex;
 	private boolean isComplete;
 	
-	public Task(boolean isChanged, String userInput, String cmd, String msg){
+	private static final int STARTINDEX = 1;
+	private static final int ENDINDEX = 1;
+	private static final int HAVEDATEANDTIME = 2;
+
+	private static final int DATEINDEX = 0;
+	private static final int TIMEINDEX = 1;
+	private static final int HAVESTARTONLY = 0;
+	
+	public Task (boolean isChanged, String userInput, String cmd
+				, String successMsg,String failMsg){
 		set_changeDataFlag(isChanged);
 		set_task(userInput);
 		set_cmd(cmd);
-		set_messageToUser(msg);
-		set_time(SYMBOL_NULL);
-		set_date(SYMBOL_NULL);
+		set_messageToUserSuccess(successMsg);
+		set_messageToUserFail(failMsg);
+		set_startTime(SYMBOL_NULL);
+		set_startDate(SYMBOL_NULL);
+		set_endDate(SYMBOL_NULL);
+		set_endTime(SYMBOL_NULL);
 	}
 	
-	public Task(boolean isChanged, String userInput, String cmd, String msg, String date){
-		this(isChanged, userInput, cmd, msg);
-		set_date(date);
+	public Task(boolean isChanged, String userInput, String cmd
+				, String successMsg, String failMsg
+				, ArrayList<ArrayList<String>> dateTimeArgs){
+		this(isChanged, userInput, cmd, successMsg, failMsg);
+		setDateTimeForTask(dateTimeArgs);
 	}
 	
-	public Task(boolean isChanged, String userInput, String cmd, String msg, String time, String date){
-		this(isChanged, userInput, cmd, msg);
-		set_date(date);
-		set_time(time);
-	}
 	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Task){
 			Task other = (Task)obj;
 			return(isEqualCmd(other) 
-					&& isEqualMsg(other) 
+					&& isEqualMsgFail(other)
+					&& isEqualMsgSuccess(other)
 					&& isEqualTask(other) 
 					&& isSuccesful(other)
-					&& isSameDate(other)
-					&& isSameTime(other)
+					&& isSameStartDate(other)
+					&& isSameEndDate(other)
+					&& isSameStartTime(other)
+					&& isSameEndTime(other)
 					&& isSameCompletionState(other));
 		}
 		return false;
 	}
+	/*
+	public Task replaceWith(Task other){
+		Task newTask = (Task) this.clone();
+		if(other.get_task() != null && !isEqualTask(other)){
+			
+		}
+	}
 	
-
+	public Object clone() throws CloneNotSupportedException{
+		try{ 
+			return super.clone();
+		} catch(CloneNotSupportedException e) {
+			
+		}
+	}
+	*/
 	public boolean isEqualCmd(Task other){
 		return (other.get_cmd() == this._cmd);
 	}
 	
-	public boolean isEqualMsg(Task other){
-		return (other.get_messageToUser() == this._messageToUser);
+	public boolean isEqualMsgSuccess(Task other){
+		return (other.get_messageToUserSuccess() == this._messageToUserSuccess);
+	}
+
+	public boolean isEqualMsgFail(Task other){
+		return (other.get_messageToUserFail() == this._messageToUserFail);
 	}
 	
 	public boolean isEqualTask(Task other){
@@ -65,18 +100,29 @@ public class Task {
 		return (other.is_changed() == this._changeDataFlag);
 	}
 	
-	public boolean isSameDate(Task other){
-		String otherDate = other.get_date();
-		String thisDate = this.get_date();
+	public boolean isSameStartDate(Task other){
+		String otherDate = other.get_startDate();
+		String thisDate = this.get_startDate();
 		return isSameString(otherDate, thisDate);
 	}
 	
-	public boolean isSameTime(Task other){
-		String otherTime = other.get_time();
-		String thisTime = this.get_time();
+	public boolean isSameEndDate(Task other){
+		String otherDate = other.get_endDate();
+		String thisDate = this.get_endDate();
+		return isSameString(otherDate, thisDate);
+	}
+	
+	public boolean isSameStartTime(Task other){
+		String otherTime = other.get_startTime();
+		String thisTime = this.get_startTime();
 		return isSameString(otherTime, thisTime);
 	}
 	
+	public boolean isSameEndTime(Task other){
+		String otherTime = other.get_endTime();
+		String thisTime = this.get_endTime();
+		return isSameString(otherTime, thisTime);
+	}	
 	private boolean isSameString(String otherString, String thisString){
 		if(otherString != SYMBOL_NULL && thisString != SYMBOL_NULL){
 			return otherString.equals(thisString);
@@ -98,6 +144,7 @@ public class Task {
 		return thisIndex == otherIndex;
 	}
 	
+	
 	/************GETTERS***********/
 	public boolean is_changed() {
 		return _changeDataFlag;
@@ -111,16 +158,28 @@ public class Task {
 		return _task;
 	}
 	
-	public String get_messageToUser() {
-		return _messageToUser;
+	public String get_messageToUserSuccess() {
+		return _messageToUserSuccess;
+	}
+	
+	public String get_messageToUserFail() {
+		return _messageToUserFail;
+	}
+	
+	public String get_startDate() {
+		return _startDate;
 	}
 
-	public String get_date() {
-		return _date;
+	public String get_startTime() {
+		return _startTime;
 	}
-
-	public String get_time() {
-		return _time;
+	
+	public String get_endTime(){
+		return _endTime;
+	}
+	
+	public String get_endDate(){
+		return _endDate;
 	}
 	
 	public int get_index(){
@@ -144,16 +203,28 @@ public class Task {
 		this._cmd = _cmd;
 	}
 	
-	public void set_messageToUser(String _messageToUser) {
-		this._messageToUser = _messageToUser;
+	public void set_messageToUserSuccess(String _messageToUserSuccess) {
+		this._messageToUserSuccess = _messageToUserSuccess;
 	}
 
-	public void set_date(String _date) {
-		this._date = _date;
+	public void set_messageToUserFail(String _messageToUserFail) {
+		this._messageToUserFail = _messageToUserFail;
+	}
+	
+	public void set_startDate(String date1) {
+		this._startDate = date1;
 	}
 
-	public void set_time(String _time) {
-		this._time = _time;
+	public void set_startTime(String time1) {
+		this._startTime = time1;
+	}
+
+	public void set_endDate(String date2) {
+		this._endDate = date2;
+	}
+
+	public void set_endTime(String time2) {
+		this._endTime = time2;
 	}
 	
 	public void set_index(int newIndex){
@@ -167,17 +238,30 @@ public class Task {
 	public void set_Incomplete(){
 		this.isComplete = false;
 	}
-
-	public void setMessageErrorDefault(){
-		//Method to be implemented in all concrete classes
-	}
-	
-	public void setMessageErrorEmpty(){
-		//ditto. Man I need to write better comments.
-	}
 	
 	public void setMessageErrorCustom(String customErrorMsg){
-		set_messageToUser(customErrorMsg);
+		this._messageToUserFail = customErrorMsg;
+	}
+	
+	public void setDateTimeForTask(ArrayList<ArrayList<String>> dateTimeArgs){
+		int parameterSize = dateTimeArgs.size();
+		ArrayList<String> dateArgs = dateTimeArgs.get(DATEINDEX);
+		
+		if(dateArgs.size() == HAVESTARTONLY){
+			this.set_startDate(dateArgs.get(STARTINDEX));
+		} else {
+			this.set_startDate(dateArgs.get(STARTINDEX));
+			this.set_endDate(dateArgs.get(ENDINDEX));	
+		}
+		if(parameterSize == HAVEDATEANDTIME){
+			ArrayList<String> timeArgs = dateTimeArgs.get(TIMEINDEX);
+			if(timeArgs.size() == HAVESTARTONLY){
+				this.set_startTime(dateArgs.get(STARTINDEX));
+			} else {
+				this.set_startTime(dateArgs.get(STARTINDEX));
+				this.set_endTime(dateArgs.get(ENDINDEX));	
+			}
+		} 
 	}
 	
 	
