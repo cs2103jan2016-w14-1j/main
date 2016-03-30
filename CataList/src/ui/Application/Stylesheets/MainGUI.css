@@ -108,10 +108,10 @@
 
 .tab-pane .tab {
     -fx-background-color: rgb(255, 255, 255, 0.7);
-    -fx-pref-width: 120;
+    -fx-pref-width: 95;
     -fx-pref-height: 30;
-    -fx-font-size: 15px;
-    -fx-alignment: center;
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
 }
 
 .tab-pane .tab:selected  .tab-label{

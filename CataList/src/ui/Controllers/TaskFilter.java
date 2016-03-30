@@ -32,7 +32,7 @@ public class TaskFilter {
 
 	private static final String TODAY_CLASS = "Today";
 	private static final String TOMORROW_CLASS = "Tomorrow";
-	private static final String FLOAT_CLASS = "Float";
+	private static final String FLOAT_CLASS = "Tentative";
 	private static final String OTHERS_CLASS = "Upcoming";
 	private static final String OVERDUE_CLASS = "Overdue";
 
@@ -57,6 +57,41 @@ public class TaskFilter {
 		tasksOverdue = new ArrayList<HBox>();
 
 		initClasses();
+	}
+	
+	public void getTasksToday(ObservableList<HBox> list) {
+		list.clear();
+		for(int i = 1; i < tasksToday.size(); i++) {
+			list.add(tasksToday.get(i));
+		}
+	}
+	
+	public void getTasksTomorrow(ObservableList<HBox> list) {
+		list.clear();
+		for(int i = 1; i < tasksTomorrow.size(); i++) {
+			list.add(tasksTomorrow.get(i));
+		}
+	}
+	
+	public void getTasksOthers(ObservableList<HBox> list) {
+		list.clear();
+		for(int i = 1; i < tasksOthers.size(); i++) {
+			list.add(tasksOthers.get(i));
+		}
+	}
+	
+	public void getTasksOverdue(ObservableList<HBox> list) {
+		list.clear();
+		for(int i = 1; i < tasksOverdue.size(); i++) {
+			list.add(tasksOverdue.get(i));
+		}
+	}
+	
+	public void getTasksFloat(ObservableList<HBox> list) {
+		list.clear();
+		for(int i = 1; i < tasksFloat.size(); i++) {
+			list.add(tasksFloat.get(i));
+		}
 	}
 
 	private void initClasses() {
