@@ -119,7 +119,8 @@ public class CommandLineController {
 	            fileChooser.setTitle("Save Image");
 	            File file = fileChooser.showSaveDialog(new Stage());
 	            if (file != null) {
-	            		System.out.println(file.getAbsolutePath());
+	            	command = file.getAbsolutePath();
+	            	loadFeedback();
 	            }
 			} else {
 				main.todoListController.loopTaskList();
