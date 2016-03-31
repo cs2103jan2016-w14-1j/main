@@ -13,7 +13,7 @@
 	<children>
 		<TabPane fx:id="tabPane" prefWidth="800.0" prefHeight="700.0">
 			<tabs>
-				<Tab fx:id="tabInbox" text="Inbox">
+				<Tab fx:id="tabPending">
 					<ListView fx:id="todoList" HBox.hgrow="SOMETIMES" prefHeight="500.0"
 						prefWidth="800.0" />
 				</Tab>

@@ -105,7 +105,7 @@ public class CommandLineController {
 			if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
 				main.todoListController.displayPending();
 			} else if(command.toLowerCase().equals("complete") && !main.isCompletedEmpty()) {
-				main.todoListController.displayCompleted();
+				main.todoListController.displayComplete();
 			} else if(command.toLowerCase().equals("help")) {
 				main.supportFeatureController.loadHelpList();
 			} else if(command.toLowerCase().equals("calendar")) {

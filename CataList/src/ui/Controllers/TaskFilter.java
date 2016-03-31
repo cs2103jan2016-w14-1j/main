@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import logic.Task;
 
 public class TaskFilter {
+	private static final String FILTER_PLACEHOLDER = " - ";
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
@@ -129,7 +130,7 @@ public class TaskFilter {
 			if(taskNum <= tasksOverdue.size()) {
 				
 				if(taskNum == 1) {
-					Label taskOverdueNum = new Label(": " + (tasksOverdue.size()-1));
+					Label taskOverdueNum = new Label(FILTER_PLACEHOLDER + (tasksOverdue.size()-1));
 					taskOverdueNum.setId(NUM_ID);
 					if(tasksOverdue.get(taskNum-1).getChildren().size() == 2) {
 						tasksOverdue.get(taskNum-1).getChildren().set(1, taskOverdueNum);
@@ -143,7 +144,7 @@ public class TaskFilter {
 					(taskNum <= tasksOverdue.size() + tasksToday.size())) {
 
 				if(taskNum == tasksOverdue.size() + 1) {
-					Label taskTodayNum = new Label(": " + (tasksToday.size()-1));
+					Label taskTodayNum = new Label(FILTER_PLACEHOLDER + (tasksToday.size()-1));
 					taskTodayNum.setId(NUM_ID);
 					if(tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().size() == 2) {
 						tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().set(1, taskTodayNum);
@@ -157,7 +158,7 @@ public class TaskFilter {
 					(taskNum <= tasksTomorrow.size() + tasksOverdue.size() + tasksToday.size())) {
 
 				if(taskNum == tasksOverdue.size() + tasksToday.size() + 1) {
-					Label taskTomorrowNum = new Label(": " + (tasksTomorrow.size()-1));
+					Label taskTomorrowNum = new Label(FILTER_PLACEHOLDER + (tasksTomorrow.size()-1));
 					taskTomorrowNum.setId(NUM_ID);
 					if(tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().size() == 2) {
 						tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().set(1, taskTomorrowNum);
@@ -171,7 +172,7 @@ public class TaskFilter {
 					(taskNum <= tasksOthers.size() + tasksTomorrow.size() + tasksOverdue.size() + tasksToday.size())) {
 
 				if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + 1) {
-					Label taskOthersNum = new Label(": " + (tasksOthers.size()-1));
+					Label taskOthersNum = new Label(FILTER_PLACEHOLDER + (tasksOthers.size()-1));
 					taskOthersNum.setId(NUM_ID);
 					if(tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().size() == 2) {
 						tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().set(1, taskOthersNum);
@@ -184,7 +185,7 @@ public class TaskFilter {
 			} else if(taskNum >= tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size()) {
 
 				if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size() + 1) {
-					Label taskFloatNum = new Label(": " + (tasksFloat.size()-1));
+					Label taskFloatNum = new Label(FILTER_PLACEHOLDER + (tasksFloat.size()-1));
 					taskFloatNum.setId(NUM_ID);
 					if(tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().size() == 2) {
 						tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().set(1, taskFloatNum);

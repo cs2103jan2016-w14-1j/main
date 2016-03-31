@@ -36,20 +36,27 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int DAY_FLAG = 0;
 	private static final int INIT_SCROLL = 0;
 
-	private static final String COMPLETED_TAB = "Completed";
-	private static final String INBOX_TAB = "All Tasks";
-	private static final String PENDING_TAB = "Pending";
-	private static final String TODAY_TAB = "Today: ";
-	private static final String TOMORROW_TAB = "Tomorrow: ";
-	private static final String FLOAT_TAB = "Tentative: ";
-	private static final String OTHERS_TAB = "Upcoming: ";
-	private static final String OVERDUE_TAB = "Overdue: ";
+	private static final String COMPLETED_TAB = "Completed: ";
+	private static final String PENDING_TAB = "To-Dos - ";
+	private static final String TODAY_TAB = "Today - ";
+	private static final String TOMORROW_TAB = "Tomorrow - ";
+	private static final String FLOAT_TAB = "Tentative - ";
+	private static final String OTHERS_TAB = "Upcoming - ";
+	private static final String OVERDUE_TAB = "Overdue - ";
 
 	private static final String INDEX_ID = "taskIndex";
 	private static final String TASK_ID = "taskName";
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String COMPLETED_TASK_ID = "completedTaskName";
+	
+	private static final String PENDING_TAB_ID = "tabPending";
+	private static final String COMPLETED_TAB_ID = "tabCompleted";
+	private static final String TODAY_TAB_ID = "tabToday";
+	private static final String TOMORROW_TAB_ID = "tabTomorrow";
+	private static final String OTHERS_TAB_ID = "tabOthers";
+	private static final String FLOAT_TAB_ID = "tabFloat";
+	private static final String OVERDUE_TAB_ID = "tabOverdue";
 
 	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
 	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
@@ -68,15 +75,14 @@ public class ListInterfaceController extends NotificationRenderer {
 	@FXML private ListView<HBox> todoList;
 	@FXML private HBox todoListContainer;
 	@FXML private TabPane tabPane;
-	@FXML private Tab tabInbox = new Tab(INBOX_TAB);
+	@FXML private Tab tabPending = new Tab(PENDING_TAB);
 
 	private Tab tabComplete = new Tab(COMPLETED_TAB);
-	private Tab tabIncomplete = new Tab(PENDING_TAB);
-	private Tab tabToday;
-	private Tab tabTomorrow;
-	private Tab tabOthers;
-	private Tab tabFloat;
-	private Tab tabOverdue;
+	private Tab tabToday = new Tab(TODAY_TAB);
+	private Tab tabTomorrow = new Tab(TOMORROW_TAB);
+	private Tab tabOthers = new Tab(OTHERS_TAB);
+	private Tab tabFloat = new Tab(FLOAT_TAB);
+	private Tab tabOverdue = new Tab(OVERDUE_TAB);
 
 	private static ObservableList<HBox> pendingTasks = FXCollections.observableArrayList();
 	private static ObservableList<HBox> completed = FXCollections.observableArrayList();
@@ -122,10 +128,20 @@ public class ListInterfaceController extends NotificationRenderer {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
 				if (newValue.getContent() == null) {
-					if(newValue.equals(tabInbox)) {
+					if(newValue.equals(tabPending)) {
 						displayPending();
+					} else if (newValue.equals(tabOverdue)) {
+						displayOverdue();
+					} else if (newValue.equals(tabToday)) {
+						displayToday();
+					} else if (newValue.equals(tabTomorrow)) {
+						displayTomorrow();
+					} else if (newValue.equals(tabOthers)) {
+						displayOthers();
+					} else if (newValue.equals(tabFloat)) {
+						displayFloat();
 					} else if (newValue.equals(tabComplete)) {
-						displayCompleted();
+						displayComplete();
 					}
 					newValue.setContent(todoList);
 					oldValue.setContent(null);
@@ -189,9 +205,9 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void displayTaskList() {
 		formatPendingTaskToListCell(operatingTasksFromLogic);
+		formatCompletedTaskToListCell(completedTasksFromLogic);
 		setTaskIntoViewObject(scrollSelection);
 		operateTabs();
-		formatCompletedTaskToListCell(completedTasksFromLogic);
 	}
 
 	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
@@ -342,18 +358,23 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void operateTabs() {
-		//System.out.println(otherTasks.size() + "wasd123");
 		tabs.clear();
-		tabs.add(tabInbox);
 		
-		if(!tabs.contains(COMPLETED_TAB) && !completedTasksFromLogic.isEmpty()) {
+		tabPending =  new Tab(PENDING_TAB + pendingTasks.size());
+		tabPending.setId(PENDING_TAB_ID);
+		tabs.add(tabPending);
+		
+		if(!tabs.contains(tabComplete) && !completedTasksFromLogic.isEmpty()) {
+			tabComplete =  new Tab(COMPLETED_TAB + completed.size());
+			tabComplete.setId(COMPLETED_TAB_ID);
 			tabs.add(tabComplete);
-		} else if(tabs.contains(tabOverdue) && completedTasksFromLogic.isEmpty()){
-			tabs.remove(tabOverdue);
+		} else if(tabs.contains(tabComplete) && completedTasksFromLogic.isEmpty()){
+			tabs.remove(tabComplete);
 		}
 
 		if(!tabs.contains(tabOverdue) && !overdueTasks.isEmpty()) {
 			tabOverdue = new Tab(OVERDUE_TAB + overdueTasks.size());
+			tabOverdue.setId(OVERDUE_TAB_ID);
 			tabs.add(tabOverdue);
 		} else if(tabs.contains(tabOverdue) && overdueTasks.isEmpty()) {
 			tabs.remove(tabOverdue);
@@ -361,6 +382,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 		if(!tabs.contains(tabToday) && !todayTasks.isEmpty()) {
 			tabToday = new Tab(TODAY_TAB + todayTasks.size());
+			tabToday.setId(TODAY_TAB_ID);
 			tabs.add(tabToday);
 		} else if(tabs.contains(tabToday) && todayTasks.isEmpty()) {
 			tabs.remove(tabToday);
@@ -368,6 +390,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 		if(!tabs.contains(tabTomorrow) && !tomorrowTasks.isEmpty()) {
 			tabTomorrow = new Tab(TOMORROW_TAB + tomorrowTasks.size());
+			tabTomorrow.setId(TOMORROW_TAB_ID);
 			tabs.add(tabTomorrow);
 		} else if(tabs.contains(tabTomorrow) && tomorrowTasks.isEmpty()) {
 			tabs.remove(tabTomorrow);
@@ -375,7 +398,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 		if(!tabs.contains(tabOthers) && !otherTasks.isEmpty()) {
 			tabOthers = new Tab(OTHERS_TAB + otherTasks.size());
-			//System.out.println(tabPane.getTabs().size() + "wasd");
+			tabOthers.setId(OTHERS_TAB_ID);
 			tabs.add(tabOthers);
 		} else if(tabs.contains(tabOthers) && otherTasks.isEmpty()) {
 			tabs.remove(tabOthers);
@@ -383,11 +406,12 @@ public class ListInterfaceController extends NotificationRenderer {
 
 		if(!tabs.contains(tabFloat) && !floatingTasks.isEmpty()) {
 			tabFloat = new Tab(FLOAT_TAB + floatingTasks.size());
+			tabFloat.setId(FLOAT_TAB_ID);
 			tabs.add(tabFloat);
 		} else if(tabs.contains(tabFloat) && floatingTasks.isEmpty()) {
 			tabs.remove(tabFloat);
 		}
-		
+
 		tabPane.getTabs().setAll(tabs);
 	}
 
@@ -425,8 +449,28 @@ public class ListInterfaceController extends NotificationRenderer {
 		todoList.setItems(pendingTasks);
 	}
 
-	public void displayCompleted() {
+	public void displayComplete() {
 		todoList.setItems(completed);
+	}
+
+	public void displayToday() {
+		todoList.setItems(todayTasks);
+	}
+
+	public void displayTomorrow() {
+		todoList.setItems(tomorrowTasks);
+	}
+
+	public void displayOverdue() {
+		todoList.setItems(overdueTasks);
+	}
+
+	public void displayOthers() {
+		todoList.setItems(otherTasks);
+	}
+
+	public void displayFloat() {
+		todoList.setItems(floatingTasks);
 	}
 
 	public ObservableList<HBox> getTasks() {
