@@ -7,24 +7,28 @@ public class LogicHandler {
 	
 	private static final int INPUT_COMMAND_INDEX = 0;
 	private static final int INPUT_EVENT_INDEX = 1;
-	private static final int INPUT_DATE_INDEX = 2;
-	private static final int INPUT_TIME_INDEX = 3;
 	
 	private static final int EVENT_INDEX_NUMBER = 0;
 	
-	private static final int INPUT_LENGTH_NODATETIME = 2;  
-	private static final int INPUT_LENGTH_WITH_DATE_NO_TIME = 3;  
-	private static final int INPUT_LENGTH_WITH_DATE_TIME = 4;
+	private static final int LIST_DATE_INDEX = 0; 
+	private static final int DATE_TIME_SIZE_EMPTY = 0;
+	
 	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
 															,"edit"
 															,"markcomplete"
 															,"markincomplete"};
 
 
-	public static Task processCommand(String[] userInputArray){
-		int numberOfFields = userInputArray.length;
+	public static Task processCommand(String[] userInputArray
+				, ArrayList<ArrayList<String>>dateTimeArgs){
 		Task newTask;
-		if(numberOfFields == INPUT_LENGTH_NODATETIME){
+		if(isDateTimeEmpty(dateTimeArgs)) {
+			newTask = createTaskNoDateTime(userInputArray);
+		} else {
+			newTask = createTaskWithDateTime(userInputArray, dateTimeArgs);
+		}
+		/*
+		 if(numberOfFields == INPUT_LENGTH_NODATETIME){
 			newTask = createTaskNoDateTime(userInputArray);
 		} else if ( numberOfFields == INPUT_LENGTH_WITH_DATE_NO_TIME){
 			newTask = createTaskWithDateNoTime(userInputArray);
@@ -33,6 +37,7 @@ public class LogicHandler {
 		} else {
 			newTask = createTaskWithParserError();
 		}
+		*/
 		updateTaskWithIndex(newTask);
 		return newTask;
 	}
@@ -115,7 +120,6 @@ public class LogicHandler {
 			, ArrayList<ArrayList<String>> dateTimeArgs){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
-		String userInputDate = checkString[INPUT_DATE_INDEX];
 		
 		switch(commandType){
 			case "add":
@@ -146,10 +150,21 @@ public class LogicHandler {
 				return createTaskWithParserError();
 		}
 	}
-		private static Task createTaskWithParserError(){
+	
+	private static Task createTaskWithParserError(){
 		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
 		return parserErrorTask;
 	}
+	
+	private static boolean isDateTimeEmpty(ArrayList<ArrayList<String>> dateTimeArgs){
+		ArrayList<String> dateArgs = dateTimeArgs.get(LIST_DATE_INDEX);
+		if(dateArgs.size() == DATE_TIME_SIZE_EMPTY) {
+			return true;
+		} else { 
+			return false;
+		}
+	}
+		
 	
 	
 }

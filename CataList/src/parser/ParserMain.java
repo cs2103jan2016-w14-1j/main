@@ -10,13 +10,14 @@ public class ParserMain {
 	private static final String INVALID_INDEX_MESSAGE = "Invalid index. Please try again.";
 	
 	private static final String SYMBOL_EMPTY = "";
-	private static final int TIME_INDEX = 3;
-	private static final int DATE_INDEX = 2;
+	private static final int TIME_LIST_INDEX = 1;
+	private static final int DATE_LIST_INDEX= 0;
 	private static final int EVENT_INDEX = 1;
 	private static final int COMMAND_INDEX = 0;
 	
-	private static final int SIZE_OF_INPUT_WITH_DATE = 3;
-	private static final int SIZE_OF_INPUT_WITH_DATE_AND_TIME = 4;
+	private static final int SIZE_EMPTY = 0;
+	private static final int SIZE_WITH_START_ONLY = 1;
+	private static final int SIZE_WITH_START_AND_END = 2;
 	
 	
 	private static final String[] COMMANDS_REQUIRING_EVENT = {"add"
@@ -29,7 +30,7 @@ public class ParserMain {
 																,"markuncomplete"};
 	
 	protected ArrayList<String> formattedCommand;
-	protected ArrayList<ArrayList<String>> parsedDate;
+	protected ArrayList<ArrayList<String>> parsedDateTime;
 	
 	public ParserMain(){
 		formattedCommand = new ArrayList<String>();
@@ -49,7 +50,8 @@ public class ParserMain {
 	
 	public ArrayList<ArrayList<String>> processDateTime(String userInput){
 		ArrayList<ArrayList<String>> dateTimeWords = DateTimeParser.parseDateTime(userInput);
-		
+		checkForErrorsDateTime();
+		return dateTimeWords;
 	}
 	
 	private boolean isRequireIndex(String inputCommand){
@@ -127,19 +129,19 @@ public class ParserMain {
 	}
 	
 	private boolean isDateTimeInvalid(){
-		//TODO
-		int sizeOfFormattedString = formattedCommand.size();
-		
-		if(sizeOfFormattedString >= SIZE_OF_INPUT_WITH_DATE){
-			String receivedDate = formattedCommand.get(DATE_INDEX);
-			return receivedDate.equalsIgnoreCase(DateTimeParser.INVALID_TIME_MESSAGE);
+		ArrayList<String> dateArgs = parsedDateTime.get(DATE_LIST_INDEX);
+		ArrayList<String> timeArgs = parsedDateTime.get(TIME_LIST_INDEX);
+		if(dateArgs.size() != SIZE_EMPTY
+			|| dateArgs.size() != SIZE_WITH_START_ONLY
+			|| dateArgs.size() != SIZE_WITH_START_AND_END){
+			return false;
 		}
 		
-		if (sizeOfFormattedString == SIZE_OF_INPUT_WITH_DATE_AND_TIME){
-			String receivedTime = formattedCommand.get(TIME_INDEX);
-			return receivedTime.equalsIgnoreCase(DateTimeParser.INVALID_DATE_MESSAGE);
+		if(timeArgs.size() != SIZE_EMPTY
+			|| timeArgs.size() != SIZE_WITH_START_ONLY
+			|| timeArgs.size() != SIZE_WITH_START_AND_END){
+				return false;
 		}
-		
-		return false;
+		return true;
 	}
 }

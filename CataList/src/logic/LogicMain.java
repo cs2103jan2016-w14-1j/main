@@ -44,7 +44,8 @@ public class LogicMain {
 	
 	public String processCommand(String userInput){
 		String[] formattedInput = inputParser.processInput(userInput);
-		Task newCreatedTask = LogicHandler.processCommand(formattedInput);
+		ArrayList<ArrayList<String>> dateTimeArgs = inputParser.processDateTime(userInput);
+		Task newCreatedTask = LogicHandler.processCommand(formattedInput, dateTimeArgs);
 		String feedbackToUI = operateOnTask(newCreatedTask);
 
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
@@ -219,7 +220,7 @@ public class LogicMain {
 	
 	private String doEdit(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
-		
+		String feedBack;
 		try{
 			//find and change inside masterList 
 			Task toEdit = operatingTasks.get(operateIndex - 1);
@@ -231,11 +232,10 @@ public class LogicMain {
 			}
 			operatingTasks.set(operateIndex -1, taskToOp);	
 		} catch (IndexOutOfBoundsException e){
-			taskToOp.set_messageToUser("Nothing to be edited!");
-			
+			feedBack = taskToOp.get_messageToUserFail();
 		}
-		String feedback = taskToOp.get_messageToUser();
-		return feedback;
+		feedBack = taskToOp.get_messageToUserSuccess();
+		return feedBack;
 	}
 	
 	
