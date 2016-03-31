@@ -9,52 +9,33 @@ import org.joda.time.format.DateTimeFormat;
 
 public class DateTimeParser {
 	private static final String SYMBOL_EMPTY = "";
+	private static final int EMPTY_SIZE = 0;
+	private static final int SIZE_ONE = 0;
 	
 	protected static final String INVALID_DATE_MESSAGE = "Invalid date input";
 	protected static final String INVALID_TIME_MESSAGE = "Invalid time input";
 	
-	public static ArrayList<String> parseDateTime(String userInput){
-		ArrayList<String> dateTimeArgs = new ArrayList<String>();
+	public static ArrayList<ArrayList<String>> parseDateTime(String userInput){
 		String[] splitInput = userInput.split(" ");
+		ArrayList<String> dateArgs = parseStartEndDates(splitInput);
+		ArrayList<String> timeArgs = parseStartEndTimes(splitInput);
 		
-		if(hasDateFlag(userInput)){
-			int dateIndex = searchForDateFlagsIndex(splitInput);
-			String dateWord;
-			try{
-				dateWord = splitInput[dateIndex];
-			} catch (IndexOutOfBoundsException e){
-				dateWord = SYMBOL_EMPTY;
-			}
-			
-			if(dateWord != null){
-				dateTimeArgs.add(parseForDate(dateWord));
+		if(dateArgs.size() == EMPTY_SIZE && timeArgs.size() != EMPTY_SIZE){
+			if(timeArgs.size() == SIZE_ONE){
+				dateArgs.add(getToday());
 			} else {
-				dateTimeArgs.add(INVALID_DATE_MESSAGE);
+				dateArgs.add(getToday());
+				dateArgs.add(getToday());
 			}
 		}
 		
-		if(hasTimeFlag(userInput)){
-			int timeIndex = searchForTimeFlagsIndex(splitInput);
-			String timeWord;
-			if(!hasDateFlag(userInput)){
-				dateTimeArgs.add(getToday());
-			}
-			try{
-				 timeWord = splitInput[timeIndex];
-			} catch (IndexOutOfBoundsException e){
-				timeWord = SYMBOL_EMPTY;
-			}
-			
-			if(timeWord != null){
-				dateTimeArgs.add(parseForTime(timeWord));
-			} else {
-				dateTimeArgs.add(INVALID_TIME_MESSAGE);
-			}
-
-		} 
-		return dateTimeArgs;
+		ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+		results.add(dateArgs);
+		results.add(timeArgs);
+		return results;
 	}
 	
+	/*
 	private static int searchForDateFlagsIndex(String[] splittedInput){
 		int indexOfDate = 0;
 		for(int i = 0; i <splittedInput.length; i++){
@@ -80,12 +61,70 @@ public class DateTimeParser {
 		}
 		return indexOfTime + 1;
 	}
+	*/
+	private static ArrayList<String> parseStartEndDates(String[] splitInput){
+		String startDate;
+		int length = splitInput.length;
+		int startIndex = 0;
+		ArrayList<String> results = new ArrayList<String>();
+		
+		for(int i = 0 ; i < length ; i++){
+			startDate = parseForDate(splitInput[i]);
+			if(!startDate.equalsIgnoreCase(SYMBOL_EMPTY)){
+				results.add(startDate);
+				break;
+			}
+		}
+		
+		if(startIndex != 0){
+			String endDate;
+			for(int j = startIndex ; j < length ; j++){
+				endDate = parseForDate(splitInput[j]);
+				if(!endDate.equalsIgnoreCase(SYMBOL_EMPTY)){
+					results.add(endDate);
+					break;
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	private static ArrayList<String> parseStartEndTimes(String[] splitInput){
+		String startTime;
+		int length = splitInput.length;
+		int startIndex = 0;
+		ArrayList<String> results = new ArrayList<String>();
+		
+		for(int i = 0 ; i < length ; i++){
+			startTime = parseForTime(splitInput[i]);
+			if(!startTime.equalsIgnoreCase(SYMBOL_EMPTY)){
+				results.add(startTime);
+				break;
+			}
+		}
+		
+		if(startIndex != 0){
+			String endTime;
+			for(int j = startIndex ; j < length ; j++){
+				endTime = parseForDate(splitInput[j]);
+				if(!endTime.equalsIgnoreCase(SYMBOL_EMPTY)){
+					results.add(endTime);
+					break;
+				}
+			}
+		}
+		
+		return results;
+	}
+	
 	private static String getToday(){
 		DateTime now = new DateTime();
 		LocalDate today = now.toLocalDate();
 		String dateParsed = today.toString(KeywordConstraints.KW_FORMAT_DATE_STORAGE);
 		return dateParsed;
 	}
+	
 	private static String parseForDate(String targetString){
 		LocalDate curDate = new LocalDate();
 		String dateParsed = SYMBOL_EMPTY;

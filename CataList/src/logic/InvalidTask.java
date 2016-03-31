@@ -8,7 +8,8 @@ public class InvalidTask extends Task{
 	
 	//Constructor
 	public InvalidTask(String userInput){
-		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_INVALID_DEFAULT);
+		super(IS_MUTATOR, userInput, COMMAND_TYPE, MESSAGE_INVALID_DEFAULT
+				,MESSAGE_INVALID_DEFAULT);
 	}
 
 }

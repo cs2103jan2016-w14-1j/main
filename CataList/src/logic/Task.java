@@ -64,22 +64,29 @@ public class Task implements Cloneable {
 		}
 		return false;
 	}
-	/*
+	
 	public Task replaceWith(Task other){
-		Task newTask = (Task) this.clone();
-		if(other.get_task() != null && !isEqualTask(other)){
+		Task newTask;
+		try{
+			newTask = (Task) this.clone();
+		} catch(CloneNotSupportedException e) {
+			newTask = new Task(this._changeDataFlag
+									,this._task , this._cmd
+									,this._messageToUserSuccess
+									,this._messageToUserFail);
+			newTask.set_startDate(this._startDate);
+			newTask.set_endDate(this._endDate);
+			newTask.set_startTime(this._startTime);
+			newTask.set_endTime(this._endTime);
 			
 		}
+		return newTask;
 	}
 	
-	public Object clone() throws CloneNotSupportedException{
-		try{ 
-			return super.clone();
-		} catch(CloneNotSupportedException e) {
-			
-		}
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
-	*/
+	
 	public boolean isEqualCmd(Task other){
 		return (other.get_cmd() == this._cmd);
 	}

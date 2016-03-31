@@ -29,6 +29,7 @@ public class ParserMain {
 																,"markuncomplete"};
 	
 	protected ArrayList<String> formattedCommand;
+	protected ArrayList<ArrayList<String>> parsedDate;
 	
 	public ParserMain(){
 		formattedCommand = new ArrayList<String>();
@@ -37,19 +38,18 @@ public class ParserMain {
 	public String[] processInput(String userInput){
 		String commandWords = CommandParser.parseCommand(userInput);
 		String eventWords = EventParser.parseEvent(userInput);
-		ArrayList<String> dateTimeWords = DateTimeParser.parseDateTime(userInput);
-		
 		formattedCommand.add(commandWords);
 		formattedCommand.add(eventWords);
-
-		for(String eachWord : dateTimeWords){
-			formattedCommand.add(eachWord);
-		}
 
 		checkForErrors();
 		String[] returnArray = formattedCommand.toArray(new String[0]);
 		formattedCommand.clear();
 		return returnArray;
+	}
+	
+	public ArrayList<ArrayList<String>> processDateTime(String userInput){
+		ArrayList<ArrayList<String>> dateTimeWords = DateTimeParser.parseDateTime(userInput);
+		
 	}
 	
 	private boolean isRequireIndex(String inputCommand){
@@ -74,9 +74,13 @@ public class ParserMain {
 			setInputInvalid(INVALID_INDEX_MESSAGE);
 		} else if(isEventInvalid()){
 			setInputInvalid(INVALID_EVENT_MESSAGE);
-		} else if(isDateTimeInvalid()){
-			setInputInvalid(INVALID_DATETIME_MESSAGE);
 		}
+	}
+	
+	private void checkForErrorsDateTime(){
+		if(isDateTimeInvalid()){
+			setInputInvalid(INVALID_DATETIME_MESSAGE);
+		 }
 	}
 	
 	
@@ -123,6 +127,7 @@ public class ParserMain {
 	}
 	
 	private boolean isDateTimeInvalid(){
+		//TODO
 		int sizeOfFormattedString = formattedCommand.size();
 		
 		if(sizeOfFormattedString >= SIZE_OF_INPUT_WITH_DATE){

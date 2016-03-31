@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class LogicHandler {
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
 	
@@ -109,26 +111,27 @@ public class LogicHandler {
 		}
 	}
 	
-	private static Task createTaskWithDateNoTime(String[] checkString){
+	private static Task createTaskWithDateTime(String[] checkString
+			, ArrayList<ArrayList<String>> dateTimeArgs){
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
 		String userInputDate = checkString[INPUT_DATE_INDEX];
 		
 		switch(commandType){
 			case "add":
-				return new AddTask(userInputEvent, userInputDate);
+				return new AddTask(userInputEvent, dateTimeArgs);
 			case "delete":
-				return new DeleteTask(userInputEvent, userInputDate);
+				return new DeleteTask(userInputEvent, dateTimeArgs);
 			case "clear" :
-				return new ClearTask(userInputEvent, userInputDate);
+				return new ClearTask(userInputEvent, dateTimeArgs);
 			case "display" :
-				return new DisplayTask(userInputEvent, userInputDate);
+				return new DisplayTask(userInputEvent, dateTimeArgs);
 			case "edit" :
-				return new EditTask(userInputEvent, userInputDate);
+				return new EditTask(userInputEvent, dateTimeArgs);
 			case "redo" : 
-				return new RedoTask(userInputEvent, userInputDate);
+				return new RedoTask(userInputEvent, dateTimeArgs);
 			case "undo" :
-				return new UndoTask(userInputEvent, userInputDate);
+				return new UndoTask(userInputEvent, dateTimeArgs);
 			case "search" :
 				return new SearchTask(userInputEvent);
 			case "markcomplete" :
@@ -143,44 +146,7 @@ public class LogicHandler {
 				return createTaskWithParserError();
 		}
 	}
-	
-	private static Task createTaskWithDateTime(String[] checkString){
-		String commandType = checkString[INPUT_COMMAND_INDEX];
-		String userInputEvent = checkString[INPUT_EVENT_INDEX];
-		String userInputDate = checkString[INPUT_DATE_INDEX];
-		String userInputTime = checkString[INPUT_TIME_INDEX];
-		
-		switch(commandType){
-			case "add":
-				return new AddTask(userInputEvent, userInputDate, userInputTime);
-			case "delete":
-				return new DeleteTask(userInputEvent, userInputDate, userInputTime);
-			case "clear" :
-				return new ClearTask(userInputEvent, userInputDate, userInputTime);
-			case "display" :
-				return new DisplayTask(userInputEvent, userInputDate, userInputTime);
-			case "edit" :
-				return new EditTask(userInputEvent, userInputDate, userInputTime);
-			case "redo" : 
-				return new RedoTask(userInputEvent, userInputDate, userInputTime);
-			case "undo" :
-				return new UndoTask(userInputEvent, userInputDate, userInputTime);
-			case "search" :
-				return new SearchTask(userInputEvent);
-			case "markcomplete" :
-				return new MarkComplete(userInputEvent);
-			case "markincomplete" :
-				return new MarkIncomplete(userInputEvent);
-			case "invalid":
-				return new InvalidTask(userInputEvent);
-			case "help":
-				return new HelpTask(userInputEvent);
-			default: 
-				return createTaskWithParserError();
-		}
-	}
-	
-	private static Task createTaskWithParserError(){
+		private static Task createTaskWithParserError(){
 		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
 		return parserErrorTask;
 	}
