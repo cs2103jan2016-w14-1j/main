@@ -76,24 +76,7 @@ public class CommandLineController {
 			
 		});
 	}
-
-	private void readUserInput() {
-		command = userInput.getText();
-		loadFeedback();
-		userInput.clear();
-		inputArray.add(command);
-		index++;
-	}
-
-	private void loadFeedback() {
-		feedbackMain.setText(uiToLogic(command));
-
-		FadeTransition ft = new FadeTransition(Duration.millis(200), feedbackMain);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
-	}
-
+	
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
 		
@@ -154,12 +137,39 @@ public class CommandLineController {
 				tabToggle = INBOX_TAB;
 			}
 		} else if(event.getCode() == KeyCode.SPACE) {
-			if(event.isShiftDown()) {
-				AutoCompleteCommands.autoComplete(userInput, feedbackMain);
-			}
+			AutoCompleteCommands.autoComplete(userInput, feedbackMain);
 		}
 	}
+	
+	public String uiToLogic(String input) {
+		assert (this != null);
+		return main.passInputToLogic(input);
+	}
 
+	private void readUserInput() {
+		command = userInput.getText();
+		loadFeedback();
+		userInput.clear();
+		inputArray.add(command);
+		index++;
+	}
+
+	private void loadFeedback() {
+		feedbackMain.setText(uiToLogic(command));
+
+		FadeTransition ft = new FadeTransition(Duration.millis(200), feedbackMain);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
+	}
+	
+	public void updateTutorialToggle() {
+		if(tutorialToggle) {
+			tutorialToggle = TUTORIAL_OFF;
+		} else {
+			tutorialToggle = TUTORIAL_ON;
+		}
+	}
 
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
@@ -181,25 +191,12 @@ public class CommandLineController {
 		}
 	}
 
-	public String uiToLogic(String input) {
-		assert (this != null);
-		return main.passInputToLogic(input);
-	}
-
 	public TextField getCommandLine() {
 		return userInput;
 	}
 
 	public Text getFeedback() {
 		return feedbackMain;
-	}
-
-	public void updateTutorialToggle() {
-		if(tutorialToggle) {
-			tutorialToggle = TUTORIAL_OFF;
-		} else {
-			tutorialToggle = TUTORIAL_ON;
-		}
 	}
 
 	public String getTutorialToggle() {

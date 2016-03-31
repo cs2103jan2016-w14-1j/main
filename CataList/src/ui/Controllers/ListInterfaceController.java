@@ -36,13 +36,13 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int DAY_FLAG = 0;
 	private static final int INIT_SCROLL = 0;
 
-	private static final String COMPLETED_TAB = "Completed: ";
-	private static final String PENDING_TAB = "To-Dos - ";
-	private static final String TODAY_TAB = "Today - ";
-	private static final String TOMORROW_TAB = "Tomorrow - ";
-	private static final String FLOAT_TAB = "Tentative - ";
-	private static final String OTHERS_TAB = "Upcoming - ";
-	private static final String OVERDUE_TAB = "Overdue - ";
+	private static final String COMPLETED_TAB = "  Completed";
+	private static final String PENDING_TAB = "  To-Dos";
+	private static final String TODAY_TAB = "  Today";
+	private static final String TOMORROW_TAB = "  Tomorrow";
+	private static final String FLOAT_TAB = "  Tentative";
+	private static final String OTHERS_TAB = "  Upcoming";
+	private static final String OVERDUE_TAB = "  Overdue";
 
 	private static final String INDEX_ID = "taskIndex";
 	private static final String TASK_ID = "taskName";
@@ -160,19 +160,19 @@ public class ListInterfaceController extends NotificationRenderer {
 		tabs.clear();
 		
 		pendingTabHandler();
-		completedTabHandler();
 		overdueTabHandler();
 		todayTabHandler();
 		tomorrowTabHandler();
 		othersTabHandler();
 		floatTabHandler();
+		completedTabHandler();
 
 		tabPane.getTabs().setAll(tabs);
 	}
 
 	private void floatTabHandler() {
 		if(!tabs.contains(tabFloat) && !floatingTasks.isEmpty()) {
-			tabFloat = new Tab(FLOAT_TAB + floatingTasks.size());
+			tabFloat = new Tab(floatingTasks.size() + FLOAT_TAB);
 			tabFloat.setId(FLOAT_TAB_ID);
 			tabs.add(tabFloat);
 		} else if(tabs.contains(tabFloat) && floatingTasks.isEmpty()) {
@@ -182,7 +182,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void othersTabHandler() {
 		if(!tabs.contains(tabOthers) && !otherTasks.isEmpty()) {
-			tabOthers = new Tab(OTHERS_TAB + otherTasks.size());
+			tabOthers = new Tab(otherTasks.size() + OTHERS_TAB);
 			tabOthers.setId(OTHERS_TAB_ID);
 			tabs.add(tabOthers);
 		} else if(tabs.contains(tabOthers) && otherTasks.isEmpty()) {
@@ -192,7 +192,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void tomorrowTabHandler() {
 		if(!tabs.contains(tabTomorrow) && !tomorrowTasks.isEmpty()) {
-			tabTomorrow = new Tab(TOMORROW_TAB + tomorrowTasks.size());
+			tabTomorrow = new Tab(tomorrowTasks.size() + TOMORROW_TAB);
 			tabTomorrow.setId(TOMORROW_TAB_ID);
 			tabs.add(tabTomorrow);
 		} else if(tabs.contains(tabTomorrow) && tomorrowTasks.isEmpty()) {
@@ -202,7 +202,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void todayTabHandler() {
 		if(!tabs.contains(tabToday) && !todayTasks.isEmpty()) {
-			tabToday = new Tab(TODAY_TAB + todayTasks.size());
+			tabToday = new Tab(todayTasks.size() + TODAY_TAB);
 			tabToday.setId(TODAY_TAB_ID);
 			tabs.add(tabToday);
 		} else if(tabs.contains(tabToday) && todayTasks.isEmpty()) {
@@ -212,7 +212,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void overdueTabHandler() {
 		if(!tabs.contains(tabOverdue) && !overdueTasks.isEmpty()) {
-			tabOverdue = new Tab(OVERDUE_TAB + overdueTasks.size());
+			tabOverdue = new Tab(overdueTasks.size() + OVERDUE_TAB);
 			tabOverdue.setId(OVERDUE_TAB_ID);
 			tabs.add(tabOverdue);
 		} else if(tabs.contains(tabOverdue) && overdueTasks.isEmpty()) {
@@ -222,7 +222,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void completedTabHandler() {
 		if(!tabs.contains(tabComplete) && !completedTasksFromLogic.isEmpty()) {
-			tabComplete =  new Tab(COMPLETED_TAB + completedTasks.size());
+			tabComplete =  new Tab(completedTasks.size() + COMPLETED_TAB);
 			tabComplete.setId(COMPLETED_TAB_ID);
 			tabs.add(tabComplete);
 		} else if(tabs.contains(tabComplete) && completedTasksFromLogic.isEmpty()){
@@ -231,7 +231,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void pendingTabHandler() {
-		tabPending =  new Tab(PENDING_TAB + pendingTasks.size());
+		tabPending =  new Tab(pendingTasks.size() + PENDING_TAB);
 		tabPending.setId(PENDING_TAB_ID);
 		tabs.add(tabPending);
 	}
