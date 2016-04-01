@@ -222,7 +222,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void completedTabHandler() {
 		if(!tabs.contains(tabComplete) && !completedTasksFromLogic.isEmpty()) {
-			tabComplete =  new Tab(completedTasks.size() + COMPLETED_TAB);
+			tabComplete =  new Tab(completedTasksFromLogic.size() + COMPLETED_TAB);
 			tabComplete.setId(COMPLETED_TAB_ID);
 			tabs.add(tabComplete);
 		} else if(tabs.contains(tabComplete) && completedTasksFromLogic.isEmpty()){
@@ -231,7 +231,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void pendingTabHandler() {
-		tabPending =  new Tab(pendingTasks.size() + PENDING_TAB);
+		tabPending =  new Tab(operatingTasksFromLogic.size() + PENDING_TAB);
 		tabPending.setId(PENDING_TAB_ID);
 		tabs.add(tabPending);
 	}
