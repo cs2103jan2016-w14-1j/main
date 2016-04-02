@@ -174,35 +174,35 @@ public class TaskFilter {
 		LocalTime taskTime = new LocalTime();
 		LocalTime timeNow = new LocalTime();
 		
-		if(taskObj.get_date() != "") {
-			taskDate = LocalDateTime.parse(taskObj.get_date(), DateTimeFormat.forPattern(DATE_FORMAT));
-			if(taskObj.get_time() != "") {
-				taskTime = LocalDateTime.parse(taskObj.get_time(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+		if(taskObj.get_startDate() != "") {
+			taskDate = LocalDateTime.parse(taskObj.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+			if(taskObj.get_startTime() != "") {
+				taskTime = LocalDateTime.parse(taskObj.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 			}
 		}
 		
 		if(taskDate.plusDays(1).isBefore(localDate) || 
-				(taskObj.get_date().equals(dateToday) && taskTime.isBefore(timeNow))) {
+				(taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
 			if(!tasksOverdue.contains(taskClassOverdue)) {
 				tasksOverdue.add(taskClassOverdue);
 			}
 			taskRow.setId(OVERDUE_TASK_ID);
 			tasksOverdue.add(taskRow);
 		}
-		else if(taskObj.get_date().equals(dateToday) 
-				|| (!taskObj.get_time().isEmpty() && taskObj.get_date().isEmpty())) {
+		else if(taskObj.get_startDate().equals(dateToday) 
+				|| (!taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty())) {
 			if(!tasksToday.contains(taskClassToday)) {
 				tasksToday.add(taskClassToday);	
 			}
 			taskRow.setId(TODAY_TASK_ID);
 			tasksToday.add(taskRow);
-		} else if(taskObj.get_date().equals(dateTomorrow)) {
+		} else if(taskObj.get_startDate().equals(dateTomorrow)) {
 			if(!tasksTomorrow.contains(taskClassTomorrow)) {
 				tasksTomorrow.add(taskClassTomorrow);
 			}
 			taskRow.setId(TOMORROW_TASK_ID);
 			tasksTomorrow.add(taskRow);
-		} else if(taskObj.get_time().isEmpty() && taskObj.get_date().isEmpty()) {
+		} else if(taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty()) {
 			if(!tasksFloat.contains(taskClassFloat)) {
 				tasksFloat.add(taskClassFloat);
 			}

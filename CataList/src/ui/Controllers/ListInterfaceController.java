@@ -183,16 +183,16 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
-			if(taskObj.get_time().isEmpty()) {
-				taskTime = new Label(taskObj.get_time());
+			if(taskObj.get_startTime().isEmpty()) {
+				taskTime = new Label(taskObj.get_startTime());
 			} else {
-				taskTime = new Label(DUE + taskObj.get_time());
+				taskTime = new Label(DUE + taskObj.get_startTime());
 			}
 			Label taskDate;
-			if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_date());
+			if(!taskObj.get_startDate().isEmpty() && taskObj.get_startTime().isEmpty()) {
+				taskDate = new Label(DUE + taskObj.get_startDate());
 			} else {
-				taskDate = new Label(taskObj.get_date());
+				taskDate = new Label(taskObj.get_startDate());
 			} 
 			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
 
@@ -220,16 +220,16 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskIndex = new Label("  " + index + ".");
 			Label taskName = new Label(taskObj.get_task());
 			Label taskTime;
-			if(taskObj.get_time().isEmpty()) {
-				taskTime = new Label(taskObj.get_time());
+			if(taskObj.get_startTime().isEmpty()) {
+				taskTime = new Label(taskObj.get_startTime());
 			} else {
-				taskTime = new Label(DUE + taskObj.get_time());
+				taskTime = new Label(DUE + taskObj.get_startTime());
 			}
 			Label taskDate;
-			if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_date());
+			if(!taskObj.get_startDate().isEmpty() && taskObj.get_startTime().isEmpty()) {
+				taskDate = new Label(DUE + taskObj.get_startDate());
 			} else {
-				taskDate = new Label(taskObj.get_date());
+				taskDate = new Label(taskObj.get_startDate());
 			} 
 			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
 			taskName.setId(COMPLETED_TASK_ID);
@@ -294,9 +294,9 @@ public class ListInterfaceController extends NotificationRenderer {
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTasksFromLogic) {
-				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
-						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
-					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
+				if(taskObj.get_startDate().equals(localDate.toString(DATE_FORMAT)) ||
+						(taskObj.get_startDate().equals(NULL) && !taskObj.get_startTime().equals(NULL))) {
+					if(taskObj.get_startTime().equals(localTime.toString(TIME_FORMAT))) {
 						todoTime++;
 					}
 					todoDay++;

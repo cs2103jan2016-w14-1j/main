@@ -2,9 +2,9 @@
 <TaskList>
   <Task ID="1" State="Incomplete">
     <Event>hello</Event>
-    <StartTime>1000</StartTime>
-    <StartDate>5 March</StartDate>
-    <EndTime>2359</EndTime>
-    <EndDate>20 March</EndDate>
+    <StartTime></StartTime>
+    <StartDate></StartDate>
+    <EndTime></EndTime>
+    <EndDate></EndDate>
   </Task>
 </TaskList>
