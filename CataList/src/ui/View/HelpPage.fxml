@@ -16,8 +16,8 @@
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controllers.HelpPageController">
 	<children>
 		<StackPane layoutX="15.0" layoutY="10.0" prefHeight="390.0"
-			prefWidth="585.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="80"
-			AnchorPane.rightAnchor="80" AnchorPane.topAnchor="-50">
+			prefWidth="585.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="30"
+			AnchorPane.rightAnchor="30" AnchorPane.topAnchor="-50" fx:id="helpListContainer">
 			<children>
 				<VBox>
 					<children>
@@ -30,12 +30,12 @@
 										<Image url="@../Application/Stylesheets/Background/info-icon.png" />
 									</image>
 								</ImageView>
-								<Text text="Need help?" />
+								<Text fx:id="helpHeading" text="Need help?" />
 								<Pane HBox.hgrow="ALWAYS" />
 							</children>
 						</HBox>
 						<TableView fx:id="helpList" prefHeight="380.0"
-							prefWidth="546.0" />
+							prefWidth="600.0" />
 					</children>
 				</VBox>
 			</children>

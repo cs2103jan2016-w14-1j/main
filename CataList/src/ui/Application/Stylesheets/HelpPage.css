@@ -9,7 +9,7 @@
 }
 
 #helpListContainer {
-	-fx-background-color: rgb(255, 130, 0, 0.6);
+	-fx-background-color: rgb(255, 255, 255, 0.8);
 	-fx-background-radius: 20 20 20 20;
 	-fx-padding: 20;
 }
@@ -59,7 +59,7 @@
 }
 
 .table-cell {
-	-fx-font-size: 12px;
+	-fx-font-size: 15px;
 }
 
 .split-pane:horizontal > .split-pane-divider {
@@ -71,3 +71,11 @@
     -fx-padding: 1 0 0 0;
 }
 
+#commandColumn {
+	-fx-alignment: TOP_RIGHT; 
+	-fx-text-fill: black;
+}
+
+#formatColumn {
+	-fx-text-fill: orangered;
+}

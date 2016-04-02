@@ -72,7 +72,7 @@
 }
 
 #calendarContainer {
-	-fx-background-color: rgb(255, 130, 0, 0);
+	-fx-background-color: rgb(255, 255, 255, 0.8);
 	-fx-background-radius: 20 20 20 20;
 	-fx-max-width: 800;
 	-fx-max-height: 800;
