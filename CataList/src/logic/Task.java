@@ -18,13 +18,13 @@ public class Task implements Cloneable {
 	private int operandIndex;
 	private boolean isComplete;
 	
-	private static final int STARTINDEX = 1;
+	private static final int STARTINDEX = 0;
 	private static final int ENDINDEX = 1;
 	private static final int HAVEDATEANDTIME = 2;
 
 	private static final int DATEINDEX = 0;
 	private static final int TIMEINDEX = 1;
-	private static final int HAVESTARTONLY = 0;
+	private static final int HAVESTARTONLY = 1;
 	
 	public Task (boolean isChanged, String userInput, String cmd
 				, String successMsg,String failMsg){
@@ -280,7 +280,7 @@ public class Task implements Cloneable {
 	public void setDateTimeForTask(ArrayList<ArrayList<String>> dateTimeArgs){
 		int parameterSize = dateTimeArgs.size();
 		ArrayList<String> dateArgs = dateTimeArgs.get(DATEINDEX);
-		
+
 		if(dateArgs.size() == HAVESTARTONLY){
 			this.set_startDate(dateArgs.get(STARTINDEX));
 		} else {
@@ -290,10 +290,10 @@ public class Task implements Cloneable {
 		if(parameterSize == HAVEDATEANDTIME){
 			ArrayList<String> timeArgs = dateTimeArgs.get(TIMEINDEX);
 			if(timeArgs.size() == HAVESTARTONLY){
-				this.set_startTime(dateArgs.get(STARTINDEX));
+				this.set_startTime(timeArgs.get(STARTINDEX));
 			} else {
-				this.set_startTime(dateArgs.get(STARTINDEX));
-				this.set_endTime(dateArgs.get(ENDINDEX));	
+				this.set_startTime(timeArgs.get(STARTINDEX));
+				this.set_endTime(timeArgs.get(ENDINDEX));	
 			}
 		} 
 	}

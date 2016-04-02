@@ -10,7 +10,7 @@ import org.joda.time.format.DateTimeFormat;
 public class DateTimeParser {
 	private static final String SYMBOL_EMPTY = "";
 	private static final int EMPTY_SIZE = 0;
-	private static final int SIZE_ONE = 0;
+	private static final int SIZE_ONE = 1;
 	
 	protected static final String INVALID_DATE_MESSAGE = "Invalid date input";
 	protected static final String INVALID_TIME_MESSAGE = "Invalid time input";
@@ -19,7 +19,7 @@ public class DateTimeParser {
 		String[] splitInput = userInput.split(" ");
 		ArrayList<String> dateArgs = parseStartEndDates(splitInput);
 		ArrayList<String> timeArgs = parseStartEndTimes(splitInput);
-		
+
 		if(dateArgs.size() == EMPTY_SIZE && timeArgs.size() != EMPTY_SIZE){
 			if(timeArgs.size() == SIZE_ONE){
 				dateArgs.add(getToday());
@@ -28,7 +28,6 @@ public class DateTimeParser {
 				dateArgs.add(getToday());
 			}
 		}
-		
 		ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
 		results.add(dateArgs);
 		results.add(timeArgs);
@@ -103,7 +102,7 @@ public class DateTimeParser {
 				break;
 			}
 		}
-		
+	
 		if(startIndex != 0){
 			String endTime;
 			for(int j = startIndex ; j < length ; j++){

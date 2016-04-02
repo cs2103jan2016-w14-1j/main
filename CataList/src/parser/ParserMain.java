@@ -50,6 +50,7 @@ public class ParserMain {
 	
 	public ArrayList<ArrayList<String>> processDateTime(String userInput){
 		ArrayList<ArrayList<String>> dateTimeWords = DateTimeParser.parseDateTime(userInput);
+		parsedDateTime = dateTimeWords;
 		checkForErrorsDateTime();
 		return dateTimeWords;
 	}
