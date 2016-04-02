@@ -26,13 +26,18 @@ public class CommandLineController {
 	private static final boolean TUTORIAL_ON = true;
 	private static final boolean TUTORIAL_OFF = false;
 	
-	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_DELETE = "delete";
-	private static final String COMMAND_EDIT = "edit";
-	private static final String COMMAND_MARK = "mark";
+	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_UNMARK = "unmark";
 	private static final String COMMAND_SEARCH = "search";
-
+	private static final String COMMAND_REDO = "redo";
+	private static final String COMMAND_MARK = "mark";
+	private static final String COMMAND_HELP = "help";
+	private static final String COMMAND_EDIT = "edit";
+	private static final String COMMAND_DISPLAY = "display";
+	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_CLEAR = "clear";
+	private static final String COMMAND_ADD = "add";
+	
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
@@ -69,6 +74,20 @@ public class CommandLineController {
 				FeedbackGenerator.generateUnmarkFeedback(feedbackHelp);
 			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_SEARCH)) {
 				FeedbackGenerator.generateSearchFeedback(feedbackHelp);
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_REDO)) {
+				if(inputArray.size() >= 2 && inputArray.get(inputArray.size()-1).equalsIgnoreCase(COMMAND_UNDO)) {
+					FeedbackGenerator.generateRedoFeedback(feedbackHelp, inputArray.get(inputArray.size()-2));
+				} else {
+					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
+				}
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNDO)) {
+				if(inputArray.size() >= 1) {
+					FeedbackGenerator.generateUndoFeedback(feedbackHelp, inputArray.get(inputArray.size()-1));
+				} else {
+					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
+				}
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
+				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 			} else {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 				FeedbackGenerator.generateTipFeedback(feedbackMain);

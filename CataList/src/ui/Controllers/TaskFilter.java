@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import logic.Task;
 
 public class TaskFilter {
-	private static final String FILTER_PLACEHOLDER = " - ";
+	private static final String FILTER_PLACEHOLDER = " : ";
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 

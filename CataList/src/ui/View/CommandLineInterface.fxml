@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="50.0" prefWidth="419.0"
+<VBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0"
 	BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="ui.Controllers.CommandLineController" spacing="10">
 	<children>
 		<Pane />
 		<TextField fx:id="userInput" alignment="CENTER"
-			onKeyPressed="#handleSubmitButtonAction" prefHeight="35.0" prefWidth="780.0">
+			onKeyPressed="#handleSubmitButtonAction" prefHeight="35.0" prefWidth="800.0">
 		</TextField>
 		<Text fx:id="feedbackHelp" strokeType="OUTSIDE" strokeWidth="0.0"
-			textAlignment="CENTER" wrappingWidth="500" />
+			textAlignment="CENTER" wrappingWidth="600" />
 		<Text fx:id="feedbackMain" strokeType="OUTSIDE" strokeWidth="0.0"
 			textAlignment="CENTER" wrappingWidth="600" />
 	</children>
