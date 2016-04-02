@@ -65,7 +65,7 @@ public class Task implements Cloneable {
 		return false;
 	}
 	
-	public Task replaceWith(Task other){
+	public Task cloneOf(){
 		Task newTask;
 		try{
 			newTask = (Task) this.clone();
@@ -81,6 +81,33 @@ public class Task implements Cloneable {
 			
 		}
 		return newTask;
+	}
+	
+	public void editWith(Task Other){
+		if(Other.get_task() != SYMBOL_NULL){
+			this.set_task(Other.get_task());
+		}
+
+		if(Other.get_startTime() != SYMBOL_NULL){
+			this.set_startTime(Other.get_startTime());
+		}
+		
+		if(Other.get_startDate() != SYMBOL_NULL){
+			this.set_startDate(Other.get_startDate());
+		}
+		
+		if(Other.get_endTime() != SYMBOL_NULL){
+			this.set_endTime(Other.get_endTime());
+		}
+		
+		if(Other.get_endDate() != SYMBOL_NULL){
+			this.set_endDate(Other.get_endDate());
+		}
+		if(Other.get_completionState()){
+			this.set_Complete();
+		} else {
+			this.set_Incomplete();
+		}
 	}
 	
 	public Object clone() throws CloneNotSupportedException {

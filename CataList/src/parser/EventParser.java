@@ -1,5 +1,7 @@
 package parser;
 
+import org.joda.time.format.DateTimeFormat;
+
 public class EventParser {
 	private static final String SYMBOL_WHITESPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
@@ -37,19 +39,28 @@ public class EventParser {
 			if(isNotDate(inputArray[i]) && isNotTime(inputArray[i])){
 				extractedEvent += inputArray[i];
 				extractedEvent += SYMBOL_WHITESPACE;
-			} else {
-				i++;
-			}
+			} 
 		}
 		return extractedEvent;
 	}
 	
 	private static boolean isNotDate(String testString){
 		boolean noDate = true;
-		for(String eachFlag : KeywordConstraints.KW_DATE_FLAG){
-			if(testString.equalsIgnoreCase(eachFlag)){
-				noDate = false;
-				return noDate;
+		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITH_YEAR){
+			try{
+				DateTimeFormat.forPattern(eachKeyword).parseLocalTime(testString);
+				return false;
+			} catch (IllegalArgumentException e){
+			
+			}
+		}
+		
+		for(String eachKeyword : KeywordConstraints.KW_FORMAT_DATE_WITHOUT_YEAR){
+			try{
+				DateTimeFormat.forPattern(eachKeyword).parseLocalTime(testString);
+				return false;
+			} catch (IllegalArgumentException e){
+			
 			}
 		}
 		return noDate;
@@ -57,10 +68,12 @@ public class EventParser {
 	
 	private static boolean isNotTime(String testString){
 		boolean noTime = true;
-		for(String eachFlag : KeywordConstraints.KW_TIME_FLAG){
-			if(testString.equalsIgnoreCase(eachFlag)){
-				noTime = false;
-				return noTime;
+		for(String eachKeyword : KeywordConstraints.KW_FORMAT_TIME){
+			try{
+				DateTimeFormat.forPattern(eachKeyword).parseLocalTime(testString);
+				return false;
+			} catch (IllegalArgumentException e){
+			
 			}
 		}
 		return noTime;

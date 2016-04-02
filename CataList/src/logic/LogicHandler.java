@@ -27,17 +27,6 @@ public class LogicHandler {
 		} else {
 			newTask = createTaskWithDateTime(userInputArray, dateTimeArgs);
 		}
-		/*
-		 if(numberOfFields == INPUT_LENGTH_NODATETIME){
-			newTask = createTaskNoDateTime(userInputArray);
-		} else if ( numberOfFields == INPUT_LENGTH_WITH_DATE_NO_TIME){
-			newTask = createTaskWithDateNoTime(userInputArray);
-		} else if ( numberOfFields == INPUT_LENGTH_WITH_DATE_TIME){
-			newTask = createTaskWithDateTime(userInputArray);
-		} else {
-			newTask = createTaskWithParserError();
-		}
-		*/
 		updateTaskWithIndex(newTask);
 		return newTask;
 	}

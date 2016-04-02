@@ -17,7 +17,7 @@ public class EventParserTest {
 	
 	@Test
 	public void parseEventWithDateNoTime(){
-		String userInput = "add Steal ramzes666's keyboard -d 23-march";
+		String userInput = "add Steal ramzes666's keyboard 23-march";
 		String testResult = EventParser.parseEvent(userInput);
 		String expectedResult = "Steal ramzes666's keyboard";
 		
@@ -27,7 +27,7 @@ public class EventParserTest {
 	
 	@Test
 	public void parseEventWithDateWithTime(){
-		String userInput = "add Steal ramzes666's keyboard -d 22-march -t 322pm";
+		String userInput = "add Steal ramzes666's keyboard 22-march 2pm";
 		String testResult = EventParser.parseEvent(userInput);
 		String expectedResult = "Steal ramzes666's keyboard";
 		
@@ -37,7 +37,7 @@ public class EventParserTest {
 	
 	@Test
 	public void parseEventWithDateWithTimeReOrganized(){
-		String userInput = "add Steal -d 22-march ramzes666's keyboard -t 322pm";
+		String userInput = "add Steal 22-march ramzes666's keyboard 2pm";
 		String testResult = EventParser.parseEvent(userInput);
 		String expectedResult = "Steal ramzes666's keyboard";
 		
@@ -47,7 +47,7 @@ public class EventParserTest {
 	
 	@Test
 	public void parseEventWithDateWith2Time(){
-		String userInput = "add Steal -t 22-march ramzes666's keyboard -t 322pm";
+		String userInput = "add Steal 22-march ramzes666's keyboard 2pm";
 		String testResult = EventParser.parseEvent(userInput);
 		String expectedResult = "Steal ramzes666's keyboard";
 		
