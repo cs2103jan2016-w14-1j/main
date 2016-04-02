@@ -25,7 +25,8 @@ public class Task implements Cloneable {
 	private static final int DATEINDEX = 0;
 	private static final int TIMEINDEX = 1;
 	private static final int HAVESTARTONLY = 1;
-	
+	private static final int HAVESTARTANDEND = 2;
+
 	public Task (boolean isChanged, String userInput, String cmd
 				, String successMsg,String failMsg){
 		set_changeDataFlag(isChanged);
@@ -278,25 +279,22 @@ public class Task implements Cloneable {
 	}
 	
 	public void setDateTimeForTask(ArrayList<ArrayList<String>> dateTimeArgs){
-		int parameterSize = dateTimeArgs.size();
 		ArrayList<String> dateArgs = dateTimeArgs.get(DATEINDEX);
+		ArrayList<String> timeArgs = dateTimeArgs.get(TIMEINDEX);
 
 		if(dateArgs.size() == HAVESTARTONLY){
 			this.set_startDate(dateArgs.get(STARTINDEX));
-		} else {
+		} else if (dateArgs.size() == HAVESTARTANDEND){
 			this.set_startDate(dateArgs.get(STARTINDEX));
 			this.set_endDate(dateArgs.get(ENDINDEX));	
 		}
-		if(parameterSize == HAVEDATEANDTIME){
-			ArrayList<String> timeArgs = dateTimeArgs.get(TIMEINDEX);
-			if(timeArgs.size() == HAVESTARTONLY){
-				this.set_startTime(timeArgs.get(STARTINDEX));
-			} else {
-				this.set_startTime(timeArgs.get(STARTINDEX));
-				this.set_endTime(timeArgs.get(ENDINDEX));	
-			}
-		} 
+		
+		if(timeArgs.size() == HAVESTARTONLY){
+			this.set_startTime(timeArgs.get(STARTINDEX));
+		} else if (timeArgs.size() == HAVESTARTANDEND){
+			this.set_startTime(timeArgs.get(STARTINDEX));
+			this.set_endTime(timeArgs.get(ENDINDEX));	
+			System.out.println(timeArgs.get(ENDINDEX));
+		}
 	}
-	
-	
 }

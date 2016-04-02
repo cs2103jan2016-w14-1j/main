@@ -71,13 +71,14 @@ public class DateTimeParser {
 			startDate = parseForDate(splitInput[i]);
 			if(!startDate.equalsIgnoreCase(SYMBOL_EMPTY)){
 				results.add(startDate);
+				startIndex = i;
 				break;
 			}
 		}
 		
-		if(startIndex != 0){
+		if(startIndex != 0 && startIndex < length){
 			String endDate;
-			for(int j = startIndex ; j < length ; j++){
+			for(int j = startIndex + 1 ; j < length ; j++){
 				endDate = parseForDate(splitInput[j]);
 				if(!endDate.equalsIgnoreCase(SYMBOL_EMPTY)){
 					results.add(endDate);
@@ -96,24 +97,26 @@ public class DateTimeParser {
 		ArrayList<String> results = new ArrayList<String>();
 		
 		for(int i = 0 ; i < length ; i++){
+			System.out.println("finding start: " + splitInput[i]);
 			startTime = parseForTime(splitInput[i]);
 			if(!startTime.equalsIgnoreCase(SYMBOL_EMPTY)){
 				results.add(startTime);
+				startIndex = i;
 				break;
 			}
 		}
 	
-		if(startIndex != 0){
+		if(startIndex != 0 && startIndex < length){
 			String endTime;
-			for(int j = startIndex ; j < length ; j++){
-				endTime = parseForDate(splitInput[j]);
+			for(int j = startIndex + 1 ; j < length ; j++){
+				endTime = parseForTime(splitInput[j]);
 				if(!endTime.equalsIgnoreCase(SYMBOL_EMPTY)){
 					results.add(endTime);
+					System.out.println("xxxx" + endTime);
 					break;
 				}
 			}
 		}
-		
 		return results;
 	}
 	

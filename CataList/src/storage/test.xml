@@ -2,58 +2,16 @@
 <TaskList>
   <Task ID="1" State="Incomplete">
     <Event>hello</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="2" State="Incomplete">
-    <Event>hello</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="3" State="Incomplete">
-    <Event>say hi</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="4" State="Incomplete">
-    <Event>hello</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="5" State="Incomplete">
-    <Event>hello</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="6" State="Incomplete">
-    <Event>hello</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="7" State="Incomplete">
-    <Event>heheheh 10 march</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="8" State="Incomplete">
-    <Event>testest</Event>
     <StartTime>1500</StartTime>
     <StartDate>10/03/16</StartDate>
-    <EndTime ></EndTime>
-    <EndDate />
+    <EndTime>1400</EndTime>
+    <EndDate>11/03/16</EndDate>
+  </Task>
+  <Task ID="2" State="Incomplete">
+    <Event>hello why why why want to fight</Event>
+    <StartTime>1500</StartTime>
+    <StartDate>10/03/16</StartDate>
+    <EndTime>1400</EndTime>
+    <EndDate>11/03/16</EndDate>
   </Task>
 </TaskList>
