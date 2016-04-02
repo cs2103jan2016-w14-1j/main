@@ -96,10 +96,17 @@ public class LogicHandler {
 				return new MarkComplete(userInputEvent);
 			case "markincomplete" :
 				return new MarkIncomplete(userInputEvent);
+			case "help" :
+				return new HelpTask(userInputEvent);
+			case "tutorial" :
+				return new TutorialTask(userInputEvent);
+			case "calendar" :
+				return new CalendarTask(userInputEvent);
+			case "exit" :
+				return new ExitTask(userInputEvent);
 			case "invalid" :
 				return new InvalidTask(userInputEvent);
-			case "help":
-				return new HelpTask(userInputEvent);
+			
 			default: 
 				return createTaskWithParserError();
 		}

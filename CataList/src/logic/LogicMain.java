@@ -121,6 +121,11 @@ public class LogicMain {
 				return doMarkComplete(requestedTask);
 			case "markincomplete" :
 				return doMarkIncomplete(requestedTask);
+			case "help" :
+			case "tutorial" :
+			case "calendar" :
+			case "exit" :
+				return opForUI(requestedTask);
 			case "invalid" :
 				return doInvalid(requestedTask);
 			default: 
@@ -329,4 +334,8 @@ public class LogicMain {
 		return feedback;
 	}
 	
+	private String opForUI(Task taskToOp){
+		String feedBack = taskToOp.get_messageToUserSuccess();
+		return feedBack;
+	}
 }
