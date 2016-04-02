@@ -22,22 +22,30 @@ public class StorageReader {
 			System.getProperty("user.dir") + 
             "/src/storage/test.xml";
 	
-	private static final String ELEMENT_TIME = "Time";
-	private static final String ELEMENT_DATE = "Date";
+	private static final String ELEMENT_START_TIME = "StartTime";
+	private static final String ELEMENT_END_TIME = "EndTime";
+	private static final String ELEMENT_START_DATE = "StartDate";
+	private static final String ELEMENT_END_DATE = "EndDate";
 	private static final String ELEMENT_EVENT = "Event";
 	private static final String ATTRIBUTE_NUM = "ID";
 	private static final String ATTRIBUTE_COMPLETE = "Complete";
 	private static final String ATTRIBUTE_INCOMPLETE = "Incomplete";
 	private static final String ATTRIBUTE_STATE = "State";
 	
+	private static ArrayList<ArrayList<String>> dateTimeArgs;
+	private static ArrayList<String> dateList;
+	private static ArrayList<String> timeList;
 	private static int completeIndex = 0;
 	private static int incompleteIndex = 0;
 	
 	public static ArrayList<Task> readFromStorage(String path) throws IOException, JDOMException{
 		
+		dateList = new ArrayList<String>();
+		timeList = new ArrayList<String>();
+		dateTimeArgs = new ArrayList<ArrayList<String>>();
+		
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(path);
-		//File xmlFile = new File(STORAGE_PATH);
 		
 		Document todoListDocument = (Document) builder.build(xmlFile);
 		Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
@@ -50,8 +58,24 @@ public class StorageReader {
 			
 			Element node = (Element) list.get(i);
 			
-			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
-					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));
+			/*Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
+					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));*/
+			String startDate = node.getChildText(ELEMENT_START_DATE);
+			String endDate = node.getChildText(ELEMENT_END_DATE);
+			String startTime = node.getChildText(ELEMENT_START_TIME);
+			String endTime = node.getChildText(ELEMENT_END_TIME);
+			
+			dateList.add(startDate);
+			dateList.add(endDate);
+			
+			timeList.add(startTime);
+			timeList.add(endTime);
+			
+			dateTimeArgs.add(dateList);
+			dateTimeArgs.add(timeList);
+
+			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", 
+									"success", "fail", dateTimeArgs);
 			String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
 			if(attribute.equals(ATTRIBUTE_COMPLETE)){
 				taskObj.set_Complete();

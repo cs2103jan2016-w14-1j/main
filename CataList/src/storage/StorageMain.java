@@ -24,8 +24,10 @@ import logic.Task;
 public class StorageMain {
 	
 	private static final String ELEMENT_TASK = "Task";
-	private static final String ELEMENT_TIME = "Time";
-	private static final String ELEMENT_DATE = "Date";
+	private static final String ELEMENT_START_TIME = "StartTime";
+	private static final String ELEMENT_END_TIME = "EndTime";
+	private static final String ELEMENT_START_DATE = "StartDate";
+	private static final String ELEMENT_END_DATE = "EndDate";
 	private static final String ELEMENT_EVENT = "Event";
 	private static final String ATTRIBUTE_COMPLETE = "Complete";
 	private static final String ATTRIBUTE_INCOMPLETE = "Incomplete";
@@ -61,13 +63,10 @@ public class StorageMain {
 			int index;
 			Task tempTask = null;
 			try {
-				//TaskFormatToStorage.clearFromStorage(tempTask);
 				clearFromStorage(tempTask);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (JDOMException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			try {
@@ -95,15 +94,19 @@ public class StorageMain {
 					task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
 					task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
 					task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
-					task.addContent(new Element(ELEMENT_DATE).setText(taskObj.get_time()));
-					task.addContent(new Element(ELEMENT_TIME).setText(taskObj.get_date()));
+					task.addContent(new Element(ELEMENT_START_TIME).setText(taskObj.get_startTime()));
+					task.addContent(new Element(ELEMENT_START_DATE).setText(taskObj.get_startDate()));
+					task.addContent(new Element(ELEMENT_END_TIME).setText(taskObj.get_endTime()));
+					task.addContent(new Element(ELEMENT_END_DATE).setText(taskObj.get_endDate()));
+					
+					
 					
 					toDoListDocument.getRootElement().addContent(task);
 					
 					try{
 						StorageWriter.writeToStorage(toDoListDocument, storagePath);
 					} catch(IOException e) {
-						taskObj.setMessageErrorDefault();
+						taskObj.get_messageToUserFail();
 						return false;
 					}
 				}
@@ -140,7 +143,7 @@ public class StorageMain {
 		try{
 			StorageWriter.writeToStorage(document, path);
 		} catch(IOException e) {
-			taskObj.setMessageErrorDefault();
+			taskObj.get_messageToUserFail();
 		}
 
 	}

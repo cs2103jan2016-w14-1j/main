@@ -16,6 +16,9 @@ public class StorageMainTest {
 	Task test1;
 	String expectedResults;
 	ArrayList<Task> masterList;
+	ArrayList<String> dateList;
+	ArrayList<String> timeList;
+	ArrayList<ArrayList<String>> dateTimeArgs;
 	
 	/**
 	 * This function checks whether testWrite writes into the file or not.
@@ -23,8 +26,34 @@ public class StorageMainTest {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
+	
 	public void testWrite() throws JDOMException, IOException {
-		test = new Task(true, "hello", "add", "", "1300", "5 March");
+		
+		dateList = new ArrayList<String>();
+		timeList = new ArrayList<String>();
+		dateTimeArgs = new ArrayList<ArrayList<String>>();
+		
+		String startDate = "5 March";
+		String endDate = "20 March";
+		String startTime = "1000";
+		String endTime = "2359";
+		
+		dateList.add(startDate);
+		dateList.add(endDate);
+		
+		timeList.add(startTime);
+		timeList.add(endTime);
+		
+		dateTimeArgs.add(dateList);
+		dateTimeArgs.add(timeList);
+		
+		test = new Task(true, "hello", "add", "successTest", "failTest", 
+											dateTimeArgs);
+		test.set_endDate(endDate);
+		test.set_endTime(endTime);
+		test.set_startDate(startDate);
+		test.set_startTime(startTime);
+		
 		masterList = new ArrayList<Task>();
 		masterList.add(test);
 		StorageMain storeMain = new StorageMain();
@@ -40,8 +69,34 @@ public class StorageMainTest {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
+	@Test
 	public void testRead() throws JDOMException, IOException {
-		test = new Task(true, "hello", "add", "", "1300", "5 March");
+		
+		dateList = new ArrayList<String>();
+		timeList = new ArrayList<String>();
+		dateTimeArgs = new ArrayList<ArrayList<String>>();
+		
+		String startDate = "5 March";
+		String endDate = "30 March";
+		String startTime = "1000";
+		String endTime = "2359";
+		
+		dateList.add(startDate);
+		dateList.add(endDate);
+		
+		timeList.add(startTime);
+		timeList.add(endTime);
+		
+		dateTimeArgs.add(dateList);
+		dateTimeArgs.add(timeList);
+		
+		test = new Task(true, "hello", "add", "successTest", "failTest", 
+											dateTimeArgs);		
+		test.set_endDate(endDate);
+		test.set_endTime(endTime);
+		test.set_startDate(startDate);
+		test.set_startTime(startTime);
+
 		masterList = new ArrayList<Task>();
 		masterList.add(test);
 		
