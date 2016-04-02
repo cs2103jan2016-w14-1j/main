@@ -55,14 +55,19 @@ public class AutoCompleteCommands {
 	private static void checkCommandMatch(TextField userInput, Text feedback, String autoCompleteCheck) {
 		for(int i = 0; i < autoCompleteList.size(); i++) {
 			if(autoCompleteCheck.equals(autoCompleteList.get(i).substring(START_INDEX, END_INDEX))) {
+				int currentCaretPosition = userInput.getCaretPosition();
 				String splitInput[] = userInput.getText().split(SPACE_REGEX);
 				checkConflictingCommands(userInput, i, splitInput);
 				
 				StringBuilder sb = new StringBuilder();
 				rebuildCorrectedUserInput(splitInput, sb);
 				
-				userInput.setText(sb.toString());
-				userInput.end();
+				userInput.setText(sb.toString().trim());
+				if(splitInput.length == 1) {
+					userInput.end();
+				} else {
+					userInput.positionCaret(currentCaretPosition);
+				}
 				
 				FeedbackGenerator.generateAutoCompleteFeedback(feedback, splitInput[START_INDEX]);
 				break;
@@ -81,10 +86,10 @@ public class AutoCompleteCommands {
 
 	private static void rebuildCorrectedUserInput(String[] splitInput, StringBuilder sb) {
 		for (String string : splitInput) {
+			sb.append(string);
 			if (sb.length() > 0) {
 				sb.append(SPACE_REGEX);
 			}
-			sb.append(string);
 		}
 	}
 

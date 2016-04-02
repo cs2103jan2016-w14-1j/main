@@ -31,7 +31,6 @@ public class FeedbackGenerator {
 	}
 
 	public static void generateAutoCompleteFeedback(Text feedback, String command) {
-		System.out.println(String.format(MAIN_FEEDBACK_AUTOCOMPLETE, command));
 		feedback.setText(String.format(MAIN_FEEDBACK_AUTOCOMPLETE, command));
 	}
 

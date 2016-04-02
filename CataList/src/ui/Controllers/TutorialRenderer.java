@@ -16,9 +16,9 @@ import javafx.util.Duration;
 
 public class TutorialRenderer {
 	private final int LIST_OFFSET_Y = 125;
-	private final int LIST_OFFSET_X = 100;
+	private final int LIST_OFFSET_X = 0;
 
-	private final int CL_OFFSET_X = 450;
+	private final int CL_OFFSET_X = 540;
 
 	private final String TUTORIAL_1_PATH = "/ui/View/Tutorial1.fxml";
 	private final String TUTORIAL_2_PATH = "/ui/View/Tutorial2.fxml";

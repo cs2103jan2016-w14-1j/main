@@ -23,9 +23,15 @@
 					<children>
 						<Text fx:id="tutorialMessage"
 							text="This is the command line. Type here 
-					&#10;to tell the application what to do.
-					&#10;
-					&#10;The feedback for each input is shown
+					&#10;to tell the application what to do." />
+						<ImageView layoutX="40.0" layoutY="44.0" fitHeight="200.0"
+							fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../Application/Stylesheets/Background/input.png" />
+							</image>
+						</ImageView>
+						<Text fx:id="tutorialMessage"
+							text="The feedback for each input is shown
 					&#10;below the command line." />
 						<ImageView layoutX="40.0" layoutY="44.0" fitHeight="200.0"
 							fitWidth="300.0" pickOnBounds="true" preserveRatio="true">

@@ -19,8 +19,10 @@ xmlns:fx="http://javafx.com/fxml/1">
 				<VBox spacing="10" fx:id="tutorialContainer">
 					<children>
 					<Text fx:id="tutorialMessage"
-							text="You can also try other commands
-					&#10;Type 'help' for more info or you can
+							text="You may also try other
+					&#10;commands as indicated below
+					&#10;the text field. Type 'help' 
+					&#10;for more info or you can
 					&#10;scroll between previous tutorials
 					&#10;with the LEFT and RIGHT keys." />
 						<Text fx:id="exitMessage" text="Press LEFT to go back a step." />

@@ -130,22 +130,22 @@
 }
 
 #tabPending .tab-label {
-	-fx-font-family: delicious-smallcaps;
+	-fx-font-family: delicious-bold;
 	-fx-text-fill: brown;    
 }
 
 #tabOverdue .tab-label, #tabCompleted .tab-label {
-	-fx-font-family: delicious-smallcaps;
+	-fx-font-family: delicious-bold;
 	-fx-text-fill: grey;    
 }
 
 #tabToday .tab-label, #tabTomorrow .tab-label {
-	-fx-font-family: delicious-smallcaps;
+	-fx-font-family: delicious-bold;
 	-fx-text-fill: red;    
 }
 
 #tabOthers .tab-label, #tabFloat .tab-label {
-	-fx-font-family: delicious-smallcaps;
+	-fx-font-family: delicious-bold;
 	-fx-text-fill: blue;    
 }
 
@@ -281,8 +281,8 @@
 }
 
 #tutorialContainer {
-	-fx-font-size: 18px;
-	-fx-font-family: infinity;
+	-fx-font-size: 17px;
+	-fx-font-family: delicious-roman;
 }
 
 #exitMessage {
@@ -291,6 +291,7 @@
 
 #tutorialSamples {
 	-fx-font-family: Monospaced;
+	-fx-font-size: 14px;
 	-fx-fill: blue;
 }
 
