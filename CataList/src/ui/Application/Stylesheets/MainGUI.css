@@ -151,7 +151,7 @@
 
 #tabTomorrow .tab-label {
 	-fx-font-family: delicious-bold;
-	-fx-text-fill: brickred;    
+	-fx-text-fill: firebrick;    
 }
 
 #tabOthers .tab-label {
@@ -225,7 +225,7 @@
 
 .list-cell #taskTomorrow {
 	 -fx-border-width: 0 0 0 5;
-    -fx-border-color: brickred;
+    -fx-border-color: firebrick;
 }
 
 .list-cell #taskFloat {   
