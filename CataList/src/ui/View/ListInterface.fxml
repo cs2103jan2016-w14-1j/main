@@ -7,14 +7,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="700.0" prefWidth="700.0" alignment="CENTER"
+<HBox prefHeight="700.0" prefWidth="800.0" alignment="CENTER"
 	xmlns:fx="http://javafx.com/fxml/1" fx:id="todoListContainer"
 	fx:controller="ui.Controllers.ListInterfaceController">
 	<children>
 		<TabPane fx:id="tabPane" prefWidth="800.0" prefHeight="700.0">
 			<tabs>
 				<Tab fx:id="tabPending">
-					<ListView fx:id="todoList" HBox.hgrow="SOMETIMES" prefHeight="500.0"
+					<ListView fx:id="todoList" HBox.hgrow="ALWAYS" prefHeight="500.0"
 						prefWidth="800.0" />
 				</Tab>
 			</tabs>

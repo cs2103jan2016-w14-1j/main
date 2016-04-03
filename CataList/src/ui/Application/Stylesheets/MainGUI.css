@@ -134,23 +134,38 @@
 	-fx-text-fill: brown;    
 }
 
-#tabOverdue .tab-label, #tabCompleted .tab-label {
+#tabOverdue .tab-label {
 	-fx-font-family: delicious-bold;
-	-fx-text-fill: grey;    
+	-fx-text-fill: purple;    
 }
 
-#tabToday .tab-label, #tabTomorrow .tab-label {
+#tabCompleted .tab-label {
+ 	-fx-font-family: delicious-bold;
+	-fx-text-fill: dimgrey;    
+}
+
+#tabToday .tab-label {
 	-fx-font-family: delicious-bold;
 	-fx-text-fill: red;    
 }
 
-#tabOthers .tab-label, #tabFloat .tab-label {
+#tabTomorrow .tab-label {
 	-fx-font-family: delicious-bold;
-	-fx-text-fill: blue;    
+	-fx-text-fill: brickred;    
+}
+
+#tabOthers .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: teal;    
+}
+
+#tabFloat .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: darkturquoise;  
 }
 
 .tab-pane .tab:selected {
-   -fx-background-color: rgb(255, 255, 255, 0.9);
+   -fx-background-color: rgb(255, 255, 255, 1);
    -fx-opacity: 1;
 }
 
@@ -200,17 +215,27 @@
 
 .list-cell #taskOverdue {   
     -fx-border-width: 0 0 0 5;
-    -fx-border-color: grey;
+    -fx-border-color: purple;
 }
 
-.list-cell #taskToday, .list-cell #taskTomorrow {   
+.list-cell #taskToday {   
     -fx-border-width: 0 0 0 5;
     -fx-border-color: red;
 }
 
-.list-cell #taskFloat, .list-cell #taskOthers {   
+.list-cell #taskTomorrow {
+	 -fx-border-width: 0 0 0 5;
+    -fx-border-color: brickred;
+}
+
+.list-cell #taskFloat {   
     -fx-border-width: 0 0 0 5;
-    -fx-border-color: blue;
+    -fx-border-color: darkturquoise;
+}
+
+.list-cell #taskOthers {
+	  -fx-border-width: 0 0 0 5;
+    -fx-border-color: teal;
 }
 
 .list-cell {
@@ -224,20 +249,32 @@
 }
 
 #classOverdue {
-	-fx-font-family: delicious-smallcaps;
-	-fx-text-fill: grey;    
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: purple;    
 	-fx-font-size: 16px;
 }
 
-#classToday, #classTomorrow {
-	-fx-font-family: delicious-smallcaps;
+#classToday {
+	-fx-font-family: "Aileron Bold";
 	-fx-text-fill: red;    
 	-fx-font-size: 16px;
 }
 
-#classOthers, #classFloat {
-	-fx-font-family: delicious-smallcaps;
-	-fx-text-fill: blue;    
+#classTomorrow {
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: firebrick;    
+	-fx-font-size: 16px;
+}
+
+#classOthers {
+	-fx-font-family:"Aileron Bold";
+	-fx-text-fill: teal;    
+	-fx-font-size: 16px;
+}
+
+#classFloat {
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: darkturquoise;    
 	-fx-font-size: 16px;
 }
 
