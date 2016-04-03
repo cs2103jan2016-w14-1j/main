@@ -111,7 +111,6 @@ public class DateTimeParser {
 				endTime = parseForTime(splitInput[j]);
 				if(!endTime.equalsIgnoreCase(SYMBOL_EMPTY)){
 					results.add(endTime);
-					System.out.println("xxxx" + endTime);
 					break;
 				}
 			}

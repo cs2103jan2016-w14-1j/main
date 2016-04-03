@@ -56,7 +56,7 @@ public class LogicMain {
 		if(!isSearchOrSort(newCreatedTask)){
 			operatingTasks = new ArrayList<Task>(masterListTasks);
 		}
-		//sortList();
+		sortList();
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
@@ -130,6 +130,9 @@ public class LogicMain {
 	
 	private ArrayList<Task> sortList(){
 		Collections.sort(masterListTasks);
+		for(Task debugEach : masterListTasks){
+			System.out.println(debugEach.get_startDate());
+		}
 		return masterListTasks;
 	}
 	/*

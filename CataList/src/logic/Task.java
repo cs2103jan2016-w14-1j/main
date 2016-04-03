@@ -50,6 +50,7 @@ public class Task implements Cloneable, Comparable<Task> {
 				, String successMsg, String failMsg
 				, ArrayList<ArrayList<String>> dateTimeArgs){
 		this(isChanged, userInput, cmd, successMsg, failMsg);
+		
 		setDateTimeForTask(dateTimeArgs);
 	}
 	
@@ -125,7 +126,7 @@ public class Task implements Cloneable, Comparable<Task> {
 	public int compareTo(Task Other) {
 		int result = 0;
 		if(isSameStartDate(Other) && isSameStartTime(Other)){
-			result = 0;
+			result = this.get_task().compareTo(Other.get_task());
 		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
 			result = 1;
 		} else if(this.get_startDate() == SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
@@ -133,11 +134,9 @@ public class Task implements Cloneable, Comparable<Task> {
 		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() != SYMBOL_NULL ){
 			result = isBeforeOrAfter(Other);
 		}
-		
-		
-		if(result == 0){
-			result = this.get_task().compareTo(Other.get_task());
-		}
+
+		System.out.println(this.get_task() + " comparing against " + Other.get_task());
+		System.out.println("Result = " + result);
 		return result;
 	}
 	
@@ -339,7 +338,6 @@ public class Task implements Cloneable, Comparable<Task> {
 		} else if (timeArgs.size() == HAVESTARTANDEND){
 			this.set_startTime(timeArgs.get(STARTINDEX));
 			this.set_endTime(timeArgs.get(ENDINDEX));	
-			System.out.println(timeArgs.get(ENDINDEX));
 		}
 	}
 

@@ -21,7 +21,7 @@ public class StorageReader {
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
             "/src/storage/test.xml";
-	
+	private static final String SYMBOL_EMPTY = "";
 	private static final String ELEMENT_START_TIME = "StartTime";
 	private static final String ELEMENT_END_TIME = "EndTime";
 	private static final String ELEMENT_START_DATE = "StartDate";
@@ -57,23 +57,35 @@ public class StorageReader {
 		for(int i=0; i<list.size(); i++) {
 			
 			Element node = (Element) list.get(i);
-			
+			//TODO:
+			dateList.clear();
+			timeList.clear();
+			dateTimeArgs.clear();
+			// END HOTFIX
 			/*Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
 					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));*/
 			String startDate = node.getChildText(ELEMENT_START_DATE);
 			String endDate = node.getChildText(ELEMENT_END_DATE);
 			String startTime = node.getChildText(ELEMENT_START_TIME);
 			String endTime = node.getChildText(ELEMENT_END_TIME);
+			//TODO
+			if(startDate != SYMBOL_EMPTY){
+				dateList.add(startDate);
+				if(endDate != SYMBOL_EMPTY){
+					dateList.add(endDate);
+				}
+			}
 			
-			dateList.add(startDate);
-			dateList.add(endDate);
-			
-			timeList.add(startTime);
-			timeList.add(endTime);
-			
+			if(startTime != SYMBOL_EMPTY){
+				timeList.add(startTime);
+				if(startTime != SYMBOL_EMPTY){
+					timeList.add(endTime);
+				}
+			}
+			//END HOTFIX
 			dateTimeArgs.add(dateList);
 			dateTimeArgs.add(timeList);
-
+			System.out.println("Adding startDate: " + startDate);
 			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", 
 									"success", "fail", dateTimeArgs);
 			String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
@@ -83,10 +95,8 @@ public class StorageReader {
 				taskObj.set_Incomplete();
 			}
 			taskObj.set_index(i+1);
-			listOfTask.add(taskObj);
-			
+			listOfTask.add(taskObj);			
 		}
-		
 		return listOfTask;
 	}
 }
