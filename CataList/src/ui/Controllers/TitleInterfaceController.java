@@ -31,6 +31,6 @@ public class TitleInterfaceController extends QuoteGenerator{
 				ft.setToValue(1.0);
 				ft.play();
 			}
-		}, 0, 60000);
+		}, 0, 120000);
 	}
 }
