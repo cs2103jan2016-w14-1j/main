@@ -10,10 +10,10 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTest(){
-		String userInput = "add hihi 3pm";
+		String userInput = "add hihi 17:30";
 		ArrayList<String> testResults = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResults = new ArrayList<String>();
-		expectedResults.add("1500");
+		expectedResults.add("5.30PM");
 		System.out.println(expectedResults.toString());
 		System.out.println(testResults.toString());
 		assertEquals(expectedResults, testResults);
@@ -172,7 +172,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -189,7 +189,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -206,7 +206,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0900");
+		expectedResultsTime.add("9.00AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -223,7 +223,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -234,13 +234,13 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTestWithYearWithTimeFormatAPMDot(){
-		String userInput = "add ShangHai Major Failure  22-March  09.30am";
+		String userInput = "add ShangHai Major Failure  22-March  09.30AM";
 		ArrayList<String> testResultsDate = DateTimeParser.parseDateTime(userInput).get(0);
 		ArrayList<String> expectedResultsDate = new ArrayList<String>();
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -251,13 +251,13 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTestWithYearWithTimeFormatAPMNothing(){
-		String userInput = "add ShangHai Major Failure  22-March  0930am";
+		String userInput = "add ShangHai Major Failure  22-March  9.30AM";
 		ArrayList<String> testResultsDate = DateTimeParser.parseDateTime(userInput).get(0);
 		ArrayList<String> expectedResultsDate = new ArrayList<String>();
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -275,7 +275,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -293,7 +293,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -311,7 +311,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -323,13 +323,13 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTestWithYearWithTimeFormatSwapped(){
-		String userInput = "add ShangHai Major Failure  0930  22-march";
+		String userInput = "add ShangHai Major Failure  9.30AM  22-march";
 		ArrayList<String> testResultsDate = DateTimeParser.parseDateTime(userInput).get(0);
 		ArrayList<String> expectedResultsDate = new ArrayList<String>();
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -341,13 +341,13 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTestWithYearWithTimeFormatReorganized(){
-		String userInput = "add  0930 ShangHai  22-march Major Failure";
+		String userInput = "add  9.30AM ShangHai  22-march Major Failure";
 		ArrayList<String> testResultsDate = DateTimeParser.parseDateTime(userInput).get(0);
 		ArrayList<String> expectedResultsDate = new ArrayList<String>();
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -365,7 +365,7 @@ public class DateTimeParserTest {
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());
@@ -376,13 +376,13 @@ public class DateTimeParserTest {
 	
 	@Test
 	public void parseDateTimeTestWithYearWithTimeFormatDateUnacceptable(){
-		String userInput = "add ShangHai Major Failure  334-yule  0930";
+		String userInput = "add ShangHai Major Failure  334-yule  9.30AM";
 		ArrayList<String> testResultsDate = DateTimeParser.parseDateTime(userInput).get(0);
 		ArrayList<String> expectedResultsDate = new ArrayList<String>();
 		ArrayList<String> testResultsTime = DateTimeParser.parseDateTime(userInput).get(1);
 		ArrayList<String> expectedResultsTime = new ArrayList<String>();
 		expectedResultsDate.add("22/03/16");
-		expectedResultsTime.add("0930");
+		expectedResultsTime.add("9.30AM");
 		System.out.println(expectedResultsDate.toString());
 		System.out.println(testResultsDate.toString());
 		System.out.println(expectedResultsTime.toString());

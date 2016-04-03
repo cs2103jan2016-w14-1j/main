@@ -20,7 +20,7 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_REDO = { "redo", "/r", "-r" };
 	//UI SPECIFIC KW
 	protected static final String[] KW_TASK_EXIT = { "exit", "quit", "-x", "/x"};
-	protected static final String[] KW_TASK_HELP = { "-help", "help", "-h", "man"};
+	protected static final String[] KW_TASK_HELP = { "help", "-help", "-h", "man"};
 	protected static final String[] KW_TASK_CALENDAR = { "calendar", "cal", "-cal", "/cal"};
 	protected static final String[] KW_TASK_TUTORIAL = { "tutorial", "tut", "walkthrough", "/tut"};
 	
@@ -45,13 +45,12 @@ public class KeywordConstraints {
 																, "ddMMMM"
 																, "dd-MMMM"};
 
-	protected static final String[] KW_FORMAT_TIME = { "HHmm"
-														, "HH:mm"
+	protected static final String[] KW_FORMAT_TIME = { "HH:mm"
 														, "HH.mm"
 														, "hha"
 														, "hh:mma"
 														, "hh.mma"
 														, "hhmma" };
 	protected static final String KW_FORMAT_DATE_STORAGE = "dd/MM/yy";
-	protected static final String KW_FORMAT_TIME_STORAGE = "HHmm";
+	protected static final String KW_FORMAT_TIME_STORAGE = "h.mma";
 }

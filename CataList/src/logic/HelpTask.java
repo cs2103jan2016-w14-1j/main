@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class HelpTask extends Task{
 	private static final String MESSAGE_HELP_SUCCESS = "Displaying Help";
 	private static final String MESSAGE_HELP_FAILURE = "Unable to display Help";
-	private static final String COMMAND_TYPE = "add";
+	private static final String COMMAND_TYPE = "help";
 	
 	private static final boolean IS_MUTATOR = false;
 	

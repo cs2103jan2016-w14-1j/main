@@ -97,7 +97,6 @@ public class DateTimeParser {
 		ArrayList<String> results = new ArrayList<String>();
 		
 		for(int i = 0 ; i < length ; i++){
-			System.out.println("finding start: " + splitInput[i]);
 			startTime = parseForTime(splitInput[i]);
 			if(!startTime.equalsIgnoreCase(SYMBOL_EMPTY)){
 				results.add(startTime);

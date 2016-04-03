@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import parser.ParserMain;
 import storage.StorageMain;
@@ -50,44 +51,26 @@ public class LogicMain {
 			state.add(addToState);
 			pointingAt++;
 		}
+		
 		regenerateSubListsFromMasterList();
 		if(!isSearchOrSort(newCreatedTask)){
-			//the operating tasks should become the masterList
 			operatingTasks = new ArrayList<Task>(masterListTasks);
 		}
-		//debugging
-		for(ArrayList<Task> eachList : state){
-			System.out.println(eachList);
-			System.out.println(" >>>> ------ <<<<");
-			for(Task eachTask : eachList){
-				System.out.println(eachTask.get_startDate());
-				System.out.println(eachTask.get_startTime());
-				System.out.println(eachTask.get_endDate());
-				System.out.println(eachTask.get_endTime());
-				
-				System.out.println(eachTask.get_completionState());
-			}
-		}
-		//
+		//sortList();
 		storageSystem.storageWrite(masterListTasks);
-		//figure out a better method for sorting and searching
 		return feedbackToUI;
 	}
 	
-	//method for UI to get that shit.
 	public ArrayList<Task> getOperatingTasksForUI(){
 		return operatingTasks;
 	}
 	
 	public ArrayList<Task> getCompleteTasksForUI(){
-		//editted to work for UI?
-		//operatingTasks = new ArrayList<Task>(completeTasks);
+
 		return completeTasks;
 	}
 	
 	public ArrayList<Task> getIncompleteTasksForUI(){
-		//editted to work for UI?
-		//operatingTasks = new ArrayList<Task>(incompleteTasks);
 		return incompleteTasks;
 	}
 	
@@ -144,6 +127,11 @@ public class LogicMain {
 			}
 		}
 	}
+	
+	private ArrayList<Task> sortList(){
+		Collections.sort(masterListTasks);
+		return masterListTasks;
+	}
 	/*
 	private void saveBackToOriginalList(){
 		if(operatingOn == MASTER_LIST_INDEX){
@@ -164,7 +152,6 @@ public class LogicMain {
 			result = true;
 		} 
 		return result;
-		
 	}
 	
 	private String doAdd(Task taskToOp){
@@ -237,7 +224,7 @@ public class LogicMain {
 					masterListTasks.set(i, cloneTask);
 				}
 			}
-			operatingTasks.set(operateIndex -1, cloneTask);	
+			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);	
 		} catch (IndexOutOfBoundsException e){
 			feedBack = taskToOp.get_messageToUserFail();
 		}
@@ -290,7 +277,7 @@ public class LogicMain {
 		try{
 			Task operateOn = operatingTasks.get(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			Task cloneTask = (Task) operateOn.cloneOf();
-			cloneTask.editWith(taskToOp);
+			cloneTask.set_Complete();
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){
@@ -312,7 +299,7 @@ public class LogicMain {
 		try{
 			Task operateOn = operatingTasks.get(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			Task cloneTask = (Task) operateOn.cloneOf();
-			cloneTask.editWith(taskToOp);
+			cloneTask.set_Incomplete();
 			
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(operateOn)){

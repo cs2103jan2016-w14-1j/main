@@ -124,25 +124,25 @@ public class CommandParser {
 	
 	private static boolean compareExitKeywords(String stringToTest){
 		boolean isExitKeyword = false;
-		isExitKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		isExitKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_EXIT);
 		return isExitKeyword;
 	}
 	
 	private static boolean compareHelpKeywords(String stringToTest){
 		boolean isHelpKeyword = false;
-		isHelpKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		isHelpKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_HELP);
 		return isHelpKeyword;
 	}
 	
 	private static boolean compareCalendarKeywords(String stringToTest){
 		boolean isCalKeyword = false;
-		isCalKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		isCalKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_CALENDAR);
 		return isCalKeyword;
 	}
 	
 	private static boolean compareTutorialKeywords(String stringToTest){
 		boolean isTutKeyword = false;
-		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_ADD);
+		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_TUTORIAL);
 		return isTutKeyword;
 	}
 }

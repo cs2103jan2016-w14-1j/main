@@ -2,7 +2,13 @@ package logic;
 
 import java.util.ArrayList;
 
-public class Task implements Cloneable {
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import parser.KeywordConstraints;
+
+public class Task implements Cloneable, Comparable<Task> {
 	private static final String SYMBOL_NULL = "";
 	
 	private boolean _changeDataFlag;
@@ -115,6 +121,26 @@ public class Task implements Cloneable {
 		return super.clone();
 	}
 	
+	@Override
+	public int compareTo(Task Other) {
+		int result = 0;
+		if(isSameStartDate(Other) && isSameStartTime(Other)){
+			result = 0;
+		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
+			result = 1;
+		} else if(this.get_startDate() == SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
+			result = -1;
+		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() != SYMBOL_NULL ){
+			result = isBeforeOrAfter(Other);
+		}
+		
+		
+		if(result == 0){
+			result = this.get_task().compareTo(Other.get_task());
+		}
+		return result;
+	}
+	
 	public boolean isEqualCmd(Task other){
 		return (other.get_cmd() == this._cmd);
 	}
@@ -171,15 +197,34 @@ public class Task implements Cloneable {
 	private boolean isSameCompletionState(Task other){
 		boolean otherState = other.get_completionState();
 		boolean thisState = this.get_completionState();
-		return thisState==otherState;
+		return thisState == otherState;
 	}
+	
+	private int isBeforeOrAfter(Task Other){
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yy");
+		DateTime thisDate = formatter.parseDateTime(this.get_startDate());
+		DateTime otherDate = formatter.parseDateTime(Other.get_startDate());
+		int result = 0;
+		result = thisDate.compareTo(otherDate);
+		
+		if(result == 0){
+			if(this.get_startTime() != SYMBOL_NULL && Other.get_startTime() != SYMBOL_NULL){
+				DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("HHmm");
+				DateTime thisTime = timeFormatter.parseDateTime(this.get_startTime());
+				DateTime otherTime = timeFormatter.parseDateTime(Other.get_startTime());
+				result = thisTime.compareTo(otherTime);
+			}
+		}
+		
+		return result;
+	}
+	
 	private boolean isSameOperand(Task other){
 		int otherIndex = other.get_index();
 		int thisIndex = this.get_index();
 		return thisIndex == otherIndex;
 	}
-	
-	
+		
 	/************GETTERS***********/
 	public boolean is_changed() {
 		return _changeDataFlag;
@@ -297,4 +342,5 @@ public class Task implements Cloneable {
 			System.out.println(timeArgs.get(ENDINDEX));
 		}
 	}
+
 }

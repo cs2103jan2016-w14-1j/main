@@ -2,24 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-04-03T03:31:42</date>
-  <millis>1459625502287</millis>
+  <date>2016-04-03T14:57:07</date>
+  <millis>1459666627700</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController</class>
   <method>loopTaskList</method>
-  <thread>13</thread>
+  <thread>14</thread>
   <message>operatingTaskFromLogic empty? false</message>
 </record>
-<record>
-  <date>2016-04-03T03:32:06</date>
-  <millis>1459625526255</millis>
-  <sequence>1</sequence>
-  <logger>CataListLog</logger>
-  <level>INFO</level>
-  <class>ui.Controllers.ListInterfaceController</class>
-  <method>loopTaskList</method>
-  <thread>13</thread>
-  <message>operatingTaskFromLogic empty? false</message>
-</record>
+</log>
