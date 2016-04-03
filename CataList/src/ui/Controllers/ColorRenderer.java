@@ -4,17 +4,17 @@ import javafx.scene.Node;
 
 public class ColorRenderer {
 	private static final String INVALID_COLOR = "-fx-background: #FFFFFF"; 	
-	private static final String ORANGE_COLOR = "-fx-background-color: #FF9900"; 		
-	private static final String MAROON_COLOR = "-fx-background: #C13100";
-	private static final String BROWN_COLOR = "-fx-background: #CC6600";
-	private static final String CORAL_COLOR = "-fx-background: #FF7F50";
-	private static final String DARKTURQOISE_COLOR = "-fx-background: #00CED1";
-	private static final String DARKCYAN_COLOR = "-fx-background: #008B8B";
-	private static final String PALEBLUE_COLOR = "-fx-background: #99CCCC";
+	private static final String ORANGE_COLOR = "-fx-background-color: linear-gradient(orangered, orange)"; 		
+	private static final String MAROON_COLOR = "-fx-background-color: linear-gradient(maroon, goldenrod)";
+	private static final String BROWN_COLOR = "-fx-background-color: linear-gradient(sienna, burlywood)";
+	private static final String CORAL_COLOR = "-fx-background-color: linear-gradient(coral, plum)";
+	private static final String TURQOISE_COLOR = "-fx-background-color: linear-gradient(teal, turquoise)";
+	private static final String OLIVE_COLOR = "-fx-background-color: linear-gradient(darkolivegreen, mediumseagreen)";
+	private static final String ORCHID_COLOR = "-fx-background-color: linear-gradient(blueviolet, firebrick)";
 	
-	private static final int DARKCYAN_FLAG = -3;
-	private static final int DARKTURQOISE_FLAG = -2;
-	private static final int PALEBLUE_FLAG = -1;
+	private static final int OLIVE_FLAG = -3;
+	private static final int TURQOISE_FLAG = -2;
+	private static final int ORCHID_FLAG = -1;
 	private static final int ORANGE_FLAG = 0; 
 	private static final int CORAL_FLAG = 1;
 	private static final int MAROON_FLAG = 2;
@@ -48,14 +48,14 @@ public class ColorRenderer {
 
 	private void setBackgroundColor(Node node) {
 		switch(colorToggle) {
-		case DARKCYAN_FLAG:
-			node.setStyle(DARKCYAN_COLOR);
+		case OLIVE_FLAG:
+			node.setStyle(OLIVE_COLOR);
 			break;
-		case DARKTURQOISE_FLAG:
-			node.setStyle(DARKTURQOISE_COLOR);
+		case TURQOISE_FLAG:
+			node.setStyle(TURQOISE_COLOR);
 			break;
-		case PALEBLUE_FLAG:
-			node.setStyle(PALEBLUE_COLOR);
+		case ORCHID_FLAG:
+			node.setStyle(ORCHID_COLOR);
 			break;
 		case ORANGE_FLAG:
 			node.setStyle(ORANGE_COLOR);
