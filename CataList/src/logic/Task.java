@@ -27,12 +27,15 @@ public class Task implements Cloneable, Comparable<Task> {
 	private static final int STARTINDEX = 0;
 	private static final int ENDINDEX = 1;
 	private static final int HAVEDATEANDTIME = 2;
-
+	
 	private static final int DATEINDEX = 0;
 	private static final int TIMEINDEX = 1;
 	private static final int HAVESTARTONLY = 1;
 	private static final int HAVESTARTANDEND = 2;
 
+	private static final int MAX_VALUE = Integer.MAX_VALUE;
+	private static final int MIN_VALUE = Integer.MIN_VALUE;
+	
 	public Task (boolean isChanged, String userInput, String cmd
 				, String successMsg,String failMsg){
 		set_changeDataFlag(isChanged);
@@ -125,14 +128,17 @@ public class Task implements Cloneable, Comparable<Task> {
 	@Override
 	public int compareTo(Task Other) {
 		int result = 0;
-		if(isSameStartDate(Other) && isSameStartTime(Other)){
-			result = this.get_task().compareTo(Other.get_task());
-		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
-			result = 1;
-		} else if(this.get_startDate() == SYMBOL_NULL && Other.get_startDate() == SYMBOL_NULL){
+		String thisStart = this.get_startDate();
+		String otherStart = Other.get_startDate();
+		
+		if(thisStart != SYMBOL_NULL && otherStart == SYMBOL_NULL){
 			result = -1;
-		} else if(this.get_startDate() != SYMBOL_NULL && Other.get_startDate() != SYMBOL_NULL ){
+		} else if(thisStart == SYMBOL_NULL && otherStart != SYMBOL_NULL){
+			result = 1;
+		} else if(thisStart != SYMBOL_NULL && otherStart != SYMBOL_NULL ){
 			result = isBeforeOrAfter(Other);
+		} else {
+			result = this.get_task().compareTo(Other.get_task());
 		}
 
 		System.out.println(this.get_task() + " comparing against " + Other.get_task());
@@ -214,7 +220,6 @@ public class Task implements Cloneable, Comparable<Task> {
 				result = thisTime.compareTo(otherTime);
 			}
 		}
-		
 		return result;
 	}
 	

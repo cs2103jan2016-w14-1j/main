@@ -25,17 +25,9 @@ public class LogicMain {
 	StorageMain storageSystem;
 	
 	public LogicMain(){
-		inputParser = new ParserMain();
-		storageSystem = new StorageMain();
-		
-		masterListTasks = new ArrayList<Task>();
-		completeTasks = new ArrayList<Task>();
-		incompleteTasks = new ArrayList<Task>();
-		state = new ArrayList<ArrayList<Task>>();
-		
-		masterListTasks = new ArrayList<Task>(storageSystem.loadTask());
+		init();
 		regenerateSubListsFromMasterList();
-		operatingTasks = new ArrayList<Task>(masterListTasks);
+		updateOperating();
 		state.add(new ArrayList<Task>(masterListTasks));
 		pointingAt = 0;
 	}
@@ -47,14 +39,17 @@ public class LogicMain {
 		String feedbackToUI = operateOnTask(newCreatedTask);
 
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
-			ArrayList<Task> addToState = new ArrayList<Task>(masterListTasks);
-			state.add(addToState);
-			pointingAt++;
+			updateState();
 		}
 		
 		regenerateSubListsFromMasterList();
+		
 		if(!isSearchOrSort(newCreatedTask)){
-			operatingTasks = new ArrayList<Task>(masterListTasks);
+			updateOperating();
+		}
+		
+		for(Task eachTask : masterListTasks){
+			System.out.println(eachTask.get_task());
 		}
 		sortList();
 		storageSystem.storageWrite(masterListTasks);
@@ -74,6 +69,18 @@ public class LogicMain {
 		return incompleteTasks;
 	}
 	
+	private void init(){
+		inputParser = new ParserMain();
+		storageSystem = new StorageMain();
+		
+		masterListTasks = new ArrayList<Task>();
+		completeTasks = new ArrayList<Task>();
+		incompleteTasks = new ArrayList<Task>();
+		state = new ArrayList<ArrayList<Task>>();
+		
+		masterListTasks = new ArrayList<Task>(storageSystem.loadTask());
+		
+	}
 	private boolean isSearchOrSort(Task taskInput){
 		boolean result = false;
 		if(taskInput.get_cmd().equalsIgnoreCase("search")){
@@ -114,6 +121,16 @@ public class LogicMain {
 			default: 
 				return "UNKNOWN OPERATION";
 		}
+	}
+	
+	private void updateState(){
+		ArrayList<Task> addToState = new ArrayList<Task>(masterListTasks);
+		state.add(addToState);
+		pointingAt++;
+	}
+	
+	private void updateOperating(){
+		operatingTasks = new ArrayList<Task>(masterListTasks);
 	}
 	
 	private void regenerateSubListsFromMasterList(){
@@ -179,6 +196,7 @@ public class LogicMain {
 					masterListTasks.remove(i);
 				}
 			}
+		
 			operatingTasks.remove(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e){
@@ -201,6 +219,7 @@ public class LogicMain {
 	private String doDisplay(Task taskToOp){
 		int listToDisplay = taskToOp.get_index();
 		String feedBack = taskToOp.get_messageToUserSuccess();		
+		
 		if(listToDisplay == COMPLETE_LIST_INDEX){
 			operatingTasks = new ArrayList<Task>(completeTasks);
 		} else if (listToDisplay == INCOMPLETE_LIST_INDEX){
@@ -217,21 +236,24 @@ public class LogicMain {
 	private String doEdit(Task taskToOp){
 		int operateIndex = taskToOp.get_index();
 		String feedBack;
+		
 		try{
-			//find and change inside masterList 
 			Task toEdit = operatingTasks.get(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			Task cloneTask = (Task) toEdit.cloneOf();
 			cloneTask.editWith(taskToOp);
+		
 			for(int i = 0 ; i < masterListTasks.size() ; i++){
 				if(masterListTasks.get(i).equals(toEdit)){
 					masterListTasks.set(i, cloneTask);
 				}
 			}
+			
 			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);	
+			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e){
 			feedBack = taskToOp.get_messageToUserFail();
 		}
-		feedBack = taskToOp.get_messageToUserSuccess();
+		
 		return feedBack;
 	}
 	
@@ -241,10 +263,11 @@ public class LogicMain {
 		try{
 			pointingAt--;
 			masterListTasks = new ArrayList<Task>(state.get(pointingAt));
+			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e){
 			feedBack = taskToOp.get_messageToUserFail();
 		}
-		feedBack = taskToOp.get_messageToUserSuccess();
+		
 		return feedBack;
 	}
 	
@@ -253,10 +276,11 @@ public class LogicMain {
 		try{
 			pointingAt++;
 			masterListTasks =  new ArrayList<Task>(state.get(pointingAt));
+			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e){
 			feedBack = taskToOp.get_messageToUserFail();
 		}
-		feedBack = taskToOp.get_messageToUserSuccess();
+		
 		return feedBack;
 	}
 	
@@ -270,6 +294,7 @@ public class LogicMain {
 				foundList.add(eachTask);
 			}
 		}
+		
 		operatingTasks = new ArrayList<Task>(foundList);
 		return taskToOp.get_messageToUserSuccess();
 	}
@@ -287,6 +312,7 @@ public class LogicMain {
 					masterListTasks.set(i, cloneTask);
 				}
 			}
+			
 			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {

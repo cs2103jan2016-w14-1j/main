@@ -2,6 +2,7 @@ package parser;
 
 public class IndexParser {
 
+	private static final String INVALID_INDEX_EXCEPTION = "Invalid index";
 	private static final int FIRST_WORD_INDEX = 1;
 	
 	public static int parseIndex(String userInputEvent){
@@ -12,7 +13,11 @@ public class IndexParser {
 	
 	private static String findIndexWord(String userInputEvent){
 		String[] userInputArray = userInputEvent.split(" ");
-		return userInputArray[FIRST_WORD_INDEX];
+		try{
+			return userInputArray[FIRST_WORD_INDEX];
+		} catch (IndexOutOfBoundsException e){
+			return INVALID_INDEX_EXCEPTION;
+		}
 	}
 	
 	private static int tryParse(String parseWord){
