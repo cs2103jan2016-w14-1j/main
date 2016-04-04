@@ -28,7 +28,6 @@ public class LogicHandler {
 			newTask = createTaskWithDateTime(userInputArray, dateTimeArgs);
 		}
 		updateTaskWithIndex(newTask);
-		System.out.println(newTask.get_date());
 		return newTask;
 	}
 	
@@ -143,6 +142,12 @@ public class LogicHandler {
 				return new InvalidTask(userInputEvent);
 			case "help":
 				return new HelpTask(userInputEvent);
+			case "tutorial" :
+				return new TutorialTask(userInputEvent);
+			case "calendar" :
+				return new CalendarTask(userInputEvent);
+			case "exit" :
+				return new ExitTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
