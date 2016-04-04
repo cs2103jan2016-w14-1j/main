@@ -15,16 +15,20 @@ public class HelpPageController {
     @FXML 
     private TableView<Help> helpList;
     
-    private static final String ID_HEADER = "ID";
     private static final String COMMAND_HEADER = "Command";
-    private static final String ID_VALUE = "helpId";
-    private static final String COMMAND_VALUE= "helpCommand";
+    private static final String COMMAND_FORMAT_HEADER = "Format";
     
-    private static int ARRAY_ID = 0;
-    private static int ARRAY_COMMAND = 1;
+    private static final String COMMAND_ID = "commandColumn";
+    private static final String FORMAT_ID = "formatColumn";
     
-    private static final int ID_COL_WIDTH = 200;
-    private static final int COMMAND_COL_WIDTH = 290;
+    private static final String COMMAND_VALUE = "helpId";
+    private static final String COMMAND_FORMAT_VALUE = "helpCommand";
+    
+    private static final int ARRAY_INDEX_COMMAND = 0;
+    private static final int ARRAY_INDEX_FORMAT = 1;
+    
+    private static final int COMMAND_COL_WIDTH = 200;
+    private static final int COMMAND_FORMAT_COL_WIDTH = 290;
     
             
     private final ObservableList<Help> table = 
@@ -34,22 +38,24 @@ public class HelpPageController {
  
     @SuppressWarnings("unchecked")
 	public void initialize() {
-        TableColumn<Help, String> idCol = createColumn(ID_HEADER, ID_VALUE, ID_COL_WIDTH);
         TableColumn<Help, String> commandCol = createColumn(COMMAND_HEADER, COMMAND_VALUE, COMMAND_COL_WIDTH);
+        TableColumn<Help, String> formatCol = createColumn(COMMAND_FORMAT_HEADER, COMMAND_FORMAT_VALUE, COMMAND_FORMAT_COL_WIDTH);
         
         helpList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        idCol.setStyle("-fx-alignment: TOP_RIGHT; -fx-text-fill: black");
+        commandCol.setId(COMMAND_ID);
+        formatCol.setId(FORMAT_ID);
+   //   idCol.setId("-fx-alignment: TOP_RIGHT; -fx-text-fill: black");
         
         readFromStorage();
         helpList.setItems(table);
-        helpList.getColumns().addAll(idCol, commandCol);
+        helpList.getColumns().addAll(commandCol, formatCol);
     }
 
     private void readFromStorage() {
         parsedStorage = HelpCommandStorageParser.parseHelpList(); 
         for (int i = 0; i < parsedStorage.size(); i++) {
-            table.add(new Help(parsedStorage.get(i).get(ARRAY_ID), parsedStorage.get(i).get(ARRAY_COMMAND)));
+            table.add(new Help(parsedStorage.get(i).get(ARRAY_INDEX_COMMAND), parsedStorage.get(i).get(ARRAY_INDEX_FORMAT)));
         }
         parsedStorage.clear();
     }

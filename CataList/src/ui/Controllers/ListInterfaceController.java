@@ -31,30 +31,49 @@ import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
+	private static final int TASK_TIME_WIDTH = 100;
+	private static final int TASK_DATE_WIDTH = 80;
+	private static final int TASK_NAME_WIDTH = 380;
+	private static final int TASK_INDEX_WIDTH = 50;
+	private static final int TASKROW_SPACING = 10;
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
 	private static final int INIT_SCROLL = 0;
-	
-	private static final String COMPLETED_TAB = "Completed";
-	private static final String INBOX_TAB = "All Tasks";
-	private static final String PENDING_TAB = "Pending";
-	
+
+	private static final String COMPLETED_TAB = "  Completed";
+	private static final String PENDING_TAB = "  To-Dos";
+	private static final String TODAY_TAB = "  Today";
+	private static final String TOMORROW_TAB = "  Tomorrow";
+	private static final String FLOAT_TAB = "  Tentative";
+	private static final String OTHERS_TAB = "  Upcoming";
+	private static final String OVERDUE_TAB = "  Overdue";
+
 	private static final String INDEX_ID = "taskIndex";
 	private static final String TASK_ID = "taskName";
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String COMPLETED_TASK_ID = "completedTaskName";
 	
+	private static final String PENDING_TAB_ID = "tabPending";
+	private static final String COMPLETED_TAB_ID = "tabCompleted";
+	private static final String TODAY_TAB_ID = "tabToday";
+	private static final String TOMORROW_TAB_ID = "tabTomorrow";
+	private static final String OTHERS_TAB_ID = "tabOthers";
+	private static final String FLOAT_TAB_ID = "tabFloat";
+	private static final String OVERDUE_TAB_ID = "tabOverdue";
+
 	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
 	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
 	private static final String EMPTY_LIST_ID = "emptyRow";
 	private static final String DUE = "Due by ";
 	private static final String NULL = "";
-	
+
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "HHmm";
 
+	private static final String TASK_INDEX_FORMAT = "  %1s.";
+	
 	private static final boolean OPEN_LIST = true;
 	private static final boolean CLOSE_LIST = false;
 
@@ -63,24 +82,37 @@ public class ListInterfaceController extends NotificationRenderer {
 	@FXML private ListView<HBox> todoList;
 	@FXML private HBox todoListContainer;
 	@FXML private TabPane tabPane;
-	@FXML private Tab tabInbox = new Tab(INBOX_TAB);
-	
-	private Tab tabComplete = new Tab(COMPLETED_TAB);
-	private Tab tabPending = new Tab(PENDING_TAB);
+	@FXML private Tab tabPending = new Tab(PENDING_TAB);
 
-	private static ObservableList<HBox> tasks =
-			FXCollections.observableArrayList();
-	private static ObservableList<HBox> completed =
-			FXCollections.observableArrayList();
-	private static ArrayList<Tab> tabs =
-			new ArrayList<Tab>();
+	private Tab tabComplete = new Tab(COMPLETED_TAB);
+	private Tab tabToday = new Tab(TODAY_TAB);
+	private Tab tabTomorrow = new Tab(TOMORROW_TAB);
+	private Tab tabOthers = new Tab(OTHERS_TAB);
+	private Tab tabFloat = new Tab(FLOAT_TAB);
+	private Tab tabOverdue = new Tab(OVERDUE_TAB);
+
+	private static ObservableList<HBox> pendingTasks = FXCollections.observableArrayList();
+	private static ObservableList<HBox> completedTasks = FXCollections.observableArrayList();
+	private static ArrayList<Tab> tabs = new ArrayList<Tab>();
 
 	private ArrayList<Task> operatingTasksFromLogic = new ArrayList<Task>();
 	private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
 	private ArrayList<Task> completedTasksFromLogic = new ArrayList<Task>();
-	
+
+	private static ObservableList<HBox> todayTasks =
+			FXCollections.observableArrayList();
+	private static ObservableList<HBox> tomorrowTasks =
+			FXCollections.observableArrayList();
+	private static ObservableList<HBox> otherTasks =
+			FXCollections.observableArrayList();
+	private static ObservableList<HBox> floatingTasks =
+			FXCollections.observableArrayList();
+	private static ObservableList<HBox> overdueTasks =
+			FXCollections.observableArrayList();
+
 	private int previousTasksSize;
 	private int previousCompletedSize;
+
 	private HBox scrollSelection = new HBox();
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
@@ -96,18 +128,31 @@ public class ListInterfaceController extends NotificationRenderer {
 		setTaskIntoViewIndex(INIT_SCROLL);
 	}
 
+	/**
+	 * Tab Functions
+	 * Controls ListInterface's tabs
+	 */
+	
 	private void initTabPane() {
-		tabs.add(tabInbox);
-		//tabs.add(tabPending);
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
 				if (newValue.getContent() == null) {
-					if(newValue.equals(tabInbox)) {
+					if(newValue.equals(tabPending)) {
 						displayPending();
+					} else if (newValue.equals(tabOverdue)) {
+						displayOverdue();
+					} else if (newValue.equals(tabToday)) {
+						displayToday();
+					} else if (newValue.equals(tabTomorrow)) {
+						displayTomorrow();
+					} else if (newValue.equals(tabOthers)) {
+						displayOthers();
+					} else if (newValue.equals(tabFloat)) {
+						displayFloat();
 					} else if (newValue.equals(tabComplete)) {
-						displayCompleted();
+						displayComplete();
 					}
 					newValue.setContent(todoList);
 					oldValue.setContent(null);
@@ -115,39 +160,216 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 		});
 	}
+	
+	private void operateTabs() {
+		tabs.clear();
+		
+		pendingTabHandler();
+		overdueTabHandler();
+		todayTabHandler();
+		tomorrowTabHandler();
+		othersTabHandler();
+		floatTabHandler();
+		completedTabHandler();
 
+		tabPane.getTabs().setAll(tabs);
+	}
+
+	private void floatTabHandler() {
+		if(!tabs.contains(tabFloat) && !floatingTasks.isEmpty()) {
+			tabFloat = new Tab(floatingTasks.size() + FLOAT_TAB);
+			tabFloat.setId(FLOAT_TAB_ID);
+			tabs.add(tabFloat);
+		} else if(tabs.contains(tabFloat) && floatingTasks.isEmpty()) {
+			tabs.remove(tabFloat);
+		}
+	}
+
+	private void othersTabHandler() {
+		if(!tabs.contains(tabOthers) && !otherTasks.isEmpty()) {
+			tabOthers = new Tab(otherTasks.size() + OTHERS_TAB);
+			tabOthers.setId(OTHERS_TAB_ID);
+			tabs.add(tabOthers);
+		} else if(tabs.contains(tabOthers) && otherTasks.isEmpty()) {
+			tabs.remove(tabOthers);
+		}
+	}
+
+	private void tomorrowTabHandler() {
+		if(!tabs.contains(tabTomorrow) && !tomorrowTasks.isEmpty()) {
+			tabTomorrow = new Tab(tomorrowTasks.size() + TOMORROW_TAB);
+			tabTomorrow.setId(TOMORROW_TAB_ID);
+			tabs.add(tabTomorrow);
+		} else if(tabs.contains(tabTomorrow) && tomorrowTasks.isEmpty()) {
+			tabs.remove(tabTomorrow);
+		}
+	}
+
+	private void todayTabHandler() {
+		if(!tabs.contains(tabToday) && !todayTasks.isEmpty()) {
+			tabToday = new Tab(todayTasks.size() + TODAY_TAB);
+			tabToday.setId(TODAY_TAB_ID);
+			tabs.add(tabToday);
+		} else if(tabs.contains(tabToday) && todayTasks.isEmpty()) {
+			tabs.remove(tabToday);
+		}
+	}
+
+	private void overdueTabHandler() {
+		if(!tabs.contains(tabOverdue) && !overdueTasks.isEmpty()) {
+			tabOverdue = new Tab(overdueTasks.size() + OVERDUE_TAB);
+			tabOverdue.setId(OVERDUE_TAB_ID);
+			tabs.add(tabOverdue);
+		} else if(tabs.contains(tabOverdue) && overdueTasks.isEmpty()) {
+			tabs.remove(tabOverdue);
+		}
+	}
+
+	private void completedTabHandler() {
+		if(!tabs.contains(tabComplete) && !completedTasksFromLogic.isEmpty()) {
+			tabComplete =  new Tab(completedTasksFromLogic.size() + COMPLETED_TAB);
+			tabComplete.setId(COMPLETED_TAB_ID);
+			tabs.add(tabComplete);
+		} else if(tabs.contains(tabComplete) && completedTasksFromLogic.isEmpty()){
+			tabs.remove(tabComplete);
+		}
+	}
+
+	private void pendingTabHandler() {
+		tabPending =  new Tab(operatingTasksFromLogic.size() + PENDING_TAB);
+		tabPending.setId(PENDING_TAB_ID);
+		tabs.add(tabPending);
+	}
+
+	/**
+	 * List Functions
+	 * Controls ListInterface's list by looping through the Logic everytime a command
+	 * is executed
+	 */
+	
 	public void loopTaskList() {
-		previousTasksSize = operatingTasksFromLogic.size();
-		previousCompletedSize = completedTasksFromLogic.size();
-		
-		tasks.clear();
-		completed.clear();
-		
-		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
-		completedTasksFromLogic = main.getCompletedTasksFromLogic();
-		pendingTasksFromLogic = main.getPendingTasksFromLogic();
+		//previousCompletedSize = completedTasksFromLogic.size();
 
-		log.info("operatingTaskFromLogic empty? " + operatingTasksFromLogic.isEmpty());
-		
+		pendingTasks.clear();
+		completedTasks.clear();
+
+		setOperatingTasksFromLogic();
+		setCompletedTasksFromLogic();
 		openToDoList();
 		displayTaskList();
 	}
 
-	private void loopCheckTasksForReminder() {
-		Timer checkTasks = new Timer(true);
-		checkTasks.schedule(new TimerTask() {
-			@Override
-			public void run() {  
-				Platform.runLater(new Runnable() {
-					public void run() {
-						checkTasksForReminder();
-					}
-				});
-
-			}
-		}, 0, 60000);
+	private void displayTaskList() {
+		formatPendingTaskToListCell(operatingTasksFromLogic);
+		formatCompletedTaskToListCell(completedTasksFromLogic);
+		setTaskIntoViewObject(scrollSelection);
+		operateTabs();
 	}
 
+	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
+		int index = 0;
+		for(Task taskObj: taskList) {
+			index++;
+			HBox taskRow = createTaskRow();
+			Label taskIndex = createTaskIndex(index);
+			Label taskName = createTaskName(taskObj);
+			Label taskTime = createTaskTime(taskObj);
+			Label taskDate = createTaskDate(taskObj); 
+			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
+
+			if(todoListContainer.getScaleX() == 0) {
+				animateToDoList(OPEN_LIST);
+			}
+
+			if(index == taskList.size() && taskList.size() != previousTasksSize) {
+				scrollSelection = taskRow;
+				previousTasksSize = operatingTasksFromLogic.size();
+			} 
+
+			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
+			taskFilter.sortTasksByClasses(taskObj, taskRow);
+		}	
+		setTasksForCategories();
+		taskFilter.addSortedClasses(pendingTasks);
+		setFeedbackForEmptyList(taskList);
+		todoList.setItems(pendingTasks);
+	}
+
+	private Label createTaskDate(Task taskObj) {
+		Label taskDate;
+		if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
+			taskDate = new Label(DUE + taskObj.get_date());
+		} else {
+			taskDate = new Label(taskObj.get_date());
+		}
+		return taskDate;
+	}
+
+	private Label createTaskTime(Task taskObj) {
+		Label taskTime;
+		if(taskObj.get_time().isEmpty()) {
+			taskTime = new Label(taskObj.get_time());
+		} else {
+			taskTime = new Label(DUE + taskObj.get_time());
+		}
+		return taskTime;
+	}
+
+	private Label createTaskName(Task taskObj) {
+		return new Label(taskObj.get_task());
+	}
+
+	private Label createTaskIndex(int index) {
+		return new Label(String.format(TASK_INDEX_FORMAT, index));
+	}
+
+	private HBox createTaskRow() {
+		return new HBox(TASKROW_SPACING);
+	}
+
+	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
+		int index = 0;
+		for(Task taskObj: taskList) {
+			index++;
+			HBox taskRow = createTaskRow();
+			Label taskIndex = createTaskIndex(index);
+			Label taskName = createTaskName(taskObj);
+			Label taskTime = createTaskTime(taskObj);
+			Label taskDate = createTaskDate(taskObj); 
+			
+			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
+			taskName.setId(COMPLETED_TASK_ID);
+			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
+			completedTasks.add(taskRow);
+		}
+	}
+	
+	public void openToDoList() {
+		if(pendingTasks.isEmpty() && completedTasks.isEmpty()) {	
+			if(main.isMainPaneManaged()) {
+				todoListContainer.setManaged(true);
+				todoListContainer.setOpacity(1);
+
+				main.removeMainPane();
+				animateToDoList(OPEN_LIST);
+			}
+		}
+	}
+
+	public void closeToDoList() {
+		if(todoListContainer.getScaleX() == 1) {
+			animateToDoList(CLOSE_LIST);
+		}
+	}
+
+	public void hideToDoList() {
+		if(pendingTasks.size() <= 1) {
+			todoListContainer.setManaged(false);
+			todoListContainer.setOpacity(0);
+			closeToDoList();
+		}
+	}
+	
 	private void animateToDoList(boolean isOpen) {
 		if(isOpen) {
 			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
@@ -167,123 +389,26 @@ public class ListInterfaceController extends NotificationRenderer {
 			todoListContainer.setManaged(false);
 		}
 	}
-
-	private void displayTaskList() {
-		formatPendingTaskToListCell(operatingTasksFromLogic);
-		setTaskIntoViewObject(scrollSelection);
-		openCompleteTab();
-		formatCompletedTaskToListCell(completedTasksFromLogic);
-	}
-
-	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
-		int index = 0;
-		for(Task taskObj: taskList) {
-			index++;
-			HBox taskRow = new HBox(10);
-			Label taskIndex = new Label("  " + index + ".");
-			Label taskName = new Label(taskObj.get_task());
-			Label taskTime;
-			if(taskObj.get_startTime().isEmpty()) {
-				taskTime = new Label(taskObj.get_startTime());
-			} else {
-				taskTime = new Label(DUE + taskObj.get_startTime());
-			}
-			Label taskDate;
-			if(!taskObj.get_startDate().isEmpty() && taskObj.get_startTime().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_startDate());
-			} else {
-				taskDate = new Label(taskObj.get_startDate());
-			} 
-			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
-
-			if(todoListContainer.getScaleX() == 0) {
-				animateToDoList(OPEN_LIST);
-			}
-			
-			if(index == taskList.size() && taskList.size() != previousTasksSize) {
-				scrollSelection = taskRow;
-			} 
-			
-			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-			taskFilter.sortTasksByClasses(taskObj, taskRow);
-		}	
-		taskFilter.addSortedClasses(tasks);
-		insertFeedbackForEmptyList(taskList);
-		todoList.setItems(tasks);
-	}
 	
-	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
-		int index = 0;
-		for(Task taskObj: taskList) {
-			index++;
-			HBox taskRow = new HBox(10);
-			Label taskIndex = new Label("  " + index + ".");
-			Label taskName = new Label(taskObj.get_task());
-			Label taskTime;
-			if(taskObj.get_startTime().isEmpty()) {
-				taskTime = new Label(taskObj.get_startTime());
-			} else {
-				taskTime = new Label(DUE + taskObj.get_startTime());
+	/**
+	 * Reminder Functions
+	 * Controls ListInterface's reminders and calls Notification Renderer by looping to check for
+	 * reminders every minute
+	 */
+	
+	private void loopCheckTasksForReminder() {
+		Timer checkTasks = new Timer(true);
+		checkTasks.schedule(new TimerTask() {
+			@Override
+			public void run() {  
+				Platform.runLater(new Runnable() {
+					public void run() {
+						checkTasksForReminder();
+					}
+				});
+
 			}
-			Label taskDate;
-			if(!taskObj.get_startDate().isEmpty() && taskObj.get_startTime().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_startDate());
-			} else {
-				taskDate = new Label(taskObj.get_startDate());
-			} 
-			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
-			taskName.setId(COMPLETED_TASK_ID);
-			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
-			completed.add(taskRow);
-		}
-	}
-	
-	private void setTaskIntoViewIndex(int index) {
-		if(tasks.size() > 1) {
-			todoList.scrollTo(index);
-		}
-	}
-	
-	private void setTaskIntoViewObject(HBox obj) {
-		if(tasks.contains(obj)) {
-			todoList.scrollTo(obj);
-		}
-	}
-
-	private void insertFeedbackForEmptyList(ArrayList<Task> taskList) {
-		if(taskList.isEmpty() ) {
-			HBox emptyRow = new HBox();
-			VBox rowContainer = new VBox(10);
-			Label feedback = new Label(EMPTY_LIST_FEEDBACK);
-			Label message = new Label(EMPTY_LIST_MESSAGE);
-			emptyRow.setId(EMPTY_LIST_ID);
-			rowContainer.setId(EMPTY_LIST_ID);
-			rowContainer.getChildren().addAll(feedback, message);
-			emptyRow.getChildren().add(rowContainer);
-			tasks.add(emptyRow);
-		}
-	}
-
-	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
-		task.setPrefWidth(600);
-
-		HBox.setHgrow(name, Priority.ALWAYS);
-		index.setPrefWidth(50);
-		index.setMaxWidth(Double.MAX_VALUE);
-		index.setId(INDEX_ID);
-
-		HBox.setHgrow(name, Priority.ALWAYS);
-		name.setPrefWidth(380);
-		name.setMaxWidth(Double.MAX_VALUE);
-		name.setId(TASK_ID);
-
-		HBox.setHgrow(date, Priority.ALWAYS);
-		date.setPrefWidth(80);
-		date.setId(DATE_ID);
-
-		HBox.setHgrow(time, Priority.ALWAYS);
-		time.setPrefWidth(100);
-		time.setId(TIME_ID);
+		}, 0, 60000);
 	}
 
 	private void checkTasksForReminder() {
@@ -294,15 +419,15 @@ public class ListInterfaceController extends NotificationRenderer {
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTasksFromLogic) {
-				if(taskObj.get_startDate().equals(localDate.toString(DATE_FORMAT)) ||
-						(taskObj.get_startDate().equals(NULL) && !taskObj.get_startTime().equals(NULL))) {
-					if(taskObj.get_startTime().equals(localTime.toString(TIME_FORMAT))) {
+				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
+						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
+					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
 						todoTime++;
 					}
 					todoDay++;
 				}
 			}
-			
+
 			if(todoTime > 0) {
 				notification.loadNotification(todoTime, TIME_FLAG);
 			} else if(todoDay > 0 && todoTime == 0) {
@@ -310,60 +435,120 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 		}
 	}
-
-	private void openCompleteTab() {
-		//log.info("Tab Size? " + tabs.size());
-		//System.out.println(tabs.size());
-		if(tabs.size() == 1 && !completedTasksFromLogic.isEmpty()) {
-			tabs.add(tabComplete);
-			tabPane.getTabs().add(tabComplete);
-		} 
+	
+	/**
+	 * Setters for ListInterface
+	 */
+	
+	private void setCompletedTasksFromLogic() {
+		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 	}
 
-	public void openToDoList() {
-		if(tasks.isEmpty() && completed.isEmpty()) {	
-			if(main.isMainPaneManaged()) {
-				todoListContainer.setManaged(true);
-				todoListContainer.setOpacity(1);
+	private void setOperatingTasksFromLogic() {
+		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+	}
 
-				main.removeMainPane();
-				animateToDoList(OPEN_LIST);
-			}
+	private void setTasksForCategories() {
+		taskFilter.getTasksToday(todayTasks);
+		taskFilter.getTasksTomorrow(tomorrowTasks);
+		taskFilter.getTasksOthers(otherTasks);
+		taskFilter.getTasksFloat(floatingTasks);
+		taskFilter.getTasksOverdue(overdueTasks);
+
+	}
+
+	private void setTaskIntoViewIndex(int index) {
+		if(pendingTasks.size() > 1) {
+			todoList.scrollTo(index);
 		}
 	}
 
-	public void closeToDoList() {
-		if(todoListContainer.getScaleX() == 1) {
-			animateToDoList(CLOSE_LIST);
+	private void setTaskIntoViewObject(HBox obj) {
+		if(pendingTasks.contains(obj)) {
+			todoList.scrollTo(obj);
 		}
 	}
 
-	public void hideToDoList() {
-		if(tasks.size() <= 1) {
-			todoListContainer.setManaged(false);
-			todoListContainer.setOpacity(0);
-			closeToDoList();
+	private void setFeedbackForEmptyList(ArrayList<Task> taskList) {
+		if(taskList.isEmpty() ) {
+			HBox emptyRow = new HBox();
+			VBox rowContainer = new VBox(10);
+			Label feedback = new Label(EMPTY_LIST_FEEDBACK);
+			Label message = new Label(EMPTY_LIST_MESSAGE);
+			
+			emptyRow.setId(EMPTY_LIST_ID);
+			rowContainer.setId(EMPTY_LIST_ID);
+			rowContainer.getChildren().addAll(feedback, message);
+			emptyRow.getChildren().add(rowContainer);
+			pendingTasks.add(emptyRow);
 		}
 	}
+
+	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
+		task.setPrefWidth(600);
+
+		HBox.setHgrow(name, Priority.ALWAYS);
+		index.setPrefWidth(TASK_INDEX_WIDTH);
+		index.setMaxWidth(Double.MAX_VALUE);
+		index.setId(INDEX_ID);
+
+		HBox.setHgrow(name, Priority.ALWAYS);
+		name.setPrefWidth(TASK_NAME_WIDTH);
+		name.setMaxWidth(Double.MAX_VALUE);
+		name.setId(TASK_ID);
+		name.setWrapText(true);
+
+		HBox.setHgrow(date, Priority.ALWAYS);
+		date.setPrefWidth(TASK_DATE_WIDTH);
+		date.setId(DATE_ID);
+
+		HBox.setHgrow(time, Priority.ALWAYS);
+		time.setPrefWidth(TASK_TIME_WIDTH);
+		time.setId(TIME_ID);
+	}
+	
+	/**
+	 * Getters for ListInterface
+	 */
 
 	public TabPane getTabPane() {
 		return tabPane;
 	}
 
 	public void displayPending() {
-		todoList.setItems(tasks);
+		todoList.setItems(pendingTasks);
 	}
 
-	public void displayCompleted() {
-		todoList.setItems(completed);
+	public void displayComplete() {
+		todoList.setItems(completedTasks);
+	}
+
+	public void displayToday() {
+		todoList.setItems(todayTasks);
+	}
+
+	public void displayTomorrow() {
+		todoList.setItems(tomorrowTasks);
+	}
+
+	public void displayOverdue() {
+		todoList.setItems(overdueTasks);
+	}
+
+	public void displayOthers() {
+		todoList.setItems(otherTasks);
+	}
+
+	public void displayFloat() {
+		todoList.setItems(floatingTasks);
 	}
 
 	public ObservableList<HBox> getTasks() {
-		return tasks;
+		return pendingTasks;
 	}
 
 	public ObservableList<HBox> getCompleted() {
-		return completed;
+		return completedTasks;
 	}
 
 	public ListView<HBox> getList() {

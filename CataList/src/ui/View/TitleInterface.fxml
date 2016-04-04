@@ -12,5 +12,5 @@
       fx:controller="ui.Controllers.TitleInterfaceController" >
     <Text fx:id="quote" 
           strokeType="OUTSIDE" strokeWidth="0.0" 
-          textAlignment="CENTER" wrappingWidth="600"/>
+          textAlignment="CENTER" wrappingWidth="700"/>
 </HBox>

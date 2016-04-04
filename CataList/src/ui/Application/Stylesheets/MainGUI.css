@@ -28,13 +28,28 @@
 	src: url("Fonts/Docker-One.ttf");
 }
 
+@font-face {
+	font-family: aileron-bold;
+	src: url("Fonts/Aileron-Bold.otf");
+}
+
+@font-face {
+	font-family: aileron-thin-italic;
+	src: url("Fonts/Aileron-ThinItalic.otf");
+}
+
+@font-face {
+	font-family: aileron-semi-bold;
+	src: url("Fonts/Aileron-SemiBold.otf");
+}
+
 .root {
 	-fx-background-size: cover;
   
 }
 
 #backgroundPane {
-	-fx-background: #FF9900;
+	-fx-background-color: linear-gradient(orangered, orange);
 }
 
 #mainPane {
@@ -57,7 +72,7 @@
 }
 
 #calendarContainer {
-	-fx-background-color: rgb(255, 130, 0, 0.6);
+	-fx-background-color: rgb(255, 255, 255, 0.8);
 	-fx-background-radius: 20 20 20 20;
 	-fx-max-width: 800;
 	-fx-max-height: 800;
@@ -103,21 +118,56 @@
 }
 
 .tab-pane .tab-header-area {
-	-fx-padding: 0 0 0 20;
+	-fx-padding: 0 0 0 10;
 }
 
 .tab-pane .tab {
-    -fx-background-color: rgb(255, 255, 255, 0.7);
-    -fx-pref-width: 120;
+    -fx-background-color: rgb(255, 255, 255, 1);
+    -fx-opacity: 0.6;
+    -fx-pref-width: 97;
     -fx-pref-height: 30;
     -fx-font-size: 15px;
-    -fx-alignment: center;
 }
 
-.tab-pane .tab:selected  .tab-label{
-   -fx-text-fill: darkorange;
+#tabPending .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: brown;    
 }
 
+#tabOverdue .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: purple;    
+}
+
+#tabCompleted .tab-label {
+ 	-fx-font-family: delicious-bold;
+	-fx-text-fill: dimgrey;    
+}
+
+#tabToday .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: red;    
+}
+
+#tabTomorrow .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: firebrick;    
+}
+
+#tabOthers .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: teal;    
+}
+
+#tabFloat .tab-label {
+	-fx-font-family: delicious-bold;
+	-fx-text-fill: darkturquoise;  
+}
+
+.tab-pane .tab:selected {
+   -fx-background-color: rgb(255, 255, 255, 1);
+   -fx-opacity: 1;
+}
 
 #imageView {
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 2,1,3,3 );
@@ -128,18 +178,18 @@
 }
 
 #quote {
-     -fx-font-family: "Comic Neue Angular";
+     -fx-font-family: "Aileron Thin Italic";
      -fx-font-size: 20px;
      -fx-fill: white;
 }
 
 /** list **/
 #todoList {
-	-fx-background-color: rgb(255, 255, 255, 0.7);
+	-fx-background-color: rgb(255, 255, 255, 1);
     -fx-font-size: 18px;
     -fx-font-family: delicious-roman;
-    -fx-border-radius: 20 20 20 20;
-    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
     -fx-padding: 10;
 }
 
@@ -165,17 +215,27 @@
 
 .list-cell #taskOverdue {   
     -fx-border-width: 0 0 0 5;
-    -fx-border-color: grey;
+    -fx-border-color: purple;
 }
 
-.list-cell #taskToday, .list-cell #taskTomorrow {   
+.list-cell #taskToday {   
     -fx-border-width: 0 0 0 5;
     -fx-border-color: red;
 }
 
-.list-cell #taskFloat, .list-cell #taskOthers {   
+.list-cell #taskTomorrow {
+	 -fx-border-width: 0 0 0 5;
+    -fx-border-color: firebrick;
+}
+
+.list-cell #taskFloat {   
     -fx-border-width: 0 0 0 5;
-    -fx-border-color: blue;
+    -fx-border-color: darkturquoise;
+}
+
+.list-cell #taskOthers {
+	  -fx-border-width: 0 0 0 5;
+    -fx-border-color: teal;
 }
 
 .list-cell {
@@ -189,20 +249,32 @@
 }
 
 #classOverdue {
-	-fx-font-family: delicious-smallcaps;
-	-fx-text-fill: grey;    
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: purple;    
 	-fx-font-size: 16px;
 }
 
-#classToday, #classTomorrow {
-	-fx-font-family: delicious-smallcaps;
+#classToday {
+	-fx-font-family: "Aileron Bold";
 	-fx-text-fill: red;    
 	-fx-font-size: 16px;
 }
 
-#classOthers, #classFloat {
-	-fx-font-family: delicious-smallcaps;
-	-fx-text-fill: blue;    
+#classTomorrow {
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: firebrick;    
+	-fx-font-size: 16px;
+}
+
+#classOthers {
+	-fx-font-family:"Aileron Bold";
+	-fx-text-fill: teal;    
+	-fx-font-size: 16px;
+}
+
+#classFloat {
+	-fx-font-family: "Aileron Bold";
+	-fx-text-fill: darkturquoise;    
 	-fx-font-size: 16px;
 }
 
@@ -223,14 +295,14 @@
 
 /** user input feedback **/
 #feedbackMain {
-	-fx-font-family: "Comic Neue Angular";
-    -fx-font-size: 18px;
+	-fx-font-family: "Aileron Bold";
+    -fx-font-size: 20px;
     -fx-fill: white;
 }
 
 #feedbackHelp {
-	-fx-font-family: "Comic Neue Angular";
-    -fx-font-size: 15px;
+	-fx-font-family: "Aileron Semi Bold";
+    -fx-font-size: 16px;
     -fx-fill: beige;
 }
 
@@ -246,8 +318,8 @@
 }
 
 #tutorialContainer {
-	-fx-font-size: 18px;
-	-fx-font-family: infinity;
+	-fx-font-size: 17px;
+	-fx-font-family: delicious-roman;
 }
 
 #exitMessage {
@@ -256,6 +328,7 @@
 
 #tutorialSamples {
 	-fx-font-family: Monospaced;
+	-fx-font-size: 14px;
 	-fx-fill: blue;
 }
 

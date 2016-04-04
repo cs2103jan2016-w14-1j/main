@@ -28,6 +28,7 @@ public class LogicHandler {
 			newTask = createTaskWithDateTime(userInputArray, dateTimeArgs);
 		}
 		updateTaskWithIndex(newTask);
+		System.out.println(newTask.get_date());
 		return newTask;
 	}
 	
