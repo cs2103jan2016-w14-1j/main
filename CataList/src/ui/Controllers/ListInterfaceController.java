@@ -31,6 +31,11 @@ import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
+	private static final int TASK_TIME_WIDTH = 100;
+	private static final int TASK_DATE_WIDTH = 80;
+	private static final int TASK_NAME_WIDTH = 380;
+	private static final int TASK_INDEX_WIDTH = 50;
+	private static final int TASKROW_SPACING = 10;
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
@@ -265,21 +270,11 @@ public class ListInterfaceController extends NotificationRenderer {
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
-			HBox taskRow = new HBox(10);
-			Label taskIndex = new Label(String.format(TASK_INDEX_FORMAT, index));
-			Label taskName = new Label(taskObj.get_task());
-			Label taskTime;
-			if(taskObj.get_time().isEmpty()) {
-				taskTime = new Label(taskObj.get_time());
-			} else {
-				taskTime = new Label(DUE + taskObj.get_time());
-			}
-			Label taskDate;
-			if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_date());
-			} else {
-				taskDate = new Label(taskObj.get_date());
-			} 
+			HBox taskRow = createTaskRow();
+			Label taskIndex = createTaskIndex(index);
+			Label taskName = createTaskName(taskObj);
+			Label taskTime = createTaskTime(taskObj);
+			Label taskDate = createTaskDate(taskObj); 
 			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
 
 			if(todoListContainer.getScaleX() == 0) {
@@ -300,25 +295,48 @@ public class ListInterfaceController extends NotificationRenderer {
 		todoList.setItems(pendingTasks);
 	}
 
+	private Label createTaskDate(Task taskObj) {
+		Label taskDate;
+		if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
+			taskDate = new Label(DUE + taskObj.get_date());
+		} else {
+			taskDate = new Label(taskObj.get_date());
+		}
+		return taskDate;
+	}
+
+	private Label createTaskTime(Task taskObj) {
+		Label taskTime;
+		if(taskObj.get_time().isEmpty()) {
+			taskTime = new Label(taskObj.get_time());
+		} else {
+			taskTime = new Label(DUE + taskObj.get_time());
+		}
+		return taskTime;
+	}
+
+	private Label createTaskName(Task taskObj) {
+		return new Label(taskObj.get_task());
+	}
+
+	private Label createTaskIndex(int index) {
+		return new Label(String.format(TASK_INDEX_FORMAT, index));
+	}
+
+	private HBox createTaskRow() {
+		return new HBox(TASKROW_SPACING);
+	}
+
 	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
-			HBox taskRow = new HBox(10);
-			Label taskIndex = new Label("  " + index + ".");
-			Label taskName = new Label(taskObj.get_task());
-			Label taskTime;
-			if(taskObj.get_time().isEmpty()) {
-				taskTime = new Label(taskObj.get_time());
-			} else {
-				taskTime = new Label(DUE + taskObj.get_time());
-			}
-			Label taskDate;
-			if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
-				taskDate = new Label(DUE + taskObj.get_date());
-			} else {
-				taskDate = new Label(taskObj.get_date());
-			} 
+			HBox taskRow = createTaskRow();
+			Label taskIndex = createTaskIndex(index);
+			Label taskName = createTaskName(taskObj);
+			Label taskTime = createTaskTime(taskObj);
+			Label taskDate = createTaskDate(taskObj); 
+			
 			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
 			taskName.setId(COMPLETED_TASK_ID);
 			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
@@ -470,21 +488,22 @@ public class ListInterfaceController extends NotificationRenderer {
 		task.setPrefWidth(600);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		index.setPrefWidth(50);
+		index.setPrefWidth(TASK_INDEX_WIDTH);
 		index.setMaxWidth(Double.MAX_VALUE);
 		index.setId(INDEX_ID);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
-		name.setPrefWidth(380);
+		name.setPrefWidth(TASK_NAME_WIDTH);
 		name.setMaxWidth(Double.MAX_VALUE);
 		name.setId(TASK_ID);
+		name.setWrapText(true);
 
 		HBox.setHgrow(date, Priority.ALWAYS);
-		date.setPrefWidth(80);
+		date.setPrefWidth(TASK_DATE_WIDTH);
 		date.setId(DATE_ID);
 
 		HBox.setHgrow(time, Priority.ALWAYS);
-		time.setPrefWidth(100);
+		time.setPrefWidth(TASK_TIME_WIDTH);
 		time.setId(TIME_ID);
 	}
 	
