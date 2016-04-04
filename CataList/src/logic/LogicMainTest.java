@@ -13,6 +13,9 @@ public class LogicMainTest {
 	@Before
 	public void init(){
 		logicTest = new LogicMain();
+		String userInput6 = "clear";
+		String testOutput = logicTest.processCommand(userInput6);
+
 	}
 	
 	@Test
