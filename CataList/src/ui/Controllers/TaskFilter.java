@@ -129,96 +129,76 @@ public class TaskFilter {
 			
 			if(taskNum <= tasksOverdue.size()) {
 				
-				createClassToday(taskNum);
+				if(taskNum == 1) {
+					Label taskOverdueNum = new Label(FILTER_PLACEHOLDER + (tasksOverdue.size()-1));
+					taskOverdueNum.setId(NUM_ID);
+					if(tasksOverdue.get(taskNum-1).getChildren().size() == 2) {
+						tasksOverdue.get(taskNum-1).getChildren().set(1, taskOverdueNum);
+					} else {
+						tasksOverdue.get(taskNum-1).getChildren().add(taskOverdueNum);
+					}
+				}
 				list.add(tasksOverdue.get(taskNum-1));
 				
 			} else if(taskNum >= tasksOverdue.size() &&
 					(taskNum <= tasksOverdue.size() + tasksToday.size())) {
 
-				createTaskOverdue(taskNum);
+				if(taskNum == tasksOverdue.size() + 1) {
+					Label taskTodayNum = new Label(FILTER_PLACEHOLDER + (tasksToday.size()-1));
+					taskTodayNum.setId(NUM_ID);
+					if(tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().size() == 2) {
+						tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().set(1, taskTodayNum);
+					} else {
+						tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().add(taskTodayNum);
+					}
+				}
 				list.add(tasksToday.get(taskNum-tasksOverdue.size()-1));
 
 			} else if(taskNum >= tasksOverdue.size() + tasksToday.size() && 
 					(taskNum <= tasksTomorrow.size() + tasksOverdue.size() + tasksToday.size())) {
 
-				createTaskTomorrow(taskNum);
+				if(taskNum == tasksOverdue.size() + tasksToday.size() + 1) {
+					Label taskTomorrowNum = new Label(FILTER_PLACEHOLDER + (tasksTomorrow.size()-1));
+					taskTomorrowNum.setId(NUM_ID);
+					if(tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().size() == 2) {
+						tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().set(1, taskTomorrowNum);
+					} else {
+						tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().add(taskTomorrowNum);
+					}
+				}
 				list.add(tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1));
 
 			} else if(taskNum >= tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() && 
 					(taskNum <= tasksOthers.size() + tasksTomorrow.size() + tasksOverdue.size() + tasksToday.size())) {
 
-				createTaskOthers(taskNum);
+				if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + 1) {
+					Label taskOthersNum = new Label(FILTER_PLACEHOLDER + (tasksOthers.size()-1));
+					taskOthersNum.setId(NUM_ID);
+					if(tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().size() == 2) {
+						tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().set(1, taskOthersNum);
+					} else {
+						tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().add(taskOthersNum);
+					}
+				}
 				list.add(tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1));
 
 			} else if(taskNum >= tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size()) {
 
-				createTaskFloat(taskNum);
+				if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size() + 1) {
+					Label taskFloatNum = new Label(FILTER_PLACEHOLDER + (tasksFloat.size()-1));
+					taskFloatNum.setId(NUM_ID);
+					if(tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().size() == 2) {
+						tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().set(1, taskFloatNum);
+					} else {
+						tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().add(taskFloatNum);
+					}
+				}
 				list.add(tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1));
 
 			} 
 			taskNum++;
 		}
 		clearAll();
-	}
-
-	private void createTaskFloat(int taskNum) {
-		if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size() + 1) {
-			Label taskFloatNum = new Label(FILTER_PLACEHOLDER + (tasksFloat.size()-1));
-			taskFloatNum.setId(NUM_ID);
-			if(tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().size() == 2) {
-				tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().set(1, taskFloatNum);
-			} else {
-				tasksFloat.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-tasksOthers.size()-1).getChildren().add(taskFloatNum);
-			}
-		}
-	}
-
-	private void createTaskOthers(int taskNum) {
-		if(taskNum == tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + 1) {
-			Label taskOthersNum = new Label(FILTER_PLACEHOLDER + (tasksOthers.size()-1));
-			taskOthersNum.setId(NUM_ID);
-			if(tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().size() == 2) {
-				tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().set(1, taskOthersNum);
-			} else {
-				tasksOthers.get(taskNum-tasksOverdue.size()-tasksToday.size()-tasksTomorrow.size()-1).getChildren().add(taskOthersNum);
-			}
-		}
-	}
-
-	private void createTaskTomorrow(int taskNum) {
-		if(taskNum == tasksOverdue.size() + tasksToday.size() + 1) {
-			Label taskTomorrowNum = new Label(FILTER_PLACEHOLDER + (tasksTomorrow.size()-1));
-			taskTomorrowNum.setId(NUM_ID);
-			if(tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().size() == 2) {
-				tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().set(1, taskTomorrowNum);
-			} else {
-				tasksTomorrow.get(taskNum-tasksOverdue.size()-tasksToday.size()-1).getChildren().add(taskTomorrowNum);
-			}
-		}
-	}
-
-	private void createTaskOverdue(int taskNum) {
-		if(taskNum == tasksOverdue.size() + 1) {
-			Label taskTodayNum = new Label(FILTER_PLACEHOLDER + (tasksToday.size()-1));
-			taskTodayNum.setId(NUM_ID);
-			if(tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().size() == 2) {
-				tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().set(1, taskTodayNum);
-			} else {
-				tasksToday.get(taskNum-tasksOverdue.size()-1).getChildren().add(taskTodayNum);
-			}
-		}
-	}
-
-	private void createClassToday(int taskNum) {
-		if(taskNum == 1) {
-			Label taskOverdueNum = new Label(FILTER_PLACEHOLDER + (tasksOverdue.size()-1));
-			taskOverdueNum.setId(NUM_ID);
-			if(tasksOverdue.get(taskNum-1).getChildren().size() == 2) {
-				tasksOverdue.get(taskNum-1).getChildren().set(1, taskOverdueNum);
-			} else {
-				tasksOverdue.get(taskNum-1).getChildren().add(taskOverdueNum);
-			}
-		}
 	}
 
 	public void sortTasksByClasses(Task taskObj, HBox taskRow) {
