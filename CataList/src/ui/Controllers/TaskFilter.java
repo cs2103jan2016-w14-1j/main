@@ -14,7 +14,7 @@ import logic.Task;
 public class TaskFilter {
 	private static final String FILTER_PLACEHOLDER = " : ";
 	private static final String DATE_FORMAT = "dd/MM/yy";
-	private static final String TIME_FORMAT = "HHmm";
+	private static final String TIME_FORMAT = "h.mma";
 
 	private static final String FLOAT_ID = "classFloat";
 	private static final String OTHERS_ID = "classOthers";

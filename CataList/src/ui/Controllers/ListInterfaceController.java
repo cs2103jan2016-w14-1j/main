@@ -31,10 +31,12 @@ import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
-	private static final int TASK_TIME_WIDTH = 100;
-	private static final int TASK_DATE_WIDTH = 80;
-	private static final int TASK_NAME_WIDTH = 380;
-	private static final int TASK_INDEX_WIDTH = 50;
+	private static final int TASK_START_TIME_WIDTH = 55;
+	private static final int TASK_END_TIME_WIDTH = 80;
+	private static final int TASK_START_DATE_WIDTH = 55;
+	private static final int TASK_END_DATE_WIDTH = 70;
+	private static final int TASK_NAME_WIDTH = 240;
+	private static final int TASK_INDEX_WIDTH = 40;
 	private static final int TASKROW_SPACING = 10;
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
@@ -66,7 +68,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
 	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
 	private static final String EMPTY_LIST_ID = "emptyRow";
-	private static final String DUE = "Due by ";
+	private static final String END_DATETIME_PLACEHOLDER = "to ";
 	private static final String NULL = "";
 
 	private static final String DATE_FORMAT = "dd/MM/yy";
@@ -273,9 +275,12 @@ public class ListInterfaceController extends NotificationRenderer {
 			HBox taskRow = createTaskRow();
 			Label taskIndex = createTaskIndex(index);
 			Label taskName = createTaskName(taskObj);
-			Label taskTime = createTaskTime(taskObj);
-			Label taskDate = createTaskDate(taskObj); 
-			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
+			Label taskStartTime = createTaskStartTime(taskObj);
+			Label taskEndTime = createTaskEndTime(taskObj);
+			Label taskStartDate = createTaskStartDate(taskObj); 
+			Label taskEndDate = createTaskEndDate(taskObj); 
+			
+			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
@@ -286,7 +291,7 @@ public class ListInterfaceController extends NotificationRenderer {
 				previousTasksSize = operatingTasksFromLogic.size();
 			} 
 
-			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
+			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
 		setTasksForCategories();
@@ -295,22 +300,36 @@ public class ListInterfaceController extends NotificationRenderer {
 		todoList.setItems(pendingTasks);
 	}
 
-	private Label createTaskDate(Task taskObj) {
-		Label taskDate;
-		if(!taskObj.get_date().isEmpty() && taskObj.get_time().isEmpty()) {
-			taskDate = new Label(DUE + taskObj.get_date());
-		} else {
-			taskDate = new Label(taskObj.get_date());
+	private Label createTaskStartDate(Task taskObj) {
+		Label taskDate = new Label();
+		if(!taskObj.get_startDate().isEmpty()) {
+			taskDate = new Label(taskObj.get_startDate());
+		}
+		return taskDate;
+	}
+	
+	private Label createTaskEndDate(Task taskObj) {
+		Label taskDate = new Label();
+		if(!taskObj.get_endDate().isEmpty()) {
+			taskDate = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_endDate());
 		}
 		return taskDate;
 	}
 
-	private Label createTaskTime(Task taskObj) {
+	private Label createTaskStartTime(Task taskObj) {
 		Label taskTime;
-		if(taskObj.get_time().isEmpty()) {
-			taskTime = new Label(taskObj.get_time());
+		if(taskObj.get_startTime().isEmpty()) {
+			taskTime = new Label(taskObj.get_startTime());
 		} else {
-			taskTime = new Label(DUE + taskObj.get_time());
+			taskTime = new Label(taskObj.get_startTime());
+		}
+		return taskTime;
+	}
+	
+	private Label createTaskEndTime(Task taskObj) {
+		Label taskTime = new Label();
+		if(!taskObj.get_endDate().isEmpty()){
+			taskTime = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_startTime());
 		}
 		return taskTime;
 	}
@@ -334,12 +353,14 @@ public class ListInterfaceController extends NotificationRenderer {
 			HBox taskRow = createTaskRow();
 			Label taskIndex = createTaskIndex(index);
 			Label taskName = createTaskName(taskObj);
-			Label taskTime = createTaskTime(taskObj);
-			Label taskDate = createTaskDate(taskObj); 
+			Label taskStartTime = createTaskStartTime(taskObj);
+			Label taskEndTime = createTaskEndTime(taskObj);
+			Label taskStartDate = createTaskStartDate(taskObj); 
+			Label taskEndDate = createTaskEndDate(taskObj); 
 			
-			setProperties(taskIndex, taskName, taskTime, taskDate, taskRow);
+			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 			taskName.setId(COMPLETED_TASK_ID);
-			taskRow.getChildren().addAll(taskIndex, taskName, taskTime, taskDate);
+			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
 			completedTasks.add(taskRow);
 		}
 	}
@@ -419,9 +440,9 @@ public class ListInterfaceController extends NotificationRenderer {
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
 			for(Task taskObj: operatingTasksFromLogic) {
-				if(taskObj.get_date().equals(localDate.toString(DATE_FORMAT)) ||
-						(taskObj.get_date().equals(NULL) && !taskObj.get_time().equals(NULL))) {
-					if(taskObj.get_time().equals(localTime.toString(TIME_FORMAT))) {
+				if(taskObj.get_startDate().equals(localDate.toString(DATE_FORMAT)) ||
+						(taskObj.get_startDate().equals(NULL) && !taskObj.get_startTime().equals(NULL))) {
+					if(taskObj.get_startTime().equals(localTime.toString(TIME_FORMAT))) {
 						todoTime++;
 					}
 					todoDay++;
@@ -484,7 +505,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		}
 	}
 
-	private void setProperties(Label index, Label name, Label date, Label time, HBox task) {
+	private void setProperties(Label index, Label name, Label date1, Label date2, Label time1, Label time2, HBox task) {
 		task.setPrefWidth(600);
 
 		HBox.setHgrow(name, Priority.ALWAYS);
@@ -498,13 +519,21 @@ public class ListInterfaceController extends NotificationRenderer {
 		name.setId(TASK_ID);
 		name.setWrapText(true);
 
-		HBox.setHgrow(date, Priority.ALWAYS);
-		date.setPrefWidth(TASK_DATE_WIDTH);
-		date.setId(DATE_ID);
+		HBox.setHgrow(date1, Priority.ALWAYS);
+		date1.setPrefWidth(TASK_START_DATE_WIDTH);
+		date1.setId(DATE_ID);
+		
+		HBox.setHgrow(date2, Priority.ALWAYS);
+		date2.setPrefWidth(TASK_END_DATE_WIDTH);
+		date2.setId(DATE_ID);
 
-		HBox.setHgrow(time, Priority.ALWAYS);
-		time.setPrefWidth(TASK_TIME_WIDTH);
-		time.setId(TIME_ID);
+		HBox.setHgrow(time1, Priority.ALWAYS);
+		time1.setPrefWidth(TASK_START_TIME_WIDTH);
+		time1.setId(TIME_ID);
+		
+		HBox.setHgrow(time2, Priority.ALWAYS);
+		time2.setPrefWidth(TASK_END_TIME_WIDTH);
+		time2.setId(TIME_ID);
 	}
 	
 	/**
