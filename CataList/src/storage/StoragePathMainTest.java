@@ -7,6 +7,7 @@ import org.jdom2.JDOMException;
 
 public class StoragePathMainTest {
 	
+	
 	public void testSave() throws JDOMException, IOException {
 		StoragePathMain storePathMain = new StoragePathMain();
 		
@@ -33,13 +34,4 @@ public class StoragePathMainTest {
 		
 	}
 	
-	/*public void testFileSaveLocation() throws JDOMException, IOException {
-		StoragePathMain storePathMain = new StoragePathMain();
-		
-		//String fileLocation = storeMain.filePathReader();
-		String fileLocation = "C:\\Users\\asus\\git\\main\\newmain\\CataList\\src\\storage\\test.xml";
-		//String fileLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
-		storePathMain.saveFileLocation(fileLocation);
-		
-	}*/
 }

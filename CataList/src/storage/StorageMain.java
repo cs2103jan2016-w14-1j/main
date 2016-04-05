@@ -64,15 +64,15 @@ public class StorageMain {
 			Task tempTask = null;
 			try {
 				clearFromStorage(tempTask);
-			} catch (IOException e1) {
+			} catch (IOException | JDOMException e1) {
 				e1.printStackTrace();
-			} catch (JDOMException e1) {
-				e1.printStackTrace();
-			}
+			} 
 			try {
 				String storagePath = storagePathMain.filePathReader();
 				File inputFile = new File(storagePath);
-				//File inputFile = new File(STORAGE_PATH);
+				if(!inputFile.exists()){
+					inputFile.createNewFile();
+				}
 				SAXBuilder saxBuilder = new SAXBuilder();
 				Document toDoListDocument;
 				toDoListDocument = saxBuilder.build(inputFile);
@@ -99,8 +99,6 @@ public class StorageMain {
 					task.addContent(new Element(ELEMENT_END_TIME).setText(taskObj.get_endTime()));
 					task.addContent(new Element(ELEMENT_END_DATE).setText(taskObj.get_endDate()));
 					
-					
-					
 					toDoListDocument.getRootElement().addContent(task);
 					
 					try{
@@ -121,8 +119,10 @@ public class StorageMain {
 	public void clearFromStorage(Task taskObj) throws IOException, JDOMException {
 		
 		String path = storagePathMain.filePathReader();
-		//File inputFile = new File(STORAGE_PATH);
 		File inputFile = new File(path);
+		if(!inputFile.exists()){
+			inputFile.createNewFile();
+		}
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
@@ -146,106 +146,6 @@ public class StorageMain {
 			taskObj.get_messageToUserFail();
 		}
 
-	}
-	
-	public String exportFile(String newFileLocation){
-		String result;
-		
-		InputStream inStream = null;
-		OutputStream outStream = null;
-		
-		try{
-			String storagePath = filePathReader();
-			File oldFile = new File(storagePath);
-			if(oldFile.exists()){
-				oldFile.createNewFile();
-			}
-    	    //File oldFile = new File(STORAGE_PATH);
-    	    File newFile = new File(newFileLocation);
-    	    if(!newFile.exists()){
-    	    	newFile.createNewFile();
-    	    }
-    		
-    	    inStream = new FileInputStream(oldFile);
-    	    outStream = new FileOutputStream(newFile);
-        	
-    	    byte[] buffer = new byte[1024];
-    		
-    	    String name = oldFile.getName();
-    	    System.out.println("exportFile: " + name);
-    	    
-    	    String oldPath = oldFile.getAbsolutePath();
-    	    System.out.println("exportFile: old path: " + oldPath);
-    	    
-    	    System.out.println("exportFile: saved file location: " + newFileLocation);
-    	    
-    	    int length;
-    	    while ((length = inStream.read(buffer)) > 0){
-    	    	outStream.write(buffer, 0, length);
-    	    }
-    	 
-    	    inStream.close();
-    	    outStream.close();
-    	    result = "File copied successful!";
-    	    System.out.println(result);
-    	    
-    	}catch(IOException e){
-    		result = "File failed to copy!";
-    		e.printStackTrace();
-    		return result;
-    	}
-		return result;
-	}
-	
-	public String filePathReader(){
-		
-		List<String> stringList = new ArrayList<String>();
-		
-		String pointerFilePath, stringPath;
-		
-		pointerFilePath = STORAGE_FILE_PATH;
-		
-		Path oldPath = Paths.get(pointerFilePath);
-		
-		try {
-			stringList = Files.readAllLines(oldPath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("cannot print");
-			e.printStackTrace();
-			return "cannot print";
-		}
-		
-		stringPath = stringList.get(0);
-		
-		
-		return stringPath;
-	}
-	
-	public void filePathWriter(String path) {
-		
-		String newPath = path;
-		File pathFile = new File(STORAGE_FILE_PATH);
-		if(!pathFile.exists()){
-			try {
-				pathFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("path file cannot be created");
-				e.printStackTrace();
-			}
-		}
-		
-		try {
-			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("cannot write");
-			e.printStackTrace();
-			return;
-		}
-		
-		System.out.println("filePathWriter: write file path correctly");
 	}
 	
 	public String saveFileLocation(String newFileLocation){

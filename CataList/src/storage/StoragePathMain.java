@@ -15,6 +15,14 @@ import java.util.List;
 public class StoragePathMain {
 	
 	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
+	private static final String ERROR_MESSAGE_PATH = "cannot create new path file";
+	private static final String ERROR_MESSAGE_WRITE = "cannot write";
+	private static final String ERROR_MESSAGE_READ = "cannot read";
+	private static final String ERROR_MESSAGE_COPY = "File failed to copy!";
+	private static final String SUCCESS_MESSAGE_WRITE = "write file path succesful";
+	private static final String SUCCESS_MESSAGE_COPY = "File copied successful!";
+	
+	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
 	
 	public String exportFile(String newFileLocation){
 		String result;
@@ -28,7 +36,6 @@ public class StoragePathMain {
 			if(oldFile.exists()){
 				oldFile.createNewFile();
 			}
-    	    //File oldFile = new File(STORAGE_PATH);
     	    File newFile = new File(newFileLocation);
     	    if(!newFile.exists()){
     	    	newFile.createNewFile();
@@ -54,11 +61,11 @@ public class StoragePathMain {
     	 
     	    inStream.close();
     	    outStream.close();
-    	    result = "File copied successful!";
+    	    result = SUCCESS_MESSAGE_COPY;
     	    System.out.println(result);
     	    
     	}catch(IOException e){
-    		result = "File failed to copy!";
+    		result = ERROR_MESSAGE_COPY;
     		e.printStackTrace();
     		return result;
     	}
@@ -79,12 +86,12 @@ public class StoragePathMain {
 		if(!pathFile.exists()){
 			try {
 				pathFile.createNewFile();
-				String defaultPath = System.getProperty("user.dir")+ "/src/storage/test.xml";
+				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("cannot create new path file");
+				System.out.println(ERROR_MESSAGE_PATH);
 			}
 			
 		}
@@ -93,9 +100,9 @@ public class StoragePathMain {
 			stringList = Files.readAllLines(oldPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("cannot print");
+			System.out.println(ERROR_MESSAGE_READ);
 			e.printStackTrace();
-			return "cannot print";
+			return ERROR_MESSAGE_READ;
 		}
 		
 		stringPath = stringList.get(0);
@@ -110,11 +117,11 @@ public class StoragePathMain {
 		if(!pathFile.exists()){
 			try {
 				pathFile.createNewFile();
-				String defaultPath = System.getProperty("user.dir")+ "/src/storage/test.xml";
+				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("path file cannot be created");
+				System.out.println(ERROR_MESSAGE_PATH);
 				e.printStackTrace();
 			}
 		}
@@ -123,11 +130,11 @@ public class StoragePathMain {
 			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("cannot write");
+			System.out.println(ERROR_MESSAGE_WRITE);
 			e.printStackTrace();
 			return;
 		}
 		
-		System.out.println("filePathWriter: write file path correctly");
+		System.out.println(SUCCESS_MESSAGE_WRITE);
 	}
 }

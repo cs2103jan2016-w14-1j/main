@@ -69,7 +69,7 @@ public class StorageMainTest {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
-	@Test
+	
 	public void testRead() throws JDOMException, IOException {
 		
 		dateList = new ArrayList<String>();
@@ -113,8 +113,8 @@ public class StorageMainTest {
 		StorageMain storeMain = new StorageMain();
 		
 		//String fileLocation = storeMain.filePathReader();
-		//String fileLocation = "C:\\Users\\asus\\git\\main\\newmain\\CataList\\src\\storage\\test.xml";
-		String fileLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
+		String fileLocation = "C:\\Users\\asus\\git\\main\\newmain\\CataList\\src\\storage\\test.xml";
+		//String fileLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
 		storeMain.saveFileLocation(fileLocation);
 		
 	}
