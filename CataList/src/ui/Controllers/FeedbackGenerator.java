@@ -15,7 +15,8 @@ public class FeedbackGenerator {
 	private static final String FEEDBACK_REDO = "Your last input before undo was '%1s'";
 	private static final String FEEDBACK_UNDO = "Your last input was '%1s'";
 	private static final String FEEDBACK_INVALID = "The command you are about to input will not generate changes'";
-
+	private static final String FEEDBACK_EVENT_CLASH = "There is a clash in your event tasks";
+	
 	private static final String MAIN_FEEDBACK_DEFAULT = "How can I be of help?";
 	private static final String MAIN_FEEDBACK_INVALID = "Unrecognised command";
 	private static final String MAIN_FEEDBACK_EMPTY = "Awaiting your orders";
@@ -84,6 +85,10 @@ public class FeedbackGenerator {
 	
 	public static void generateUndoFeedback(Text feedback, String lastInput) {
 		feedback.setText(String.format(FEEDBACK_UNDO, lastInput));
+	}
+	
+	public static void generateEventClashFeedback(Text feedback) {
+		feedback.setText(FEEDBACK_EVENT_CLASH);
 	}
 
 	public static void clearFeedback(Text feedback) {

@@ -16,11 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.Glyph;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
@@ -34,7 +37,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int TASK_START_TIME_WIDTH = 55;
 	private static final int TASK_END_TIME_WIDTH = 80;
 	private static final int TASK_START_DATE_WIDTH = 55;
-	private static final int TASK_END_DATE_WIDTH = 70;
+	private static final int TASK_END_DATE_WIDTH = 75;
 	private static final int TASK_NAME_WIDTH = 240;
 	private static final int TASK_INDEX_WIDTH = 40;
 	private static final int TASKROW_SPACING = 10;
@@ -56,7 +59,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String DATE_ID = "taskDate";
 	private static final String TIME_ID = "taskTime";
 	private static final String COMPLETED_TASK_ID = "completedTaskName";
-	
+
 	private static final String PENDING_TAB_ID = "tabPending";
 	private static final String COMPLETED_TAB_ID = "tabCompleted";
 	private static final String TODAY_TAB_ID = "tabToday";
@@ -75,7 +78,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String TIME_FORMAT = "HHmm";
 
 	private static final String TASK_INDEX_FORMAT = "  %1s.";
-	
+
 	private static final boolean OPEN_LIST = true;
 	private static final boolean CLOSE_LIST = false;
 
@@ -134,7 +137,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	 * Tab Functions
 	 * Controls ListInterface's tabs
 	 */
-	
+
 	private void initTabPane() {
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
@@ -162,10 +165,10 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 		});
 	}
-	
+
 	private void operateTabs() {
 		tabs.clear();
-		
+
 		pendingTabHandler();
 		overdueTabHandler();
 		todayTabHandler();
@@ -248,7 +251,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	 * Controls ListInterface's list by looping through the Logic everytime a command
 	 * is executed
 	 */
-	
+
 	public void loopTaskList() {
 		//previousCompletedSize = completedTasksFromLogic.size();
 
@@ -274,12 +277,13 @@ public class ListInterfaceController extends NotificationRenderer {
 			index++;
 			HBox taskRow = createTaskRow();
 			Label taskIndex = createTaskIndex(index);
-			Label taskName = createTaskName(taskObj);
+			Label taskName = createTaskName(taskObj, taskList);
 			Label taskStartTime = createTaskStartTime(taskObj);
 			Label taskEndTime = createTaskEndTime(taskObj);
 			Label taskStartDate = createTaskStartDate(taskObj); 
-			Label taskEndDate = createTaskEndDate(taskObj); 
-			
+			Label taskEndDate = createTaskEndDate(taskObj);
+
+
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 
 			if(todoListContainer.getScaleX() == 0) {
@@ -291,7 +295,13 @@ public class ListInterfaceController extends NotificationRenderer {
 				previousTasksSize = operatingTasksFromLogic.size();
 			} 
 
-			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+			if(taskFilter.checkEventClashes(taskObj, taskList)) {
+				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(20);
+				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+				FeedbackGenerator.generateEventClashFeedback(main.commandLineController.getHelpFeedback());
+			} else {
+				taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+			}
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
 		setTasksForCategories();
@@ -307,7 +317,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		}
 		return taskDate;
 	}
-	
+
 	private Label createTaskEndDate(Task taskObj) {
 		Label taskDate = new Label();
 		if(!taskObj.get_endDate().isEmpty()) {
@@ -317,24 +327,18 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private Label createTaskStartTime(Task taskObj) {
-		Label taskTime;
-		if(taskObj.get_startTime().isEmpty()) {
-			taskTime = new Label(taskObj.get_startTime());
-		} else {
-			taskTime = new Label(taskObj.get_startTime());
-		}
-		return taskTime;
+		return new Label(taskObj.get_startTime());
 	}
-	
+
 	private Label createTaskEndTime(Task taskObj) {
 		Label taskTime = new Label();
-		if(!taskObj.get_endDate().isEmpty()){
-			taskTime = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_startTime());
+		if(!taskObj.get_endTime().isEmpty()){
+			taskTime = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_endTime());
 		}
 		return taskTime;
 	}
 
-	private Label createTaskName(Task taskObj) {
+	private Label createTaskName(Task taskObj, ArrayList<Task> taskList) {
 		return new Label(taskObj.get_task());
 	}
 
@@ -352,19 +356,19 @@ public class ListInterfaceController extends NotificationRenderer {
 			index++;
 			HBox taskRow = createTaskRow();
 			Label taskIndex = createTaskIndex(index);
-			Label taskName = createTaskName(taskObj);
+			Label taskName = createTaskName(taskObj, taskList);
 			Label taskStartTime = createTaskStartTime(taskObj);
 			Label taskEndTime = createTaskEndTime(taskObj);
 			Label taskStartDate = createTaskStartDate(taskObj); 
 			Label taskEndDate = createTaskEndDate(taskObj); 
-			
+
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 			taskName.setId(COMPLETED_TASK_ID);
 			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
 			completedTasks.add(taskRow);
 		}
 	}
-	
+
 	public void openToDoList() {
 		if(pendingTasks.isEmpty() && completedTasks.isEmpty()) {	
 			if(main.isMainPaneManaged()) {
@@ -390,7 +394,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			closeToDoList();
 		}
 	}
-	
+
 	private void animateToDoList(boolean isOpen) {
 		if(isOpen) {
 			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
@@ -410,13 +414,13 @@ public class ListInterfaceController extends NotificationRenderer {
 			todoListContainer.setManaged(false);
 		}
 	}
-	
+
 	/**
 	 * Reminder Functions
 	 * Controls ListInterface's reminders and calls Notification Renderer by looping to check for
 	 * reminders every minute
 	 */
-	
+
 	private void loopCheckTasksForReminder() {
 		Timer checkTasks = new Timer(true);
 		checkTasks.schedule(new TimerTask() {
@@ -456,11 +460,11 @@ public class ListInterfaceController extends NotificationRenderer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Setters for ListInterface
 	 */
-	
+
 	private void setCompletedTasksFromLogic() {
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 	}
@@ -496,7 +500,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			VBox rowContainer = new VBox(10);
 			Label feedback = new Label(EMPTY_LIST_FEEDBACK);
 			Label message = new Label(EMPTY_LIST_MESSAGE);
-			
+
 			emptyRow.setId(EMPTY_LIST_ID);
 			rowContainer.setId(EMPTY_LIST_ID);
 			rowContainer.getChildren().addAll(feedback, message);
@@ -522,7 +526,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		HBox.setHgrow(date1, Priority.ALWAYS);
 		date1.setPrefWidth(TASK_START_DATE_WIDTH);
 		date1.setId(DATE_ID);
-		
+
 		HBox.setHgrow(date2, Priority.ALWAYS);
 		date2.setPrefWidth(TASK_END_DATE_WIDTH);
 		date2.setId(DATE_ID);
@@ -530,12 +534,12 @@ public class ListInterfaceController extends NotificationRenderer {
 		HBox.setHgrow(time1, Priority.ALWAYS);
 		time1.setPrefWidth(TASK_START_TIME_WIDTH);
 		time1.setId(TIME_ID);
-		
+
 		HBox.setHgrow(time2, Priority.ALWAYS);
 		time2.setPrefWidth(TASK_END_TIME_WIDTH);
 		time2.setId(TIME_ID);
 	}
-	
+
 	/**
 	 * Getters for ListInterface
 	 */
