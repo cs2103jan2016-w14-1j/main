@@ -214,7 +214,7 @@ public class Task implements Cloneable, Comparable<Task> {
 		
 		if(result == 0){
 			if(this.get_startTime() != SYMBOL_NULL && Other.get_startTime() != SYMBOL_NULL){
-				DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("HHmm");
+				DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("h.mma");
 				DateTime thisTime = timeFormatter.parseDateTime(this.get_startTime());
 				DateTime otherTime = timeFormatter.parseDateTime(Other.get_startTime());
 				result = thisTime.compareTo(otherTime);

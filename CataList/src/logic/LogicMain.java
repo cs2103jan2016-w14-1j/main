@@ -51,6 +51,7 @@ public class LogicMain {
 		for(Task eachTask : masterListTasks){
 			System.out.println(eachTask.get_task());
 		}
+		
 		sortList();
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
@@ -81,6 +82,7 @@ public class LogicMain {
 		masterListTasks = new ArrayList<Task>(storageSystem.loadTask());
 		
 	}
+	
 	private boolean isSearchOrSort(Task taskInput){
 		boolean result = false;
 		if(taskInput.get_cmd().equalsIgnoreCase("search")){
@@ -88,6 +90,7 @@ public class LogicMain {
 		}
 		return result;
 	}
+	
 	private String operateOnTask(Task requestedTask){
 		String commandType = requestedTask.get_cmd();
 		switch(commandType){
