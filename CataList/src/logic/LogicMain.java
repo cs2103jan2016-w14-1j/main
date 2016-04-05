@@ -41,18 +41,16 @@ public class LogicMain {
 		if(isMutatorAndNotUndoRedo(newCreatedTask)){
 			updateState();
 		}
-		
+		sortList();
 		regenerateSubListsFromMasterList();
-		
 		if(!isSearchOrSort(newCreatedTask)){
 			updateOperating();
 		}
-		
+		/*
 		for(Task eachTask : masterListTasks){
 			System.out.println(eachTask.get_task());
 		}
-		
-		sortList();
+		*/
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
