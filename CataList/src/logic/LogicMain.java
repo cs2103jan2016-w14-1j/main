@@ -43,7 +43,7 @@ public class LogicMain {
 		}
 		sortList();
 		regenerateSubListsFromMasterList();
-		if(!isSearchOrSort(newCreatedTask)){
+		if(!isSearchOrDisplay(newCreatedTask)){
 			updateOperating();
 		}
 		/*
@@ -81,9 +81,11 @@ public class LogicMain {
 		
 	}
 	
-	private boolean isSearchOrSort(Task taskInput){
+	private boolean isSearchOrDisplay(Task taskInput){
 		boolean result = false;
 		if(taskInput.get_cmd().equalsIgnoreCase("search")){
+			result = true;
+		} else if (taskInput.get_cmd().equalsIgnoreCase("display")){
 			result = true;
 		}
 		return result;
@@ -131,7 +133,7 @@ public class LogicMain {
 	}
 	
 	private void updateOperating(){
-		operatingTasks = new ArrayList<Task>(masterListTasks);
+		operatingTasks = new ArrayList<Task>(incompleteTasks);
 	}
 	
 	private void regenerateSubListsFromMasterList(){
@@ -148,9 +150,6 @@ public class LogicMain {
 	
 	private ArrayList<Task> sortList(){
 		Collections.sort(masterListTasks);
-		for(Task debugEach : masterListTasks){
-			System.out.println(debugEach.get_startDate());
-		}
 		return masterListTasks;
 	}
 	/*
@@ -230,7 +229,7 @@ public class LogicMain {
 		} else {
 			return taskToOp.get_messageToUserFail();
 		}
-		
+
 		return feedBack;
 	}
 	
@@ -243,13 +242,7 @@ public class LogicMain {
 			Task cloneTask = (Task) toEdit.cloneOf();
 			cloneTask.editWith(taskToOp);
 		
-			for(int i = 0 ; i < masterListTasks.size() ; i++){
-				if(masterListTasks.get(i).equals(toEdit)){
-					masterListTasks.set(i, cloneTask);
-				}
-			}
-			
-			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);	
+			doOperateOnMasterAndOperating(toEdit, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e){
 			feedBack = taskToOp.get_messageToUserFail();
@@ -307,14 +300,8 @@ public class LogicMain {
 			Task operateOn = operatingTasks.get(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			Task cloneTask = (Task) operateOn.cloneOf();
 			cloneTask.set_Complete();
-			
-			for(int i = 0 ; i < masterListTasks.size() ; i++){
-				if(masterListTasks.get(i).equals(operateOn)){
-					masterListTasks.set(i, cloneTask);
-				}
-			}
-			
-			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);
+
+			doOperateOnMasterAndOperating(operateOn, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {
 			feedBack = taskToOp.get_messageToUserFail();
@@ -331,13 +318,7 @@ public class LogicMain {
 			Task cloneTask = (Task) operateOn.cloneOf();
 			cloneTask.set_Incomplete();
 			
-			for(int i = 0 ; i < masterListTasks.size() ; i++){
-				if(masterListTasks.get(i).equals(operateOn)){
-					masterListTasks.set(i, cloneTask);
-				}
-			}
-			
-			operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, cloneTask);
+			doOperateOnMasterAndOperating(operateOn, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {
 			feedBack = taskToOp.get_messageToUserFail();
@@ -354,5 +335,15 @@ public class LogicMain {
 	private String opForUI(Task taskToOp){
 		String feedBack = taskToOp.get_messageToUserSuccess();
 		return feedBack;
+	}
+	
+	private void doOperateOnMasterAndOperating(Task operateOn, Task replaceWith, int operateIndex){
+		for(int i = 0 ; i < masterListTasks.size() ; i++){
+			if(masterListTasks.get(i).equals(operateOn)){
+				masterListTasks.set(i, replaceWith);
+			}
+		}
+		
+		operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, replaceWith);	
 	}
 }

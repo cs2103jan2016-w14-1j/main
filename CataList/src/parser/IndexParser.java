@@ -8,6 +8,7 @@ public class IndexParser {
 	public static int parseIndex(String userInputEvent){
 		String IndexWord = findIndexWord(userInputEvent);
 		int parsedInt = tryParse(IndexWord);
+		System.out.println(parsedInt);
 		return parsedInt;
 	}
 	
