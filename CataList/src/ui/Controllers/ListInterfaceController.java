@@ -31,12 +31,12 @@ import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
-	private static final int TASK_START_TIME_WIDTH = 80;
-	private static final int TASK_END_TIME_WIDTH = 70;
-	private static final int TASK_START_DATE_WIDTH = 60;
+	private static final int TASK_START_TIME_WIDTH = 55;
+	private static final int TASK_END_TIME_WIDTH = 80;
+	private static final int TASK_START_DATE_WIDTH = 55;
 	private static final int TASK_END_DATE_WIDTH = 70;
-	private static final int TASK_NAME_WIDTH = 250;
-	private static final int TASK_INDEX_WIDTH = 50;
+	private static final int TASK_NAME_WIDTH = 240;
+	private static final int TASK_INDEX_WIDTH = 40;
 	private static final int TASKROW_SPACING = 10;
 	private static final int REMINDER_TIME = 15;
 	private static final int TIME_FLAG = 1;
@@ -68,8 +68,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final String EMPTY_LIST_FEEDBACK = "Your task list is empty.";
 	private static final String EMPTY_LIST_MESSAGE = "Take a break and enjoy your day! You deserve it!";
 	private static final String EMPTY_LIST_ID = "emptyRow";
-	private static final String DEADLINE_PLACEHOLDER = "Due ";
-	private static final String END_DATETIME_PLACEHOLDER = " - ";
+	private static final String END_DATETIME_PLACEHOLDER = "to ";
 	private static final String NULL = "";
 
 	private static final String DATE_FORMAT = "dd/MM/yy";
@@ -280,6 +279,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskEndTime = createTaskEndTime(taskObj);
 			Label taskStartDate = createTaskStartDate(taskObj); 
 			Label taskEndDate = createTaskEndDate(taskObj); 
+			
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 
 			if(todoListContainer.getScaleX() == 0) {
@@ -321,16 +321,14 @@ public class ListInterfaceController extends NotificationRenderer {
 		if(taskObj.get_startTime().isEmpty()) {
 			taskTime = new Label(taskObj.get_startTime());
 		} else {
-			taskTime = new Label(DEADLINE_PLACEHOLDER + taskObj.get_startTime());
+			taskTime = new Label(taskObj.get_startTime());
 		}
 		return taskTime;
 	}
 	
 	private Label createTaskEndTime(Task taskObj) {
 		Label taskTime = new Label();
-		if(taskObj.get_startTime().isEmpty()) {
-			taskTime = new Label(DEADLINE_PLACEHOLDER);
-		} else {
+		if(!taskObj.get_endDate().isEmpty()){
 			taskTime = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_startTime());
 		}
 		return taskTime;
