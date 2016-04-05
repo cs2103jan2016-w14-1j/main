@@ -214,8 +214,12 @@ public class CommandLineController {
 		return userInput;
 	}
 
-	public Text getFeedback() {
+	public Text getMainFeedback() {
 		return feedbackMain;
+	}
+	
+	public Text getHelpFeedback() {
+		return feedbackHelp;
 	}
 
 	public String getTutorialToggle() {

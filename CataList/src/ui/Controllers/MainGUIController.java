@@ -93,10 +93,6 @@ public class MainGUIController {
 		return commandLineController.getCommandLine();
 	}
 	
-	public Text getFeedback() {
-		return commandLineController.getFeedback();
-	}
-	
 	public ListView<HBox> getList() {
 		return todoListController.getList();
 	}

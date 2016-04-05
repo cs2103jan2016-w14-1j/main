@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import logic.Task;
 
 public class TaskFilter {
+	private static final String NULL_FLAG = "";
 	private static final String FILTER_PLACEHOLDER = " : ";
 	private static final String DATE_FORMAT = "dd/MM/yy";
 	private static final String TIME_FORMAT = "h.mma";
@@ -22,7 +23,7 @@ public class TaskFilter {
 	private static final String TODAY_ID = "classToday";
 	private static final String OVERDUE_ID = "classOverdue";
 	private static final String NUM_ID = "numTask";
-	
+
 	private static final String FLOAT_TASK_ID = "taskFloat";
 	private static final String OTHERS_TASK_ID = "taskOthers";
 	private static final String TOMORROW_TASK_ID = "taskTomorrow";
@@ -48,7 +49,7 @@ public class TaskFilter {
 	private HBox taskClassOthers;
 	private HBox taskClassFloat;
 	private HBox taskClassOverdue;
-	
+
 
 	public TaskFilter() {
 		tasksToday = new ArrayList<HBox>();
@@ -59,35 +60,35 @@ public class TaskFilter {
 
 		initClasses();
 	}
-	
+
 	public void getTasksToday(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksToday.size(); i++) {
 			list.add(tasksToday.get(i));
 		}
 	}
-	
+
 	public void getTasksTomorrow(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksTomorrow.size(); i++) {
 			list.add(tasksTomorrow.get(i));
 		}
 	}
-	
+
 	public void getTasksOthers(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksOthers.size(); i++) {
 			list.add(tasksOthers.get(i));
 		}
 	}
-	
+
 	public void getTasksOverdue(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksOverdue.size(); i++) {
 			list.add(tasksOverdue.get(i));
 		}
 	}
-	
+
 	public void getTasksFloat(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksFloat.size(); i++) {
@@ -115,13 +116,13 @@ public class TaskFilter {
 		Label taskFloat = new Label(FLOAT_CLASS);
 		taskFloat.setId(FLOAT_ID);
 		taskClassFloat.getChildren().add(taskFloat);
-		
+
 		taskClassOverdue = new HBox(CLASS_SPACE);
 		Label taskOverdue = new Label(OVERDUE_CLASS);
 		taskOverdue.setId(OVERDUE_ID);
 		taskClassOverdue.getChildren().add(taskOverdue);
 	}
-	
+
 	private void clearAll() {
 		tasksToday.clear();
 		tasksTomorrow.clear();
@@ -134,12 +135,12 @@ public class TaskFilter {
 		int taskNum = 1;
 		while(taskNum <= tasksToday.size() + tasksTomorrow.size() +
 				tasksFloat.size() + tasksOthers.size() + tasksOverdue.size()) {
-			
+
 			final int overdueSize = tasksOverdue.size();
 			final int overdueTodaySize = tasksOverdue.size() + tasksToday.size();
 			final int overdueTodayTomorrowSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size();
 			final int overdueTodayTomorrowOthersSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size();
-			
+
 			if(taskNum <= overdueSize) {
 				addOverdueToList(list, taskNum);	
 			} else if(taskNum >= overdueSize && taskNum <= overdueTodaySize) {
@@ -155,23 +156,23 @@ public class TaskFilter {
 		}
 		clearAll();
 	}
-	
+
 	/*
 	 * add to respective lists
 	 */
 
 	private void addFloatToList(ObservableList<HBox> list, int taskNum) {
 		final int overdueTodayTomorrowOthersSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size();
-		
+
 		if(taskNum == overdueTodayTomorrowOthersSize + 1) {
 			updateFloatCount(taskNum);
 		}
 		list.add(tasksFloat.get(taskNum-overdueTodayTomorrowOthersSize-1));
 	}
-	
+
 	private void addOthersToList(ObservableList<HBox> list, int taskNum) {
 		final int overdueTodayTomorrowSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size();
-		
+
 		if(taskNum == overdueTodayTomorrowSize + 1) {
 			updateOthersCount(taskNum);
 		}
@@ -180,35 +181,35 @@ public class TaskFilter {
 
 	private void addTomorrowToList(ObservableList<HBox> list, int taskNum) {
 		final int overdueTodaySize = tasksOverdue.size() + tasksToday.size();
-		
+
 		if(taskNum == overdueTodaySize + 1) {
 			updateTomorrowCount(taskNum);
 		}
 		list.add(tasksTomorrow.get(taskNum-overdueTodaySize-1));
 	}
-	
+
 	private void addTodayToList(ObservableList<HBox> list, int taskNum) {
 		final int overdueSize = tasksOverdue.size();
-		
+
 		if(taskNum == overdueSize + 1) {
 			updateTodayCount(taskNum);
 		}
 		list.add(tasksToday.get(taskNum-overdueSize-1));
 	}
-	
+
 	private void addOverdueToList(ObservableList<HBox> list, int taskNum) {
 		if(taskNum == 1) {
 			updateOverdueCount(taskNum);
 		}
 		list.add(tasksOverdue.get(taskNum-1));
 	}
-	
+
 	private void updateFloatCount(int taskNum) {
 		final int overdueTodayTomorrowOthersSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size();
-		
+
 		Label taskFloatNum = new Label(FILTER_PLACEHOLDER + (tasksFloat.size()-1));
 		taskFloatNum.setId(NUM_ID);
-		
+
 		if(tasksFloat.get(taskNum-overdueTodayTomorrowOthersSize-1).getChildren().size() == 2) {
 			tasksFloat.get(taskNum-overdueTodayTomorrowOthersSize-1).getChildren().set(1, taskFloatNum);
 		} else {
@@ -219,13 +220,13 @@ public class TaskFilter {
 	/*
 	 * update count of respective category
 	 */
-	
+
 	private void updateOthersCount(int taskNum) {
 		final int overdueTodayTomorrowSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size();
-		
+
 		Label taskOthersNum = new Label(FILTER_PLACEHOLDER + (tasksOthers.size()-1));
 		taskOthersNum.setId(NUM_ID);
-		
+
 		if(tasksOthers.get(taskNum-overdueTodayTomorrowSize-1).getChildren().size() == 2) {
 			tasksOthers.get(taskNum-overdueTodayTomorrowSize-1).getChildren().set(1, taskOthersNum);
 		} else {
@@ -235,7 +236,7 @@ public class TaskFilter {
 
 	private void updateTomorrowCount(int taskNum) {
 		final int overdueTodaySize = tasksOverdue.size() + tasksToday.size();
-		
+
 		Label taskTomorrowNum = new Label(FILTER_PLACEHOLDER + (tasksTomorrow.size()-1));
 		taskTomorrowNum.setId(NUM_ID);
 		if(tasksTomorrow.get(taskNum-overdueTodaySize-1).getChildren().size() == 2) {
@@ -247,7 +248,7 @@ public class TaskFilter {
 
 	private void updateTodayCount(int taskNum) {
 		final int overdueSize = tasksOverdue.size();
-		
+
 		Label taskTodayNum = new Label(FILTER_PLACEHOLDER + (tasksToday.size()-1));
 		taskTodayNum.setId(NUM_ID);
 		if(tasksToday.get(taskNum-overdueSize-1).getChildren().size() == 2) {
@@ -271,18 +272,18 @@ public class TaskFilter {
 		LocalDateTime localDate = new LocalDateTime();
 		String dateToday = localDate.toString(DATE_FORMAT);
 		String dateTomorrow = localDate.plusDays(1).toString(DATE_FORMAT);
-		
+
 		LocalDateTime taskDate = new LocalDateTime();
 		LocalTime taskTime = new LocalTime();
 		LocalTime timeNow = new LocalTime();
-		
-		if(taskObj.get_startDate() != "") {
+
+		if(taskObj.get_startDate() != NULL_FLAG) {
 			taskDate = LocalDateTime.parse(taskObj.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
-			if(taskObj.get_startTime() != "") {
+			if(taskObj.get_startTime() != NULL_FLAG) {
 				taskTime = LocalDateTime.parse(taskObj.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 			}
 		}
-		
+
 		if(taskDate.plusDays(1).isBefore(localDate) || 
 				(taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
 			if(!tasksOverdue.contains(taskClassOverdue)) {
@@ -317,5 +318,70 @@ public class TaskFilter {
 			taskRow.setId(OTHERS_TASK_ID);
 			tasksOthers.add(taskRow);
 		}
+	}
+
+	public boolean checkEventClashes(Task taskObj, ArrayList<Task> taskList) {
+		LocalDateTime taskObjStartDate = new LocalDateTime();
+		LocalTime taskObjStartTime = new LocalTime();
+		LocalDateTime taskObjEndDate = new LocalDateTime();
+		LocalTime taskObjEndTime = new LocalTime();
+
+		LocalDateTime taskComparedStartDate = new LocalDateTime();
+		LocalTime taskComparedStartTime = new LocalTime();
+		LocalDateTime taskComparedEndDate = new LocalDateTime();
+		LocalTime taskComparedEndTime = new LocalTime();
+
+		if(taskObj.get_startDate() != NULL_FLAG && taskObj.get_endDate() != NULL_FLAG) {
+			taskObjStartDate = LocalDateTime.parse(taskObj.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+			taskObjEndDate = LocalDateTime.parse(taskObj.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+		}
+		if(taskObj.get_startTime() != NULL_FLAG && taskObj.get_endTime() != NULL_FLAG) {
+			taskObjStartTime = LocalDateTime.parse(taskObj.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+			taskObjEndTime = LocalDateTime.parse(taskObj.get_endTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+		}
+
+		for(Task task: taskList) {
+			if(task.isEqualTask(taskObj)) {
+				continue;
+			}
+			if(task.get_startTime() != NULL_FLAG && task.get_endTime() != NULL_FLAG) {
+				taskComparedStartTime = LocalDateTime.parse(task.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+				taskComparedEndTime = LocalDateTime.parse(task.get_endTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
+				
+				if((taskObjStartTime.isAfter(taskComparedStartTime) 
+						|| taskObjStartTime.isEqual(taskComparedStartTime))
+						&& (taskObjStartTime.isBefore(taskComparedEndTime))) {
+					
+					if(task.get_startDate() != NULL_FLAG && task.get_endDate() != NULL_FLAG) {
+						taskComparedStartDate = LocalDateTime.parse(task.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+						taskComparedEndDate = LocalDateTime.parse(task.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+
+						if((taskObjStartDate.isAfter(taskComparedStartDate) 
+								|| taskObjStartDate.isEqual(taskComparedStartDate))
+								&& (taskObjStartDate.isBefore(taskComparedEndDate) 
+								|| taskObjStartDate.isEqual(taskComparedEndDate))) {
+							return true;
+						} 
+					}
+				} else if((taskObjStartTime.isBefore(taskComparedStartTime) 
+						|| taskObjStartTime.isEqual(taskComparedStartTime))
+						&& (taskObjEndTime.isAfter(taskComparedStartTime))) {
+					
+					if(task.get_startDate() != NULL_FLAG && task.get_endDate() != NULL_FLAG) {
+						taskComparedStartDate = LocalDateTime.parse(task.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+						taskComparedEndDate = LocalDateTime.parse(task.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
+
+						if((taskObjStartDate.isBefore(taskComparedStartDate) 
+								|| taskObjStartDate.isEqual(taskComparedStartDate))
+								&& (taskObjEndDate.isAfter(taskComparedStartDate) 
+										|| taskObjEndDate.isEqual(taskComparedStartDate))) {
+							return true;
+						} 
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 }
