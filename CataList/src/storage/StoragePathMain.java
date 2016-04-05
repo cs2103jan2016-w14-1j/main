@@ -14,6 +14,7 @@ import java.util.List;
 
 public class StoragePathMain {
 	
+	private static String STORAGE_FILE_DIRECTORY = System.getProperty("user.dir") + "/src/storage";
 	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
 	private static final String ERROR_MESSAGE_PATH = "cannot create new path file";
 	private static final String ERROR_MESSAGE_WRITE = "cannot write";
@@ -33,7 +34,7 @@ public class StoragePathMain {
 		try{
 			String storagePath = filePathReader();
 			File oldFile = new File(storagePath);
-			if(oldFile.exists()){
+			if(!oldFile.exists()){
 				oldFile.createNewFile();
 			}
     	    File newFile = new File(newFileLocation);
@@ -81,6 +82,15 @@ public class StoragePathMain {
 		pointerFilePath = STORAGE_FILE_PATH;
 		
 		Path oldPath = Paths.get(pointerFilePath);
+		
+		Path directoryPath = Paths.get(STORAGE_FILE_DIRECTORY);
+		if(!Files.exists(directoryPath)){
+			try{
+				Files.createDirectories(directoryPath);
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
 		
 		File pathFile = new File(STORAGE_FILE_PATH);
 		if(!pathFile.exists()){

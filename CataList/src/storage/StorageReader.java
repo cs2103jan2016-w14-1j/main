@@ -17,7 +17,7 @@ import logic.Task;
 
 public class StorageReader {
 	
-	private static final String ELEMENT_TASK = "Task";
+	private static final String ELEMENT_TASKLIST = "TaskList";
 	private static final String STORAGE_PATH = 
 			System.getProperty("user.dir") + 
             "/src/storage/test.xml";
@@ -47,56 +47,64 @@ public class StorageReader {
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(path);
 		
-		Document todoListDocument = (Document) builder.build(xmlFile);
-		Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
+		if(!xmlFile.exists()){
+			xmlFile.createNewFile();
+			Element rootNode = new Element(ELEMENT_TASKLIST);
+			Document todoListDocument = new Document(rootNode);
+			//todoListDocument.setRootElement(rootNode);
+			StorageWriter.writeToStorage(todoListDocument, path);
+		} 
+			Document todoListDocument = (Document) builder.build(xmlFile);
+			Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
 		
-		List<Element> list = rootNode.getChildren(); // every single children is a task
-		ArrayList<Task> listOfTask = new ArrayList<Task>(list.size());
-		
-		
-		for(int i=0; i<list.size(); i++) {
+			List<Element> list = rootNode.getChildren(); // every single children is a task
+			ArrayList<Task> listOfTask = new ArrayList<Task>(list.size());
+				
+			for(int i=0; i<list.size(); i++) {
 			
-			Element node = (Element) list.get(i);
-			//TODO:
-			dateList.clear();
-			timeList.clear();
-			dateTimeArgs.clear();
-			// END HOTFIX
-			/*Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
+				Element node = (Element) list.get(i);
+				//TODO:
+				dateList.clear();
+				timeList.clear();
+				dateTimeArgs.clear();
+				// END HOTFIX
+				/*Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", "",
 					node.getChildText(ELEMENT_DATE), node.getChildText(ELEMENT_TIME));*/
-			String startDate = node.getChildText(ELEMENT_START_DATE);
-			String endDate = node.getChildText(ELEMENT_END_DATE);
-			String startTime = node.getChildText(ELEMENT_START_TIME);
-			String endTime = node.getChildText(ELEMENT_END_TIME);
-			//TODO
-			if(startDate != SYMBOL_EMPTY){
-				dateList.add(startDate);
-				if(endDate != SYMBOL_EMPTY){
-					dateList.add(endDate);
+				String startDate = node.getChildText(ELEMENT_START_DATE);
+				String endDate = node.getChildText(ELEMENT_END_DATE);
+				String startTime = node.getChildText(ELEMENT_START_TIME);
+				String endTime = node.getChildText(ELEMENT_END_TIME);
+				//TODO
+				if(startDate != SYMBOL_EMPTY){
+					dateList.add(startDate);
+					if(endDate != SYMBOL_EMPTY){
+						dateList.add(endDate);
+					}
 				}
-			}
 			
-			if(startTime != SYMBOL_EMPTY){
-				timeList.add(startTime);
 				if(startTime != SYMBOL_EMPTY){
-					timeList.add(endTime);
+					timeList.add(startTime);
+					if(startTime != SYMBOL_EMPTY){
+						timeList.add(endTime);
+					}
 				}
+				//END HOTFIX
+				dateTimeArgs.add(dateList);
+				dateTimeArgs.add(timeList);
+				System.out.println("Adding startDate: " + startDate);
+				Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", 
+						"success", "fail", dateTimeArgs);
+				String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
+				if(attribute.equals(ATTRIBUTE_COMPLETE)){
+					taskObj.set_Complete();
+				} else {
+					taskObj.set_Incomplete();
+				}
+				taskObj.set_index(i+1);
+				listOfTask.add(taskObj);
 			}
-			//END HOTFIX
-			dateTimeArgs.add(dateList);
-			dateTimeArgs.add(timeList);
-			System.out.println("Adding startDate: " + startDate);
-			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), "display", 
-									"success", "fail", dateTimeArgs);
-			String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
-			if(attribute.equals(ATTRIBUTE_COMPLETE)){
-				taskObj.set_Complete();
-			} else {
-				taskObj.set_Incomplete();
-			}
-			taskObj.set_index(i+1);
-			listOfTask.add(taskObj);			
+		
+			return listOfTask;
 		}
-		return listOfTask;
-	}
-}
+	}	
+
