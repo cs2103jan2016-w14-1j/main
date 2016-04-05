@@ -35,22 +35,8 @@
     <EndTime />
     <EndDate />
   </Task>
-  <Task ID="6" State="Incomplete">
-    <Event>1</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="7" State="Complete">
+  <Task ID="6" State="Complete">
     <Event>1g</Event>
-    <StartTime />
-    <StartDate />
-    <EndTime />
-    <EndDate />
-  </Task>
-  <Task ID="8" State="Complete">
-    <Event>asda</Event>
     <StartTime />
     <StartDate />
     <EndTime />
