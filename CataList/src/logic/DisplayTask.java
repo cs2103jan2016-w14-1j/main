@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class DisplayTask extends Task {
 
-	private static final String MESSAGE_DISPLAY_SUCCESS = "DISPLAYing Event";
-	private static final String MESSAGE_DISPLAY_FAILURE = "Unable to DISPLAY.";
-	private static final String COMMAND_TYPE = "DISPLAY";
+	private static final String MESSAGE_DISPLAY_SUCCESS = "Displaying Events";
+	private static final String MESSAGE_DISPLAY_FAILURE = "Unable to display.";
+	private static final String COMMAND_TYPE = "display";
 	
 	private static final boolean IS_MUTATOR = false;
 

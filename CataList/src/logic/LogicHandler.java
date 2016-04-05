@@ -14,6 +14,7 @@ public class LogicHandler {
 	private static final int DATE_TIME_SIZE_EMPTY = 0;
 	
 	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
+															,"display"
 															,"edit"
 															,"markcomplete"
 															,"markincomplete"};
