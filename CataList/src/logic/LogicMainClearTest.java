@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LogicMainTest {
+public class LogicMainClearTest {
 	LogicMain logicTest;
 	
 	@Before
@@ -15,39 +15,6 @@ public class LogicMainTest {
 		logicTest = new LogicMain();
 		String userInput6 = "clear";
 		String testOutput = logicTest.processCommand(userInput6);
-
-	}
-	
-	@Test
-	public void testAdding(){
-		String userInput = "add Fire James 2GD";
-		String testResult = logicTest.processCommand(userInput);
-		String expectedResult = "The event has been added.";
-		System.out.println(testResult);
-		assertEquals(testResult, expectedResult);
-		
-		ArrayList<Task> testList = logicTest.getOperatingTasksForUI();
-		Task resultOutput = testList.get(0);
-		String testEventResult = resultOutput.get_task();
-		String expectedEventResult = "Fire James 2GD";
-		System.out.println(resultOutput.get_task());
-		assertEquals(testEventResult, expectedEventResult);
-	}
-	
-	@Test
-	public void testDeleting(){
-		String userInput = "add Shanghai Major stream delay pls";
-		String testResult = logicTest.processCommand(userInput);
-		String expectedResult = "The event has been added.";
-		assertEquals(testResult, expectedResult);
-		
-		String userInput2 = "delete 1";
-		String testResult2 = logicTest.processCommand(userInput2);
-		String expectedResult2 = "The event has been deleted.";
-		assertEquals(testResult2, expectedResult2);
-		ArrayList<Task> testList = logicTest.getOperatingTasksForUI();
-		assertEquals(testList.size(), 0);
-			
 	}
 	
 	@Test
@@ -73,5 +40,4 @@ public class LogicMainTest {
 		assertEquals(testOutput, expectedOutput);
 		assertEquals(testList.size(), 0);
 	}
-
 }
