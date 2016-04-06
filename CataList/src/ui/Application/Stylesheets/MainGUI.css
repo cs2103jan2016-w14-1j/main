@@ -1,3 +1,5 @@
+/* //@@author A01122204E */
+
 @font-face {
     font-family: delicious-bold;
     src: url("Fonts/Delicious-Bold.otf");
@@ -7,16 +9,6 @@
     font-family: delicious-roman;
     src: url("Fonts/Delicious-Roman.otf");
 }
-
-@font-face {
-    font-family: delicious-smallcaps;
-    src: url("Fonts/Delicious-SmallCaps.otf");
-}
- 
-@font-face {
-    font-family: infinity;
-    src: url("Fonts/Infinity.ttf");
-} 
 
 @font-face {
 	font-family: comicNeue-angular-regular;
@@ -45,7 +37,6 @@
 
 .root {
 	-fx-background-size: cover;
-  
 }
 
 #backgroundPane {
@@ -203,12 +194,14 @@
 }
 
 /* Hide scroll bars */
-#todoList .scroll-bar:horizontal, .scroll-bar:vertical {
+#todoList .scroll-bar:horizontal,
+.scroll-bar:vertical {
     -fx-opacity: 0;
     -fx-padding: -7;
 }
 
-.table-view .scroll-bar:horizontal, .scroll-bar:vertical {
+.table-view .scroll-bar:horizontal,
+.scroll-bar:vertical {
 	-fx-opacity: 0;
     -fx-padding: -7;
 }
@@ -234,7 +227,7 @@
 }
 
 .list-cell #taskOthers {
-	  -fx-border-width: 0 0 0 5;
+	-fx-border-width: 0 0 0 5;
     -fx-border-color: teal;
 }
 
