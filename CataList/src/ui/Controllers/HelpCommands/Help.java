@@ -1,4 +1,3 @@
-//@@author A01122204E
 package ui.Controllers.HelpCommands;
 
 public class Help {

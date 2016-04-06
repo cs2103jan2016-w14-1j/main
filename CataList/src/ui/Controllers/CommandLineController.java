@@ -1,4 +1,3 @@
-//@@author A01122204E
 package ui.Controllers;
 
 import java.io.File;
