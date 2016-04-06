@@ -48,30 +48,30 @@ public class ColorRenderer {
 
 	private void setBackgroundColor(Node node) {
 		switch(colorToggle) {
-		case OLIVE_FLAG:
-			node.setStyle(OLIVE_COLOR);
-			break;
-		case TURQOISE_FLAG:
-			node.setStyle(TURQOISE_COLOR);
-			break;
-		case ORCHID_FLAG:
-			node.setStyle(ORCHID_COLOR);
-			break;
-		case ORANGE_FLAG:
-			node.setStyle(ORANGE_COLOR);
-			break;
-		case CORAL_FLAG:	
-			node.setStyle(CORAL_COLOR);
-			break;
-		case MAROON_FLAG:
-			node.setStyle(MAROON_COLOR);
-			break;
-		case BROWN_FLAG:
-			node.setStyle(BROWN_COLOR);
-			break;
-		default:
-			node.setStyle(INVALID_COLOR);
-			break;
+			case OLIVE_FLAG:
+				node.setStyle(OLIVE_COLOR);
+				break;
+			case TURQOISE_FLAG:
+				node.setStyle(TURQOISE_COLOR);
+				break;
+			case ORCHID_FLAG:
+				node.setStyle(ORCHID_COLOR);
+				break;
+			case ORANGE_FLAG:
+				node.setStyle(ORANGE_COLOR);
+				break;
+			case CORAL_FLAG:	
+				node.setStyle(CORAL_COLOR);
+				break;
+			case MAROON_FLAG:
+				node.setStyle(MAROON_COLOR);
+				break;
+			case BROWN_FLAG:
+				node.setStyle(BROWN_COLOR);
+				break;
+			default:
+				node.setStyle(INVALID_COLOR);
+				break;
 		}
 	}
 

@@ -20,7 +20,7 @@ import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -30,7 +30,7 @@ import org.joda.time.LocalTime;
 
 import ui.Controllers.MainGUIController;
 import logic.Task;
-import shared.LogHandler;
+//import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
@@ -101,7 +101,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static ArrayList<Tab> tabs = new ArrayList<Tab>();
 
 	private ArrayList<Task> operatingTasksFromLogic = new ArrayList<Task>();
-	private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
+	//private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
 	private ArrayList<Task> completedTasksFromLogic = new ArrayList<Task>();
 
 	private static ObservableList<HBox> todayTasks =
@@ -116,16 +116,19 @@ public class ListInterfaceController extends NotificationRenderer {
 			FXCollections.observableArrayList();
 
 	private int previousTasksSize;
-	private int previousCompletedSize;
+	//private int previousCompletedSize;
 
-	private HBox scrollSelection = new HBox();
-	private Logger log = LogHandler.retriveLog();
-	private TaskFilter taskFilter = new TaskFilter();
-	private NotificationRenderer notification = new NotificationRenderer();
+	private HBox scrollSelection;
+	//private Logger log = LogHandler.retriveLog();
+	private TaskFilter taskFilter;
+	private NotificationRenderer notification;
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
-
+		scrollSelection = new HBox();
+		taskFilter = new TaskFilter();
+		notification = new NotificationRenderer();
+		
 		initTabPane();
 		loopTaskList();
 		hideToDoList();
@@ -140,6 +143,10 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void initTabPane() {
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		setObservableCommandLine();
+	}
+
+	private void setObservableCommandLine() {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
@@ -282,7 +289,6 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskEndTime = createTaskEndTime(taskObj);
 			Label taskStartDate = createTaskStartDate(taskObj); 
 			Label taskEndDate = createTaskEndDate(taskObj);
-
 
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 

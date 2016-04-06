@@ -25,7 +25,7 @@ public class FeedbackGenerator {
 	private static final String MAIN_FEEDBACK_AUTOCOMPLETE = "Is '%1s' what you meant?";
 	
 
-	private static final String CLEAR_REGEX = "";
+	private static final String NULL_REGEX = "";
 
 	public static void generateDefaultFeedback(Text feedback) {
 		feedback.setText(String.format(MAIN_FEEDBACK_DEFAULT));
@@ -92,6 +92,6 @@ public class FeedbackGenerator {
 	}
 
 	public static void clearFeedback(Text feedback) {
-		feedback.setText(CLEAR_REGEX);
+		feedback.setText(NULL_REGEX);
 	}
 }

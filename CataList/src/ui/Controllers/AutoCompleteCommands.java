@@ -63,15 +63,20 @@ public class AutoCompleteCommands {
 				rebuildCorrectedUserInput(splitInput, sb);
 				
 				userInput.setText(sb.toString().trim());
-				if(splitInput.length == 1) {
-					userInput.end();
-				} else {
-					userInput.positionCaret(currentCaretPosition);
-				}
+				fixCaretPositionAfterCorrection(userInput, currentCaretPosition, splitInput);
 				
 				FeedbackGenerator.generateAutoCompleteFeedback(feedback, splitInput[START_INDEX]);
 				break;
 			}	
+		}
+	}
+
+	private static void fixCaretPositionAfterCorrection(TextField userInput, int currentCaretPosition,
+			String[] splitInput) {
+		if(splitInput.length == 1) {
+			userInput.end();
+		} else {
+			userInput.positionCaret(currentCaretPosition);
 		}
 	}
 

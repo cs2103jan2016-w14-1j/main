@@ -11,6 +11,8 @@ import ui.Controllers.TitleQuotes.QuoteGenerator;
 
 public class TitleInterfaceController extends QuoteGenerator{
 
+	private static final int CHANGE_QUOTE_INTERVAL = 120000;
+
 	@FXML
 	private Text quote;
 
@@ -27,10 +29,10 @@ public class TitleInterfaceController extends QuoteGenerator{
 				quote.setText(QuoteGenerator.generateRandomQuote());
 
 				FadeTransition ft = new FadeTransition(Duration.millis(800), quote);
-				ft.setFromValue(0.0);
-				ft.setToValue(1.0);
+				ft.setFromValue(0);
+				ft.setToValue(1);
 				ft.play();
 			}
-		}, 0, 120000);
+		}, 0, CHANGE_QUOTE_INTERVAL);
 	}
 }
