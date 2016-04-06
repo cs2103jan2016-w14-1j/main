@@ -1,3 +1,4 @@
+//@@author A0112204E
 package ui.Controllers;
 
 import javafx.animation.ScaleTransition;
@@ -37,7 +38,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static final int TASK_START_TIME_WIDTH = 55;
 	private static final int TASK_END_TIME_WIDTH = 80;
 	private static final int TASK_START_DATE_WIDTH = 55;
-	private static final int TASK_END_DATE_WIDTH = 75;
+	private static final int TASK_END_DATE_WIDTH = 55;
 	private static final int TASK_NAME_WIDTH = 240;
 	private static final int TASK_INDEX_WIDTH = 40;
 	private static final int TASKROW_SPACING = 10;
@@ -301,12 +302,12 @@ public class ListInterfaceController extends NotificationRenderer {
 				previousTasksSize = operatingTasksFromLogic.size();
 			} 
 
-			if(taskFilter.checkEventClashes(taskObj, taskList)) {
+			if(taskFilter.isEventClashing(taskObj, taskList)) {
 				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(20);
-				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
 				FeedbackGenerator.generateEventClashFeedback(main.commandLineController.getHelpFeedback());
 			} else {
-				taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+				taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
 			}
 			taskFilter.sortTasksByClasses(taskObj, taskRow);
 		}	
@@ -327,7 +328,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	private Label createTaskEndDate(Task taskObj) {
 		Label taskDate = new Label();
 		if(!taskObj.get_endDate().isEmpty()) {
-			taskDate = new Label(END_DATETIME_PLACEHOLDER + taskObj.get_endDate());
+			taskDate = new Label(taskObj.get_endDate());
 		}
 		return taskDate;
 	}

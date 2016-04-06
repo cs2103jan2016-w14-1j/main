@@ -1,3 +1,4 @@
+/* @@author A0112204E */
 @font-face {
     font-family: delicious-bold;
     src: url("Fonts/Delicious-Bold.otf");
@@ -45,7 +46,6 @@
 
 .root {
 	-fx-background-size: cover;
-  
 }
 
 #backgroundPane {
@@ -123,7 +123,7 @@
 
 .tab-pane .tab {
     -fx-background-color: rgb(255, 255, 255, 1);
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.5;
     -fx-pref-width: 97;
     -fx-pref-height: 30;
     -fx-font-size: 15px;
@@ -161,7 +161,7 @@
 
 #tabFloat .tab-label {
 	-fx-font-family: delicious-bold;
-	-fx-text-fill: darkturquoise;  
+	-fx-text-fill: dodgerblue;  
 }
 
 .tab-pane .tab:selected {
@@ -230,11 +230,11 @@
 
 .list-cell #taskFloat {   
     -fx-border-width: 0 0 0 5;
-    -fx-border-color: darkturquoise;
+    -fx-border-color: dodgerblue;
 }
 
 .list-cell #taskOthers {
-	  -fx-border-width: 0 0 0 5;
+	-fx-border-width: 0 0 0 5;
     -fx-border-color: teal;
 }
 
@@ -274,7 +274,7 @@
 
 #classFloat {
 	-fx-font-family: "Aileron Bold";
-	-fx-text-fill: darkturquoise;    
+	-fx-text-fill: dodgerblue;    
 	-fx-font-size: 16px;
 }
 
