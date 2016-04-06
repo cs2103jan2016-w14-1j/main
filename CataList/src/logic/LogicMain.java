@@ -289,6 +289,18 @@ public class LogicMain {
 			}
 		}
 		
+		for(Task eachTask : masterListTasks) {
+			String[] splitFind = toFind.split(" ");
+			for(String eachString : splitFind) {
+				if(eachTask.get_task().contains(eachString)) {
+					if(!foundList.contains(eachTask)) {
+						foundList.add(eachTask);
+					}
+				}
+			}
+		}
+		
+		
 		operatingTasks = new ArrayList<Task>(foundList);
 		return taskToOp.get_messageToUserSuccess();
 	}
