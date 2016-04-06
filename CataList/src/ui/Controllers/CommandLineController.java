@@ -21,8 +21,6 @@ import shared.LogHandler;
 
 public class CommandLineController {
 
-	private static final String SPACE_REGEX = " ";
-
 	private MainGUIController main;
 
 	private static final String INITIALIZE = "";
@@ -34,14 +32,17 @@ public class CommandLineController {
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_REDO = "redo";
 	private static final String COMMAND_MARK = "mark";
+	private static final String COMMAND_HELP = "help";
 	private static final String COMMAND_EDIT = "edit";
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_CLEAR = "clear";
 	private static final String COMMAND_ADD = "add";
 	
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
+	private boolean tutorialToggle = TUTORIAL_ON;
 
 	@FXML private Text feedbackMain;
 	@FXML private Text feedbackHelp;
@@ -50,7 +51,6 @@ public class CommandLineController {
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
 	private int tabToggle = COMPLETE_TAB;
-	private boolean tutorialToggle = TUTORIAL_ON;
 
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
@@ -63,31 +63,31 @@ public class CommandLineController {
 		userInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue.trim().isEmpty()) {
 				FeedbackGenerator.clearFeedback(feedbackHelp);
-			} else if(newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_ADD)) {
+			} else if(newValue.split(" ")[0].equalsIgnoreCase(COMMAND_ADD)) {
 				FeedbackGenerator.generateAddFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_DELETE)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DELETE)) {
 				FeedbackGenerator.generateDeleteFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_EDIT)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_EDIT)) {
 				FeedbackGenerator.generateEditFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_MARK)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_MARK)) {
 				FeedbackGenerator.generateMarkFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_UNMARK)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNMARK)) {
 				FeedbackGenerator.generateUnmarkFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_SEARCH)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_SEARCH)) {
 				FeedbackGenerator.generateSearchFeedback(feedbackHelp);
-			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_REDO)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_REDO)) {
 				if(inputArray.size() >= 2 && inputArray.get(inputArray.size()-1).equalsIgnoreCase(COMMAND_UNDO)) {
 					FeedbackGenerator.generateRedoFeedback(feedbackHelp, inputArray.get(inputArray.size()-2));
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_UNDO)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNDO)) {
 				if(inputArray.size() >= 1) {
 					FeedbackGenerator.generateUndoFeedback(feedbackHelp, inputArray.get(inputArray.size()-1));
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
+			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 			} else {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
@@ -135,7 +135,7 @@ public class CommandLineController {
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
 				backgroundColor.toggleColorPlus(main.getBackgroundPane());
-			} else if(event.isShiftDown() && main.todoListController.getTasks().size() == 1) {
+			} else if(event.isShiftDown() && main.isToDoListEmpty()) {
 				updateTutorialToggle();
 				main.supportFeatureController.showMainPane();
 			} else {

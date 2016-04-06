@@ -285,64 +285,41 @@ public class TaskFilter {
 			}
 		}
 
-		if(taskDate.plusDays(1).isBefore(localDate) 
-				|| (taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
-			checkAndAddClassOverdue(taskRow);
-		} else if(taskObj.get_startDate().equals(dateToday) 
+		if(taskDate.plusDays(1).isBefore(localDate) || 
+				(taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
+			if(!tasksOverdue.contains(taskClassOverdue)) {
+				tasksOverdue.add(taskClassOverdue);
+			}
+			taskRow.setId(OVERDUE_TASK_ID);
+			tasksOverdue.add(taskRow);
+		}
+		else if(taskObj.get_startDate().equals(dateToday) 
 				|| (!taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty())) {
-			checkAndAddClassToday(taskRow);
+			if(!tasksToday.contains(taskClassToday)) {
+				tasksToday.add(taskClassToday);	
+			}
+			taskRow.setId(TODAY_TASK_ID);
+			tasksToday.add(taskRow);
 		} else if(taskObj.get_startDate().equals(dateTomorrow)) {
-			checkAndAddTomorrow(taskRow);
+			if(!tasksTomorrow.contains(taskClassTomorrow)) {
+				tasksTomorrow.add(taskClassTomorrow);
+			}
+			taskRow.setId(TOMORROW_TASK_ID);
+			tasksTomorrow.add(taskRow);
 		} else if(taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty()) {
-			checkAndAddClassFloat(taskRow);
+			if(!tasksFloat.contains(taskClassFloat)) {
+				tasksFloat.add(taskClassFloat);
+			}
+			taskRow.setId(FLOAT_TASK_ID);
+			tasksFloat.add(taskRow);
 		} else {
-			checkAndAddClassOthers(taskRow);
+			if(!tasksOthers.contains(taskClassOthers)) {
+				tasksOthers.add(taskClassOthers);
+			}
+			taskRow.setId(OTHERS_TASK_ID);
+			tasksOthers.add(taskRow);
 		}
 	}
-
-	private void checkAndAddClassOthers(HBox taskRow) {
-		if(!tasksOthers.contains(taskClassOthers)) {
-			tasksOthers.add(taskClassOthers);
-		}
-		taskRow.setId(OTHERS_TASK_ID);
-		tasksOthers.add(taskRow);
-	}
-
-	private void checkAndAddClassFloat(HBox taskRow) {
-		if(!tasksFloat.contains(taskClassFloat)) {
-			tasksFloat.add(taskClassFloat);
-		}
-		taskRow.setId(FLOAT_TASK_ID);
-		tasksFloat.add(taskRow);
-	}
-
-	private void checkAndAddTomorrow(HBox taskRow) {
-		if(!tasksTomorrow.contains(taskClassTomorrow)) {
-			tasksTomorrow.add(taskClassTomorrow);
-		}
-		taskRow.setId(TOMORROW_TASK_ID);
-		tasksTomorrow.add(taskRow);
-	}
-
-	private void checkAndAddClassToday(HBox taskRow) {
-		if(!tasksToday.contains(taskClassToday)) {
-			tasksToday.add(taskClassToday);	
-		}
-		taskRow.setId(TODAY_TASK_ID);
-		tasksToday.add(taskRow);
-	}
-
-	private void checkAndAddClassOverdue(HBox taskRow) {
-		if(!tasksOverdue.contains(taskClassOverdue)) {
-			tasksOverdue.add(taskClassOverdue);
-		}
-		taskRow.setId(OVERDUE_TASK_ID);
-		tasksOverdue.add(taskRow);
-	}
-	
-	/*
-	 * check for event clashes for each event
-	 */
 
 	public boolean checkEventClashes(Task taskObj, ArrayList<Task> taskList) {
 		LocalDateTime taskObjStartDate = new LocalDateTime();
@@ -359,7 +336,6 @@ public class TaskFilter {
 			taskObjStartDate = LocalDateTime.parse(taskObj.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 			taskObjEndDate = LocalDateTime.parse(taskObj.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 		}
-		
 		if(taskObj.get_startTime() != NULL_FLAG && taskObj.get_endTime() != NULL_FLAG) {
 			taskObjStartTime = LocalDateTime.parse(taskObj.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 			taskObjEndTime = LocalDateTime.parse(taskObj.get_endTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();

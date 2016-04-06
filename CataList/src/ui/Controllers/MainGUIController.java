@@ -13,6 +13,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import logic.LogicMain;
 import logic.Task;
 

@@ -46,6 +46,7 @@ public class HelpPageController {
         
         commandCol.setId(COMMAND_ID);
         formatCol.setId(FORMAT_ID);
+   //   idCol.setId("-fx-alignment: TOP_RIGHT; -fx-text-fill: black");
         
         readFromStorage();
         helpList.setItems(table);
