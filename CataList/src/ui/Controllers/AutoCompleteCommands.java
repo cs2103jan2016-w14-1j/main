@@ -1,4 +1,4 @@
-//@@author A0112204E
+	//@@author A0112204E
 package ui.Controllers;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class AutoCompleteCommands {
 				rebuildCorrectedUserInput(splitInput, sb);
 				
 				userInput.setText(sb.toString().trim());
-				fixCaretPositionAfterCorrection(userInput, currentCaretPosition, splitInput);
+				fixCaretFinalPosition(userInput, currentCaretPosition, splitInput);
 				
 				FeedbackGenerator.generateAutoCompleteFeedback(feedback, splitInput[START_INDEX]);
 				break;
@@ -72,8 +72,7 @@ public class AutoCompleteCommands {
 		}
 	}
 
-	private static void fixCaretPositionAfterCorrection(TextField userInput, int currentCaretPosition,
-			String[] splitInput) {
+	private static void fixCaretFinalPosition(TextField userInput, int currentCaretPosition, String[] splitInput) {
 		if(splitInput.length == 1) {
 			userInput.end();
 		} else {

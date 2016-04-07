@@ -11,9 +11,9 @@ import ui.Controllers.MainGUIController;
 import ui.Controllers.TitleQuotes.QuoteGenerator;
 
 public class TitleInterfaceController extends QuoteGenerator{
-
+	
 	private static final int CHANGE_QUOTE_INTERVAL = 120000;
-
+	
 	@FXML
 	private Text quote;
 

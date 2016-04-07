@@ -332,6 +332,7 @@ public class TaskFilter {
 		tasksToday.add(taskRow);
 	}
 
+
 	private void checkAndAddClassOverdue(HBox taskRow) {
 		if(!tasksOverdue.contains(taskClassOverdue)) {
 			tasksOverdue.add(taskClassOverdue);
@@ -359,7 +360,6 @@ public class TaskFilter {
 			taskObjStartDate = LocalDateTime.parse(taskObj.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 			taskObjEndDate = LocalDateTime.parse(taskObj.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 		}
-		
 		if(taskObj.get_startTime() != NULL_FLAG && taskObj.get_endTime() != NULL_FLAG) {
 			taskObjStartTime = LocalDateTime.parse(taskObj.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 			taskObjEndTime = LocalDateTime.parse(taskObj.get_endTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();

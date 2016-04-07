@@ -42,6 +42,7 @@ public class CommandLineController {
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
+	private boolean tutorialToggle = TUTORIAL_ON;
 
 	@FXML private Text feedbackMain;
 	@FXML private Text feedbackHelp;
@@ -50,7 +51,6 @@ public class CommandLineController {
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
 	private int tabToggle = COMPLETE_TAB;
-	private boolean tutorialToggle = TUTORIAL_ON;
 
 	private ArrayList<String> inputArray = new ArrayList<String>();
 	private Logger log = LogHandler.retriveLog();
@@ -60,6 +60,10 @@ public class CommandLineController {
 		main = mainController;
 		FeedbackGenerator.generateDefaultFeedback(feedbackMain);
 		
+		initCommandLineListener();
+	}
+
+	private void initCommandLineListener() {
 		userInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue.trim().isEmpty()) {
 				FeedbackGenerator.clearFeedback(feedbackHelp);
@@ -135,7 +139,7 @@ public class CommandLineController {
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
 				backgroundColor.toggleColorPlus(main.getBackgroundPane());
-			} else if(event.isShiftDown() && main.todoListController.getTasks().size() == 1) {
+			} else if(event.isShiftDown() && main.isToDoListEmpty()) {
 				updateTutorialToggle();
 				main.supportFeatureController.showMainPane();
 			} else {

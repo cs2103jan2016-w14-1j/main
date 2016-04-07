@@ -27,12 +27,12 @@ import javafx.util.Duration;
 @SuppressWarnings("restriction")
 public class SupportFeatureController {
 	
-	private static final int TIME_CHECK_LOOP = 1000;
+	private static final int TIME_CHECK_INTERVAL = 1000;
 	private static final int CALENDAR_SPACING = 10;
 	private static final int HEADING_SIZE = 20;
 	private static final int IMAGE_SIZE = 40;
 	private static final int MAIN_PANE_ANIMATION_DURATION = 200;
-
+	
 	private static final String HELP_PAGE_PATH = "/ui/View/HelpPage.fxml";
 	private static final String ICON_PATH = "/ui/Application/Stylesheets/Background/time-icon.png";
 	private static final String CALENDAR_HEADING = "   SCHEDULE";
@@ -42,7 +42,7 @@ public class SupportFeatureController {
 	private static final int TIME_LABEL_INDEX = 1;
 	
 	private static final String TUTORIAL_NOTIFICATION = "Tutorial Mode: 1%s, SHIFT+RIGHT to toggle";
-
+	
 	private MainGUIController main;
 	private TutorialRenderer tutorialRenderer;
 	private Node calendar;
@@ -115,7 +115,7 @@ public class SupportFeatureController {
 				});
 
 			}
-		}, 0, TIME_CHECK_LOOP);
+		}, 0, TIME_CHECK_INTERVAL);
 	}
 
 	private String setTimeProperties() {
@@ -179,4 +179,5 @@ public class SupportFeatureController {
 			calendarContainer.getChildren().set(TIME_LABEL_INDEX, time);
 		}
 	}
+
 }
