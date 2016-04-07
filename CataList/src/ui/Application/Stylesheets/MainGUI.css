@@ -10,16 +10,6 @@
 }
 
 @font-face {
-    font-family: delicious-smallcaps;
-    src: url("Fonts/Delicious-SmallCaps.otf");
-}
- 
-@font-face {
-    font-family: infinity;
-    src: url("Fonts/Infinity.ttf");
-} 
-
-@font-face {
 	font-family: comicNeue-angular-regular;
 	src: url("Fonts/ComicNeue-Angular-Regular.otf");
 }

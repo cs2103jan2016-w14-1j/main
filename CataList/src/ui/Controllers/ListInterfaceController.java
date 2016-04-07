@@ -253,7 +253,7 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	/**
 	 * List Functions
-	 * Controls ListInterface's list by looping through the Logic everytime a command
+	 * Controls ListInterface's list by looping through the Logic every time a command
 	 * is executed
 	 */
 
@@ -266,10 +266,10 @@ public class ListInterfaceController extends NotificationRenderer {
 		setOperatingTasksFromLogic();
 		setCompletedTasksFromLogic();
 		openToDoList();
-		displayTaskList();
+		displayTasksonToDoList();
 	}
 
-	private void displayTaskList() {
+	private void displayTasksonToDoList() {
 		formatPendingTaskToListCell(operatingTasksFromLogic);
 		formatCompletedTaskToListCell(completedTasksFromLogic);
 		setTaskIntoViewObject(scrollSelection);
@@ -375,14 +375,12 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void openToDoList() {
-		if(pendingTasks.isEmpty() && completedTasks.isEmpty()) {	
-			if(main.isMainPaneManaged()) {
-				todoListContainer.setManaged(true);
-				todoListContainer.setOpacity(1);
+		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.isMainPaneManaged()) {	
+			todoListContainer.setManaged(true);
+			todoListContainer.setOpacity(1);
 
-				main.removeMainPane();
-				animateToDoList(OPEN_LIST);
-			}
+			main.removeMainPane();
+			animateToDoList(OPEN_LIST);
 		}
 	}
 

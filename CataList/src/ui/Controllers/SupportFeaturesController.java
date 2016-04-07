@@ -25,7 +25,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 @SuppressWarnings("restriction")
-public class SupportFeatureController {
+public class SupportFeaturesController {
 	
 	private static final int TIME_CHECK_INTERVAL = 1000;
 	private static final int CALENDAR_SPACING = 10;
@@ -41,7 +41,7 @@ public class SupportFeatureController {
 	private static final String TIME_FORMAT = "HH:mm:ss";
 	private static final int TIME_LABEL_INDEX = 1;
 	
-	private static final String TUTORIAL_NOTIFICATION = "Tutorial Mode: 1%s, SHIFT+RIGHT to toggle";
+	private static final String TUTORIAL_NOTIFICATION = "Tutorial Mode: %1s, SHIFT+RIGHT to toggle";
 	
 	private MainGUIController main;
 	private TutorialRenderer tutorialRenderer;
