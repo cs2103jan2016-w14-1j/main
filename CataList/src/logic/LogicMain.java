@@ -103,6 +103,26 @@ public class LogicMain {
 		return incompleteTasks;
 	}
 	
+	/**
+	 * Method to change the contents of operatingTasks to that of Master List
+	 */
+	public void operatingToMaster(){
+		operatingTasks = new ArrayList<Task>(masterListTasks);
+	}
+	
+	/**
+	 * Method to change the contents of operatingTasks to that of Incomplete List
+	 */
+	public void operatingToIncomplete(){
+		operatingTasks = new ArrayList<Task>(incompleteTasks);
+	}
+	
+	/**
+	 * Method to change the contents of operatingTasks to that of Complete List
+	 */
+	public void operatingToComplete(){
+		operatingTasks = new ArrayList<Task>(completeTasks);
+	}
 	
 	private void init() {
 		inputParser = new ParserMain();
