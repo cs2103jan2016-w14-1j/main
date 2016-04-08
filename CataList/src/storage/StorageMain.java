@@ -1,29 +1,23 @@
+//@@author A0123977U
 package storage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-
 import logic.Task;
 
 public class StorageMain {
 	
 	private static final String ELEMENT_TASK = "Task";
+	private static final String ELEMENT_TASKLIST = "TaskList";
 	private static final String ELEMENT_START_TIME = "StartTime";
 	private static final String ELEMENT_END_TIME = "EndTime";
 	private static final String ELEMENT_START_DATE = "StartDate";
@@ -35,26 +29,35 @@ public class StorageMain {
 	private static final String ATTRIBUTE_NUM = "ID";
 	private ArrayList<Task> masterList;
 	
-	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
-	
-	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
-	
 	StoragePathMain storagePathMain;
+	StorageReader storageReader;
+	StorageWriter storageWriter;
 	//Constructor
 	public StorageMain() {
 		storagePathMain = new StoragePathMain();
+		storageReader = new StorageReader();
+		storageWriter = new StorageWriter();
 	}
 	
 	public ArrayList<Task> loadTask() {
 		try{
 			String path = storagePathMain.filePathReader();
-			masterList = StorageReader.readFromStorage(path);
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		} catch (JDOMException jdome) {
-			jdome.printStackTrace();
-		}
+			File xmlFile = new File(path);
+			createXMLFile(path, xmlFile); 
+			masterList = storageReader.readFromStorage(path, xmlFile);
+		} catch(IOException | JDOMException e1) {
+			e1.printStackTrace();
+		} 
 		return masterList;
+	}
+
+	private void createXMLFile(String path, File xmlFile) throws IOException {
+		if(!xmlFile.exists()){
+			xmlFile.createNewFile();
+			Element rootNode = new Element(ELEMENT_TASKLIST);
+			Document todoListDocument = new Document(rootNode);
+			storageWriter.writeToStorage(todoListDocument, path);
+		}
 	}
 	
 	public boolean storageWrite(ArrayList<Task> masterList){
@@ -70,23 +73,15 @@ public class StorageMain {
 			try {
 				String storagePath = storagePathMain.filePathReader();
 				File inputFile = new File(storagePath);
-				if(!inputFile.exists()){
-					inputFile.createNewFile();
-				}
 				SAXBuilder saxBuilder = new SAXBuilder();
-				Document toDoListDocument;
-				toDoListDocument = saxBuilder.build(inputFile);
+				Document toDoListDocument = (Document) saxBuilder.build(inputFile);
 				
 				for(int i=0; i<masterList.size(); i++){
 					Task taskObj = masterList.get(i);
 					task = new Element(ELEMENT_TASK);
 					String completeStateString;
 					boolean completeState = taskObj.get_completionState();
-					if(completeState){
-						completeStateString = ATTRIBUTE_COMPLETE;
-					} else {
-						completeStateString = ATTRIBUTE_INCOMPLETE;
-					}
+					completeStateString = isComplete(completeState);
 					
 					List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 					index = taskList.size() + 1;
@@ -102,27 +97,34 @@ public class StorageMain {
 					toDoListDocument.getRootElement().addContent(task);
 					
 					try{
-						StorageWriter.writeToStorage(toDoListDocument, storagePath);
+						//StorageWriter.writeToStorage(toDoListDocument, storagePath);
+						storageWriter.writeToStorage(toDoListDocument, storagePath);
 					} catch(IOException e) {
 						taskObj.get_messageToUserFail();
 						return false;
 					}
 				}
 			} catch (JDOMException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
 		return true;
+	}
+
+	private String isComplete(boolean completeState) {
+		String completeStateString;
+		if(completeState){
+			completeStateString = ATTRIBUTE_COMPLETE;
+		} else {
+			completeStateString = ATTRIBUTE_INCOMPLETE;
+		}
+		return completeStateString;
 	}
 	
 	public void clearFromStorage(Task taskObj) throws IOException, JDOMException {
 		
 		String path = storagePathMain.filePathReader();
 		File inputFile = new File(path);
-		if(!inputFile.exists()){
-			inputFile.createNewFile();
-		}
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(inputFile);
 		Element rootElement = document.getRootElement();
@@ -141,7 +143,8 @@ public class StorageMain {
 		}
 
 		try{
-			StorageWriter.writeToStorage(document, path);
+			//StorageWriter.writeToStorage(document, path);
+			storageWriter.writeToStorage(document,path);
 		} catch(IOException e) {
 			taskObj.get_messageToUserFail();
 		}

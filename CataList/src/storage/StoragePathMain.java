@@ -1,3 +1,4 @@
+//@@author A0123977U
 package storage;
 
 import java.io.File;
@@ -99,7 +100,6 @@ public class StoragePathMain {
 				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println(ERROR_MESSAGE_PATH);
 			}
@@ -109,7 +109,6 @@ public class StoragePathMain {
 		try {
 			stringList = Files.readAllLines(oldPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(ERROR_MESSAGE_READ);
 			e.printStackTrace();
 			return ERROR_MESSAGE_READ;
@@ -130,7 +129,6 @@ public class StoragePathMain {
 				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println(ERROR_MESSAGE_PATH);
 				e.printStackTrace();
 			}
@@ -139,7 +137,6 @@ public class StoragePathMain {
 		try {
 			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(ERROR_MESSAGE_WRITE);
 			e.printStackTrace();
 			return;
