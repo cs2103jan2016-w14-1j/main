@@ -1,3 +1,5 @@
+//@@author a0124946
+
 package parser;
 
 import java.util.ArrayList;
@@ -184,7 +186,7 @@ public class DateTimeParser {
 		}
 		return timeParsed;
 	}
-	
+	/*
 	private static boolean hasDateFlag(String userInput){
 		boolean result = false;
 		for(String eachKeyword : KeywordConstraints.KW_DATE_FLAG){
@@ -208,4 +210,5 @@ public class DateTimeParser {
 		
 		return result;
 	}
+	*/
 }

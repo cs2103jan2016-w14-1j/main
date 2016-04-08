@@ -1,3 +1,4 @@
+//@@author a0124946
 package logic;
 
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ public class LogicMain {
 	private static final int COMPLETE_LIST_INDEX = 1;
 	private static final int MASTER_LIST_INDEX = 2;
 	private static final int INPUT_INDEX_TO_ARRAY_CORRECTION = 1;
+	
+	private static final String UNKNOWN_OPERATION_NOTICE = "UNKNOWN OPERATION";
+	private static final String SYMBOL_SPACE = " ";
+	
 	ParserMain inputParser;
 	StorageMain storageSystem;
 	
@@ -41,16 +46,14 @@ public class LogicMain {
 		if(isMutatorAndNotUndoRedo(newCreatedTask)) {
 			updateState();
 		}
+		
 		sortList();
 		regenerateSubListsFromMasterList();
+		
 		if(!isSearchOrDisplay(newCreatedTask)) {
 			updateOperating();
 		}
-		/*
-		for(Task eachTask : masterListTasks) {
-			System.out.println(eachTask.get_task());
-		}
-		*/
+		
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
@@ -83,9 +86,9 @@ public class LogicMain {
 	
 	private boolean isSearchOrDisplay(Task taskInput) {
 		boolean result = false;
-		if(taskInput.get_cmd().equalsIgnoreCase("search")) {
+		if(taskInput.get_cmd().equalsIgnoreCase(Commands.SEARCH_COMMAND)) {
 			result = true;
-		} else if (taskInput.get_cmd().equalsIgnoreCase("display")) {
+		} else if (taskInput.get_cmd().equalsIgnoreCase(Commands.DISPLAY_COMMAND)) {
 			result = true;
 		}
 		return result;
@@ -94,35 +97,35 @@ public class LogicMain {
 	private String operateOnTask(Task requestedTask) {
 		String commandType = requestedTask.get_cmd();
 		switch(commandType) {
-			case "add":
+			case Commands.ADD_COMMAND :
 				return doAdd(requestedTask);
-			case "delete":
+			case Commands.DELETE_COMMAND :
 				return doDelete(requestedTask);
-			case "clear" :
+			case Commands.CLEAR_COMMAND :
 				return doClear(requestedTask);
-			case "display" :
+			case Commands.DISPLAY_COMMAND :
 				return doDisplay(requestedTask);
-			case "edit" :
+			case Commands.EDIT_COMMAND :
 				return doEdit(requestedTask);
-			case "redo" : 
+			case Commands.REDO_COMMAND : 
 				return doRedo(requestedTask);
-			case "undo" :
+			case Commands.UNDO_COMMAND :
 				return doUndo(requestedTask);
-			case "search" :
+			case Commands.SEARCH_COMMAND:
 				return doSearch(requestedTask);
-			case "markcomplete" :
+			case Commands.MARK_COMMAND :
 				return doMarkComplete(requestedTask);
-			case "markincomplete" :
+			case Commands.MARK_INCOMPLETE_COMMAND :
 				return doMarkIncomplete(requestedTask);
-			case "help" :
-			case "tutorial" :
-			case "calendar" :
-			case "exit" :
+			case Commands.HELP_COMMAND :
+			case Commands.TUTORIAL_COMMAND :
+			case Commands.CALENDAR_COMMAND :
+			case Commands.EXIT_COMMAND :
 				return opForUI(requestedTask);
-			case "invalid" :
+			case Commands.INVALID_COMMAND :
 				return doInvalid(requestedTask);
 			default: 
-				return "UNKNOWN OPERATION";
+				return UNKNOWN_OPERATION_NOTICE;
 		}
 	}
 	
@@ -152,6 +155,7 @@ public class LogicMain {
 		Collections.sort(masterListTasks);
 		return masterListTasks;
 	}
+	
 	/*
 	private void saveBackToOriginalList() {
 		if(operatingOn == MASTER_LIST_INDEX) {
@@ -290,7 +294,7 @@ public class LogicMain {
 		}
 		
 		for(Task eachTask : masterListTasks) {
-			String[] splitFind = toFind.split(" ");
+			String[] splitFind = toFind.split(SYMBOL_SPACE);
 			for(String eachString : splitFind) {
 				if(eachTask.get_task().contains(eachString)) {
 					if(!foundList.contains(eachTask)) {

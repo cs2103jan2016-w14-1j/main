@@ -1,9 +1,18 @@
+//@@author a0124946
 package logic;
 
 import java.util.ArrayList;
 
 public class LogicHandler {
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
+	private static final String SYMBOL_SPACE = " ";
+	private static final String SYMBOL_EMPTY = "";
+	
+	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
+															,"display"
+															,"edit"
+															,"markcomplete"
+															,"markincomplete"};
 	
 	private static final int INPUT_COMMAND_INDEX = 0;
 	private static final int INPUT_EVENT_INDEX = 1;
@@ -12,16 +21,11 @@ public class LogicHandler {
 	
 	private static final int LIST_DATE_INDEX = 0; 
 	private static final int DATE_TIME_SIZE_EMPTY = 0;
+	private static final int INPUT_INDEX_CORRECTION = 1;
 	
-	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
-															,"display"
-															,"edit"
-															,"markcomplete"
-															,"markincomplete"};
-
-
 	public static Task processCommand(String[] userInputArray
-				, ArrayList<ArrayList<String>>dateTimeArgs){
+				, ArrayList<ArrayList<String>>dateTimeArgs) {
+		
 		Task newTask;
 		if(isDateTimeEmpty(dateTimeArgs)) {
 			newTask = createTaskNoDateTime(userInputArray);
@@ -32,17 +36,17 @@ public class LogicHandler {
 		return newTask;
 	}
 	
-	private static void updateTaskWithIndex(Task indexTask){
+	private static void updateTaskWithIndex(Task indexTask) {
 		String commandWord = indexTask.get_cmd();
-		for(String eachCommand : COMMANDS_REQUIRING_INDEX){
-			if(commandWord.equalsIgnoreCase(eachCommand)){
+		for(String eachCommand : COMMANDS_REQUIRING_INDEX) {
+			if(commandWord.equalsIgnoreCase(eachCommand)) {
 				registerIndex(indexTask);
 				break;
 			}
 		}
 	}
 	
-	private static void registerIndex(Task indexTask){
+	private static void registerIndex(Task indexTask) {
 		String eventPhrase = indexTask.get_task();
 		String eventPhraseWithoutIndex = removeFirstWord(eventPhrase);
 		indexTask.set_task(eventPhraseWithoutIndex);
@@ -50,116 +54,115 @@ public class LogicHandler {
 		indexTask.set_index(indexOfTask);
 	}
 		
-	private static String removeFirstWord(String eventPhrase){
-		String[] eventArray = eventPhrase.split(" ");
-		String secondWordOnwards = "";
-		int lastWordIndex = eventArray.length-1;
-		for(int i = 1 ; i <= lastWordIndex ; i++){
+	private static String removeFirstWord(String eventPhrase) {
+		String[] eventArray = eventPhrase.split(SYMBOL_SPACE);
+		String secondWordOnwards = SYMBOL_EMPTY;
+		int lastWordIndex = eventArray.length - INPUT_INDEX_CORRECTION;
+		for(int i = 1 ; i <= lastWordIndex ; i++) {
 			secondWordOnwards += eventArray[i];
-			if(i != lastWordIndex){
-				secondWordOnwards += " ";
+			if(i != lastWordIndex) {
+				secondWordOnwards += SYMBOL_SPACE;
 			}
 		}
 		return secondWordOnwards;
 	}
 	
-	private static int eventPhraseIndexParse(String eventPhrase){
-		String[] eventArray = eventPhrase.split(" ");
+	private static int eventPhraseIndexParse(String eventPhrase) {
+		String[] eventArray = eventPhrase.split(SYMBOL_SPACE);
 		String indexWord = eventArray[EVENT_INDEX_NUMBER];
 		int parsedIndex = Integer.parseInt(indexWord);
 		return parsedIndex;
 	}
 	
-	private static Task createTaskNoDateTime(String[] checkString){
+	private static Task createTaskNoDateTime(String[] checkString) {
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		
 		// added trim for testing purposes, remove later
 		String userInputEvent = checkString[INPUT_EVENT_INDEX].trim();
 		
-		switch(commandType){
-			case "add":
+		switch(commandType) {
+			case Commands.ADD_COMMAND :
 				return new AddTask(userInputEvent);
-			case "delete":
+			case Commands.DELETE_COMMAND :
 				return new DeleteTask(userInputEvent);
-			case "clear" :
+			case Commands.CLEAR_COMMAND :
 				return new ClearTask(userInputEvent);
-			case "display" :
+			case Commands.DISPLAY_COMMAND :
 				return new DisplayTask(userInputEvent);
-			case "edit" :
+			case Commands.EDIT_COMMAND :
 				return new EditTask(userInputEvent);
-			case "redo" : 
+			case Commands.REDO_COMMAND : 
 				return new RedoTask(userInputEvent);
-			case "undo" :
+			case Commands.UNDO_COMMAND :
 				return new UndoTask(userInputEvent);
-			case "search" :
+			case Commands.SEARCH_COMMAND :
 				return new SearchTask(userInputEvent);
-			case "markcomplete" :
+			case Commands.MARK_COMMAND :
 				return new MarkComplete(userInputEvent);
-			case "markincomplete" :
+			case Commands.MARK_INCOMPLETE_COMMAND :
 				return new MarkIncomplete(userInputEvent);
-			case "help" :
+			case Commands.HELP_COMMAND :
 				return new HelpTask(userInputEvent);
-			case "tutorial" :
+			case Commands.TUTORIAL_COMMAND :
 				return new TutorialTask(userInputEvent);
-			case "calendar" :
+			case Commands.CALENDAR_COMMAND  :
 				return new CalendarTask(userInputEvent);
-			case "exit" :
+			case Commands.EXIT_COMMAND :
 				return new ExitTask(userInputEvent);
-			case "invalid" :
+			case Commands.INVALID_COMMAND :
 				return new InvalidTask(userInputEvent);
-			
 			default: 
 				return createTaskWithParserError();
 		}
 	}
 	
 	private static Task createTaskWithDateTime(String[] checkString
-			, ArrayList<ArrayList<String>> dateTimeArgs){
+			, ArrayList<ArrayList<String>> dateTimeArgs) {
 		String commandType = checkString[INPUT_COMMAND_INDEX];
 		String userInputEvent = checkString[INPUT_EVENT_INDEX];
 		
-		switch(commandType){
-			case "add":
+		switch(commandType) {
+			case Commands.ADD_COMMAND :
 				return new AddTask(userInputEvent, dateTimeArgs);
-			case "delete":
+			case Commands.DELETE_COMMAND :
 				return new DeleteTask(userInputEvent, dateTimeArgs);
-			case "clear" :
+			case Commands.CLEAR_COMMAND :
 				return new ClearTask(userInputEvent, dateTimeArgs);
-			case "display" :
+			case Commands.DISPLAY_COMMAND :
 				return new DisplayTask(userInputEvent, dateTimeArgs);
-			case "edit" :
+			case Commands.EDIT_COMMAND :
 				return new EditTask(userInputEvent, dateTimeArgs);
-			case "redo" : 
+			case Commands.REDO_COMMAND : 
 				return new RedoTask(userInputEvent, dateTimeArgs);
-			case "undo" :
+			case Commands.UNDO_COMMAND :
 				return new UndoTask(userInputEvent, dateTimeArgs);
-			case "search" :
+			case Commands.SEARCH_COMMAND :
 				return new SearchTask(userInputEvent);
-			case "markcomplete" :
+			case Commands.MARK_COMMAND :
 				return new MarkComplete(userInputEvent);
-			case "markincomplete" :
+			case Commands.MARK_INCOMPLETE_COMMAND :
 				return new MarkIncomplete(userInputEvent);
-			case "invalid":
-				return new InvalidTask(userInputEvent);
-			case "help":
+			case Commands.HELP_COMMAND :
 				return new HelpTask(userInputEvent);
-			case "tutorial" :
+			case Commands.TUTORIAL_COMMAND :
 				return new TutorialTask(userInputEvent);
-			case "calendar" :
+			case Commands.CALENDAR_COMMAND  :
 				return new CalendarTask(userInputEvent);
-			case "exit" :
+			case Commands.EXIT_COMMAND :
 				return new ExitTask(userInputEvent);
+			case Commands.INVALID_COMMAND :
+				return new InvalidTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
 	}
 	
-	private static Task createTaskWithParserError(){
+	private static Task createTaskWithParserError() {
 		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
 		return parserErrorTask;
 	}
 	
-	private static boolean isDateTimeEmpty(ArrayList<ArrayList<String>> dateTimeArgs){
+	private static boolean isDateTimeEmpty(ArrayList<ArrayList<String>> dateTimeArgs) {
 		ArrayList<String> dateArgs = dateTimeArgs.get(LIST_DATE_INDEX);
 		if(dateArgs.size() == DATE_TIME_SIZE_EMPTY) {
 			return true;
