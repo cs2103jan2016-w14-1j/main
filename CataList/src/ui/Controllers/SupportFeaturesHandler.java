@@ -13,9 +13,10 @@ public class SupportFeaturesHandler {
 	private static final String MESSAGE_TUTORIAL_DEFAULT = "Displaying Tutorial";
 	private static final String MESSAGE_HELP_SUCCESS = "Displaying Help";
 	private static final String MESSAGE_CALENDAR_DEFAULT = "Displaying Calendar";
-	private static final String MESSAGE_SAVE_DEFAULT = "Save";
+	private static final String MESSAGE_SAVETO_SUCCESS = "Displaying file explorer";
 	
 	private static final String NULL_REGEX = "";
+	private static final String SAVE_REGEX = "save ";
 	
 	private String feedbackFromLogic;
 	private MainGUIController main;
@@ -38,7 +39,7 @@ public class SupportFeaturesHandler {
 			case MESSAGE_CALENDAR_DEFAULT:
 				main.supportFeaturesController.loadCalendar();
 				return true;
-			case MESSAGE_SAVE_DEFAULT:
+			case MESSAGE_SAVETO_SUCCESS:
 				loadSaveWindow();
 				return true;
 			default:
@@ -61,7 +62,7 @@ public class SupportFeaturesHandler {
 
 	private void setUserInputAsFilePath(File file) {
 		if (file != null) {
-			main.commandLineController.userInput.setText(file.getAbsolutePath());
+			main.commandLineController.getMainFeedback().setText(main.commandLineController.uiToLogic(SAVE_REGEX + file.getAbsolutePath()));
 		}
 	}
 }

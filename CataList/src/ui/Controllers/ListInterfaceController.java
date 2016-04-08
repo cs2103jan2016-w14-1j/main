@@ -324,11 +324,6 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskStartDate = createTaskStartDate(taskObj); 
 			Label taskEndDate = createTaskEndDate(taskObj); 
 			
-			if(index == taskList.size() && taskList.size() != previousTasksSize) {
-				scrollSelection = taskRow;
-				previousCompletedSize = completedTasksFromLogic.size();
-			} 
-
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
 			taskName.setId(COMPLETED_TASK_ID);
 			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);

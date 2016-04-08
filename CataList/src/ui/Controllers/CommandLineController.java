@@ -35,7 +35,7 @@ public class CommandLineController {
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_SAVE = "save";
+	private static final String COMMAND_SAVE = "saveto";
 
 	private static final int START_INPUT_INDEX = 0;
 	private static final int FIRST_TAB = 0;

@@ -19,7 +19,7 @@ public class AutoCompleteCommands {
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_CLEAR = "clear";
 	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_SAVE = "save";
+	private static final String COMMAND_SAVE = "saveto";
 	
 	private static final String SPACE_REGEX = " ";
 	
