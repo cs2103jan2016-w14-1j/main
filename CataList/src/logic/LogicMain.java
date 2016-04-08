@@ -153,6 +153,7 @@ public class LogicMain {
 			case Commands.TUTORIAL_COMMAND :
 			case Commands.CALENDAR_COMMAND :
 			case Commands.EXIT_COMMAND :
+			case Commands.SAVETO_COMMAND:
 				return opForUI(requestedTask);
 			case Commands.INVALID_COMMAND :
 				return doInvalid(requestedTask);
@@ -173,6 +174,9 @@ public class LogicMain {
 		operatingTasks = new ArrayList<Task>(incompleteTasks);
 	}
 	
+	/**
+	 * Rebuilds completeTask and incompleteTask from masterList
+	 */
 	private void regenerateSubListsFromMasterList() {
 		incompleteTasks.clear();
 		completeTasks.clear();
@@ -357,7 +361,7 @@ public class LogicMain {
 		String toFind = taskToOp.get_task();
 		ArrayList<Task> foundList = new ArrayList<Task>();
 		foundList = doSearchFullString(toFind);
-		ArrayList<Task> foundListSecondary = doSearchSubsequence(toFind);
+		ArrayList<Task> foundListSecondary = doSearchSubsequence(toFind, foundList);
 		
 		if(!foundListSecondary.isEmpty()) {
 			foundList.addAll(foundListSecondary);
@@ -378,14 +382,14 @@ public class LogicMain {
 		return foundList;
 	}
 	
-	private ArrayList<Task> doSearchSubsequence(String toFind){
+	private ArrayList<Task> doSearchSubsequence(String toFind, ArrayList<Task> primaryList){
 		ArrayList<Task> foundList = new ArrayList<Task>();
 
 		for(Task eachTask : masterListTasks) {
 			String[] splitFind = toFind.split(SYMBOL_SPACE);
 			for(String eachString : splitFind) {
 				if(eachTask.get_task().contains(eachString)) {
-					if(!foundList.contains(eachTask)) {
+					if(!primaryList.contains(eachTask)) {
 						foundList.add(eachTask);
 					}
 				}
@@ -419,7 +423,7 @@ public class LogicMain {
 			Task operateOn = operatingTasks.get(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			Task cloneTask = (Task) operateOn.cloneOf();
 			cloneTask.set_Incomplete();
-			
+	
 			doOperateOnMasterAndOperating(operateOn, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {
@@ -450,20 +454,37 @@ public class LogicMain {
 	 * @return feedback message
 	 */
 	private String doSave(Task taskToOp){
-		String newLoc = taskToOp.get_task();
-		storageSystem.saveFileLocation(newLoc);
+		String feedBack;
+		try{
+			String newLoc = taskToOp.get_task();
+			storageSystem.saveFileLocation(newLoc);
+		} catch (Exception e) {
+			feedBack = taskToOp.get_messageToUserFail();
+		}
 		
-		String feedBack = taskToOp.get_messageToUserSuccess();
+		feedBack = taskToOp.get_messageToUserSuccess();
 		return feedBack;
 	}
 	
 	private void doOperateOnMasterAndOperating(Task operateOn, Task replaceWith, int operateIndex) {
+		System.out.println("----------------------------------");
+		for(Task eachTask : masterListTasks){
+			System.out.println(eachTask.get_task());
+		}
+		System.out.println("----------------------------------");
+
+		System.out.println("----------------------------------");
+		for(Task eachTask : operatingTasks){
+			System.out.println(eachTask.get_task());
+		}
+		System.out.println("----------------------------------");
+		
 		for(int i = 0 ; i < masterListTasks.size() ; i++) {
 			if(masterListTasks.get(i).equals(operateOn)) {
+				System.out.println(masterListTasks.get(i).get_task() + " is being operated on.");
 				masterListTasks.set(i, replaceWith);
 			}
 		}
-		
 		operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, replaceWith);	
 	}
 }

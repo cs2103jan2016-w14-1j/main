@@ -19,4 +19,5 @@ public class Commands {
 	public static final String INVALID_COMMAND = "invalid";
 	public static final String SEARCH_COMMAND = "search";
 	public static final String SAVE_COMMAND = "save";
+	public static final String SAVETO_COMMAND = "saveto";
 }
