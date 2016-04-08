@@ -1,3 +1,5 @@
+//@@author a0124946
+
 package parser;
 
 public class KeywordConstraints {
@@ -24,11 +26,6 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_CALENDAR = { "calendar", "cal", "-cal", "/cal"};
 	protected static final String[] KW_TASK_TUTORIAL = { "tutorial", "tut", "walkthrough", "/tut"};
 	
-
-	// Keywords for TIME/DATE
-	protected static final String[] KW_DATE_FLAG = { "-d", "-date" };
-	protected static final String[] KW_TIME_FLAG = { "-t", "-time" };
-
 	//Keywords for TIME/DATE format
 	protected static final String[] KW_FORMAT_DATE_WITH_YEAR = { "dd/MM/yy"
 																, "dd-MM-yy"
