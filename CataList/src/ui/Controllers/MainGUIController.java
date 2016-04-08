@@ -13,6 +13,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import logic.LogicMain;
 import logic.Task;
 
@@ -33,10 +34,6 @@ public class MainGUIController {
 		supportFeaturesController.init(this);
 	}
 	
-	public AnchorPane getBackgroundPane() {
-		return backgroundPane;
-	}
-	
 	public void refreshToDoList() throws IOException, JDOMException {
 		todoListController.loopTaskList();
 	}
@@ -49,39 +46,42 @@ public class MainGUIController {
 		supportFeaturesController.showMainPane();
 	}
 	
-	public boolean isToDoListEmpty() {
-		return todoListController.getTasks().isEmpty();
+	public String passInputToLogic(String input) {
+		return logic.processCommand(input);
+	}
+	
+	public AnchorPane getBackgroundPane() {
+		return backgroundPane;
 	}
 	
 	public ObservableList<HBox> getTaskList() {
 		return todoListController.getTasks();
 	}
 
-	public boolean isCompletedEmpty() {
-		return todoListController.getCompleted().isEmpty();
+	public ObservableList<HBox> getCompletedList() {
+		return todoListController.getCompleted();
 	}
 
-	public boolean isMainPaneManaged() {
-		return supportFeaturesController.getMainPane().isManaged();
+	public VBox getMainPane() {
+		return supportFeaturesController.getMainPane();
 	}
 
 	public LogicMain getLogic() {
 		return logic;
 	}
 
-	public String passInputToLogic(String input) {
-		return logic.processCommand(input);
-	}
-
 	public ArrayList<Task> getOperatingTasksFromLogic() {
+		logic.operatingToIncomplete();
 		return logic.getOperatingTasksForUI();
 	}
 	
 	public ArrayList<Task> getCompletedTasksFromLogic() {
+		logic.operatingToComplete();
 		return logic.getCompleteTasksForUI();
 	}
 	
 	public ArrayList<Task> getPendingTasksFromLogic() {
+		logic.operatingToIncomplete();
 		return logic.getIncompleteTasksForUI();
 	}
 

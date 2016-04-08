@@ -372,7 +372,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void openToDoList() {
-		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.isMainPaneManaged()) {	
+		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.getMainPane().isManaged()) {	
 			todoListContainer.setManaged(true);
 			todoListContainer.setOpacity(1);
 
@@ -464,7 +464,6 @@ public class ListInterfaceController extends NotificationRenderer {
 	/*
 	 * Setters for ListInterface
 	 */
-
 	private void setCompletedTasksFromLogic() {
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 	}

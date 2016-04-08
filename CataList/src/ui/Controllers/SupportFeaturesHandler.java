@@ -62,7 +62,15 @@ public class SupportFeaturesHandler {
 
 	private void setUserInputAsFilePath(File file) {
 		if (file != null) {
-			main.commandLineController.getMainFeedback().setText(main.commandLineController.uiToLogic(SAVE_REGEX + file.getAbsolutePath()));
+			setCommandLineFeedbackAfterSave(passAbsolutePathToLogic(file));
 		}
+	}
+
+	private String passAbsolutePathToLogic(File file) {
+		return main.commandLineController.uiToLogic(SAVE_REGEX + file.getAbsolutePath());
+	}
+
+	private void setCommandLineFeedbackAfterSave(String saveFeedback) {
+		main.commandLineController.getMainFeedback().setText(saveFeedback);
 	}
 }

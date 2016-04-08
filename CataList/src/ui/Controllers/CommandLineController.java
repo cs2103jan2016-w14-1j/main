@@ -173,7 +173,7 @@ public class CommandLineController {
 	}
 
 	private void nextTutorialPage() throws IOException {
-		if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
+		if(tutorialToggle == TUTORIAL_ON && main.getTaskList().isEmpty()) {
 			main.todoListController.loopTaskList();
 			main.supportFeaturesController.renderTutorial();
 			tutorialToggle = TUTORIAL_OFF;
