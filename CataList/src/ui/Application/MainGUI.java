@@ -1,3 +1,4 @@
+//@@author A0112204E
 package ui.Application;
 
 import javafx.application.Application;
@@ -12,10 +13,10 @@ import javafx.stage.Stage;
 
 public class MainGUI extends Application {
     
-    private final String APP_NAME = "CataList";
-    private final String GUI_PATH = "/ui/View/MainGUI.fxml";
-    private final String STYLESHEET_PATH = "/ui/Application/Stylesheets/MainGUI.css";
-    private final String ICON_PATH = "/ui/Application/Stylesheets/Background/catalist_icon.png";
+    private static final String APP_NAME = "CataList";
+    private static final String GUI_PATH = "/ui/View/MainGUI.fxml";
+    private static final String STYLESHEET_PATH = "/ui/Application/Stylesheets/MainGUI.css";
+    private static final String ICON_PATH = "/ui/Application/Stylesheets/Background/catalist_icon.png";
     
     @Override
     public void start(Stage stage) throws Exception {

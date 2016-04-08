@@ -1,10 +1,8 @@
+//@@author A0112204E
 package ui.Controllers;
 
-import java.io.File;
 import java.io.IOException;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -20,6 +18,8 @@ import shared.LogHandler;
 
 public class CommandLineController {
 
+	private static final String SPACE_REGEX = " ";
+
 	private MainGUIController main;
 
 	private static final String INITIALIZE = "";
@@ -31,11 +31,9 @@ public class CommandLineController {
 	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_REDO = "redo";
 	private static final String COMMAND_MARK = "mark";
-	private static final String COMMAND_HELP = "help";
 	private static final String COMMAND_EDIT = "edit";
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
-	private static final String COMMAND_CLEAR = "clear";
 	private static final String COMMAND_ADD = "add";
 	
 	private static final int START_INPUT_INDEX = 0;
@@ -51,42 +49,50 @@ public class CommandLineController {
 	private int index = START_INPUT_INDEX;
 	private int tabToggle = COMPLETE_TAB;
 
-	private ArrayList<String> inputArray = new ArrayList<String>();
+	private ArrayList<String> inputArray;
 	private Logger log = LogHandler.retriveLog();
-	private ColorRenderer backgroundColor = new ColorRenderer();
+	private ColorRenderer backgroundColor;
+	private SupportFeaturesHandler supportFeaturesHandler;
 
 	public void init(MainGUIController mainController) {
 		main = mainController;
+		inputArray = new ArrayList<String>();
+		backgroundColor = new ColorRenderer();
+		supportFeaturesHandler = new SupportFeaturesHandler(main);
 		FeedbackGenerator.generateDefaultFeedback(feedbackMain);
 		
+		initCommandLineListener();
+	}
+
+	private void initCommandLineListener() {
 		userInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue.trim().isEmpty()) {
 				FeedbackGenerator.clearFeedback(feedbackHelp);
-			} else if(newValue.split(" ")[0].equalsIgnoreCase(COMMAND_ADD)) {
+			} else if(newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_ADD)) {
 				FeedbackGenerator.generateAddFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DELETE)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_DELETE)) {
 				FeedbackGenerator.generateDeleteFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_EDIT)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_EDIT)) {
 				FeedbackGenerator.generateEditFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_MARK)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_MARK)) {
 				FeedbackGenerator.generateMarkFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNMARK)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_UNMARK)) {
 				FeedbackGenerator.generateUnmarkFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_SEARCH)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_SEARCH)) {
 				FeedbackGenerator.generateSearchFeedback(feedbackHelp);
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_REDO)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_REDO)) {
 				if(inputArray.size() >= 2 && inputArray.get(inputArray.size()-1).equalsIgnoreCase(COMMAND_UNDO)) {
 					FeedbackGenerator.generateRedoFeedback(feedbackHelp, inputArray.get(inputArray.size()-2));
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_UNDO)) {
+			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_UNDO)) {
 				if(inputArray.size() >= 1) {
 					FeedbackGenerator.generateUndoFeedback(feedbackHelp, inputArray.get(inputArray.size()-1));
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(" ")[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
+			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 			} else {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
@@ -98,33 +104,11 @@ public class CommandLineController {
 	
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
-		
 		if (event.getCode() == KeyCode.ENTER) {
 			event.consume();
 			readUserInput();
 
-			/**************** temp parser *******************/
-			if(command.toLowerCase().equals("inbox") && !main.isToDoListEmpty()) {
-				main.todoListController.displayPending();
-			} else if(command.toLowerCase().equals("complete") && !main.isCompletedEmpty()) {
-				main.todoListController.displayComplete();
-			} else if(command.toLowerCase().equals("help")) {
-				main.supportFeatureController.loadHelpList();
-			} else if(command.toLowerCase().equals("calendar")) {
-				main.supportFeatureController.loadCalendar();
-			} else if(command.toLowerCase().equals("tutorial")) {
-				if(main.supportFeatureController.getMainPane().isManaged() == false) {
-					main.supportFeatureController.renderTutorial();
-				}
-			} else if(command.toLowerCase().equals("save")) {
-				FileChooser fileChooser = new FileChooser();
-	            fileChooser.setTitle("Save Image");
-	            File file = fileChooser.showSaveDialog(new Stage());
-	            if (file != null) {
-	            	command = file.getAbsolutePath();
-	            	loadFeedback();
-	            }
-			} else {
+			if(!supportFeaturesHandler.isSupportFeaturesLoaded(feedbackMain)) {
 				main.todoListController.loopTaskList();
 			}
 		} else if(event.getCode() == KeyCode.UP) {
@@ -134,13 +118,13 @@ public class CommandLineController {
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
 				backgroundColor.toggleColorPlus(main.getBackgroundPane());
-			} else if(event.isShiftDown() && main.isToDoListEmpty()) {
+			} else if(event.isShiftDown() && main.todoListController.getTasks().size() == 1) {
 				updateTutorialToggle();
-				main.supportFeatureController.showMainPane();
+				main.supportFeaturesController.showMainPane();
 			} else {
 				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
 					main.todoListController.loopTaskList();
-					main.supportFeatureController.renderTutorial();
+					main.supportFeaturesController.renderTutorial();
 					tutorialToggle = TUTORIAL_OFF;
 				}
 			}
