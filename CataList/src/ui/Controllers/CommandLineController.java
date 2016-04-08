@@ -35,6 +35,7 @@ public class CommandLineController {
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_ADD = "add";
+	private static final String COMMAND_SAVE = "save";
 	
 	private static final int START_INPUT_INDEX = 0;
 	private static final int INBOX_TAB = 0;
@@ -86,13 +87,15 @@ public class CommandLineController {
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_UNDO)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_UNDO)) {
 				if(inputArray.size() >= 1) {
 					FeedbackGenerator.generateUndoFeedback(feedbackHelp, inputArray.get(inputArray.size()-1));
 				} else {
 					FeedbackGenerator.generateInvalidHelpFeedback(feedbackHelp);
 				}
-			} else if (newValue.split(SPACE_REGEX)[0].equalsIgnoreCase(COMMAND_DISPLAY)) {
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_DISPLAY)) {
+				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
+			} else if (newValue.split(SPACE_REGEX)[START_INPUT_INDEX].equalsIgnoreCase(COMMAND_SAVE)) {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 			} else {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
@@ -104,6 +107,10 @@ public class CommandLineController {
 	
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
+		parseKeyEvent(event);
+	}
+
+	private void parseKeyEvent(KeyEvent event) throws IOException {
 		if (event.getCode() == KeyCode.ENTER) {
 			event.consume();
 			readUserInput();
@@ -120,7 +127,6 @@ public class CommandLineController {
 				backgroundColor.toggleColorPlus(main.getBackgroundPane());
 			} else if(event.isShiftDown() && main.todoListController.getTasks().size() == 1) {
 				updateTutorialToggle();
-				main.supportFeaturesController.showMainPane();
 			} else {
 				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
 					main.todoListController.loopTaskList();
@@ -172,6 +178,7 @@ public class CommandLineController {
 		} else {
 			tutorialToggle = TUTORIAL_ON;
 		}
+		main.supportFeaturesController.showMainPane();
 	}
 
 	private void getNextCommand() {

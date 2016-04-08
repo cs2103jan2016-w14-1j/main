@@ -19,12 +19,14 @@ public class AutoCompleteCommands {
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_CLEAR = "clear";
 	private static final String COMMAND_ADD = "add";
+	private static final String COMMAND_SAVE = "save";
 	
 	private static final String SPACE_REGEX = " ";
 	
 	private static final int START_INDEX = 0;
 	private static final int END_INDEX = 1;
 	private static final int END_INDEX_DISPLAY = 2;
+	private static final int END_INDEX_SAVE = 2;
 	private static final int END_INDEX_UNMARK = 3;
 	
 	private static ArrayList<String> autoCompleteList = new ArrayList<String>();
@@ -99,16 +101,32 @@ public class AutoCompleteCommands {
 	}
 
 	private static void checkConflictingCommands(TextField userInput, int i, String[] splitInput) {
-		if(splitInput[START_INDEX].length() > 1 &&
-				userInput.getText(START_INDEX, END_INDEX_DISPLAY).
-				equals(COMMAND_DISPLAY.substring(START_INDEX, END_INDEX_DISPLAY))) {
+		if(isEstimatedCommandDisplay(userInput, splitInput)) {
 			splitInput[START_INDEX] = COMMAND_DISPLAY;
-		} else if(splitInput[START_INDEX].length() > 2 &&
-				userInput.getText(START_INDEX, END_INDEX_UNMARK).
-				equals(COMMAND_UNMARK.substring(START_INDEX, END_INDEX_UNMARK))) {
+		} else if(isEstimatedCommandSave(userInput, splitInput)) {
+			splitInput[START_INDEX] = COMMAND_SAVE;
+		} else if(isEstimatedCommandUnmark(userInput, splitInput)) {
 			splitInput[START_INDEX] = COMMAND_UNMARK;
 		} else {
 			splitInput[START_INDEX] = autoCompleteList.get(i);
 		}
+	}
+
+	private static boolean isEstimatedCommandUnmark(TextField userInput, String[] splitInput) {
+		return splitInput[START_INDEX].length() > END_INDEX_UNMARK-1
+				&& userInput.getText(START_INDEX, END_INDEX_UNMARK).
+				equals(COMMAND_UNMARK.substring(START_INDEX, END_INDEX_UNMARK));
+	}
+	
+	private static boolean isEstimatedCommandSave(TextField userInput, String[] splitInput) {
+		return splitInput[START_INDEX].length() > END_INDEX_SAVE-1 
+				&& userInput.getText(START_INDEX, END_INDEX_SAVE).
+				equals(COMMAND_SAVE.substring(START_INDEX, END_INDEX_SAVE));
+	}
+
+	private static boolean isEstimatedCommandDisplay(TextField userInput, String[] splitInput) {
+		return splitInput[START_INDEX].length() > END_INDEX_DISPLAY-1 
+				&& userInput.getText(START_INDEX, END_INDEX_DISPLAY).
+				equals(COMMAND_DISPLAY.substring(START_INDEX, END_INDEX_DISPLAY));
 	}
 }
