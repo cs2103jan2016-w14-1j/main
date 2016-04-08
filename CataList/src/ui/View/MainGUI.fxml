@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- //@@author A01122204E -->
 
+<!-- @@author A0112204E -->
 
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -42,7 +42,7 @@
 			<!-- to do list -->
 			<center>
 				<VBox>
-					<fx:include fx:id="supportFeature" source="/ui/View/SupportFeatureInterface.fxml" />
+					<fx:include fx:id="supportFeatures" source="/ui/View/SupportFeaturesInterface.fxml" />
 					<fx:include fx:id="todoList" source="/ui/View/ListInterface.fxml" />
 				</VBox>
 			</center>

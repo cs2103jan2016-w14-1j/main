@@ -1,4 +1,4 @@
-//@@author A01122204E
+//@@author A0112204E
 package ui.Controllers;
 
 import java.io.IOException;
@@ -13,7 +13,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import logic.LogicMain;
 import logic.Task;
 
@@ -22,7 +21,7 @@ public class MainGUIController {
 	@FXML public CommandLineController commandLineController;  
 	@FXML public ListInterfaceController todoListController;   
 	@FXML public TitleInterfaceController titleController;
-	@FXML public SupportFeatureController supportFeatureController;
+	@FXML public SupportFeaturesController supportFeaturesController;
 	@FXML public AnchorPane backgroundPane;
 
 	private LogicMain logic = new LogicMain();
@@ -31,7 +30,7 @@ public class MainGUIController {
 		commandLineController.init(this);
 		todoListController.init(this);
 		titleController.init(this);
-		supportFeatureController.init(this);
+		supportFeaturesController.init(this);
 	}
 	
 	public AnchorPane getBackgroundPane() {
@@ -43,11 +42,11 @@ public class MainGUIController {
 	}
 
 	public void removeMainPane() {
-		supportFeatureController.removeMainPane();
+		supportFeaturesController.removeMainPane();
 	}
 
 	public void openMainPane() {
-		supportFeatureController.showMainPane();
+		supportFeaturesController.showMainPane();
 	}
 	
 	public boolean isToDoListEmpty() {
@@ -63,7 +62,7 @@ public class MainGUIController {
 	}
 
 	public boolean isMainPaneManaged() {
-		return supportFeatureController.getMainPane().isManaged();
+		return supportFeaturesController.getMainPane().isManaged();
 	}
 
 	public LogicMain getLogic() {

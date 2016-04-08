@@ -1,4 +1,3 @@
-//@@author A01122204E
 package shared;
 
 import java.util.logging.Logger;

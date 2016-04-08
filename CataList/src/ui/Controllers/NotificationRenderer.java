@@ -1,4 +1,4 @@
-//@@author A01122204E
+//@@author A0112204E
 package ui.Controllers;
 
 import javafx.geometry.Pos;
@@ -8,6 +8,12 @@ import org.controlsfx.control.Notifications;
 
 public class NotificationRenderer {
 
+	private static final String REMINDER_HEADING = "Reminder!\n";
+	private static final String REMINDER_NOTIFICATION_TIME_PLURAL = "\nYou have %1s pending tasks in 15 minutes!";
+	private static final String REMINDER_NOTIFICATION_TIME_SINGULAR = "\nYou have %1s pending task in 15 minutes!";
+	private static final String REMINDER_NOTIFICATION_DAY_PLURAL = "\nYou have %1s pending tasks in 15 minutes!";
+	private static final String REMINDER_NOTIFICATION_DAY_SINGULAR = "\nYou have %1s pending task in 15 minutes!";
+	
 	private static final int TIME_FLAG = 1;
 	private static final int DAY_FLAG = 0;
 	private static final int NOTIFICATION_DURATION = 3;
@@ -39,8 +45,8 @@ public class NotificationRenderer {
 
 	private void showNotificationTimePlural(int todo) {
 		Notifications.create()
-		.title("Reminder!")
-		.text("\nYou have " + todo + " pending tasks in 15 minutes!")
+		.title(REMINDER_HEADING)
+		.text(String.format(REMINDER_NOTIFICATION_TIME_PLURAL, todo))
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(NOTIFICATION_DURATION))
 		.showWarning();
@@ -48,8 +54,8 @@ public class NotificationRenderer {
 
 	private void showNotificationTimeSingular(int todo) {
 		Notifications.create()
-		.title("Reminder!")
-		.text("\nYou have " + todo + " pending task in 15 minutes!")
+		.title(REMINDER_HEADING)
+		.text(String.format(REMINDER_NOTIFICATION_TIME_SINGULAR, todo))
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(NOTIFICATION_DURATION))
 		.showWarning();
@@ -57,8 +63,8 @@ public class NotificationRenderer {
 
 	private void showNotificationDayPlural(int todo) {
 		Notifications.create()
-		.title("Reminder!\n")
-		.text("\nYou have " + todo + " tasks today!")
+		.title(REMINDER_HEADING)
+		.text(String.format(REMINDER_NOTIFICATION_DAY_PLURAL, todo))
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(NOTIFICATION_DURATION))
 		.showWarning();
@@ -66,8 +72,8 @@ public class NotificationRenderer {
 
 	private void showNotificationDaySingular(int todo) {
 		Notifications.create()
-		.title("Reminder!\n")
-		.text("\nYou have " + todo + " task today!")
+		.title(REMINDER_HEADING)
+		.text(String.format(REMINDER_NOTIFICATION_DAY_SINGULAR, todo))
 		.position(Pos.TOP_RIGHT)
 		.hideAfter(Duration.seconds(NOTIFICATION_DURATION))
 		.showWarning();

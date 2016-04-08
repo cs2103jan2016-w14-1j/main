@@ -1,4 +1,4 @@
-//@@author A01122204E
+//@@author A0112204E
 package ui.Controllers;
 
 import java.util.ArrayList;
@@ -285,43 +285,67 @@ public class TaskFilter {
 			}
 		}
 
-		if(taskDate.plusDays(1).isBefore(localDate) || 
-				(taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
-			if(!tasksOverdue.contains(taskClassOverdue)) {
-				tasksOverdue.add(taskClassOverdue);
-			}
-			taskRow.setId(OVERDUE_TASK_ID);
-			tasksOverdue.add(taskRow);
-		}
-		else if(taskObj.get_startDate().equals(dateToday) 
+		if(taskDate.plusDays(1).isBefore(localDate) 
+				|| (taskObj.get_startDate().equals(dateToday) && taskTime.isBefore(timeNow))) {
+			checkAndAddClassOverdue(taskRow);
+		} else if(taskObj.get_startDate().equals(dateToday) 
 				|| (!taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty())) {
-			if(!tasksToday.contains(taskClassToday)) {
-				tasksToday.add(taskClassToday);	
-			}
-			taskRow.setId(TODAY_TASK_ID);
-			tasksToday.add(taskRow);
+			checkAndAddClassToday(taskRow);
 		} else if(taskObj.get_startDate().equals(dateTomorrow)) {
-			if(!tasksTomorrow.contains(taskClassTomorrow)) {
-				tasksTomorrow.add(taskClassTomorrow);
-			}
-			taskRow.setId(TOMORROW_TASK_ID);
-			tasksTomorrow.add(taskRow);
+			checkAndAddTomorrow(taskRow);
 		} else if(taskObj.get_startTime().isEmpty() && taskObj.get_startDate().isEmpty()) {
-			if(!tasksFloat.contains(taskClassFloat)) {
-				tasksFloat.add(taskClassFloat);
-			}
-			taskRow.setId(FLOAT_TASK_ID);
-			tasksFloat.add(taskRow);
+			checkAndAddClassFloat(taskRow);
 		} else {
-			if(!tasksOthers.contains(taskClassOthers)) {
-				tasksOthers.add(taskClassOthers);
-			}
-			taskRow.setId(OTHERS_TASK_ID);
-			tasksOthers.add(taskRow);
+			checkAndAddClassOthers(taskRow);
 		}
 	}
 
-	public boolean checkEventClashes(Task taskObj, ArrayList<Task> taskList) {
+	private void checkAndAddClassOthers(HBox taskRow) {
+		if(!tasksOthers.contains(taskClassOthers)) {
+			tasksOthers.add(taskClassOthers);
+		}
+		taskRow.setId(OTHERS_TASK_ID);
+		tasksOthers.add(taskRow);
+	}
+
+	private void checkAndAddClassFloat(HBox taskRow) {
+		if(!tasksFloat.contains(taskClassFloat)) {
+			tasksFloat.add(taskClassFloat);
+		}
+		taskRow.setId(FLOAT_TASK_ID);
+		tasksFloat.add(taskRow);
+	}
+
+	private void checkAndAddTomorrow(HBox taskRow) {
+		if(!tasksTomorrow.contains(taskClassTomorrow)) {
+			tasksTomorrow.add(taskClassTomorrow);
+		}
+		taskRow.setId(TOMORROW_TASK_ID);
+		tasksTomorrow.add(taskRow);
+	}
+
+	private void checkAndAddClassToday(HBox taskRow) {
+		if(!tasksToday.contains(taskClassToday)) {
+			tasksToday.add(taskClassToday);	
+		}
+		taskRow.setId(TODAY_TASK_ID);
+		tasksToday.add(taskRow);
+	}
+
+
+	private void checkAndAddClassOverdue(HBox taskRow) {
+		if(!tasksOverdue.contains(taskClassOverdue)) {
+			tasksOverdue.add(taskClassOverdue);
+		}
+		taskRow.setId(OVERDUE_TASK_ID);
+		tasksOverdue.add(taskRow);
+	}
+	
+	/*
+	 * check for event clashes for each event
+	 */
+
+	public boolean isEventClashing(Task taskObj, ArrayList<Task> taskList) {
 		LocalDateTime taskObjStartDate = new LocalDateTime();
 		LocalTime taskObjStartTime = new LocalTime();
 		LocalDateTime taskObjEndDate = new LocalDateTime();
@@ -349,33 +373,23 @@ public class TaskFilter {
 				taskComparedStartTime = LocalDateTime.parse(task.get_startTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 				taskComparedEndTime = LocalDateTime.parse(task.get_endTime(), DateTimeFormat.forPattern(TIME_FORMAT)).toLocalTime();
 				
-				if((taskObjStartTime.isAfter(taskComparedStartTime) 
-						|| taskObjStartTime.isEqual(taskComparedStartTime))
-						&& (taskObjStartTime.isBefore(taskComparedEndTime))) {
+				if(isSelectedTaskTimeClashing(taskObjStartTime, taskComparedStartTime, taskComparedEndTime)) {
 					
 					if(task.get_startDate() != NULL_FLAG && task.get_endDate() != NULL_FLAG) {
 						taskComparedStartDate = LocalDateTime.parse(task.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 						taskComparedEndDate = LocalDateTime.parse(task.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 
-						if((taskObjStartDate.isAfter(taskComparedStartDate) 
-								|| taskObjStartDate.isEqual(taskComparedStartDate))
-								&& (taskObjStartDate.isBefore(taskComparedEndDate) 
-								|| taskObjStartDate.isEqual(taskComparedEndDate))) {
+						if(isSelectedTaskDateClashing(taskObjStartDate, taskComparedStartDate, taskComparedEndDate)) {
 							return true;
 						} 
 					}
-				} else if((taskObjStartTime.isBefore(taskComparedStartTime) 
-						|| taskObjStartTime.isEqual(taskComparedStartTime))
-						&& (taskObjEndTime.isAfter(taskComparedStartTime))) {
+				} else if(isSelectedTaskTimeClashed(taskObjStartTime, taskObjEndTime, taskComparedStartTime)) {
 					
 					if(task.get_startDate() != NULL_FLAG && task.get_endDate() != NULL_FLAG) {
 						taskComparedStartDate = LocalDateTime.parse(task.get_startDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 						taskComparedEndDate = LocalDateTime.parse(task.get_endDate(), DateTimeFormat.forPattern(DATE_FORMAT));
 
-						if((taskObjStartDate.isBefore(taskComparedStartDate) 
-								|| taskObjStartDate.isEqual(taskComparedStartDate))
-								&& (taskObjEndDate.isAfter(taskComparedStartDate) 
-										|| taskObjEndDate.isEqual(taskComparedStartDate))) {
+						if(isSelectedTaskDateClashed(taskObjStartDate, taskObjEndDate, taskComparedStartDate)) {
 							return true;
 						} 
 					}
@@ -384,5 +398,34 @@ public class TaskFilter {
 		}
 
 		return false;
+	}
+
+	private boolean isSelectedTaskDateClashed(LocalDateTime taskObjStartDate, LocalDateTime taskObjEndDate,
+			LocalDateTime taskComparedStartDate) {
+		return (taskObjStartDate.isBefore(taskComparedStartDate) 
+				|| taskObjStartDate.isEqual(taskComparedStartDate))
+				&& (taskObjEndDate.isAfter(taskComparedStartDate) 
+						|| taskObjEndDate.isEqual(taskComparedStartDate));
+	}
+
+	private boolean isSelectedTaskTimeClashed(LocalTime taskObjStartTime, LocalTime taskObjEndTime,
+			LocalTime taskComparedStartTime) {
+		return (taskObjStartTime.isBefore(taskComparedStartTime) 
+				|| taskObjStartTime.isEqual(taskComparedStartTime))
+				&& (taskObjEndTime.isAfter(taskComparedStartTime));
+	}
+
+	private boolean isSelectedTaskDateClashing(LocalDateTime taskObjStartDate, LocalDateTime taskComparedStartDate,
+			LocalDateTime taskComparedEndDate) {
+		return (taskObjStartDate.isAfter(taskComparedStartDate) 
+				|| taskObjStartDate.isEqual(taskComparedStartDate))
+				&& (taskObjStartDate.isBefore(taskComparedEndDate) 
+				|| taskObjStartDate.isEqual(taskComparedEndDate));
+	}
+
+	private boolean isSelectedTaskTimeClashing(LocalTime taskObjStartTime, LocalTime taskComparedStartTime,
+			LocalTime taskComparedEndTime) {
+		return (taskObjStartTime.isAfter(taskComparedStartTime) 
+				|| taskObjStartTime.isEqual(taskComparedStartTime));
 	}
 }

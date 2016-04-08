@@ -1,4 +1,4 @@
-//@@author A01122204E
+//@@author A0112204E
 package ui.Controllers;
 
 import ui.Controllers.HelpCommands.Help;
@@ -46,7 +46,6 @@ public class HelpPageController {
         
         commandCol.setId(COMMAND_ID);
         formatCol.setId(FORMAT_ID);
-   //   idCol.setId("-fx-alignment: TOP_RIGHT; -fx-text-fill: black");
         
         readFromStorage();
         helpList.setItems(table);
