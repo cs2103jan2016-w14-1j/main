@@ -144,6 +144,8 @@ public class LogicHandler {
 				return new InvalidTask(userInputEvent);
 			case Commands.SAVE_COMMAND :
 				return new SaveTask(userInputEvent);
+			case Commands.SAVETO_COMMAND:
+				return new SaveToTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}

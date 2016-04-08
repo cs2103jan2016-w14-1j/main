@@ -63,6 +63,8 @@ public class CommandParser {
 			return Commands.TUTORIAL_COMMAND;
 		} else if (compareSaveKeywords(stringToTest)) {
 			return Commands.SAVE_COMMAND;
+		} else if (compareSaveToKeywords(stringToTest)) {
+			return Commands.SAVETO_COMMAND;
 		} else {
 			return Commands.INVALID_COMMAND;
 		}
@@ -155,6 +157,12 @@ public class CommandParser {
 	private static boolean compareSaveKeywords(String stringToTest){
 		boolean isTutKeyword = false;
 		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_SAVE);
+		return isTutKeyword;
+	}
+	
+	private static boolean compareSaveToKeywords(String stringToTest){
+		boolean isTutKeyword = false;
+		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_SAVETO);
 		return isTutKeyword;
 	}
 }
