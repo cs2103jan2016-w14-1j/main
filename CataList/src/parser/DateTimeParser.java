@@ -17,6 +17,12 @@ public class DateTimeParser {
 	protected static final String INVALID_DATE_MESSAGE = "Invalid date input";
 	protected static final String INVALID_TIME_MESSAGE = "Invalid time input";
 	
+	/**
+	 * Parses date time from userInput.
+	 * Calls Date parser and Time Parser, before combining the results and returning to caller.
+	 * @param userInput
+	 * @return ArrayList of ArrayList that contains the parsed date and time arguments.
+	 */
 	public static ArrayList<ArrayList<String>> parseDateTime(String userInput){
 		String[] splitInput = userInput.split(" ");
 		ArrayList<String> dateArgs = parseStartEndDates(splitInput);
@@ -63,6 +69,12 @@ public class DateTimeParser {
 		return indexOfTime + 1;
 	}
 	*/
+	
+	/**
+	 * Method parses a String array to look for dates
+	 * @param splitInput
+	 * @return ArrayList containing dates
+	 */
 	private static ArrayList<String> parseStartEndDates(String[] splitInput){
 		String startDate;
 		int length = splitInput.length;
@@ -92,6 +104,11 @@ public class DateTimeParser {
 		return results;
 	}
 	
+	/**
+	 * Method parses a string array to look for times
+	 * @param splitInput
+	 * @return ArrayList containing times
+	 */
 	private static ArrayList<String> parseStartEndTimes(String[] splitInput){
 		String startTime;
 		int length = splitInput.length;

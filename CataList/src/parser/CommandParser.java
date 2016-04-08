@@ -2,6 +2,8 @@
 
 package parser;
 
+import logic.Commands;
+
 public class CommandParser {
 	
 	private static final int COMMAND_INDEX = 0;
@@ -32,35 +34,37 @@ public class CommandParser {
 	
 	private static String analyzeWord(String stringToTest){
 		if(compareAddKeywords(stringToTest)){
-			return "add";
+			return Commands.ADD_COMMAND;
 		} else if (compareDeleteKeywords(stringToTest)){
-			return "delete";
+			return Commands.DELETE_COMMAND;
 		} else if (compareClearKeywords(stringToTest)){
-			return "clear";
+			return Commands.CLEAR_COMMAND;
 		} else if (compareDisplayKeywords(stringToTest)){
-			return "display";
+			return Commands.DISPLAY_COMMAND;
 		} else if (compareEditKeywords(stringToTest)){
-			return "edit";
+			return Commands.EDIT_COMMAND;
 		} else if (compareRedoKeywords(stringToTest)){
-			return "redo";
+			return Commands.REDO_COMMAND;
 		} else if (compareUndoKeywords(stringToTest)){
-			return "undo";
+			return Commands.UNDO_COMMAND;
 		} else if (compareSearchKeywords(stringToTest)){
-			return "search";
+			return Commands.SEARCH_COMMAND;
 		} else if (compareMarkCompleteKeywords(stringToTest)){
-			return "markcomplete";
+			return Commands.MARK_COMMAND;
 		} else if (compareMarkIncompleteKeywords(stringToTest)){
-			return "markincomplete";
+			return Commands.MARK_INCOMPLETE_COMMAND;
 		} else if (compareExitKeywords(stringToTest)){
-			return "exit";
+			return Commands.EXIT_COMMAND;
 		} else if (compareHelpKeywords(stringToTest)){
-			return "help";
+			return Commands.HELP_COMMAND;
 		} else if (compareCalendarKeywords(stringToTest)){
-			return "calendar";
+			return Commands.CALENDAR_COMMAND;
 		} else if (compareTutorialKeywords(stringToTest)){
-			return "tutorial";
+			return Commands.TUTORIAL_COMMAND;
+		} else if (compareSaveKeywords(stringToTest)) {
+			return Commands.SAVE_COMMAND;
 		} else {
-			return "invalid";
+			return Commands.INVALID_COMMAND;
 		}
 	}
 	
@@ -145,6 +149,12 @@ public class CommandParser {
 	private static boolean compareTutorialKeywords(String stringToTest){
 		boolean isTutKeyword = false;
 		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_TUTORIAL);
+		return isTutKeyword;
+	}
+	
+	private static boolean compareSaveKeywords(String stringToTest){
+		boolean isTutKeyword = false;
+		isTutKeyword = compareKeywords(stringToTest, KeywordConstraints.KW_TASK_SAVE);
 		return isTutKeyword;
 	}
 }

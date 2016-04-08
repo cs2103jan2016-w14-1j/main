@@ -4,6 +4,14 @@ package logic;
 import java.util.ArrayList;
 
 public class LogicHandler {
+	
+	/**
+	 * 	LogicHandler
+	 * 	The role of LogicHandler is to operate on a formatted String and create Task Objects accordingly.
+	 *  It is called by LogicMain to create Task Objects, which will be returned to LogicMain
+	 *  
+	 */
+	
 	private static final String PARSER_UNSUPPORTED_ERROR = "Command not recognized by Logic.";
 	private static final String SYMBOL_SPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
@@ -23,6 +31,12 @@ public class LogicHandler {
 	private static final int DATE_TIME_SIZE_EMPTY = 0;
 	private static final int INPUT_INDEX_CORRECTION = 1;
 	
+	/**
+	 * Public method for the creation of task objects.
+	 * @param userInputArray formatted String array that contains all required parameters for Task object creation.
+	 * @param dateTimeArgs formatted Date and Time arguments that are to be added to Task Object.
+	 * @return Task Object
+	 */
 	public static Task processCommand(String[] userInputArray
 				, ArrayList<ArrayList<String>>dateTimeArgs) {
 		
@@ -36,6 +50,11 @@ public class LogicHandler {
 		return newTask;
 	}
 	
+	/**
+	 *  Method checks whether a Task object requires an index,
+	 *  and if so - calls registerIndex to find and register the index.
+	 * @param Task object to be checked.
+	 */
 	private static void updateTaskWithIndex(Task indexTask) {
 		String commandWord = indexTask.get_cmd();
 		for(String eachCommand : COMMANDS_REQUIRING_INDEX) {
@@ -46,6 +65,10 @@ public class LogicHandler {
 		}
 	}
 	
+	/**
+	 *  Method updates the task object with an Index, if required.
+	 * @param Task object to be checked.
+	 */
 	private static void registerIndex(Task indexTask) {
 		String eventPhrase = indexTask.get_task();
 		String eventPhraseWithoutIndex = removeFirstWord(eventPhrase);
@@ -53,7 +76,12 @@ public class LogicHandler {
 		int indexOfTask = eventPhraseIndexParse(eventPhrase);
 		indexTask.set_index(indexOfTask);
 	}
-		
+	
+	/**
+	 * Method removes the first word of the input
+	 * @param eventPhrase
+	 * @return String of input with original first word removed.
+	 */
 	private static String removeFirstWord(String eventPhrase) {
 		String[] eventArray = eventPhrase.split(SYMBOL_SPACE);
 		String secondWordOnwards = SYMBOL_EMPTY;
@@ -67,6 +95,11 @@ public class LogicHandler {
 		return secondWordOnwards;
 	}
 	
+	/**
+	 * Method parses the index from userInput, and returns it.
+	 * @param eventPhrase
+	 * @return int Index
+	 */
 	private static int eventPhraseIndexParse(String eventPhrase) {
 		String[] eventArray = eventPhrase.split(SYMBOL_SPACE);
 		String indexWord = eventArray[EVENT_INDEX_NUMBER];
@@ -76,8 +109,6 @@ public class LogicHandler {
 	
 	private static Task createTaskNoDateTime(String[] checkString) {
 		String commandType = checkString[INPUT_COMMAND_INDEX];
-		
-		// added trim for testing purposes, remove later
 		String userInputEvent = checkString[INPUT_EVENT_INDEX].trim();
 		
 		switch(commandType) {
@@ -111,6 +142,8 @@ public class LogicHandler {
 				return new ExitTask(userInputEvent);
 			case Commands.INVALID_COMMAND :
 				return new InvalidTask(userInputEvent);
+			case Commands.SAVE_COMMAND :
+				return new SaveTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
@@ -152,11 +185,17 @@ public class LogicHandler {
 				return new ExitTask(userInputEvent);
 			case Commands.INVALID_COMMAND :
 				return new InvalidTask(userInputEvent);
+			case Commands.SAVE_COMMAND :
+				return new SaveTask(userInputEvent);
 			default: 
 				return createTaskWithParserError();
 		}
 	}
 	
+	/**
+	 * Method used to create a Task when command is unsupported by Logic components
+	 * @return Task which indicates parser error
+	 */
 	private static Task createTaskWithParserError() {
 		Task parserErrorTask = new InvalidTask(PARSER_UNSUPPORTED_ERROR);
 		return parserErrorTask;

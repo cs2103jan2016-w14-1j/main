@@ -26,6 +26,8 @@ public class KeywordConstraints {
 	protected static final String[] KW_TASK_CALENDAR = { "calendar", "cal", "-cal", "/cal"};
 	protected static final String[] KW_TASK_TUTORIAL = { "tutorial", "tut", "walkthrough", "/tut"};
 	
+	protected static final String[] KW_TASK_SAVE = { "save" };
+
 	//Keywords for TIME/DATE format
 	protected static final String[] KW_FORMAT_DATE_WITH_YEAR = { "dd/MM/yy"
 																, "dd-MM-yy"

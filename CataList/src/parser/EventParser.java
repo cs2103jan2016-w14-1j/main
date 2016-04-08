@@ -10,6 +10,11 @@ public class EventParser {
 	private static final int COMMAND_WORD_INDEX = 0;
 	private static final int ARRAY_MINIMUM_LENGTH = 2; 
 	
+	/**
+	 * Parses the event phrase from a user Input
+	 * @param userInput
+	 * @return event phrase, with date, time and command word removed.
+	 */
 	public static String parseEvent(String userInput){
 		String inputEvent = removeCommandWord(userInput);
 		String resultingEvent = removeDateTime(inputEvent);

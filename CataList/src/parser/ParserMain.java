@@ -5,6 +5,12 @@ package parser;
 import java.util.ArrayList;
 
 public class ParserMain {
+	/**
+	 * ParserMain
+	 * Main role is to take in user input for parsing and formatting.
+	 * Delegates calls to the different parsers to complete the job.
+	 * returns a formatted String array meant for Logic
+	 */
 	private static final String INVALID_COMMAND_WORD = "INVALID";
 	private static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
 	private static final String INVALID_EVENT_MESSAGE = "Invalid entry,";
@@ -38,6 +44,11 @@ public class ParserMain {
 		formattedCommand = new ArrayList<String>();
 	}
 	
+	/**
+	 * Method to format and parse user input in a formatted String array
+	 * @param userInput
+	 * @return String[] containing formatted user input.
+	 */
 	public String[] processInput(String userInput){
 		String commandWords = CommandParser.parseCommand(userInput);
 		String eventWords = EventParser.parseEvent(userInput);
@@ -50,6 +61,11 @@ public class ParserMain {
 		return returnArray;
 	}
 	
+	/**
+	 * Method extracts date and time from a user input
+	 * @param userInput
+	 * @return an ArrayList of ArrayList, containing the date time arguments extracted.
+	 */
 	public ArrayList<ArrayList<String>> processDateTime(String userInput){
 		ArrayList<ArrayList<String>> dateTimeWords = DateTimeParser.parseDateTime(userInput);
 		parsedDateTime = dateTimeWords;
