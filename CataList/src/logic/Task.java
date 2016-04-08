@@ -34,9 +34,6 @@ public class Task implements Cloneable, Comparable<Task> {
 	private static final int TIMEINDEX = 1;
 	private static final int HAVESTARTONLY = 1;
 	private static final int HAVESTARTANDEND = 2;
-
-	private static final int MAX_VALUE = Integer.MAX_VALUE;
-	private static final int MIN_VALUE = Integer.MIN_VALUE;
 	
 	public Task (boolean isChanged, String userInput, String cmd
 				, String successMsg,String failMsg){
