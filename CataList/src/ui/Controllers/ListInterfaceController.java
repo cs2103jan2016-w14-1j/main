@@ -35,6 +35,10 @@ import shared.LogHandler;
 
 public class ListInterfaceController extends NotificationRenderer {
 
+	private static final int TASK_LIST_ANIMTATION_DELAY = 200;
+	private static final int TASK_LIST_ANIMATION_DURATION = 400;
+	private static final int REMINDER_NOTIFICATION_INTERVAL = 60000;
+	private static final int GLYPH_SIZE = 20;
 	private static final int TASK_START_TIME_WIDTH = 55;
 	private static final int TASK_END_TIME_WIDTH = 80;
 	private static final int TASK_START_DATE_WIDTH = 55;
@@ -102,7 +106,6 @@ public class ListInterfaceController extends NotificationRenderer {
 	private static ArrayList<Tab> tabs = new ArrayList<Tab>();
 
 	private ArrayList<Task> operatingTasksFromLogic = new ArrayList<Task>();
-	private ArrayList<Task> pendingTasksFromLogic = new ArrayList<Task>();
 	private ArrayList<Task> completedTasksFromLogic = new ArrayList<Task>();
 
 	private static ObservableList<HBox> todayTasks =
@@ -173,7 +176,6 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void operateTabs() {
 		tabs.clear();
-
 		pendingTabHandler();
 		overdueTabHandler();
 		todayTabHandler();
@@ -181,7 +183,6 @@ public class ListInterfaceController extends NotificationRenderer {
 		othersTabHandler();
 		floatTabHandler();
 		completedTabHandler();
-
 		tabPane.getTabs().setAll(tabs);
 	}
 
@@ -251,15 +252,13 @@ public class ListInterfaceController extends NotificationRenderer {
 		tabs.add(tabPending);
 	}
 
-	/**
+	/*
 	 * List Functions
 	 * Controls ListInterface's list by looping through the Logic every time a command
 	 * is executed
 	 */
 
 	public void loopTaskList() {
-		//previousCompletedSize = completedTasksFromLogic.size();
-
 		pendingTasks.clear();
 		completedTasks.clear();
 
@@ -287,21 +286,19 @@ public class ListInterfaceController extends NotificationRenderer {
 			Label taskEndTime = createTaskEndTime(taskObj);
 			Label taskStartDate = createTaskStartDate(taskObj); 
 			Label taskEndDate = createTaskEndDate(taskObj);
-
-
 			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
-
+			
 			if(todoListContainer.getScaleX() == 0) {
 				animateToDoList(OPEN_LIST);
 			}
-
+			
 			if(index == taskList.size() && taskList.size() != previousTasksSize) {
 				scrollSelection = taskRow;
 				previousTasksSize = operatingTasksFromLogic.size();
 			} 
 
 			if(taskFilter.isEventClashing(taskObj, taskList)) {
-				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(20);
+				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(GLYPH_SIZE);
 				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
 				FeedbackGenerator.generateEventClashFeedback(main.commandLineController.getHelpFeedback());
 			} else {
@@ -313,6 +310,30 @@ public class ListInterfaceController extends NotificationRenderer {
 		taskFilter.addSortedClasses(pendingTasks);
 		setFeedbackForEmptyList(taskList);
 		todoList.setItems(pendingTasks);
+	}
+	
+	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
+		int index = 0;
+		for(Task taskObj: taskList) {
+			index++;
+			HBox taskRow = createTaskRow();
+			Label taskIndex = createTaskIndex(index);
+			Label taskName = createTaskName(taskObj, taskList);
+			Label taskStartTime = createTaskStartTime(taskObj);
+			Label taskEndTime = createTaskEndTime(taskObj);
+			Label taskStartDate = createTaskStartDate(taskObj); 
+			Label taskEndDate = createTaskEndDate(taskObj); 
+			
+			if(index == taskList.size() && taskList.size() != previousTasksSize) {
+				scrollSelection = taskRow;
+				previousCompletedSize = completedTasksFromLogic.size();
+			} 
+
+			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
+			taskName.setId(COMPLETED_TASK_ID);
+			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
+			completedTasks.add(taskRow);
+		}
 	}
 
 	private Label createTaskStartDate(Task taskObj) {
@@ -355,25 +376,6 @@ public class ListInterfaceController extends NotificationRenderer {
 		return new HBox(TASKROW_SPACING);
 	}
 
-	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
-		int index = 0;
-		for(Task taskObj: taskList) {
-			index++;
-			HBox taskRow = createTaskRow();
-			Label taskIndex = createTaskIndex(index);
-			Label taskName = createTaskName(taskObj, taskList);
-			Label taskStartTime = createTaskStartTime(taskObj);
-			Label taskEndTime = createTaskEndTime(taskObj);
-			Label taskStartDate = createTaskStartDate(taskObj); 
-			Label taskEndDate = createTaskEndDate(taskObj); 
-
-			setProperties(taskIndex, taskName, taskStartDate, taskEndDate, taskStartTime, taskEndTime, taskRow);
-			taskName.setId(COMPLETED_TASK_ID);
-			taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskEndTime, taskStartDate, taskEndDate);
-			completedTasks.add(taskRow);
-		}
-	}
-
 	public void openToDoList() {
 		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.isMainPaneManaged()) {	
 			todoListContainer.setManaged(true);
@@ -400,25 +402,25 @@ public class ListInterfaceController extends NotificationRenderer {
 
 	private void animateToDoList(boolean isOpen) {
 		if(isOpen) {
-			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(TASK_LIST_ANIMATION_DURATION), todoListContainer);
 			st.setFromX(0);
 			st.setToX(1);
 			st.setCycleCount(1);
-			st.setDelay(Duration.millis(200));
+			st.setDelay(Duration.millis(TASK_LIST_ANIMTATION_DELAY));
 			st.play();
 			todoListContainer.setManaged(true);
 		} else {
-			ScaleTransition st = new ScaleTransition(Duration.millis(400), todoListContainer);
+			ScaleTransition st = new ScaleTransition(Duration.millis(TASK_LIST_ANIMATION_DURATION), todoListContainer);
 			st.setFromX(1);
 			st.setToX(0);
 			st.setCycleCount(1);
-			st.setDelay(Duration.millis(200));
+			st.setDelay(Duration.millis(TASK_LIST_ANIMTATION_DELAY));
 			st.play();
 			todoListContainer.setManaged(false);
 		}
 	}
 
-	/**
+	/*
 	 * Reminder Functions
 	 * Controls ListInterface's reminders and calls Notification Renderer by looping to check for
 	 * reminders every minute
@@ -436,7 +438,7 @@ public class ListInterfaceController extends NotificationRenderer {
 				});
 
 			}
-		}, 0, 60000);
+		}, 0, REMINDER_NOTIFICATION_INTERVAL);
 	}
 
 	private void checkTasksForReminder() {
@@ -464,7 +466,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		}
 	}
 
-	/**
+	/*
 	 * Setters for ListInterface
 	 */
 
@@ -543,7 +545,7 @@ public class ListInterfaceController extends NotificationRenderer {
 		time2.setId(TIME_ID);
 	}
 
-	/**
+	/*
 	 * Getters for ListInterface
 	 */
 

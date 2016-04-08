@@ -18,14 +18,14 @@ import shared.LogHandler;
 
 public class CommandLineController {
 
-	private static final String SPACE_REGEX = " ";
-
-	private MainGUIController main;
-
-	private static final String INITIALIZE = "";
+	private static final String TUTORIAL_OFF_STRING = "OFF";
+	private static final String TUTORIAL_ON_STRING = "ON";
 	private static final boolean TUTORIAL_ON = true;
 	private static final boolean TUTORIAL_OFF = false;
-	
+
+	private static final String SPACE_REGEX = " ";
+	private static final String INITIALIZE = "";
+
 	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_UNMARK = "unmark";
 	private static final String COMMAND_SEARCH = "search";
@@ -36,16 +36,21 @@ public class CommandLineController {
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_ADD = "add";
 	private static final String COMMAND_SAVE = "save";
-	
+
 	private static final int START_INPUT_INDEX = 0;
-	private static final int INBOX_TAB = 0;
+	private static final int FIRST_TAB = 0;
 	private static final int COMPLETE_TAB = 1;
+	private static final int MIN_TASK_LIST_SIZE = 1;
+	private static final int FEEDBACK_ANIMATION_DURATION = 200;
+	
 	private boolean tutorialToggle = TUTORIAL_ON;
 
 	@FXML private Text feedbackMain;
 	@FXML private Text feedbackHelp;
 	@FXML public TextField userInput;
 
+	private MainGUIController main;
+	
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
 	private int tabToggle = COMPLETE_TAB;
@@ -55,13 +60,16 @@ public class CommandLineController {
 	private ColorRenderer backgroundColor;
 	private SupportFeaturesHandler supportFeaturesHandler;
 
+	/*
+	 * initialization
+	 */
 	public void init(MainGUIController mainController) {
 		main = mainController;
 		inputArray = new ArrayList<String>();
 		backgroundColor = new ColorRenderer();
 		supportFeaturesHandler = new SupportFeaturesHandler(main);
 		FeedbackGenerator.generateDefaultFeedback(feedbackMain);
-		
+
 		initCommandLineListener();
 	}
 
@@ -101,10 +109,13 @@ public class CommandLineController {
 				FeedbackGenerator.generateHelpFeedback(feedbackHelp);
 				FeedbackGenerator.generateTipFeedback(feedbackMain);
 			}
-			
+
 		});
 	}
-	
+
+	/*
+	 * processing input
+	 */
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
 		parseKeyEvent(event);
@@ -112,44 +123,63 @@ public class CommandLineController {
 
 	private void parseKeyEvent(KeyEvent event) throws IOException {
 		if (event.getCode() == KeyCode.ENTER) {
-			event.consume();
-			readUserInput();
-
-			if(!supportFeaturesHandler.isSupportFeaturesLoaded(feedbackMain)) {
-				main.todoListController.loopTaskList();
-			}
+			processUserInput(event);
 		} else if(event.getCode() == KeyCode.UP) {
 			getPreviousCommand();
 		} else if(event.getCode() == KeyCode.DOWN) {
 			getNextCommand();	
 		} else if(event.getCode() == KeyCode.RIGHT) {
 			if(event.isAltDown()) {
-				backgroundColor.toggleColorPlus(main.getBackgroundPane());
-			} else if(event.isShiftDown() && main.todoListController.getTasks().size() == 1) {
+				changeBackgroundColorIncrementally();
+			} else if(event.isShiftDown()) {
 				updateTutorialToggle();
 			} else {
-				if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
-					main.todoListController.loopTaskList();
-					main.supportFeaturesController.renderTutorial();
-					tutorialToggle = TUTORIAL_OFF;
-				}
+				nextTutorialPage();
 			}
 		} else if(event.getCode() == KeyCode.LEFT) {
 			if(event.isAltDown()) {
-				backgroundColor.toggleColorMinus(main.getBackgroundPane());
+				changeBackgroundColorDecrementally();
 			}
-		} else if (event.getCode() == KeyCode.F11) {
-			main.getTabPane().getSelectionModel().select(tabToggle);
-			if (tabToggle == INBOX_TAB) {
-				tabToggle = COMPLETE_TAB;
-			} else if (tabToggle == COMPLETE_TAB) {
-				tabToggle = INBOX_TAB;
-			}
+		} else if (event.getCode() == KeyCode.F1) {
+			changeTabFocus();
 		} else if(event.getCode() == KeyCode.SPACE) {
 			AutoCompleteCommands.autoComplete(userInput, feedbackMain);
 		}
 	}
-	
+
+	private void changeBackgroundColorDecrementally() {
+		backgroundColor.toggleColorMinus(main.getBackgroundPane());
+	}
+
+	private void changeBackgroundColorIncrementally() {
+		backgroundColor.toggleColorPlus(main.getBackgroundPane());
+	}
+
+	private void processUserInput(KeyEvent event) throws IOException {
+		event.consume();
+		readUserInput();
+
+		if(!supportFeaturesHandler.isSupportFeaturesLoaded(feedbackMain)) {
+			main.todoListController.loopTaskList();
+		}
+	}
+
+	private void changeTabFocus() {
+		main.getTabPane().getSelectionModel().select(tabToggle);
+		tabToggle++;
+		if (tabToggle == main.getTabPane().getTabs().size()) {
+			tabToggle = FIRST_TAB;
+		}
+	}
+
+	private void nextTutorialPage() throws IOException {
+		if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
+			main.todoListController.loopTaskList();
+			main.supportFeaturesController.renderTutorial();
+			tutorialToggle = TUTORIAL_OFF;
+		}
+	}
+
 	public String uiToLogic(String input) {
 		assert (this != null);
 		return main.passInputToLogic(input);
@@ -166,24 +196,28 @@ public class CommandLineController {
 	private void loadFeedback() {
 		feedbackMain.setText(uiToLogic(command));
 
-		FadeTransition ft = new FadeTransition(Duration.millis(200), feedbackMain);
+		FadeTransition ft = new FadeTransition(Duration.millis(FEEDBACK_ANIMATION_DURATION), feedbackMain);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
 	}
-	
+
 	public void updateTutorialToggle() {
-		if(tutorialToggle) {
-			tutorialToggle = TUTORIAL_OFF;
-		} else {
-			tutorialToggle = TUTORIAL_ON;
+		if(main.todoListController.getTasks().size() == MIN_TASK_LIST_SIZE) {
+			if(tutorialToggle) {
+				tutorialToggle = TUTORIAL_OFF;
+			} else {
+				tutorialToggle = TUTORIAL_ON;
+			}
+			main.supportFeaturesController.showMainPane();
 		}
-		main.supportFeaturesController.showMainPane();
 	}
 
+	/*
+	 * getters
+	 */
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
-			log.info("command index " + index);
 			userInput.setText(inputArray.get(++index));
 			if(index == inputArray.size()-1) {
 				index++;
@@ -196,7 +230,6 @@ public class CommandLineController {
 
 	private void getPreviousCommand() {
 		if(index > 0 && index <= inputArray.size()) {
-			log.info("command index " + index);
 			userInput.setText(inputArray.get(--index));
 		}
 	}
@@ -208,16 +241,16 @@ public class CommandLineController {
 	public Text getMainFeedback() {
 		return feedbackMain;
 	}
-	
+
 	public Text getHelpFeedback() {
 		return feedbackHelp;
 	}
 
 	public String getTutorialToggle() {
 		if(tutorialToggle) {
-			return "ON";
+			return TUTORIAL_ON_STRING;
 		} else {
-			return "OFF";
+			return TUTORIAL_OFF_STRING;
 		}
 	}
 }

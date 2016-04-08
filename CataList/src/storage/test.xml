@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaskList>
-  <Task ID="1" State="Incomplete">
+  <Task ID="1" State="Complete">
     <Event>fuck</Event>
     <StartTime>10.00AM</StartTime>
     <StartDate>06/04/16</StartDate>
     <EndTime>5.00PM</EndTime>
     <EndDate>06/04/16</EndDate>
   </Task>
-  <Task ID="2" State="Incomplete">
+  <Task ID="2" State="Complete">
     <Event>does the storagemain work</Event>
     <StartTime />
     <StartDate />
     <EndTime />
     <EndDate />
   </Task>
-  <Task ID="3" State="Incomplete">
+  <Task ID="3" State="Complete">
     <Event>does the storagewriter work?</Event>
     <StartTime />
     <StartDate />
     <EndTime />
     <EndDate />
   </Task>
-  <Task ID="4" State="Incomplete">
+  <Task ID="4" State="Complete">
     <Event>hello</Event>
     <StartTime />
     <StartDate />
     <EndTime />
     <EndDate />
   </Task>
-  <Task ID="5" State="Incomplete">
+  <Task ID="5" State="Complete">
     <Event>knnbccb</Event>
     <StartTime />
     <StartDate />
