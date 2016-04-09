@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -32,6 +33,7 @@ public class StorageMain {
 	StoragePathMain storagePathMain;
 	StorageReader storageReader;
 	StorageWriter storageWriter;
+	
 	//Constructor
 	public StorageMain() {
 		storagePathMain = new StoragePathMain();
@@ -39,27 +41,39 @@ public class StorageMain {
 		storageWriter = new StorageWriter();
 	}
 	
+	/**
+	 * This method calls storageReader to read the file and then
+	 * stores it into an arraylist of tasks. 
+	 * @return an arraylist of tasks
+	 */
 	public ArrayList<Task> loadTask() {
 		try{
 			String path = storagePathMain.filePathReader();
 			File xmlFile = new File(path);
-			createXMLFile(path, xmlFile); 
+			if(!xmlFile.exists()){
+				createXMLFile(path, xmlFile);
+			}
 			masterList = storageReader.readFromStorage(path, xmlFile);
 		} catch(IOException | JDOMException e1) {
 			e1.printStackTrace();
 		} 
 		return masterList;
 	}
-
+	
 	private void createXMLFile(String path, File xmlFile) throws IOException {
-		if(!xmlFile.exists()){
-			xmlFile.createNewFile();
-			Element rootNode = new Element(ELEMENT_TASKLIST);
-			Document todoListDocument = new Document(rootNode);
-			storageWriter.writeToStorage(todoListDocument, path);
-		}
+		xmlFile.createNewFile();
+		Element rootNode = new Element(ELEMENT_TASKLIST);
+		Document todoListDocument = new Document(rootNode);
+		storageWriter.writeToStorage(todoListDocument, path);
+		
 	}
 	
+	/**
+	 * This method writes all entries in the arraylist masterList into
+	 * the XML file.
+	 * @param masterList
+	 * @return true or false to see if it succeeded.
+	 */
 	public boolean storageWrite(ArrayList<Task> masterList){
 		
 			Element task;
@@ -121,6 +135,13 @@ public class StorageMain {
 		return completeStateString;
 	}
 	
+	/**
+	 * This method clears the storage file of all child elements 
+	 * in the root element.
+	 * @param taskObj
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
 	public void clearFromStorage(Task taskObj) throws IOException, JDOMException {
 		
 		String path = storagePathMain.filePathReader();
@@ -143,14 +164,17 @@ public class StorageMain {
 		}
 
 		try{
-			//StorageWriter.writeToStorage(document, path);
 			storageWriter.writeToStorage(document,path);
 		} catch(IOException e) {
-			taskObj.get_messageToUserFail();
+			e.printStackTrace();
 		}
-
 	}
-	
+	/**
+	 * This method takes in an absolute path from the user and updates the
+	 * storage file location that new absolute path
+	 * @param newFileLocation
+	 * @return the new file location
+	 */
 	public String saveFileLocation(String newFileLocation){
 		
 		storagePathMain.exportFile(newFileLocation);

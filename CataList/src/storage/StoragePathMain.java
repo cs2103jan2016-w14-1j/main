@@ -26,6 +26,11 @@ public class StoragePathMain {
 	
 	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
 	
+	/**
+	 * This method copies the XML file into a new location. 
+	 * @param newFileLocation
+	 * @return a string stating success in saving or failure.
+	 */
 	public String exportFile(String newFileLocation){
 		String result;
 		
@@ -49,12 +54,12 @@ public class StoragePathMain {
     	    byte[] buffer = new byte[1024];
     		
     	    String name = oldFile.getName();
-    	    System.out.println("exportFile: " + name);
+    	    //System.out.println("exportFile: " + name);
     	    
     	    String oldPath = oldFile.getAbsolutePath();
-    	    System.out.println("exportFile: old path: " + oldPath);
+    	    //System.out.println("exportFile: old path: " + oldPath);
     	    
-    	    System.out.println("exportFile: saved file location: " + newFileLocation);
+    	    //System.out.println("exportFile: saved file location: " + newFileLocation);
     	    
     	    int length;
     	    while ((length = inStream.read(buffer)) > 0){
@@ -66,7 +71,7 @@ public class StoragePathMain {
     	    result = SUCCESS_MESSAGE_COPY;
     	    System.out.println(result);
     	    
-    	}catch(IOException e){
+    	} catch(IOException e){
     		result = ERROR_MESSAGE_COPY;
     		e.printStackTrace();
     		return result;
@@ -74,6 +79,10 @@ public class StoragePathMain {
 		return result;
 	}
 	
+	/**
+	 * This method reads the path to the xml storage path
+	 * @return path of the current xml file
+	 */
 	public String filePathReader(){
 		
 		List<String> stringList = new ArrayList<String>();
@@ -119,6 +128,11 @@ public class StoragePathMain {
 		return stringPath;
 	}
 	
+	/**
+	 * This method writes the new path of the xml file to the
+	 * path file for the reader to read
+	 * @param path
+	 */
 	public void filePathWriter(String path) {
 		
 		String newPath = path;
