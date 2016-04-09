@@ -300,7 +300,7 @@ public class ListInterfaceController {
 			if(taskFilter.isEventClashing(taskObj, taskList)) {
 				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(GLYPH_SIZE);
 				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
-				FeedbackGenerator.generateEventClashFeedback(main.commandLineController.getHelpFeedback());
+				FeedbackGenerator.generateEventClashFeedback(main.getHelpFeedback());
 			} else {
 				taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
 			}

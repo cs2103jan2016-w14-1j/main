@@ -14,16 +14,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import logic.LogicMain;
 import logic.Task;
 
 public class MainGUIController {
 
-	@FXML public CommandLineController commandLineController;  
-	@FXML public ListInterfaceController todoListController;   
-	@FXML public TitleInterfaceController titleController;
-	@FXML public SupportFeaturesController supportFeaturesController;
-	@FXML public AnchorPane backgroundPane;
+	@FXML private CommandLineController commandLineController;  
+	@FXML private ListInterfaceController todoListController;   
+	@FXML private TitleInterfaceController titleController;
+	@FXML private SupportFeaturesController supportFeaturesController;
+	@FXML private AnchorPane backgroundPane;
 
 	private LogicMain logic = new LogicMain();
 
@@ -34,24 +35,42 @@ public class MainGUIController {
 		supportFeaturesController.init(this);
 	}
 	
-	public void refreshToDoList() throws IOException, JDOMException {
-		todoListController.loopTaskList();
-	}
-
-	public void removeMainPane() {
-		supportFeaturesController.removeMainPane();
-	}
-
-	public void openMainPane() {
-		supportFeaturesController.showMainPane();
-	}
-	
-	public String passInputToLogic(String input) {
-		return logic.processCommand(input);
-	}
-	
 	public AnchorPane getBackgroundPane() {
 		return backgroundPane;
+	}
+	
+	/*
+	 * commandLineController API
+	 */
+	public Text getMainFeedback() {
+		return commandLineController.getMainFeedback();
+	}
+	
+	public Text getHelpFeedback() {
+		return commandLineController.getMainFeedback();
+	}
+	
+	public String getTutorialMode() {
+		return commandLineController.getTutorialToggle();
+	}
+	
+	public TextField getCommandLine() {
+		return commandLineController.getCommandLine();
+	}
+	
+	/*
+	 * toDoListController API
+	 */
+	public void refreshToDoList() throws IOException {
+		todoListController.loopTaskList();
+	}
+	
+	public void removeToDoList() {
+		todoListController.closeToDoList();
+	}
+	
+	public void openToDoList() {
+		todoListController.openToDoList();
 	}
 	
 	public ObservableList<HBox> getTaskList() {
@@ -61,17 +80,55 @@ public class MainGUIController {
 	public ObservableList<HBox> getCompletedList() {
 		return todoListController.getCompleted();
 	}
+	
+	public TabPane getTabPane() {
+		return todoListController.getTabPane();
+	}
+	
+	public ListView<HBox> getList() {
+		return todoListController.getList();
+	}
 
+	/*
+	 * supportFeatureController API
+	 */
 	public VBox getMainPane() {
 		return supportFeaturesController.getMainPane();
 	}
-
+	
+	public void openMainPane() {
+		supportFeaturesController.showMainPane();
+	}
+	
+	public void removeMainPane() {
+		supportFeaturesController.removeMainPane();
+	}
+	
+	public void startTutorialMode() throws IOException {
+		supportFeaturesController.renderTutorial();
+	}
+	
+	public void renderHelpPage() throws IOException {
+		supportFeaturesController.loadHelpList();
+	}
+	
+	public void renderCalendar() throws IOException {
+		supportFeaturesController.loadCalendar();
+	}
+	
+	/*
+	 * Logic API
+	 */
 	public LogicMain getLogic() {
 		return logic;
 	}
+	
+	public String passInputToLogic(String input) {
+		return logic.processCommand(input);
+	}
 
 	public ArrayList<Task> getIncompleteTasksFromLogic() {
-	//	logic.operatingToIncomplete();
+		logic.operatingToIncomplete();
 		return logic.getOperatingTasksForUI();
 	}
 	
@@ -79,21 +136,4 @@ public class MainGUIController {
 		logic.operatingToComplete();
 		return logic.getCompleteTasksForUI();
 	}
-
-	public TabPane getTabPane() {
-		return todoListController.getTabPane();
-	}
-	
-	public TextField getCommandLine() {
-		return commandLineController.getCommandLine();
-	}
-	
-	public ListView<HBox> getList() {
-		return todoListController.getList();
-	}
-	
-	public String getTutorialMode() {
-		return commandLineController.getTutorialToggle();
-	}
-
 }
