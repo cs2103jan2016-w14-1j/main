@@ -36,7 +36,7 @@
 						<Text fx:id="tutorialMessage"
 							text="The task deadline is on the right of the list." />
 						<ImageView layoutX="40.0" layoutY="44.0" fitHeight="40.0"
-							fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+							fitWidth="280.0" pickOnBounds="true" preserveRatio="false">
 							<image>
 								<Image url="@../Application/Stylesheets/Background/task_time.png" />
 							</image>

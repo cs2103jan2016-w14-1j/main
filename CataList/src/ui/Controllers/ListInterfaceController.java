@@ -548,30 +548,37 @@ public class ListInterfaceController {
 	}
 
 	public void displayPending() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(pendingTasks);
 	}
 
 	public void displayComplete() {
+		main.setOperatingListAsComplete();
 		todoList.setItems(completedTasks);
 	}
 
 	public void displayToday() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(todayTasks);
 	}
 
 	public void displayTomorrow() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(tomorrowTasks);
 	}
 
 	public void displayOverdue() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(overdueTasks);
 	}
 
 	public void displayOthers() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(otherTasks);
 	}
 
 	public void displayFloat() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(floatingTasks);
 	}
 

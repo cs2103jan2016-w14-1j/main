@@ -128,12 +128,18 @@ public class MainGUIController {
 	}
 
 	public ArrayList<Task> getIncompleteTasksFromLogic() {
-		logic.operatingToIncomplete();
 		return logic.getOperatingTasksForUI();
 	}
 	
 	public ArrayList<Task> getCompletedTasksFromLogic() {
-		logic.operatingToComplete();
 		return logic.getCompleteTasksForUI();
+	}
+	
+	public void setOperatingListAsComplete() {
+		logic.operatingToComplete();
+	}
+	
+	public void setOperatingListAsIncomplete() {
+		logic.operatingToIncomplete();
 	}
 }

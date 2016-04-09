@@ -22,10 +22,9 @@ xmlns:fx="http://javafx.com/fxml/1">
 					<children>
 					<Text fx:id="tutorialMessage"
 							text="Here, your task has been added!
-					&#10;You may noticed that the time is
-					&#10;input the '-t' flag and date is
-					&#10;the '-d' flag. Now you can start
-					&#10;creating your own tasks!" />
+					&#10;The sequence of the time and date
+					&#10;is interchangeable. Now you can
+					&#10;start creating your own tasks!" />
 						<Text fx:id="exitMessage" text="Press LEFT to go back a step." />
 						<Text fx:id="exitMessage" text="Press RIGHT to move on." />
 						<Text fx:id="exitMessage" text="Press ESC to quit." />

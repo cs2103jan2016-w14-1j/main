@@ -298,7 +298,7 @@
 
 #feedbackHelp {
 	-fx-font-family: "Aileron Semi Bold";
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-fill: beige;
 }
 
@@ -330,7 +330,7 @@
 #tutorialSamples {
 	-fx-font-family: Monospaced;
 	-fx-font-size: 14px;
-	-fx-fill: blue;
+	-fx-fill: orangered;
 }
 
 #emptyRow {
