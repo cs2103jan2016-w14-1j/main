@@ -47,7 +47,7 @@ public class MainGUIController {
 	}
 	
 	public Text getHelpFeedback() {
-		return commandLineController.getMainFeedback();
+		return commandLineController.getHelpFeedback();
 	}
 	
 	public String getTutorialMode() {
