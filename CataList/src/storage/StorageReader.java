@@ -30,50 +30,46 @@ public class StorageReader {
 	private static ArrayList<String> dateList;
 	private static ArrayList<String> timeList;
 	
-	public ArrayList<Task> readFromStorage(String path, File xmlFile) throws IOException, JDOMException{
-		
+	/**
+	 * Constructor
+	 */
+	public StorageReader(){
 		dateList = new ArrayList<String>();
 		timeList = new ArrayList<String>();
 		dateTimeArgs = new ArrayList<ArrayList<String>>();
+	}
+	
+	/**
+	 * This function reads the XML file and stores it into an ArrayList of tasks
+	 * for Logic to read.
+	 * @param path
+	 * @param xmlFile
+	 * @return ArrayList<Task> from the file.
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	public ArrayList<Task> readFromStorage(String path, File xmlFile) throws IOException, JDOMException{
 		
 		SAXBuilder saxBuilder = new SAXBuilder();
 	
 		Document todoListDocument = (Document) saxBuilder.build(xmlFile);
-		Element rootNode = todoListDocument.getRootElement(); //rootnode is a tasklist
+		Element rootNode = todoListDocument.getRootElement(); 
 		
-		List<Element> list = rootNode.getChildren(); // every single children is a task
+		List<Element> list = rootNode.getChildren(); 
 		ArrayList<Task> listOfTask = new ArrayList<Task>(list.size());
 				
 		for(int i=0; i<list.size(); i++) {
 			
 			Element node = (Element) list.get(i);
-			//TODO:
+			
 			dateList.clear();
 			timeList.clear();
 			dateTimeArgs.clear();
-			//END HOTFIX
-			String startDate = node.getChildText(ELEMENT_START_DATE);
-			String endDate = node.getChildText(ELEMENT_END_DATE);
-			String startTime = node.getChildText(ELEMENT_START_TIME);
-			String endTime = node.getChildText(ELEMENT_END_TIME);
-			//TODO
-			if(startDate != SYMBOL_EMPTY){
-				dateList.add(startDate);
-				if(endDate != SYMBOL_EMPTY){
-					dateList.add(endDate);
-				}
-			}
 			
-			if(startTime != SYMBOL_EMPTY){
-				timeList.add(startTime);
-				if(startTime != SYMBOL_EMPTY){
-					timeList.add(endTime);
-				}
-			}
-			//END HOTFIX
+			isDateTimeEmpty(node);
+			
 			dateTimeArgs.add(dateList);
 			dateTimeArgs.add(timeList);
-			System.out.println("Adding startDate: " + startDate);
 			Task taskObj = new Task(true, node.getChildText(ELEMENT_EVENT), ELEMENT_DISPLAY, 
 						ELEMENT_SUCCESS_MESSAGE, ELEMENT_FAIL_MESSAGE, dateTimeArgs);
 			String attribute = node.getAttributeValue(ATTRIBUTE_STATE);
@@ -83,6 +79,31 @@ public class StorageReader {
 			}
 			return listOfTask;
 		}
+	
+	/**
+	 * Check if the date and time fields are empty
+	 * @param node
+	 */
+	private void isDateTimeEmpty(Element node) {
+		String startDate = node.getChildText(ELEMENT_START_DATE);
+		String endDate = node.getChildText(ELEMENT_END_DATE);
+		String startTime = node.getChildText(ELEMENT_START_TIME);
+		String endTime = node.getChildText(ELEMENT_END_TIME);
+		
+		if(startDate != SYMBOL_EMPTY){
+			dateList.add(startDate);
+			if(endDate != SYMBOL_EMPTY){
+				dateList.add(endDate);
+			}
+		}
+		
+		if(startTime != SYMBOL_EMPTY){
+			timeList.add(startTime);
+			if(startTime != SYMBOL_EMPTY){
+				timeList.add(endTime);
+			}
+		}
+	}
 
 	private void isComplete(Task taskObj, String attribute) {
 		if(attribute.equals(ATTRIBUTE_COMPLETE)){
