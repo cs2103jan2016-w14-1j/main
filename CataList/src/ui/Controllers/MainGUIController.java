@@ -70,19 +70,14 @@ public class MainGUIController {
 		return logic;
 	}
 
-	public ArrayList<Task> getOperatingTasksFromLogic() {
-		logic.operatingToIncomplete();
+	public ArrayList<Task> getIncompleteTasksFromLogic() {
+	//	logic.operatingToIncomplete();
 		return logic.getOperatingTasksForUI();
 	}
 	
 	public ArrayList<Task> getCompletedTasksFromLogic() {
 		logic.operatingToComplete();
 		return logic.getCompleteTasksForUI();
-	}
-	
-	public ArrayList<Task> getPendingTasksFromLogic() {
-		logic.operatingToIncomplete();
-		return logic.getIncompleteTasksForUI();
 	}
 
 	public TabPane getTabPane() {

@@ -2,13 +2,14 @@
 package ui.Controllers;
 
 import ui.Controllers.HelpCommands.Help;
-import ui.Controllers.HelpCommands.HelpCommandStorageParser;
+import ui.Controllers.HelpCommands.HelpCommandStorage;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.util.ArrayList;
 
 public class HelpPageController {
@@ -18,12 +19,10 @@ public class HelpPageController {
     
     private static final String COMMAND_HEADER = "Command";
     private static final String COMMAND_FORMAT_HEADER = "Format";
-    
     private static final String COMMAND_ID = "commandColumn";
     private static final String FORMAT_ID = "formatColumn";
-    
-    private static final String COMMAND_VALUE = "helpId";
-    private static final String COMMAND_FORMAT_VALUE = "helpCommand";
+    private static final String COMMAND_VALUE = "helpCommand";
+    private static final String COMMAND_FORMAT_VALUE = "helpFormat";
     
     private static final int ARRAY_INDEX_COMMAND = 0;
     private static final int ARRAY_INDEX_FORMAT = 1;
@@ -32,10 +31,9 @@ public class HelpPageController {
     private static final int COMMAND_FORMAT_COL_WIDTH = 290;
     
             
-    private final ObservableList<Help> table = 
-            FXCollections.observableArrayList();
+    private final ObservableList<Help> table = FXCollections.observableArrayList();
     
-    private ArrayList<ArrayList<String>> parsedStorage;
+    private ArrayList<ArrayList<String>> helpCommands = new ArrayList<>();
  
     @SuppressWarnings("unchecked")
 	public void initialize() {
@@ -53,11 +51,11 @@ public class HelpPageController {
     }
 
     private void readFromStorage() {
-        parsedStorage = HelpCommandStorageParser.parseHelpList(); 
-        for (int i = 0; i < parsedStorage.size(); i++) {
-            table.add(new Help(parsedStorage.get(i).get(ARRAY_INDEX_COMMAND), parsedStorage.get(i).get(ARRAY_INDEX_FORMAT)));
+        helpCommands = HelpCommandStorage.getHelpList(); 
+        for (int i = 0; i < helpCommands.size(); i++) {
+            table.add(new Help(helpCommands.get(i).get(ARRAY_INDEX_COMMAND), helpCommands.get(i).get(ARRAY_INDEX_FORMAT)));
         }
-        parsedStorage.clear();
+        helpCommands.clear();
     }
 
     private TableColumn<Help, String> createColumn(String header, String value, int colWidth) {

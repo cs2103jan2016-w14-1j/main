@@ -1,7 +1,7 @@
 //@@author A0112204E
 package ui.Controllers.TitleQuotes;
 
-import ui.Controllers.TitleQuotes.QuoteStorageParser;
+import ui.Controllers.TitleQuotes.QuoteStorage;
 import java.util.Date;
 
 public class QuoteGenerator {
@@ -9,7 +9,7 @@ public class QuoteGenerator {
     private static final int NUM_QUOTES = 21;
     
     public static String generateRandomQuote() {
-        return QuoteStorageParser.parseQuoteList(randomGeneratorByDate());
+        return QuoteStorage.parseQuoteList(randomGeneratorByDate());
     }
 
     private static int randomGeneratorByDate() {

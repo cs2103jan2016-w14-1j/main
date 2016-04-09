@@ -307,6 +307,11 @@
 	-fx-background-radius: 20 20 20 20;
 	-fx-font-family: delicious-bold;
 	-fx-font-size: 20px;
+	-fx-prompt-text-fill: rgb(0, 0, 0, 0.3);
+}
+
+.text-field:focused {
+	-fx-prompt-text-fill: rgb(0, 0, 0, 0);
 }
 
 #completedTaskName .text {

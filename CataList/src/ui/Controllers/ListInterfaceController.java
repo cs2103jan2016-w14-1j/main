@@ -33,7 +33,7 @@ import ui.Controllers.MainGUIController;
 import logic.Task;
 import shared.LogHandler;
 
-public class ListInterfaceController extends NotificationRenderer {
+public class ListInterfaceController {
 
 	private static final int TASK_LIST_ANIMTATION_DELAY = 200;
 	private static final int TASK_LIST_ANIMATION_DURATION = 400;
@@ -469,7 +469,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	private void setOperatingTasksFromLogic() {
-		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+		operatingTasksFromLogic = main.getIncompleteTasksFromLogic();
 	}
 
 	private void setTasksForCategories() {
