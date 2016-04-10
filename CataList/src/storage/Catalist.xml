@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TaskList>
+  <Task ID="1" State="Incomplete">
+    <Event>NM3227 presentation</Event>
+    <StartTime>2.00PM</StartTime>
+    <StartDate>11/04/16</StartDate>
+    <EndTime>4.00PM</EndTime>
+    <EndDate />
+  </Task>
+  <Task ID="2" State="Incomplete">
+    <Event>CS2103T presentation</Event>
+    <StartTime>1.00PM</StartTime>
+    <StartDate>16/04/16</StartDate>
+    <EndTime>1.30PM</EndTime>
+    <EndDate />
+  </Task>
+  <Task ID="3" State="Incomplete">
+    <Event>CataList help works</Event>
+    <StartTime />
+    <StartDate />
+    <EndTime />
+    <EndDate />
+  </Task>
+  <Task ID="4" State="Complete">
+    <Event>CataList.xml for the new filename</Event>
+    <StartTime />
+    <StartDate />
+    <EndTime />
+    <EndDate />
+  </Task>
+</TaskList>
