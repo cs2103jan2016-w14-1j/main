@@ -64,6 +64,10 @@ public class HelpCommandStorage {
 
 	private static ArrayList<ArrayList<String>> helpList = new ArrayList<>();
 
+	/**
+	 * Generates the helpList
+	 * @return ArrayList<ArrayList<String>> This is the entire list of help command and format
+	 */
 	public static ArrayList<ArrayList<String>> getHelpList() {
 		initHelpList();
 		return helpList;

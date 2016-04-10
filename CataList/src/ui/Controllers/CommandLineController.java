@@ -60,8 +60,9 @@ public class CommandLineController {
 	private ColorRenderer backgroundColor;
 	private SupportFeaturesHandler supportFeaturesHandler;
 
-	/*
-	 * initialization
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
 	 */
 	public void init(MainGUIController mainController) {
 		main = mainController;
@@ -179,9 +180,13 @@ public class CommandLineController {
 			tutorialToggle = TUTORIAL_OFF;
 		}
 	}
-
+	
+	/**
+	 * Passes the user input to Logic
+	 * @param input This is the user input
+	 * @return String This is the feedback from Logic
+	 */
 	public String uiToLogic(String input) {
-		assert (this != null);
 		return main.passInputToLogic(input);
 	}
 
@@ -202,7 +207,7 @@ public class CommandLineController {
 		ft.play();
 	}
 
-	public void updateTutorialToggle() {
+	private void updateTutorialToggle() {
 		if(main.getTaskList().size() == MIN_TASK_LIST_SIZE) {
 			if(tutorialToggle) {
 				tutorialToggle = TUTORIAL_OFF;
@@ -233,19 +238,35 @@ public class CommandLineController {
 			userInput.setText(inputArray.get(--index));
 		}
 	}
-
+	
+	/**
+	 * Gets user input field from commandLineController
+	 * @return TextField This is the user input field
+	 */
 	public TextField getCommandLine() {
 		return userInput;
 	}
 
+	/**
+	 * Gets main feedback from commandLineController
+	 * @return Text main feedback
+	 */
 	public Text getMainFeedback() {
 		return feedbackMain;
 	}
 
+	/**
+	 * Gets secondary feedback from commandLineController
+	 * @return Text secondary feedback
+	 */
 	public Text getHelpFeedback() {
 		return feedbackHelp;
 	}
-
+	
+	/**
+	 * Gets tutorial flag in string from commandLineController
+	 * @return String Flag for indication of whether tutorial is ON or OFF
+	 */
 	public String getTutorialToggle() {
 		if(tutorialToggle) {
 			return TUTORIAL_ON_STRING;

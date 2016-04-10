@@ -16,9 +16,12 @@ public class TitleInterfaceController extends QuoteGenerator{
 	
 	@FXML
 	private Text quote;
-
-	Timer animate = new Timer(true);
-
+	private Timer animate = new Timer(true);
+	
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public void init(MainGUIController mainController) {
 		animateQuote();
 	}

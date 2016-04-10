@@ -71,6 +71,11 @@ public class QuoteStorage {
 
 	private static ArrayList<String> quoteList = new ArrayList<String>();
 
+	/**
+	 * Generates the entire quote list and retrieves a quote depending of the number received
+	 * @param quoteNumber This is a random number from QuoteGenerator
+	 * @return String This is the quote
+	 */
 	public static String parseQuoteList(int quoteNumber) {
 		initQuoteList();
 		return quoteList.get(quoteNumber);

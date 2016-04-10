@@ -126,7 +126,11 @@ public class ListInterfaceController {
 	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
-
+	
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public void init(MainGUIController mainController) {
 		main = mainController;
 
@@ -136,11 +140,6 @@ public class ListInterfaceController {
 		loopCheckTasksForReminder();
 		setTaskIntoViewIndex(INIT_SCROLL);
 	}
-
-	/**
-	 * Tab Functions
-	 * Controls ListInterface's tabs
-	 */
 
 	private void initTabPane() {
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -257,7 +256,9 @@ public class ListInterfaceController {
 	 * Controls ListInterface's list by looping through the Logic every time a command
 	 * is executed
 	 */
-
+	/**
+	 * Refreshes task list and display the new task list if there are any changes
+	 */
 	public void loopTaskList() {
 		pendingTasks.clear();
 		completedTasks.clear();
@@ -371,6 +372,9 @@ public class ListInterfaceController {
 		return new HBox(TASKROW_SPACING);
 	}
 
+	/**
+	 * Loads to-do list into view
+	 */
 	public void openToDoList() {
 		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.getMainPane().isManaged()) {	
 			todoListContainer.setManaged(true);
@@ -380,14 +384,17 @@ public class ListInterfaceController {
 			animateToDoList(OPEN_LIST);
 		}
 	}
-
+	
+	/**
+	 * Remove to-do list from view
+	 */
 	public void closeToDoList() {
 		if(todoListContainer.getScaleX() == 1) {
 			animateToDoList(CLOSE_LIST);
 		}
 	}
 
-	public void hideToDoList() {
+	private void hideToDoList() {
 		if(pendingTasks.size() <= 1) {
 			todoListContainer.setManaged(false);
 			todoListContainer.setOpacity(0);
@@ -542,54 +549,69 @@ public class ListInterfaceController {
 	/*
 	 * Getters for ListInterface
 	 */
-
+	/**
+	 * Gets tab pane 
+	 * @return TabPane The tab pane containing filter tabs
+	 */
 	public TabPane getTabPane() {
 		return tabPane;
 	}
 
-	public void displayPending() {
+	private void displayPending() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(pendingTasks);
 	}
 
-	public void displayComplete() {
+	private void displayComplete() {
 		main.setOperatingListAsComplete();
 		todoList.setItems(completedTasks);
 	}
 
-	public void displayToday() {
+	private void displayToday() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(todayTasks);
 	}
 
-	public void displayTomorrow() {
+	private void displayTomorrow() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(tomorrowTasks);
 	}
 
-	public void displayOverdue() {
+	private void displayOverdue() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(overdueTasks);
 	}
 
-	public void displayOthers() {
+	private void displayOthers() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(otherTasks);
 	}
 
-	public void displayFloat() {
+	private void displayFloat() {
 		main.setOperatingListAsIncomplete();
 		todoList.setItems(floatingTasks);
 	}
 
+	/**
+	 * Gets the list of incomplete tasks
+	 * @return ObservableList<HBox> List of incomplete task in HBox
+	 */
 	public ObservableList<HBox> getTasks() {
 		return pendingTasks;
 	}
 
+	/**
+	 * Gets the list of completed tasks
+	 * @return ObservableList<HBox> List of completed Tasks in HBox
+	 */
 	public ObservableList<HBox> getCompleted() {
 		return completedTasks;
 	}
-
+	
+	/**
+	 * Gets the entire list pane from todoListController
+	 * @return ListView<HBox> The list view pane
+	 */
 	public ListView<HBox> getList() {
 		return todoList;
 	}

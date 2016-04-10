@@ -27,10 +27,17 @@ public class ColorRenderer {
 
 	private int colorToggle;
 
+	/**
+	 * Constructor method
+	 */
 	public ColorRenderer() {
 		colorToggle = INIT_FLAG;
 	}
-
+	
+	/**
+	 * Increases the color toggle flag
+	 * @param node This is the background node for the application
+	 */
 	public void toggleColorPlus(Node node) {
 		colorToggle++;
 		if(colorToggle > MAX_FLAG) {
@@ -39,6 +46,10 @@ public class ColorRenderer {
 		setBackgroundColor(node);
 	}
 	
+	/**
+	 * Decreases the color toggle flag
+	 * @param node This is the background node for the application
+	 */
 	public void toggleColorMinus(Node node) {
 		colorToggle--;
 		if(colorToggle < MIN_FLAG) {

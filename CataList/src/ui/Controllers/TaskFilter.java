@@ -52,6 +52,9 @@ public class TaskFilter {
 	private HBox taskClassOverdue;
 
 
+	/**
+	 * Constructor method
+	 */
 	public TaskFilter() {
 		tasksToday = new ArrayList<HBox>();
 		tasksTomorrow = new ArrayList<HBox>();
@@ -61,21 +64,33 @@ public class TaskFilter {
 
 		initClasses();
 	}
-
+	
+	/**
+	 * Gets list of tasks today
+	 * @param list List of tasks today in HBox
+	 */
 	public void getTasksToday(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksToday.size(); i++) {
 			list.add(tasksToday.get(i));
 		}
 	}
-
+	
+	/**
+	 * Gets list of tasks today
+	 * @param list List of tasks tomorrow in HBox
+	 */
 	public void getTasksTomorrow(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksTomorrow.size(); i++) {
 			list.add(tasksTomorrow.get(i));
 		}
 	}
-
+	
+	/**
+	 * Gets list of tasks today
+	 * @param list List of other tasks in HBox
+	 */
 	public void getTasksOthers(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksOthers.size(); i++) {
@@ -83,6 +98,10 @@ public class TaskFilter {
 		}
 	}
 
+	/**
+	 * Gets list of tasks today
+	 * @param list List of overdue tasks in HBox
+	 */
 	public void getTasksOverdue(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksOverdue.size(); i++) {
@@ -90,6 +109,10 @@ public class TaskFilter {
 		}
 	}
 
+	/**
+	 * Gets list of tasks today
+	 * @param list List of floating tasks in HBox
+	 */
 	public void getTasksFloat(ObservableList<HBox> list) {
 		list.clear();
 		for(int i = 1; i < tasksFloat.size(); i++) {
@@ -131,7 +154,11 @@ public class TaskFilter {
 		tasksFloat.clear();
 		tasksOverdue.clear();
 	}
-
+	
+	/**
+	 * Add the filtered classes into the main list
+	 * @param list This is the list of tasks from ListInterface
+	 */
 	public void addSortedClasses(ObservableList<HBox> list) {
 		int taskNum = 1;
 		while(taskNum <= tasksToday.size() + tasksTomorrow.size() +
@@ -268,7 +295,12 @@ public class TaskFilter {
 			tasksOverdue.get(taskNum-1).getChildren().add(taskOverdueNum);
 		}
 	}
-
+	
+	/**
+	 * Sorts tasks by filtering them according to time and date
+	 * @param taskObj This is individual task object from the task list in ListInterface
+	 * @param taskRow This is individual rows of tasks in the ListView
+	 */
 	public void sortTasksByClasses(Task taskObj, HBox taskRow) {
 		LocalDateTime localDate = new LocalDateTime();
 		String dateToday = localDate.toString(DATE_FORMAT);
@@ -341,10 +373,12 @@ public class TaskFilter {
 		tasksOverdue.add(taskRow);
 	}
 
-	/*
-	 * check for event clashes for each event
+	/**
+	 * Check tasks individually for clashes
+	 * @param taskObj This is individual task object from the task list in ListInterface
+	 * @param taskList This is the entire list of tasks from ListInterface
+	 * @return true if there are tasks with clashing event, false if there are no clashes
 	 */
-
 	public boolean isEventClashing(Task taskObj, ArrayList<Task> taskList) {
 		LocalDateTime taskObjStartDate = new LocalDateTime();
 		LocalTime taskObjStartTime = new LocalTime();

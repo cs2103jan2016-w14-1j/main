@@ -43,6 +43,11 @@ public class AutoCompleteCommands {
 		autoCompleteList.add(COMMAND_SEARCH);
 	}
 	
+	/**
+	 * Auto completes and corrects command input by users
+	 * @param userInput This is the user input from commandLineInterface
+	 * @param feedback This is the main feedback from commandLineInterface
+	 */
 	public static void autoComplete(TextField userInput, Text feedback) {
 		initAutoComplete();
 		String autoCompleteCheck = processUserInput(userInput, feedback);

@@ -34,7 +34,10 @@ public class HelpPageController {
     private final ObservableList<Help> table = FXCollections.observableArrayList();
     
     private ArrayList<ArrayList<String>> helpCommands = new ArrayList<>();
- 
+    
+    /**
+     * Constructor method
+     */
     @SuppressWarnings("unchecked")
 	public void initialize() {
         TableColumn<Help, String> commandCol = createColumn(COMMAND_HEADER, COMMAND_VALUE, COMMAND_COL_WIDTH);

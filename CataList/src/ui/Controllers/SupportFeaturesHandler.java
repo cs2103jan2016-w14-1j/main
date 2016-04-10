@@ -21,13 +21,23 @@ public class SupportFeaturesHandler {
 	private String feedbackFromLogic;
 	private MainGUIController main;
 	
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public SupportFeaturesHandler(MainGUIController mainController) {
 		main = mainController;
 		feedbackFromLogic = NULL_REGEX;
 	}
 	
-	public boolean isSupportFeaturesLoaded(Text feedbackMain) throws IOException {
-		feedbackFromLogic = feedbackMain.getText();
+	/**
+	 * Matches the feedback from Logic to one of the features
+	 * @param feedback This is the main feedback from commandListInterface
+	 * @return true if the feedback matches that of the feature, false if nothing is loaded
+	 * @throws IOException If there is an I/O Error
+	 */
+	public boolean isSupportFeaturesLoaded(Text feedback) throws IOException {
+		feedbackFromLogic = feedback.getText();
 		
 		switch(feedbackFromLogic) {
 			case MESSAGE_TUTORIAL_DEFAULT:
@@ -40,7 +50,7 @@ public class SupportFeaturesHandler {
 				main.renderCalendar();
 				return true;
 			case MESSAGE_SAVETO_SUCCESS:
-				loadSaveWindow(feedbackMain);
+				loadSaveWindow(feedback);
 				return true;
 			default:
 				return false;

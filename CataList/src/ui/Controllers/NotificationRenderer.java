@@ -21,11 +21,19 @@ public class NotificationRenderer {
 	private boolean dayNotification;
 	private boolean timeNotification;
 	
+	/**
+	 * Constructor method
+	 */
 	public NotificationRenderer() {
 		dayNotification = false;
 		timeNotification = false;
 	}
 
+	/**
+	 * Loads notification into view
+	 * @param todo This is the number of upcoming to-dos
+	 * @param flag This is the indication of whether it is a daily or time reminder
+	 */
 	public void loadNotification(int todo, int flag) {
 		if(flag == TIME_FLAG && timeNotification == false) {
 			if(todo > 1) {

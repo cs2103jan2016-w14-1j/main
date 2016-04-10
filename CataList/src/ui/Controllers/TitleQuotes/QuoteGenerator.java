@@ -8,6 +8,10 @@ public class QuoteGenerator {
     
     private static final int NUM_QUOTES = 21;
     
+    /**
+     * Gets a quote from storage
+     * @return String This is the quote from QuoteStorage
+     */
     public static String generateRandomQuote() {
         return QuoteStorage.parseQuoteList(randomGeneratorByDate());
     }

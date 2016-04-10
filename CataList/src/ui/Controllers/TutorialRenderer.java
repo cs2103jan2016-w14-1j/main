@@ -46,6 +46,10 @@ public class TutorialRenderer {
 	private double coordinateY = 0;
 	private int currentTutorial = INTERFACE_TUTORIAL;
 
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public TutorialRenderer(MainGUIController mainController) {
 		main = mainController;
 		initPopOver();
@@ -58,7 +62,11 @@ public class TutorialRenderer {
 		readListTutorial = new PopOver();
 		helpTutorial = new PopOver();
 	}
-
+	
+	/**
+	 * Loads tutorial into view
+	 * @throws IOException If there is an I/O error
+	 */
 	public void loadTutorial() throws IOException {
 		initPopOver();
 

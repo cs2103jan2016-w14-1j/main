@@ -49,13 +49,14 @@ public class SupportFeaturesController {
 	private Label heading;
 	private Label time;
 
-	@FXML 
-	private Text titleMessage;
-	@FXML 
-	private Text subMessage;
-	@FXML 
-	private VBox mainPane;
+	@FXML private Text titleMessage;
+	@FXML private Text subMessage;
+	@FXML private VBox mainPane;
 
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public void init(MainGUIController mainController) {
 		main = mainController;
 		tutorialRenderer = new TutorialRenderer(main);
@@ -65,14 +66,27 @@ public class SupportFeaturesController {
 		}
 	}
 
+	/**
+	 * Gets the center pane that holds supporting features
+	 * from supportFeaturesController
+	 * @return VBox This is the center pane for several features
+	 */
 	public VBox getMainPane() {
 		return mainPane;
 	}
 	
+	/**
+	 * Starts tutorial
+	 * @throws IOException If an I/O Error occurs
+	 */
 	public void renderTutorial() throws IOException {
 		tutorialRenderer.loadTutorial();
 	}
 	
+	/**
+	 * Displays help page
+	 * @throws IOException If an I/O Error occurs
+	 */
 	public void loadHelpList() throws IOException {
 		main.removeToDoList();
 		showMainPane();
@@ -83,7 +97,11 @@ public class SupportFeaturesController {
 
 		}
 	}
-
+	
+	/**
+	 * Displays calendar
+	 * @throws IOException If an I/O Error occurs
+	 */
 	public void loadCalendar() {
 		VBox calendarContainer = new VBox(CALENDAR_SPACING);
 
@@ -139,6 +157,9 @@ public class SupportFeaturesController {
 		return imageView;
 	}
 
+	/**
+	 * Removes the center main from view
+	 */
 	public void removeMainPane() {
 		mainPane.setManaged(false);
 
@@ -148,6 +169,9 @@ public class SupportFeaturesController {
 		ft.play();
 	}
 
+	/**
+	 * Loads the center pane into view
+	 */
 	public void showMainPane() {
 		mainPane.setManaged(true);
 		insertTutorialToggle();
