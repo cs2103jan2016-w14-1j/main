@@ -2,27 +2,27 @@
 package ui.Controllers.HelpCommands;
 
 public class Help {
-    private String helpId;
     private String helpCommand;
+    private String helpFormat;
     
-    public Help(String id, String command) {
-        this.helpId = id;
-        this.helpCommand = command; 
+    public Help(String command, String format) {
+        this.helpCommand = command;
+        this.helpFormat = format; 
     }
  
-    public String getHelpId() {
-        return this.helpId;
-    }
-        
     public String getHelpCommand() {
         return this.helpCommand;
     }
-    
-    public void setHelpId(String id) {
-        this.helpId = id;
-     }
+        
+    public String getHelpFormat() {
+        return this.helpFormat;
+    }
     
     public void setHelpCommand(String command) {
         this.helpCommand = command;
+     }
+    
+    public void setHelpFormat(String format) {
+        this.helpFormat = format;
     }
 }

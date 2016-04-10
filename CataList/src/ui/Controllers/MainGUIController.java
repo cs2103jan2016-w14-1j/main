@@ -13,16 +13,18 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import logic.LogicMain;
 import logic.Task;
 
 public class MainGUIController {
 
-	@FXML public CommandLineController commandLineController;  
-	@FXML public ListInterfaceController todoListController;   
-	@FXML public TitleInterfaceController titleController;
-	@FXML public SupportFeaturesController supportFeaturesController;
-	@FXML public AnchorPane backgroundPane;
+	@FXML private CommandLineController commandLineController;  
+	@FXML private ListInterfaceController todoListController;   
+	@FXML private TitleInterfaceController titleController;
+	@FXML private SupportFeaturesController supportFeaturesController;
+	@FXML private AnchorPane backgroundPane;
 
 	private LogicMain logic = new LogicMain();
 
@@ -37,43 +39,95 @@ public class MainGUIController {
 		return backgroundPane;
 	}
 	
-	public void refreshToDoList() throws IOException, JDOMException {
-		todoListController.loopTaskList();
-	}
-
-	public void removeMainPane() {
-		supportFeaturesController.removeMainPane();
-	}
-
-	public void openMainPane() {
-		supportFeaturesController.showMainPane();
+	/*
+	 * commandLineController API
+	 */
+	public Text getMainFeedback() {
+		return commandLineController.getMainFeedback();
 	}
 	
-	public boolean isToDoListEmpty() {
-		return todoListController.getTasks().isEmpty();
+	public Text getHelpFeedback() {
+		return commandLineController.getHelpFeedback();
+	}
+	
+	public String getTutorialMode() {
+		return commandLineController.getTutorialToggle();
+	}
+	
+	public TextField getCommandLine() {
+		return commandLineController.getCommandLine();
+	}
+	
+	/*
+	 * toDoListController API
+	 */
+	public void refreshToDoList() throws IOException {
+		todoListController.loopTaskList();
+	}
+	
+	public void removeToDoList() {
+		todoListController.closeToDoList();
+	}
+	
+	public void openToDoList() {
+		todoListController.openToDoList();
 	}
 	
 	public ObservableList<HBox> getTaskList() {
 		return todoListController.getTasks();
 	}
 
-	public boolean isCompletedEmpty() {
-		return todoListController.getCompleted().isEmpty();
+	public ObservableList<HBox> getCompletedList() {
+		return todoListController.getCompleted();
+	}
+	
+	public TabPane getTabPane() {
+		return todoListController.getTabPane();
+	}
+	
+	public ListView<HBox> getList() {
+		return todoListController.getList();
 	}
 
-	public boolean isMainPaneManaged() {
-		return supportFeaturesController.getMainPane().isManaged();
+	/*
+	 * supportFeatureController API
+	 */
+	public VBox getMainPane() {
+		return supportFeaturesController.getMainPane();
 	}
-
+	
+	public void openMainPane() {
+		supportFeaturesController.showMainPane();
+	}
+	
+	public void removeMainPane() {
+		supportFeaturesController.removeMainPane();
+	}
+	
+	public void startTutorialMode() throws IOException {
+		supportFeaturesController.renderTutorial();
+	}
+	
+	public void renderHelpPage() throws IOException {
+		supportFeaturesController.loadHelpList();
+	}
+	
+	public void renderCalendar() throws IOException {
+		supportFeaturesController.loadCalendar();
+	}
+	
+	/*
+	 * Logic API
+	 */
 	public LogicMain getLogic() {
 		return logic;
 	}
-
+	
 	public String passInputToLogic(String input) {
 		return logic.processCommand(input);
 	}
 
-	public ArrayList<Task> getOperatingTasksFromLogic() {
+	public ArrayList<Task> getIncompleteTasksFromLogic() {
 		return logic.getOperatingTasksForUI();
 	}
 	
@@ -81,24 +135,11 @@ public class MainGUIController {
 		return logic.getCompleteTasksForUI();
 	}
 	
-	public ArrayList<Task> getPendingTasksFromLogic() {
-		return logic.getIncompleteTasksForUI();
-	}
-
-	public TabPane getTabPane() {
-		return todoListController.getTabPane();
+	public void setOperatingListAsComplete() {
+		logic.operatingToComplete();
 	}
 	
-	public TextField getCommandLine() {
-		return commandLineController.getCommandLine();
+	public void setOperatingListAsIncomplete() {
+		logic.operatingToIncomplete();
 	}
-	
-	public ListView<HBox> getList() {
-		return todoListController.getList();
-	}
-	
-	public String getTutorialMode() {
-		return commandLineController.getTutorialToggle();
-	}
-
 }

@@ -34,13 +34,13 @@ public class SupportFeaturesHandler {
 				loadTutorial();
 				return true;
 			case MESSAGE_HELP_SUCCESS:
-				main.supportFeaturesController.loadHelpList();
+				main.renderHelpPage();
 				return true;
 			case MESSAGE_CALENDAR_DEFAULT:
-				main.supportFeaturesController.loadCalendar();
+				main.renderCalendar();
 				return true;
 			case MESSAGE_SAVETO_SUCCESS:
-				loadSaveWindow();
+				loadSaveWindow(feedbackMain);
 				return true;
 			default:
 				return false;
@@ -48,21 +48,29 @@ public class SupportFeaturesHandler {
 	}
 
 	private void loadTutorial() throws IOException {
-		if(main.supportFeaturesController.getMainPane().isManaged() == false) {
-			main.supportFeaturesController.renderTutorial();
+		if(main.getMainPane().isManaged() == false) {
+			main.startTutorialMode();
 		}
 	}
 
-	private void loadSaveWindow() {
+	private void loadSaveWindow(Text feedbackMain) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(SAVE_WINDOW_HEADING);
 		File file = fileChooser.showSaveDialog(new Stage());
-		setUserInputAsFilePath(file);
+		setUserInputAsFilePath(file, feedbackMain);
 	}
 
-	private void setUserInputAsFilePath(File file) {
+	private void setUserInputAsFilePath(File file, Text feedbackMain) {
 		if (file != null) {
-			main.commandLineController.getMainFeedback().setText(main.commandLineController.uiToLogic(SAVE_REGEX + file.getAbsolutePath()));
+			setCommandLineFeedbackAfterSave(passAbsolutePathToLogic(file), feedbackMain);
 		}
+	}
+
+	private String passAbsolutePathToLogic(File file) {
+		return main.passInputToLogic(SAVE_REGEX + file.getAbsolutePath());
+	}
+
+	private void setCommandLineFeedbackAfterSave(String saveFeedback, Text feedbackMain) {
+		feedbackMain.setText(saveFeedback);
 	}
 }

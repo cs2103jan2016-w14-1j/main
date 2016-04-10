@@ -22,11 +22,15 @@ xmlns:fx="http://javafx.com/fxml/1">
 					<children>
 					<Text fx:id="tutorialMessage"
 							text="You may also try other
-					&#10;commands as indicated below
-					&#10;the text field. Type 'help' 
-					&#10;for more info or you can
-					&#10;scroll between previous tutorials
-					&#10;with the LEFT and RIGHT keys." />
+					&#10;commands such as:" />
+					<Text fx:id="tutorialSamples"
+							text="delete 1
+							&#10;edit 1 6pm" />
+					<Text fx:id="tutorialMessage"
+							text="Type 'help' for more info
+					&#10;or you can scroll between
+					&#10;tutorials with the 
+					&#10;LEFT and RIGHT keys." />
 						<Text fx:id="exitMessage" text="Press LEFT to go back a step." />
 						<Text fx:id="exitMessage" text="Press ESC to quit." />
 					</children>

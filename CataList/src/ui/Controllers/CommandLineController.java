@@ -160,7 +160,7 @@ public class CommandLineController {
 		readUserInput();
 
 		if(!supportFeaturesHandler.isSupportFeaturesLoaded(feedbackMain)) {
-			main.todoListController.loopTaskList();
+			main.refreshToDoList();
 		}
 	}
 
@@ -173,9 +173,9 @@ public class CommandLineController {
 	}
 
 	private void nextTutorialPage() throws IOException {
-		if(tutorialToggle == TUTORIAL_ON && main.isToDoListEmpty()) {
-			main.todoListController.loopTaskList();
-			main.supportFeaturesController.renderTutorial();
+		if(tutorialToggle == TUTORIAL_ON && main.getTaskList().isEmpty()) {
+			main.refreshToDoList();
+			main.startTutorialMode();
 			tutorialToggle = TUTORIAL_OFF;
 		}
 	}
@@ -203,13 +203,13 @@ public class CommandLineController {
 	}
 
 	public void updateTutorialToggle() {
-		if(main.todoListController.getTasks().size() == MIN_TASK_LIST_SIZE) {
+		if(main.getTaskList().size() == MIN_TASK_LIST_SIZE) {
 			if(tutorialToggle) {
 				tutorialToggle = TUTORIAL_OFF;
 			} else {
 				tutorialToggle = TUTORIAL_ON;
 			}
-			main.supportFeaturesController.showMainPane();
+			main.openMainPane();
 		}
 	}
 

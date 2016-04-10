@@ -26,7 +26,7 @@ xmlns:fx="http://javafx.com/fxml/1">
 					&#10;following input or another
 					&#10;input of the similar format:" />
 					<Text fx:id="tutorialSamples"
-							text="add work -t 8am -d 1/4/16" />
+							text="add work 8am 1/4/16" />
 					<Text fx:id="tutorialMessage"
 							text="You may choose to omit
 					&#10;the words after 'work'. 

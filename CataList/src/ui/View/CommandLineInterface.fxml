@@ -16,7 +16,7 @@
 	fx:controller="ui.Controllers.CommandLineController" spacing="10">
 	<children>
 		<Pane />
-		<TextField fx:id="userInput" alignment="CENTER"
+		<TextField fx:id="userInput" alignment="CENTER" promptText="Enter your command here"
 			onKeyPressed="#handleSubmitButtonAction" prefHeight="35.0" prefWidth="800.0">
 		</TextField>
 		<Text fx:id="feedbackHelp" strokeType="OUTSIDE" strokeWidth="0.0"

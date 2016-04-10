@@ -53,14 +53,6 @@ public class StoragePathMain {
         	
     	    byte[] buffer = new byte[1024];
     		
-    	    String name = oldFile.getName();
-    	    //System.out.println("exportFile: " + name);
-    	    
-    	    String oldPath = oldFile.getAbsolutePath();
-    	    //System.out.println("exportFile: old path: " + oldPath);
-    	    
-    	    //System.out.println("exportFile: saved file location: " + newFileLocation);
-    	    
     	    int length;
     	    while ((length = inStream.read(buffer)) > 0){
     	    	outStream.write(buffer, 0, length);

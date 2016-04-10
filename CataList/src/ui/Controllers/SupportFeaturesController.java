@@ -74,7 +74,7 @@ public class SupportFeaturesController {
 	}
 	
 	public void loadHelpList() throws IOException {
-		main.todoListController.closeToDoList();
+		main.removeToDoList();
 		showMainPane();
 		mainPane.getChildren().clear();
 		try {
@@ -87,7 +87,7 @@ public class SupportFeaturesController {
 	public void loadCalendar() {
 		VBox calendarContainer = new VBox(CALENDAR_SPACING);
 
-		main.todoListController.closeToDoList();
+		main.removeToDoList();
 		setCalendarProperties(calendarContainer);
 		showMainPane();
 		insertCalendarIntoContainer(calendarContainer);

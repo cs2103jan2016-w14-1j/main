@@ -33,7 +33,7 @@ import ui.Controllers.MainGUIController;
 import logic.Task;
 import shared.LogHandler;
 
-public class ListInterfaceController extends NotificationRenderer {
+public class ListInterfaceController {
 
 	private static final int TASK_LIST_ANIMTATION_DELAY = 200;
 	private static final int TASK_LIST_ANIMATION_DURATION = 400;
@@ -300,7 +300,7 @@ public class ListInterfaceController extends NotificationRenderer {
 			if(taskFilter.isEventClashing(taskObj, taskList)) {
 				Glyph glyph = new FontAwesome().create(FontAwesome.Glyph.EXCLAMATION_CIRCLE).size(GLYPH_SIZE);
 				taskRow.getChildren().addAll(taskIndex, glyph, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
-				FeedbackGenerator.generateEventClashFeedback(main.commandLineController.getHelpFeedback());
+				FeedbackGenerator.generateEventClashFeedback(main.getHelpFeedback());
 			} else {
 				taskRow.getChildren().addAll(taskIndex, taskName, taskStartTime, taskStartDate, taskEndTime, taskEndDate);
 			}
@@ -372,7 +372,7 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void openToDoList() {
-		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.isMainPaneManaged()) {	
+		if(pendingTasks.isEmpty() && completedTasks.isEmpty() && main.getMainPane().isManaged()) {	
 			todoListContainer.setManaged(true);
 			todoListContainer.setOpacity(1);
 
@@ -464,13 +464,12 @@ public class ListInterfaceController extends NotificationRenderer {
 	/*
 	 * Setters for ListInterface
 	 */
-
 	private void setCompletedTasksFromLogic() {
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 	}
 
 	private void setOperatingTasksFromLogic() {
-		operatingTasksFromLogic = main.getOperatingTasksFromLogic();
+		operatingTasksFromLogic = main.getIncompleteTasksFromLogic();
 	}
 
 	private void setTasksForCategories() {
@@ -549,30 +548,37 @@ public class ListInterfaceController extends NotificationRenderer {
 	}
 
 	public void displayPending() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(pendingTasks);
 	}
 
 	public void displayComplete() {
+		main.setOperatingListAsComplete();
 		todoList.setItems(completedTasks);
 	}
 
 	public void displayToday() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(todayTasks);
 	}
 
 	public void displayTomorrow() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(tomorrowTasks);
 	}
 
 	public void displayOverdue() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(overdueTasks);
 	}
 
 	public void displayOthers() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(otherTasks);
 	}
 
 	public void displayFloat() {
+		main.setOperatingListAsIncomplete();
 		todoList.setItems(floatingTasks);
 	}
 
