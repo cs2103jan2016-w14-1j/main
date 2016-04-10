@@ -24,7 +24,7 @@ public class StoragePathMain {
 	private static final String SUCCESS_MESSAGE_WRITE = "write file path succesful";
 	private static final String SUCCESS_MESSAGE_COPY = "File copied successful!";
 	
-	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/test.xml";
+	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/Catalist.xml";
 	
 	/**
 	 * This method copies the XML file into a new location. 
@@ -53,14 +53,6 @@ public class StoragePathMain {
         	
     	    byte[] buffer = new byte[1024];
     		
-    	    String name = oldFile.getName();
-    	    //System.out.println("exportFile: " + name);
-    	    
-    	    String oldPath = oldFile.getAbsolutePath();
-    	    //System.out.println("exportFile: old path: " + oldPath);
-    	    
-    	    //System.out.println("exportFile: saved file location: " + newFileLocation);
-    	    
     	    int length;
     	    while ((length = inStream.read(buffer)) > 0){
     	    	outStream.write(buffer, 0, length);
@@ -80,17 +72,14 @@ public class StoragePathMain {
 	}
 	
 	/**
-	 * This method reads the path to the xml storage path
-	 * @return path of the current xml file
+	 * This method reads the path to the XML storage path
+	 * @return path of the current XML file
 	 */
 	public String filePathReader(){
 		
 		List<String> stringList = new ArrayList<String>();
-		
 		String pointerFilePath, stringPath;
-		
 		pointerFilePath = STORAGE_FILE_PATH;
-		
 		Path oldPath = Paths.get(pointerFilePath);
 		
 		Path directoryPath = Paths.get(STORAGE_FILE_DIRECTORY);

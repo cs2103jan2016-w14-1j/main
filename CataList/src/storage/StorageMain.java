@@ -41,6 +41,69 @@ public class StorageMain {
 		storageWriter = new StorageWriter();
 	}
 	
+	private void createXMLFile(String path, File xmlFile) throws IOException {
+		xmlFile.createNewFile();
+		Element rootNode = new Element(ELEMENT_TASKLIST);
+		Document todoListDocument = new Document(rootNode);
+		storageWriter.writeToStorage(todoListDocument, path);
+		
+	}
+
+	private void setTaskElements(Element task, int index, Task taskObj, String completeStateString) {
+		task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
+		task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
+		task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
+		task.addContent(new Element(ELEMENT_START_TIME).setText(taskObj.get_startTime()));
+		task.addContent(new Element(ELEMENT_START_DATE).setText(taskObj.get_startDate()));
+		task.addContent(new Element(ELEMENT_END_TIME).setText(taskObj.get_endTime()));
+		task.addContent(new Element(ELEMENT_END_DATE).setText(taskObj.get_endDate()));
+	}
+
+	private String isComplete(boolean completeState) {
+		String completeStateString;
+		if(completeState){
+			completeStateString = ATTRIBUTE_COMPLETE;
+		} else {
+			completeStateString = ATTRIBUTE_INCOMPLETE;
+		}
+		return completeStateString;
+	}
+	
+	/**
+	 * This method clears the storage file of all child elements 
+	 * in the root element.
+	 * @param taskObj
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	private void clearFromStorage(Task taskObj) throws IOException, JDOMException {
+		
+		String path = storagePathMain.filePathReader();
+		File inputFile = new File(path);
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(inputFile);
+		Element rootElement = document.getRootElement();
+
+		List<Element> taskList = rootElement.getChildren();
+		Iterator<Element> itr = taskList.iterator();
+		List<Element> elements = new ArrayList<Element>();
+
+		while(itr.hasNext()) {
+			Element subchild = (Element)itr.next();
+			elements.add(subchild);
+		}
+
+		for(Element e: elements) {
+			e.getParent().removeContent(e);
+		}
+
+		try{
+			storageWriter.writeToStorage(document,path);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * This method calls storageReader to read the file and then
 	 * stores it into an arraylist of tasks. 
@@ -58,14 +121,6 @@ public class StorageMain {
 			e1.printStackTrace();
 		} 
 		return masterList;
-	}
-	
-	private void createXMLFile(String path, File xmlFile) throws IOException {
-		xmlFile.createNewFile();
-		Element rootNode = new Element(ELEMENT_TASKLIST);
-		Document todoListDocument = new Document(rootNode);
-		storageWriter.writeToStorage(todoListDocument, path);
-		
 	}
 	
 	/**
@@ -100,18 +155,11 @@ public class StorageMain {
 					List<Element> taskList = toDoListDocument.getRootElement().getChildren();
 					index = taskList.size() + 1;
 					
-					task.setAttribute(new Attribute(ATTRIBUTE_NUM, Integer.toString(index)));
-					task.setAttribute(new Attribute(ATTRIBUTE_STATE, completeStateString));
-					task.addContent(new Element(ELEMENT_EVENT).setText(taskObj.get_task()));
-					task.addContent(new Element(ELEMENT_START_TIME).setText(taskObj.get_startTime()));
-					task.addContent(new Element(ELEMENT_START_DATE).setText(taskObj.get_startDate()));
-					task.addContent(new Element(ELEMENT_END_TIME).setText(taskObj.get_endTime()));
-					task.addContent(new Element(ELEMENT_END_DATE).setText(taskObj.get_endDate()));
+					setTaskElements(task, index, taskObj, completeStateString);
 					
 					toDoListDocument.getRootElement().addContent(task);
 					
 					try{
-						//StorageWriter.writeToStorage(toDoListDocument, storagePath);
 						storageWriter.writeToStorage(toDoListDocument, storagePath);
 					} catch(IOException e) {
 						taskObj.get_messageToUserFail();
@@ -124,51 +172,7 @@ public class StorageMain {
 			}
 		return true;
 	}
-
-	private String isComplete(boolean completeState) {
-		String completeStateString;
-		if(completeState){
-			completeStateString = ATTRIBUTE_COMPLETE;
-		} else {
-			completeStateString = ATTRIBUTE_INCOMPLETE;
-		}
-		return completeStateString;
-	}
 	
-	/**
-	 * This method clears the storage file of all child elements 
-	 * in the root element.
-	 * @param taskObj
-	 * @throws IOException
-	 * @throws JDOMException
-	 */
-	public void clearFromStorage(Task taskObj) throws IOException, JDOMException {
-		
-		String path = storagePathMain.filePathReader();
-		File inputFile = new File(path);
-		SAXBuilder saxBuilder = new SAXBuilder();
-		Document document = saxBuilder.build(inputFile);
-		Element rootElement = document.getRootElement();
-
-		List<Element> taskList = rootElement.getChildren();
-		Iterator<Element> itr = taskList.iterator();
-		List<Element> elements = new ArrayList<Element>();
-
-		while(itr.hasNext()) {
-			Element subchild = (Element)itr.next();
-			elements.add(subchild);
-		}
-
-		for(Element e: elements) {
-			e.getParent().removeContent(e);
-		}
-
-		try{
-			storageWriter.writeToStorage(document,path);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
 	/**
 	 * This method takes in an absolute path from the user and updates the
 	 * storage file location that new absolute path
