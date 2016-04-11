@@ -3,6 +3,8 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import parser.ParserMain;
 import storage.StorageMain;
@@ -33,7 +35,9 @@ public class LogicMain {
 	
 	private static final String UNKNOWN_OPERATION_NOTICE = "UNKNOWN OPERATION";
 	private static final String SYMBOL_SPACE = " ";
+	private static final String SYMBOL_EMPTY = "";
 	
+	private static final Logger log = Logger.getLogger(LogicMain.class.getName());
 	ParserMain inputParser;
 	StorageMain storageSystem;
 	
@@ -63,6 +67,7 @@ public class LogicMain {
 		Task newCreatedTask = LogicHandler.processCommand(formattedInput, dateTimeArgs);
 		String feedbackToUI = operateOnTask(newCreatedTask);
 
+		logList();
 		if(isMutatorAndNotUndoRedo(newCreatedTask)) {
 			updateState();
 		}
@@ -73,7 +78,7 @@ public class LogicMain {
 		if(!isSearchOrDisplay(newCreatedTask)) {
 			updateOperating();
 		}
-		
+		logList();
 		storageSystem.storageWrite(masterListTasks);
 		return feedbackToUI;
 	}
@@ -173,7 +178,7 @@ public class LogicMain {
 			case Commands.TUTORIAL_COMMAND :
 			case Commands.CALENDAR_COMMAND :
 			case Commands.EXIT_COMMAND :
-			case Commands.SAVETO_COMMAND:
+			case Commands.SAVEAS_COMMAND:
 				return opForUI(requestedTask);
 			case Commands.INVALID_COMMAND :
 				return doInvalid(requestedTask);
@@ -252,6 +257,7 @@ public class LogicMain {
 			masterListTasks.add(taskToOp);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (Exception e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		return feedBack;
@@ -277,6 +283,7 @@ public class LogicMain {
 			operatingTasks.remove(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		return feedBack;
@@ -338,6 +345,7 @@ public class LogicMain {
 			doOperateOnMasterAndOperating(toEdit, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		
@@ -352,6 +360,7 @@ public class LogicMain {
 			masterListTasks = new ArrayList<Task>(state.get(pointingAt));
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		
@@ -365,6 +374,7 @@ public class LogicMain {
 			masterListTasks =  new ArrayList<Task>(state.get(pointingAt));
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch (IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		
@@ -430,6 +440,7 @@ public class LogicMain {
 			doOperateOnMasterAndOperating(operateOn, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		
@@ -447,6 +458,7 @@ public class LogicMain {
 			doOperateOnMasterAndOperating(operateOn, cloneTask, operateIndex);
 			feedBack = taskToOp.get_messageToUserSuccess();
 		} catch(IndexOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.toString(), e);
 			feedBack = taskToOp.get_messageToUserFail();
 		}
 		
@@ -475,30 +487,32 @@ public class LogicMain {
 	 */
 	private String doSave(Task taskToOp){
 		String feedBack;
-		try{
-			String newLoc = taskToOp.get_task();
-			storageSystem.saveFileLocation(newLoc);
-		} catch (Exception e) {
+		String newLoc = taskToOp.get_task();
+		assert newLoc != null;
+		assert newLoc != SYMBOL_EMPTY;
+		if(!newLoc.isEmpty()) {
+			try{
+				storageSystem.saveFileLocation(newLoc);
+				feedBack = taskToOp.get_messageToUserSuccess();
+			} catch (Exception e) {
+				log.log(Level.SEVERE, e.toString(), e);
+				feedBack = taskToOp.get_messageToUserFail();
+			}
+		} else {
 			feedBack = taskToOp.get_messageToUserFail();
 		}
-		
-		feedBack = taskToOp.get_messageToUserSuccess();
 		return feedBack;
 	}
 	
+	/**
+	 * Method looks at the task object required to be operated upon
+	 * and looks for the same object inside the master list before
+	 * executing the same operation on both.
+	 * @param operateOn is the task object from operatingTask
+	 * @param replaceWith is the task object to be changed
+	 * @param operateIndex is the index where operateOn can be found in operatingTask
+	 */
 	private void doOperateOnMasterAndOperating(Task operateOn, Task replaceWith, int operateIndex) {
-		System.out.println("----------------------------------");
-		for(Task eachTask : masterListTasks){
-			System.out.println(eachTask.get_task());
-		}
-		System.out.println("----------------------------------");
-
-		System.out.println("----------------------------------");
-		for(Task eachTask : operatingTasks){
-			System.out.println(eachTask.get_task());
-		}
-		System.out.println("----------------------------------");
-		
 		for(int i = 0 ; i < masterListTasks.size() ; i++) {
 			if(masterListTasks.get(i).equals(operateOn)) {
 				System.out.println(masterListTasks.get(i).get_task() + " is being operated on.");
@@ -507,4 +521,23 @@ public class LogicMain {
 		}
 		operatingTasks.set(operateIndex - INPUT_INDEX_TO_ARRAY_CORRECTION, replaceWith);	
 	}
+	
+	private void logList(){
+		for(Task eachTask : masterListTasks){
+			log.log(Level.FINE, "Item in master list", eachTask);
+		}
+		
+		for(Task eachTask : operatingTasks){
+			log.log(Level.FINE, "Item in operating list", eachTask);
+		}
+		
+		for(Task eachTask : completeTasks){
+			log.log(Level.FINE, "Item in complete list", eachTask);
+		}
+		
+		for(Task eachTask : incompleteTasks){
+			log.log(Level.FINE, "Item in incomplete list", eachTask);
+		}
+	}
+	
 }

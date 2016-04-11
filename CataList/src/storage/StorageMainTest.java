@@ -77,10 +77,10 @@ public class StorageMainTest {
 		timeList = new ArrayList<String>();
 		dateTimeArgs = new ArrayList<ArrayList<String>>();
 		
-		String startDate = "5 March";
-		String endDate = "30 March";
-		String startTime = "1000";
-		String endTime = "2359";
+		String startDate = "5March";
+		String endDate = "30March";
+		String startTime = "10am";
+		String endTime = "23.59";
 		
 		dateList.add(startDate);
 		dateList.add(endDate);
@@ -102,6 +102,7 @@ public class StorageMainTest {
 		masterList.add(test);
 		
 		StorageMain storeMain = new StorageMain();
+		storeMain.storageWrite(masterList);
 		
 		ArrayList<Task> testList = new ArrayList<Task>();
 		testList = storeMain.loadTask();
@@ -109,7 +110,12 @@ public class StorageMainTest {
 		assertEquals(testList.get(0).get_task(), masterList.get(0).get_task());
 	}
 	
-	
+	/**
+	 * This method tests whether it successfully saves the file 
+	 * to the desired location.
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	public void testFileSaveLocation() throws JDOMException, IOException {
 		StorageMain storeMain = new StorageMain();
 		
