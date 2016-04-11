@@ -4,6 +4,8 @@ package parser;
 
 import java.util.ArrayList;
 
+import logic.Commands;
+
 public class ParserMain {
 	/**
 	 * ParserMain
@@ -28,14 +30,15 @@ public class ParserMain {
 	private static final int SIZE_WITH_START_AND_END = 2;
 	
 	
-	private static final String[] COMMANDS_REQUIRING_EVENT = {"add"
-																,"delete"
-																,"edit"};
+	private static final String[] COMMANDS_REQUIRING_EVENT = {Commands.ADD_COMMAND
+																,Commands.DELETE_COMMAND
+																,Commands.EDIT_COMMAND};
 	
-	private static final String[] COMMANDS_REQUIRING_INDEX = {"delete"
-																,"edit"
-																,"markcomplete"
-																,"markuncomplete"};
+	private static final String[] COMMANDS_REQUIRING_INDEX = {Commands.DELETE_COMMAND
+																,Commands.EDIT_COMMAND
+																,Commands.DISPLAY_COMMAND
+																,Commands.MARK_COMMAND
+																,Commands.MARK_INCOMPLETE_COMMAND};
 	
 	protected ArrayList<String> formattedCommand;
 	protected ArrayList<ArrayList<String>> parsedDateTime;
