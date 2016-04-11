@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-04-11T16:10:22</date>
-  <millis>1460362222066</millis>
+  <date>2016-04-11T22:13:35</date>
+  <millis>1460384015023</millis>
   <sequence>0</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>Pending task List is reformatted</message>
 </record>
 <record>
-  <date>2016-04-11T16:10:22</date>
-  <millis>1460362222187</millis>
+  <date>2016-04-11T22:13:35</date>
+  <millis>1460384015352</millis>
   <sequence>1</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
@@ -24,14 +24,36 @@
   <message>Completed task List is reformatted</message>
 </record>
 <record>
-  <date>2016-04-11T16:10:22</date>
-  <millis>1460362222194</millis>
+  <date>2016-04-11T22:13:35</date>
+  <millis>1460384015410</millis>
   <sequence>2</sequence>
   <logger>CataListLog</logger>
   <level>INFO</level>
   <class>ui.Controllers.ListInterfaceController$1</class>
   <method>changed</method>
   <thread>12</thread>
-  <message>Tab focused: javafx.scene.control.Tab@6669ecd6</message>
+  <message>Tab focused: javafx.scene.control.Tab@16616a79</message>
+</record>
+<record>
+  <date>2016-04-11T22:13:41</date>
+  <millis>1460384021577</millis>
+  <sequence>3</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>readUserInput</method>
+  <thread>12</thread>
+  <message>User Input: help</message>
+</record>
+<record>
+  <date>2016-04-11T22:13:41</date>
+  <millis>1460384021857</millis>
+  <sequence>4</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.CommandLineController</class>
+  <method>loadFeedback</method>
+  <thread>12</thread>
+  <message>Feedback from Logic: Displaying Help</message>
 </record>
 </log>
