@@ -12,7 +12,7 @@ public class FeedbackGenerator {
 	 */
 
 	private static final String FEEDBACK_COMMANDS = 
-			"add | clear | delete | display| edit | help | mark | redo | saveas | search | unmark | undo";
+			"add | clear | delete | display| edit | help | mark | redo | save | search | unmark | undo";
 	private static final String FEEDBACK_ADD = "add [task] [date] [time]";
 	private static final String FEEDBACK_DELETE = "delete [task number]";
 	private static final String FEEDBACK_EDIT = "edit [task number] [new task] [new date] [new time]";

@@ -23,7 +23,7 @@ public class SupportFeaturesHandler {
 	private static final String MESSAGE_TUTORIAL_DEFAULT = "Displaying Tutorial";
 	private static final String MESSAGE_HELP_SUCCESS = "Displaying Help";
 	private static final String MESSAGE_CALENDAR_DEFAULT = "Displaying Calendar";
-	private static final String MESSAGE_SAVETO_SUCCESS = "Displaying file explorer";
+	private static final String MESSAGE_SAVEAS_SUCCESS = "Displaying file explorer";
 	
 	private static final String NULL_REGEX = "";
 	private static final String SAVE_REGEX = "save ";
@@ -59,7 +59,7 @@ public class SupportFeaturesHandler {
 			case MESSAGE_CALENDAR_DEFAULT:
 				main.renderCalendar();
 				return true;
-			case MESSAGE_SAVETO_SUCCESS:
+			case MESSAGE_SAVEAS_SUCCESS:
 				loadSaveWindow(feedback);
 				return true;
 			default:
