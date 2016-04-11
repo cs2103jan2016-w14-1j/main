@@ -7,6 +7,14 @@ import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 public class NotificationRenderer {
+	
+	/**
+	 * This class set the properties of the notification and display it to users
+	 * It retrieves the number of incoming task and displays a reminder note
+	 * The notification is rendered for tasks with deadlines 15 minutes prior or daily tasks when
+	 * the application is loaded
+	 * 
+	 */
 
 	private static final String REMINDER_HEADING = "Reminder!\n";
 	private static final String REMINDER_NOTIFICATION_TIME_PLURAL = "\nYou have %1s pending tasks in 15 minutes!";

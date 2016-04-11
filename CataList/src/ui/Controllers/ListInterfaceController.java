@@ -21,7 +21,6 @@ import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -31,9 +30,16 @@ import org.joda.time.LocalTime;
 
 import ui.Controllers.MainGUIController;
 import logic.Task;
-import shared.LogHandler;
 
 public class ListInterfaceController {
+	
+	/**
+	 * 	ListInterfaceController controls the to-do list
+	 * 	Primarily functions to displays the user's task list by manipulating how tasks 
+	 *  a set into the list view
+	 * 	It also filters the list and generate notifications by calling other classes
+	 * 
+	 */
 
 	private static final int TASK_LIST_ANIMTATION_DELAY = 200;
 	private static final int TASK_LIST_ANIMATION_DURATION = 400;
@@ -120,10 +126,8 @@ public class ListInterfaceController {
 			FXCollections.observableArrayList();
 
 	private int previousTasksSize;
-	private int previousCompletedSize;
 
 	private HBox scrollSelection = new HBox();
-	private Logger log = LogHandler.retriveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
 	
@@ -251,11 +255,6 @@ public class ListInterfaceController {
 		tabs.add(tabPending);
 	}
 
-	/*
-	 * List Functions
-	 * Controls ListInterface's list by looping through the Logic every time a command
-	 * is executed
-	 */
 	/**
 	 * Refreshes task list and display the new task list if there are any changes
 	 */
@@ -422,12 +421,6 @@ public class ListInterfaceController {
 		}
 	}
 
-	/*
-	 * Reminder Functions
-	 * Controls ListInterface's reminders and calls Notification Renderer by looping to check for
-	 * reminders every minute
-	 */
-
 	private void loopCheckTasksForReminder() {
 		Timer checkTasks = new Timer(true);
 		checkTasks.schedule(new TimerTask() {
@@ -468,9 +461,6 @@ public class ListInterfaceController {
 		}
 	}
 
-	/*
-	 * Setters for ListInterface
-	 */
 	private void setCompletedTasksFromLogic() {
 		completedTasksFromLogic = main.getCompletedTasksFromLogic();
 	}
@@ -546,9 +536,6 @@ public class ListInterfaceController {
 		time2.setId(TIME_ID);
 	}
 
-	/*
-	 * Getters for ListInterface
-	 */
 	/**
 	 * Gets tab pane 
 	 * @return TabPane The tab pane containing filter tabs

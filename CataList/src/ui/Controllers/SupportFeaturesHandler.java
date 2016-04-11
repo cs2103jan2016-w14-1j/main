@@ -8,6 +8,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SupportFeaturesHandler {
+	
+	/**
+	 *	This class parses the feedback from Logic and determines if it has the 'green light'
+	 *	to display supporting features
+	 *	Features responsible are calendar, save window, help page and tutorial
+	 *	It uses sub-classes to help it renders the features
+	 *  It cannot render the feature itself
+	 *
+	 */
+	
 	private static final String SAVE_WINDOW_HEADING = "Save Task List";
 	
 	private static final String MESSAGE_TUTORIAL_DEFAULT = "Displaying Tutorial";

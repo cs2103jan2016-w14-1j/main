@@ -27,6 +27,14 @@ import javafx.util.Duration;
 @SuppressWarnings("restriction")
 public class SupportFeaturesController {
 	
+	/**
+	 * The SupportFeaturesController controls a hidden center pane that will display various supporting
+	 * features for the application
+	 * Features included are calendar, help page, tutorial and the main title
+	 * It sets the properties for all the features and renders them
+	 * 
+	 */
+	
 	private static final int TIME_CHECK_INTERVAL = 1000;
 	private static final int CALENDAR_SPACING = 10;
 	private static final int HEADING_SIZE = 20;
@@ -76,7 +84,7 @@ public class SupportFeaturesController {
 	}
 	
 	/**
-	 * Starts tutorial
+	 * Starts tutorial and display it
 	 * @throws IOException If an I/O Error occurs
 	 */
 	public void renderTutorial() throws IOException {
@@ -120,7 +128,11 @@ public class SupportFeaturesController {
 		calendar = new DatePickerSkin(new DatePicker(LocalDate.now())).getPopupContent();
 		loopCheckTime(calendarContainer);
 	}
-
+	
+	/**
+	 * Checks and changes the time every second to create a functioning clock
+	 * @param calendarContainer This is the pane containing the entire calendar
+	 */
 	private void loopCheckTime(VBox calendarContainer) {
 		Timer checkTasks = new Timer(true);
 		checkTasks.schedule(new TimerTask() {

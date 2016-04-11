@@ -2,6 +2,7 @@
 package ui.Controllers.HelpCommands;
 
 public class Help {
+	
     private String helpCommand;
     private String helpFormat;
     

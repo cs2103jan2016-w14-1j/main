@@ -12,6 +12,13 @@ import ui.Controllers.TitleQuotes.QuoteGenerator;
 
 public class TitleInterfaceController extends QuoteGenerator{
 	
+	/**
+	 * TitleInterfaceController controls the display of quotes on the GUI
+	 * The display of quote also changes at intervals
+	 * It uses sub-classes to retrieve the list of quotes from a quote storage maintained in UI
+	 * 
+	 */
+	
 	private static final int CHANGE_QUOTE_INTERVAL = 120000;
 	
 	@FXML

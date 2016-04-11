@@ -5,6 +5,13 @@ import java.util.ArrayList;
 
 public class HelpCommandStorage {
 
+	/**
+	 * This class stores all the help commands
+	 * It generates the help list but does not display any of them
+	 * It returns the entire help command list to its caller
+	 * 
+	 */
+	
 	private static final String NULL_REGEX = "";
 	private static final String KEYBOARD_HEADING = "COMMANDS";
 	private static final String HOTKEYS_HEADING = "HOTKEYS";

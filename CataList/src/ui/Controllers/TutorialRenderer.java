@@ -16,6 +16,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class TutorialRenderer {
+	
+	/**
+	 * This class renders the tutorial mode via several FXML files
+	 * It also detects key event that occurs in tutorial mode
+	 * It also set/adjust the properties of the tutorial display
+	 * 
+	 */
+	
 	private static final int LIST_OFFSET_Y = 125;
 	private static final int LIST_OFFSET_X = 0;
 	private static final int CL_OFFSET_X = 540;
@@ -170,7 +178,11 @@ public class TutorialRenderer {
 		popOver.setAutoFix(false);
 		popOver.setAutoHide(false);
 	}
-
+	
+	/**
+	 * Detects key events that occurs in tutorial mode (e.g. next, previous tutorial)
+	 * @param node This node is the tutorial display node
+	 */
 	private void tutorialKeyHandler(PopOver node) {
 		node.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override

@@ -17,7 +17,14 @@ import logic.LogicMain;
 import logic.Task;
 
 public class MainGUIController {
-
+	
+	/**
+	 * The MainGUIController is the primary controller object that initializes all the other controllers
+	 * All controllers can only interact with one another via this class
+	 * It also acts as a facade for the both the user and logic
+	 * 
+	 */
+	
 	@FXML private CommandLineController commandLineController;  
 	@FXML private ListInterfaceController todoListController;   
 	@FXML private TitleInterfaceController titleController;

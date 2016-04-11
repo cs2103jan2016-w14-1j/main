@@ -4,6 +4,13 @@ package ui.Controllers.TitleQuotes;
 import java.util.ArrayList;
 
 public class QuoteStorage {
+	
+	/**
+	 * This class stores all the quotes
+	 * It generates the quote list but does not display any of them
+	 * It returns a quote depending on the number it receive
+	 * 
+	 */
 
 	private static final String QUOTE_ONE = 
 			"“Hard work beats talent when talent fails to work hard” "

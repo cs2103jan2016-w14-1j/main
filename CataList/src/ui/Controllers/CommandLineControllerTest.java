@@ -12,21 +12,9 @@ import org.junit.Test;
 public class CommandLineControllerTest {
 
 	private static final String MESSAGE_ADD_SUCCESS = "The event has been added.";
-	private static final String MESSAGE_ADD_FAILURE = "Unable to add event.";
-	private static final String MESSAGE_ADD_EMPTY = "Unable to add empty message";
-	
 	private static final String MESSAGE_CLEAR_SUCCESS = "Your dashboard has been cleared.";
-	private static final String MESSAGE_CLEAR_FAILURE = "Unable to clear dashboard.";
-	private static final String MESSAGE_EMPTY_FAILURE = "Nothing to clear!";
-	
 	private static final String MESSAGE_DELETE_SUCCESS = "The event has been deleted.";
-	private static final String MESSAGE_DELETE_FAILURE = "Unable to delete event.";
-	private static final String MESSAGE_DELETE_EMPTY = "No event to be deleted.";	
-	
 	private static final String MESSAGE_EDIT_SUCCESS = "The event has been edited.";
-	private static final String MESSAGE_EDIT_FAILURE = "Unable to edit event.";
-	private static final String MESSAGE_EDIT_EMPTY = "No event to be editted.";
-	
 	private static final String MESSAGE_INVALID = "Invalid command";
 	
 	private MainGUIController main = new MainGUIController();
@@ -41,7 +29,23 @@ public class CommandLineControllerTest {
 		expectedResults = MESSAGE_ADD_SUCCESS;
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
-		input = "add cs2103 -t 1700 -d 23/04/2016";
+		input = "add cs2103 1700  23/04/2016";
+		expectedResults = MESSAGE_ADD_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "add cs2103 2500  23/04/2016";
+		expectedResults = MESSAGE_ADD_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "add cs2103 -0100  23/04/2016";
+		expectedResults = MESSAGE_ADD_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "add cs2103 0200  32/04/2016";
+		expectedResults = MESSAGE_ADD_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "add cs2103 0200  -2/04/2016";
 		expectedResults = MESSAGE_ADD_SUCCESS;
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
@@ -54,7 +58,7 @@ public class CommandLineControllerTest {
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
 		input = " add delete 0";
-		expectedResults = MESSAGE_ADD_SUCCESS;
+		expectedResults = MESSAGE_INVALID;
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
 		input = "dont add";
@@ -63,7 +67,6 @@ public class CommandLineControllerTest {
 		
 	}
 	
-	@Test
 	public void testDelete() {
 		
 		input = "delete 1";
@@ -84,8 +87,54 @@ public class CommandLineControllerTest {
 		expectedResults = MESSAGE_CLEAR_SUCCESS;
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
+		input = "clear none";
+		expectedResults = MESSAGE_INVALID;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+	}
+	
+	public void testEdit() {
 		input = "clear";
-		expectedResults = MESSAGE_EMPTY_FAILURE;
+		expectedResults = MESSAGE_CLEAR_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "clear none";
+		expectedResults = MESSAGE_INVALID;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+	}
+	
+	public void testSearch() {
+		input = "clear";
+		expectedResults = MESSAGE_CLEAR_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "clear none";
+		expectedResults = MESSAGE_INVALID;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+	}
+	
+	public void testMark() {
+		input = "mark 2";
+		expectedResults = MESSAGE_CLEAR_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "clear none";
+		expectedResults = MESSAGE_INVALID;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+	}
+	
+	public void testUnmark() {
+		input = "clear";
+		expectedResults = MESSAGE_CLEAR_SUCCESS;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+		
+		input = "clear none";
+		expectedResults = MESSAGE_INVALID;
+		assertEquals(expectedResults, main.passInputToLogic(input));
+	}
+	
+	public void test() {
+		input = "clear";
+		expectedResults = MESSAGE_CLEAR_SUCCESS;
 		assertEquals(expectedResults, main.passInputToLogic(input));
 		
 		input = "clear none";

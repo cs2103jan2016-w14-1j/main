@@ -13,6 +13,12 @@ import javafx.scene.layout.HBox;
 import logic.Task;
 
 public class TaskFilter {
+	
+	/**
+	 * This class functions to filter/sort tasks by time and adds them into a task list
+	 * 
+	 */
+	
 	private static final String NULL_FLAG = "";
 	private static final String FILTER_PLACEHOLDER = " : ";
 	private static final String DATE_FORMAT = "dd/MM/yy";
@@ -184,10 +190,6 @@ public class TaskFilter {
 		}
 		clearAll();
 	}
-
-	/*
-	 * add to respective lists
-	 */
 
 	private void addFloatToList(ObservableList<HBox> list, int taskNum) {
 		final int overdueTodayTomorrowOthersSize = tasksOverdue.size() + tasksToday.size() + tasksTomorrow.size() + tasksOthers.size();
@@ -374,7 +376,7 @@ public class TaskFilter {
 	}
 
 	/**
-	 * Check tasks individually for clashes
+	 * Check tasks individually for clashes by comparing them with another task in the task list
 	 * @param taskObj This is individual task object from the task list in ListInterface
 	 * @param taskList This is the entire list of tasks from ListInterface
 	 * @return true if there are tasks with clashing event, false if there are no clashes

@@ -4,6 +4,12 @@ package ui.Controllers;
 import javafx.scene.text.Text;
 
 public class FeedbackGenerator {
+	
+	/**
+	 * This class is a storage of feedbacks
+	 * It generates feedback to be displayed to the user
+	 * 
+	 */
 
 	private static final String FEEDBACK_COMMANDS = 
 			"add | clear | delete | display| edit | help | mark | redo | saveas | search | unmark | undo";

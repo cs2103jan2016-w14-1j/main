@@ -1,3 +1,4 @@
+//@@author A0112204E
 package shared;
 
 import java.util.logging.Logger;
@@ -12,6 +13,10 @@ public class LogHandler {
 	private static FileHandler fileHandler;
 	private static Logger logger;
 	
+	/**
+	 * Get instance of Logger
+	 * @return Logger log file
+	 */
 	public static Logger retriveLog() {
 		if(logger == null) {
 			try {

@@ -14,6 +14,13 @@ import java.util.ArrayList;
 
 public class HelpPageController {
     
+	/**
+	 * This class is only called when the help page in opened
+	 * It controls the help page by setting the display and properties of the help page
+	 * It also retrieves the list of help commands to be displayed on the help page via sub-classes
+	 * 
+	 */
+	
     @FXML 
     private TableView<Help> helpList;
     
@@ -53,6 +60,9 @@ public class HelpPageController {
         helpList.getColumns().addAll(commandCol, formatCol);
     }
 
+    /**
+     * Retrieves list of help commands from a storage maintain by UI
+     */
     private void readFromStorage() {
         helpCommands = HelpCommandStorage.getHelpList(); 
         for (int i = 0; i < helpCommands.size(); i++) {

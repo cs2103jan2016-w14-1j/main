@@ -18,6 +18,15 @@ import shared.LogHandler;
 
 public class CommandLineController {
 
+	/**
+	 * 	ConmmandLineController controls the to-do list
+	 * 	Primarily functions to retrieve inputs on the command line (both keystrokes and hotkeys) 
+	 *  and manipulates the command line
+	 * 	It also auto-completes/-corrects user input, display feedback and set previous/recent user commands
+	 * 	into the command line by calling other sub classes
+	 * 
+	 */
+	
 	private static final String TUTORIAL_OFF_STRING = "OFF";
 	private static final String TUTORIAL_ON_STRING = "ON";
 	private static final boolean TUTORIAL_ON = true;
@@ -114,9 +123,6 @@ public class CommandLineController {
 		});
 	}
 
-	/*
-	 * processing input
-	 */
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
 		parseKeyEvent(event);
@@ -192,6 +198,8 @@ public class CommandLineController {
 
 	private void readUserInput() {
 		command = userInput.getText();
+		log.info("User Input: " + command);
+		
 		loadFeedback();
 		userInput.clear();
 		inputArray.add(command);
@@ -200,6 +208,7 @@ public class CommandLineController {
 
 	private void loadFeedback() {
 		feedbackMain.setText(uiToLogic(command));
+		log.info("Feedback from Logic: " + feedbackMain.getText());
 
 		FadeTransition ft = new FadeTransition(Duration.millis(FEEDBACK_ANIMATION_DURATION), feedbackMain);
 		ft.setFromValue(0);
@@ -218,9 +227,6 @@ public class CommandLineController {
 		}
 	}
 
-	/*
-	 * getters
-	 */
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
 			userInput.setText(inputArray.get(++index));
