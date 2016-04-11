@@ -173,7 +173,7 @@ public class LogicMain {
 			case Commands.TUTORIAL_COMMAND :
 			case Commands.CALENDAR_COMMAND :
 			case Commands.EXIT_COMMAND :
-			case Commands.SAVETO_COMMAND:
+			case Commands.SAVEAS_COMMAND:
 				return opForUI(requestedTask);
 			case Commands.INVALID_COMMAND :
 				return doInvalid(requestedTask);

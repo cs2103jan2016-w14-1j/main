@@ -64,7 +64,7 @@ public class CommandParser {
 		} else if (compareSaveKeywords(stringToTest)) {
 			return Commands.SAVE_COMMAND;
 		} else if (compareSaveToKeywords(stringToTest)) {
-			return Commands.SAVETO_COMMAND;
+			return Commands.SAVEAS_COMMAND;
 		} else {
 			return Commands.INVALID_COMMAND;
 		}
