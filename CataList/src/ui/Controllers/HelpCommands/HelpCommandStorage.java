@@ -20,7 +20,9 @@ public class HelpCommandStorage {
 	private static final String HELP_CALENDAR_DETAILS = "display time and calendar";
 	private static final String HELP_CLEAR_DETAILS = "clear list";
 	private static final String HELP_DELETE_DETAILS = "delete task from list";
-	private static final String HELP_DISPLAY_DETAILS = "display";
+	private static final String HELP_DISPLAY_DETAILS = "display incomplete tasks\n"
+			+ "display complete tasks\n"
+			+ "display all tasks";
 	private static final String HELP_EDIT_DETAILS = "edit task in list";
 	private static final String HELP_MARK_DETAILS = "mark task as completed";
 	private static final String HELP_REDO_DETAILS = "redo more recent action";
@@ -50,8 +52,11 @@ public class HelpCommandStorage {
 	private static final String HELP_MARK_FORMAT = "mark [task number]";
 	private static final String HELP_UNMARK_FORMAT = "unmark [task number]";
 	private static final String HELP_SEARCH_FORMAT = "search [key words]";
-	private static final String HELP_SAVEAS_FORMAT = "saveas";
-	private static final String HELP_DISPLAY_FORMAT = "display";
+	private static final String HELP_SAVEAS_FORMAT = "saveas\n"
+			+ "save [file path]";
+	private static final String HELP_DISPLAY_FORMAT = "display 0\n"
+			+ "display 1\n"
+			+ "display 2";
 	private static final String HELP_UNDO_FORMAT = "undo";
 	private static final String HELP_REDO_FORMAT = "redo";
 	private static final String HELP_CALENDAR_FORMAT = "calendar";
