@@ -8,6 +8,14 @@ import javafx.scene.text.Text;
 
 public class AutoCompleteCommands {
 	
+	/**
+	 * This class retrieves the text field and corrects/completes the text in the text field
+	 * It also parses the partial text in the text field via string manipulation
+	 * It maintains a list of commands with is used to compare with the partial text in 
+	 * the text field
+	 * 
+	 */
+	
 	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_UNMARK = "unmark";
 	private static final String COMMAND_SEARCH = "search";
@@ -19,7 +27,7 @@ public class AutoCompleteCommands {
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_CLEAR = "clear";
 	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_SAVE = "saveto";
+	private static final String COMMAND_SAVE = "save";
 	
 	private static final String SPACE_REGEX = " ";
 	
@@ -43,6 +51,11 @@ public class AutoCompleteCommands {
 		autoCompleteList.add(COMMAND_SEARCH);
 	}
 	
+	/**
+	 * Auto completes and corrects command input by users
+	 * @param userInput This is the user input from commandLineInterface
+	 * @param feedback This is the main feedback from commandLineInterface
+	 */
 	public static void autoComplete(TextField userInput, Text feedback) {
 		initAutoComplete();
 		String autoCompleteCheck = processUserInput(userInput, feedback);
@@ -54,7 +67,13 @@ public class AutoCompleteCommands {
 		autoCompleteCheck = checkValidUserInput(userInput, feedback, autoCompleteCheck);
 		return autoCompleteCheck;
 	}
-
+	
+	/**
+	 * 
+	 * @param userInput This is the entire text field
+	 * @param feedback This is the string to be displayed to the user
+	 * @param autoCompleteCheck This is the input in the text field
+	 */
 	private static void checkCommandMatch(TextField userInput, Text feedback, String autoCompleteCheck) {
 		for(int i = 0; i < autoCompleteList.size(); i++) {
 			if(autoCompleteCheck.equals(autoCompleteList.get(i).substring(START_INDEX, END_INDEX))) {
@@ -73,7 +92,7 @@ public class AutoCompleteCommands {
 			}	
 		}
 	}
-
+	
 	private static void fixCaretFinalPosition(TextField userInput, int currentCaretPosition, String[] splitInput) {
 		if(splitInput.length == 1) {
 			userInput.end();
@@ -99,7 +118,13 @@ public class AutoCompleteCommands {
 			}
 		}
 	}
-
+	
+	/**
+	 * Resolve any partial inputs that has conflicting initials
+	 * @param userInput This is the entire text field
+	 * @param i This is the list current list index
+	 * @param splitInput This is the array of words to be rebuilt
+	 */
 	private static void checkConflictingCommands(TextField userInput, int i, String[] splitInput) {
 		if(isEstimatedCommandDisplay(userInput, splitInput)) {
 			splitInput[START_INDEX] = COMMAND_DISPLAY;

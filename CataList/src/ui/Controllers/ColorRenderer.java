@@ -4,6 +4,14 @@ package ui.Controllers;
 import javafx.scene.Node;
 
 public class ColorRenderer {
+	
+	/**
+	 * This class functions to change the background color of the application  
+	 * It also maintains a color toggle and parses the toggle
+	 * The color change depends on the value of the toggle
+	 * 
+	 */
+	
 	private static final String INVALID_COLOR = "-fx-background: #FFFFFF"; 	
 	private static final String ORANGE_COLOR = "-fx-background-color: linear-gradient(orangered, orange)"; 		
 	private static final String MAROON_COLOR = "-fx-background-color: linear-gradient(maroon, goldenrod)";
@@ -27,10 +35,17 @@ public class ColorRenderer {
 
 	private int colorToggle;
 
+	/**
+	 * Constructor method
+	 */
 	public ColorRenderer() {
 		colorToggle = INIT_FLAG;
 	}
-
+	
+	/**
+	 * Increases the color toggle flag
+	 * @param node This is the background node for the application
+	 */
 	public void toggleColorPlus(Node node) {
 		colorToggle++;
 		if(colorToggle > MAX_FLAG) {
@@ -39,6 +54,10 @@ public class ColorRenderer {
 		setBackgroundColor(node);
 	}
 	
+	/**
+	 * Decreases the color toggle flag
+	 * @param node This is the background node for the application
+	 */
 	public void toggleColorMinus(Node node) {
 		colorToggle--;
 		if(colorToggle < MIN_FLAG) {

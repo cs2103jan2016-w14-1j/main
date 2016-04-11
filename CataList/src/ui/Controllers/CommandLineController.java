@@ -18,6 +18,15 @@ import shared.LogHandler;
 
 public class CommandLineController {
 
+	/**
+	 * 	ConmmandLineController controls the to-do list
+	 * 	Primarily functions to retrieve inputs on the command line (both keystrokes and hotkeys) 
+	 *  and manipulates the command line
+	 * 	It also auto-completes/-corrects user input, display feedback and set previous/recent user commands
+	 * 	into the command line by calling other sub classes
+	 * 
+	 */
+	
 	private static final String TUTORIAL_OFF_STRING = "OFF";
 	private static final String TUTORIAL_ON_STRING = "ON";
 	private static final boolean TUTORIAL_ON = true;
@@ -35,7 +44,7 @@ public class CommandLineController {
 	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_ADD = "add";
-	private static final String COMMAND_SAVE = "saveto";
+	private static final String COMMAND_SAVE = "save";
 
 	private static final int START_INPUT_INDEX = 0;
 	private static final int FIRST_TAB = 0;
@@ -48,8 +57,6 @@ public class CommandLineController {
 	@FXML private Text feedbackMain;
 	@FXML private Text feedbackHelp;
 	@FXML public TextField userInput;
-
-	private MainGUIController main;
 	
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
@@ -57,11 +64,14 @@ public class CommandLineController {
 
 	private ArrayList<String> inputArray;
 	private Logger log = LogHandler.retrieveLog();
+
 	private ColorRenderer backgroundColor;
 	private SupportFeaturesHandler supportFeaturesHandler;
+	private MainGUIController main;
 
-	/*
-	 * initialization
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
 	 */
 	public void init(MainGUIController mainController) {
 		main = mainController;
@@ -113,9 +123,6 @@ public class CommandLineController {
 		});
 	}
 
-	/*
-	 * processing input
-	 */
 	@FXML 
 	private void handleSubmitButtonAction(KeyEvent event) throws IOException {
 		parseKeyEvent(event);
@@ -179,14 +186,20 @@ public class CommandLineController {
 			tutorialToggle = TUTORIAL_OFF;
 		}
 	}
-
+	
+	/**
+	 * Passes the user input to Logic
+	 * @param input This is the user input
+	 * @return String This is the feedback from Logic
+	 */
 	public String uiToLogic(String input) {
-		assert (this != null);
 		return main.passInputToLogic(input);
 	}
 
 	private void readUserInput() {
 		command = userInput.getText();
+		log.info("User Input: " + command);
+		
 		loadFeedback();
 		userInput.clear();
 		inputArray.add(command);
@@ -195,6 +208,7 @@ public class CommandLineController {
 
 	private void loadFeedback() {
 		feedbackMain.setText(uiToLogic(command));
+		log.info("Feedback from Logic: " + feedbackMain.getText());
 
 		FadeTransition ft = new FadeTransition(Duration.millis(FEEDBACK_ANIMATION_DURATION), feedbackMain);
 		ft.setFromValue(0);
@@ -202,7 +216,7 @@ public class CommandLineController {
 		ft.play();
 	}
 
-	public void updateTutorialToggle() {
+	private void updateTutorialToggle() {
 		if(main.getTaskList().size() == MIN_TASK_LIST_SIZE) {
 			if(tutorialToggle) {
 				tutorialToggle = TUTORIAL_OFF;
@@ -213,9 +227,6 @@ public class CommandLineController {
 		}
 	}
 
-	/*
-	 * getters
-	 */
 	private void getNextCommand() {
 		if(index >= 0 && index < inputArray.size()-1) {
 			userInput.setText(inputArray.get(++index));
@@ -233,19 +244,35 @@ public class CommandLineController {
 			userInput.setText(inputArray.get(--index));
 		}
 	}
-
+	
+	/**
+	 * Gets user input field from commandLineController
+	 * @return TextField This is the user input field
+	 */
 	public TextField getCommandLine() {
 		return userInput;
 	}
 
+	/**
+	 * Gets main feedback from commandLineController
+	 * @return Text main feedback
+	 */
 	public Text getMainFeedback() {
 		return feedbackMain;
 	}
 
+	/**
+	 * Gets secondary feedback from commandLineController
+	 * @return Text secondary feedback
+	 */
 	public Text getHelpFeedback() {
 		return feedbackHelp;
 	}
-
+	
+	/**
+	 * Gets tutorial flag in string from commandLineController
+	 * @return String Flag for indication of whether tutorial is ON or OFF
+	 */
 	public String getTutorialToggle() {
 		if(tutorialToggle) {
 			return TUTORIAL_ON_STRING;

@@ -12,6 +12,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class MainGUI extends Application {
+	
+	/**
+	 * This is the main class that launches the application
+	 * It maintains the stage/window of the application and closes the window when
+	 * a particular key event is detected
+	 * It does nothing else other than launching the application
+	 * 
+	 */
     
     private static final String APP_NAME = "CataList";
     private static final String GUI_PATH = "/ui/View/MainGUI.fxml";

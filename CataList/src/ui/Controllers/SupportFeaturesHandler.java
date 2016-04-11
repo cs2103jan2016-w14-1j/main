@@ -8,27 +8,46 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SupportFeaturesHandler {
+
+	/**
+	 *	This class parses the feedback from Logic and determines if it has the 'green light'
+	 *	to display supporting features
+	 *	Features responsible are calendar, save window, help page and tutorial
+	 *	It uses sub-classes to help it renders the features
+	 *  It cannot render the feature itself
+	 *
+	 */
+
 	private static final String SAVE_WINDOW_HEADING = "Save Task List";
-	
+
 	private static final String MESSAGE_TUTORIAL_DEFAULT = "Displaying Tutorial";
 	private static final String MESSAGE_HELP_SUCCESS = "Displaying Help";
 	private static final String MESSAGE_CALENDAR_DEFAULT = "Displaying Calendar";
-	private static final String MESSAGE_SAVETO_SUCCESS = "Displaying file explorer";
-	
+	private static final String MESSAGE_SAVEAS_SUCCESS = "Displaying file explorer";
+
 	private static final String NULL_REGEX = "";
 	private static final String SAVE_REGEX = "save ";
-	
+
 	private String feedbackFromLogic;
 	private MainGUIController main;
-	
+
+	/**
+	 * Constructor method
+	 * @param mainController The primary controller linking this and the other controllers
+	 */
 	public SupportFeaturesHandler(MainGUIController mainController) {
 		main = mainController;
 		feedbackFromLogic = NULL_REGEX;
 	}
-	
-	public boolean isSupportFeaturesLoaded(Text feedbackMain) throws IOException {
-		feedbackFromLogic = feedbackMain.getText();
-		
+
+	/**
+	 * Matches the feedback from Logic to one of the features
+	 * @param feedback This is the main feedback from commandListInterface
+	 * @return true if the feedback matches that of the feature, false if nothing is loaded
+	 * @throws IOException If there is an I/O Error
+	 */
+	public boolean isSupportFeaturesLoaded(Text feedback) {
+		feedbackFromLogic = feedback.getText();
 		switch(feedbackFromLogic) {
 			case MESSAGE_TUTORIAL_DEFAULT:
 				loadTutorial();
@@ -39,18 +58,19 @@ public class SupportFeaturesHandler {
 			case MESSAGE_CALENDAR_DEFAULT:
 				main.renderCalendar();
 				return true;
-			case MESSAGE_SAVETO_SUCCESS:
-				loadSaveWindow(feedbackMain);
+			case MESSAGE_SAVEAS_SUCCESS:
+				loadSaveWindow(feedback);
 				return true;
 			default:
 				return false;
 		}
 	}
 
-	private void loadTutorial() throws IOException {
-		if(main.getMainPane().isManaged() == false) {
-			main.startTutorialMode();
+	private void loadTutorial() {
+		if(main.getMainPane().isManaged() == true) {
+			main.refreshToDoList();
 		}
+		main.startTutorialMode();
 	}
 
 	private void loadSaveWindow(Text feedbackMain) {

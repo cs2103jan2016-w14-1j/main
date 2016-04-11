@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-04-11T16:10:22</date>
+  <millis>1460362222066</millis>
+  <sequence>0</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>formatPendingTaskToListCell</method>
+  <thread>12</thread>
+  <message>Pending task List is reformatted</message>
+</record>
+<record>
+  <date>2016-04-11T16:10:22</date>
+  <millis>1460362222187</millis>
+  <sequence>1</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController</class>
+  <method>formatCompletedTaskToListCell</method>
+  <thread>12</thread>
+  <message>Completed task List is reformatted</message>
+</record>
+<record>
+  <date>2016-04-11T16:10:22</date>
+  <millis>1460362222194</millis>
+  <sequence>2</sequence>
+  <logger>CataListLog</logger>
+  <level>INFO</level>
+  <class>ui.Controllers.ListInterfaceController$1</class>
+  <method>changed</method>
+  <thread>12</thread>
+  <message>Tab focused: javafx.scene.control.Tab@6669ecd6</message>
+</record>
+</log>

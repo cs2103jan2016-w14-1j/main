@@ -4,6 +4,13 @@ package ui.Controllers.TitleQuotes;
 import java.util.ArrayList;
 
 public class QuoteStorage {
+	
+	/**
+	 * This class stores all the quotes
+	 * It generates the quote list but does not display any of them
+	 * It returns a quote depending on the number it receive
+	 * 
+	 */
 
 	private static final String QUOTE_ONE = 
 			"“Hard work beats talent when talent fails to work hard” "
@@ -71,6 +78,11 @@ public class QuoteStorage {
 
 	private static ArrayList<String> quoteList = new ArrayList<String>();
 
+	/**
+	 * Generates the entire quote list and retrieves a quote depending of the number received
+	 * @param quoteNumber This is a random number from QuoteGenerator
+	 * @return String This is the quote
+	 */
 	public static String parseQuoteList(int quoteNumber) {
 		initQuoteList();
 		return quoteList.get(quoteNumber);

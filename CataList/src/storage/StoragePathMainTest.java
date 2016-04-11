@@ -29,7 +29,6 @@ public class StoragePathMainTest {
 	public void testPathFileWrite() throws JDOMException, IOException {
 		StoragePathMain storePathMain = new StoragePathMain();
 		
-		//String fileLocation = storeMain.filePathReader();
 		String fileLocation = System.getProperty("user.dir") + "/src/storage/test.xml";
 		storePathMain.filePathWriter(fileLocation);
 		

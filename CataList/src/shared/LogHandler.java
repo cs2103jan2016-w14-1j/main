@@ -1,3 +1,4 @@
+//@@author A0112204E
 package shared;
 
 import java.util.logging.Logger;
@@ -11,7 +12,11 @@ public class LogHandler {
 	private static final String LOG_NAME = "CataListLog";
 	private static FileHandler fileHandler;
 	private static Logger logger;
-	
+
+	/**
+	 * Get instance of Logger
+	 * @return Logger log file
+	 */
 	public static Logger retrieveLog() {
 		if(logger == null) {
 			try {

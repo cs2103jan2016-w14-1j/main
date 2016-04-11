@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TaskList />
+<TaskList>
+  <Task ID="1" State="Complete">
+    <Event>go for CS2101 class</Event>
+    <StartTime />
+    <StartDate />
+    <EndTime />
+    <EndDate />
+  </Task>
+  <Task ID="2" State="Complete">
+    <Event>go for CS2103T class</Event>
+    <StartTime />
+    <StartDate />
+    <EndTime />
+    <EndDate />
+  </Task>
+  <Task ID="3" State="Incomplete">
+    <Event>go for ZoukOut</Event>
+    <StartTime />
+    <StartDate />
+    <EndTime />
+    <EndDate />
+  </Task>
+</TaskList>
