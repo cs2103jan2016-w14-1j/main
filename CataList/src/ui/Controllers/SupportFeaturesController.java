@@ -87,7 +87,7 @@ public class SupportFeaturesController {
 	 * Starts tutorial and display it
 	 * @throws IOException If an I/O Error occurs
 	 */
-	public void renderTutorial() throws IOException {
+	public void renderTutorial() {
 		tutorialRenderer.loadTutorial();
 	}
 	
@@ -95,14 +95,14 @@ public class SupportFeaturesController {
 	 * Displays help page
 	 * @throws IOException If an I/O Error occurs
 	 */
-	public void loadHelpList() throws IOException {
+	public void loadHelpList() {
 		main.removeToDoList();
 		showMainPane();
 		mainPane.getChildren().clear();
 		try {
 			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource(HELP_PAGE_PATH)));
-		} catch (IOException ioe)  {
-
+		} catch (IOException e)  {
+			e.printStackTrace();
 		}
 	}
 	

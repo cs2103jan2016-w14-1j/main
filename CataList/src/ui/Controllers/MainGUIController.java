@@ -35,9 +35,8 @@ public class MainGUIController {
 	
 	/**
 	 * Constructor for MainGUIController
-	 * @throws IOException If an I/O Error occurs
 	 */
-	public void initialize() throws IOException {
+	public void initialize() {
 		commandLineController.init(this);
 		todoListController.init(this);
 		titleController.init(this);
@@ -86,9 +85,8 @@ public class MainGUIController {
 	
 	/**
 	 * Refreshes the to-do list
-	 * @throws IOException
 	 */
-	public void refreshToDoList() throws IOException {
+	public void refreshToDoList() {
 		todoListController.loopTaskList();
 	}
 	
@@ -165,23 +163,21 @@ public class MainGUIController {
 	 * Starts tutorial
 	 * @throws IOException If an I/O Error occurs
 	 */
-	public void startTutorialMode() throws IOException {
+	public void startTutorialMode() {
 		supportFeaturesController.renderTutorial();
 	}
 	
 	/**
 	 * Displays help page
-	 * @throws IOException If an I/O Error occurs
 	 */
-	public void renderHelpPage() throws IOException {
+	public void renderHelpPage() {
 		supportFeaturesController.loadHelpList();
 	}
 	
 	/**
 	 * Displays calendar
-	 * @throws IOException If an I/O Error occurs
 	 */
-	public void renderCalendar() throws IOException {
+	public void renderCalendar() {
 		supportFeaturesController.loadCalendar();
 	}
 	

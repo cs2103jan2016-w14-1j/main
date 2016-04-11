@@ -16,18 +16,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class TutorialRenderer {
-	
+
 	/**
 	 * This class renders the tutorial mode via several FXML files
 	 * It also detects key event that occurs in tutorial mode
 	 * It also set/adjust the properties of the tutorial display
 	 * 
 	 */
-	
+
 	private static final int LIST_OFFSET_Y = 125;
 	private static final int LIST_OFFSET_X = 0;
 	private static final int CL_OFFSET_X = 540;
-	
+
 	private static final int TUTORIAL_ANIMATION_DURATION = 300;
 
 	private static final String TUTORIAL_1_PATH = "/ui/View/Tutorial1.fxml";
@@ -70,16 +70,22 @@ public class TutorialRenderer {
 		readListTutorial = new PopOver();
 		helpTutorial = new PopOver();
 	}
-	
+
 	/**
 	 * Loads tutorial into view
 	 * @throws IOException If there is an I/O error
 	 */
-	public void loadTutorial() throws IOException {
+	public void loadTutorial() {
 		initPopOver();
-
 		setBoundsForCurrentTutorial();
+		try {
+			checkCurrentTutorialPageAndLoadNextTutorial();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	private void checkCurrentTutorialPageAndLoadNextTutorial() throws IOException {
 		if(currentTutorial == INTERFACE_TUTORIAL) {
 			openCommandLineTutorial();
 			openListTutorial();
@@ -96,7 +102,6 @@ public class TutorialRenderer {
 		} else if(currentTutorial == HELP_TUTORIAL) {
 			openHelpTutorial();
 			tutorialKeyHandler(helpTutorial);
-
 		}
 	}
 
@@ -178,7 +183,7 @@ public class TutorialRenderer {
 		popOver.setAutoFix(false);
 		popOver.setAutoHide(false);
 	}
-	
+
 	/**
 	 * Detects key events that occurs in tutorial mode (e.g. next, previous tutorial)
 	 * @param node This node is the tutorial display node
@@ -202,27 +207,20 @@ public class TutorialRenderer {
 
 	private void proceedToNextTutorial(KeyEvent event) {
 		currentTutorial++;
-		try {
-			if(currentTutorial == INTERFACE_TUTORIAL+1 ||
-					currentTutorial == READ_LIST_TUTORIAL+1) {
-				event.consume();
-			}
-			hideAll();
-			loadTutorial();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(currentTutorial == INTERFACE_TUTORIAL+1 ||
+				currentTutorial == READ_LIST_TUTORIAL+1) {
+			event.consume();
 		}
+		hideAll();
+		loadTutorial();
+
 	}
 
 	private void revertToPreviousTutorial(KeyEvent event) {
 		currentTutorial--;
-		try {
-			event.consume();
-			hideAll();
-			loadTutorial();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		event.consume();
+		hideAll();
+		loadTutorial();
 	}
 
 }
