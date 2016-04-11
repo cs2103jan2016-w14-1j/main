@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import parser.ParserMain;
+import shared.LogHandler;
 import storage.StorageMain;
 
 public class LogicMain {
@@ -37,7 +38,7 @@ public class LogicMain {
 	private static final String SYMBOL_SPACE = " ";
 	private static final String SYMBOL_EMPTY = "";
 	
-	private static final Logger log = Logger.getLogger(LogicMain.class.getName());
+	private static final Logger log = LogHandler.retrieveLog();
 	ParserMain inputParser;
 	StorageMain storageSystem;
 	
