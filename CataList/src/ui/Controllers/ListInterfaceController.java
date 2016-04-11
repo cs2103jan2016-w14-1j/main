@@ -21,6 +21,7 @@ import javafx.beans.value.ObservableValue;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -30,6 +31,7 @@ import org.joda.time.LocalTime;
 
 import ui.Controllers.MainGUIController;
 import logic.Task;
+import shared.LogHandler;
 
 public class ListInterfaceController {
 	
@@ -92,6 +94,7 @@ public class ListInterfaceController {
 
 	private static final boolean OPEN_LIST = true;
 	private static final boolean CLOSE_LIST = false;
+	private Logger log = LogHandler.retriveLog();
 
 	private MainGUIController main;
 
@@ -154,6 +157,7 @@ public class ListInterfaceController {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+				log.info("Tab focused: " + newValue);
 				if (newValue.getContent() == null) {
 					if(newValue.equals(tabPending)) {
 						displayPending();
@@ -176,7 +180,10 @@ public class ListInterfaceController {
 			}
 		});
 	}
-
+	
+	/**
+	 * Initializes and maintain each tab filter
+	 */
 	private void operateTabs() {
 		tabs.clear();
 		pendingTabHandler();
@@ -275,7 +282,13 @@ public class ListInterfaceController {
 		operateTabs();
 	}
 
+	/**
+	 * Sets tasks into view and maintains the properties for the display of each incomplete task
+	 * @param taskList This is the list of task which is maintained in the storage
+	 */
 	private void formatPendingTaskToListCell(ArrayList<Task> taskList) {
+		log.info("Pending task List is reformatted");
+		
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
@@ -312,7 +325,13 @@ public class ListInterfaceController {
 		todoList.setItems(pendingTasks);
 	}
 	
+	/**
+	 * Sets tasks into view and maintains the properties for the display of each completed task
+	 * @param taskList This is the list of task which is maintained in the storage
+	 */
 	private void formatCompletedTaskToListCell(ArrayList<Task> taskList) {
+		log.info("Completed task List is reformatted");
+		
 		int index = 0;
 		for(Task taskObj: taskList) {
 			index++;
@@ -420,7 +439,10 @@ public class ListInterfaceController {
 			todoListContainer.setManaged(false);
 		}
 	}
-
+	
+	/**
+	 * Loops and check if there is any upcoming tasks every minute
+	 */
 	private void loopCheckTasksForReminder() {
 		Timer checkTasks = new Timer(true);
 		checkTasks.schedule(new TimerTask() {
@@ -443,6 +465,7 @@ public class ListInterfaceController {
 			LocalDateTime localDateTime = new LocalDateTime();
 			LocalDate localDate = localDateTime.toLocalDate();
 			LocalTime localTime = localDateTime.toLocalTime().plusMinutes(REMINDER_TIME);
+			
 			for(Task taskObj: operatingTasksFromLogic) {
 				if(taskObj.get_startDate().equals(localDate.toString(DATE_FORMAT)) ||
 						(taskObj.get_startDate().equals(NULL) && !taskObj.get_startTime().equals(NULL))) {
@@ -454,8 +477,10 @@ public class ListInterfaceController {
 			}
 
 			if(todoTime > 0) {
+				log.info("Notification rendered");
 				notification.loadNotification(todoTime, TIME_FLAG);
 			} else if(todoDay > 0 && todoTime == 0) {
+				log.info("Notification rendered");
 				notification.loadNotification(todoDay, DAY_FLAG);
 			}
 		}

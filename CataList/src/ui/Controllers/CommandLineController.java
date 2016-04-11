@@ -57,17 +57,16 @@ public class CommandLineController {
 	@FXML private Text feedbackMain;
 	@FXML private Text feedbackHelp;
 	@FXML public TextField userInput;
-
-	private MainGUIController main;
 	
 	private String command = INITIALIZE;
 	private int index = START_INPUT_INDEX;
 	private int tabToggle = COMPLETE_TAB;
+	private Logger log = LogHandler.retriveLog();
 
 	private ArrayList<String> inputArray;
-	private Logger log = LogHandler.retriveLog();
 	private ColorRenderer backgroundColor;
 	private SupportFeaturesHandler supportFeaturesHandler;
+	private MainGUIController main;
 
 	/**
 	 * Constructor method
