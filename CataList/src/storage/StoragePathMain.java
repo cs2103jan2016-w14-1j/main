@@ -28,11 +28,8 @@ public class StoragePathMain {
 	
 	private static String STORAGE_FILE_DIRECTORY = System.getProperty("user.dir") + "/src/storage";
 	private static String STORAGE_FILE_PATH = System.getProperty("user.dir") + "/src/storage/path";
-	private static final String ERROR_MESSAGE_PATH = "cannot create new path file";
-	private static final String ERROR_MESSAGE_WRITE = "cannot write";
 	private static final String ERROR_MESSAGE_READ = "cannot read";
 	private static final String ERROR_MESSAGE_COPY = "File failed to copy!";
-	private static final String SUCCESS_MESSAGE_WRITE = "write file path succesful";
 	private static final String SUCCESS_MESSAGE_COPY = "File copied successful!";
 	private final static Logger log = LogHandler.retrieveLog();
 	
@@ -73,7 +70,7 @@ public class StoragePathMain {
     	    inStream.close();
     	    outStream.close();
     	    result = SUCCESS_MESSAGE_COPY;
-    	    //System.out.println(result);
+
     	    
     	} catch(IOException e1){
     		result = ERROR_MESSAGE_COPY;
@@ -111,7 +108,6 @@ public class StoragePathMain {
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e1) {
 				log.log(Level.FINE, e1.toString(), e1);
-				//System.out.println(ERROR_MESSAGE_PATH);
 			}
 			
 		}
@@ -119,7 +115,6 @@ public class StoragePathMain {
 		try {
 			stringList = Files.readAllLines(oldPath);
 		} catch (IOException e1) {
-			//System.out.println(ERROR_MESSAGE_READ);
 			log.log(Level.FINE, e1.toString(), e1);
 			return ERROR_MESSAGE_READ;
 		}
@@ -144,7 +139,6 @@ public class StoragePathMain {
 				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
 			} catch (IOException e1) {
-				//System.out.println(ERROR_MESSAGE_PATH);
 				log.log(Level.FINE, e1.toString(), e1);
 			}
 		}
@@ -152,11 +146,9 @@ public class StoragePathMain {
 		try {
 			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
 		} catch (IOException e1) {
-			//System.out.println(ERROR_MESSAGE_WRITE);
 			log.log(Level.FINE, e1.toString(), e1);
 			return;
 		}
 		
-		//System.out.println(SUCCESS_MESSAGE_WRITE);
 	}
 }

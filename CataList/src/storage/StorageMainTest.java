@@ -3,6 +3,7 @@ package storage;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class StorageMainTest {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
-	
+	@Test
 	public void testWrite() throws JDOMException, IOException {
 		
 		dateList = new ArrayList<String>();
@@ -116,13 +117,17 @@ public class StorageMainTest {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
+	
 	public void testFileSaveLocation() throws JDOMException, IOException {
 		StorageMain storeMain = new StorageMain();
 		
 		//String fileLocation = storeMain.filePathReader();
-		String fileLocation = "C:\\Users\\asus\\git\\main\\newmain\\CataList\\src\\storage\\test.xml";
+		String fileLocation = "C:\\Users\\asus\\Desktop\\CataList.xml";
 		//String fileLocation = "C:\\Users\\asus\\Desktop\\tempFolder\\test.xml";
 		storeMain.saveFileLocation(fileLocation);
+		
+		File file = new File(fileLocation);
+		assertTrue(file.exists());
 		
 	}
 }
