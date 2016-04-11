@@ -12,6 +12,12 @@ import org.jdom2.input.SAXBuilder;
 
 import logic.Task;
 
+/**
+ * This class reads the XML file and converts the XML entries(elements)
+ * into an ArrayList<Task> to be returned to Logic.
+ * 
+ */
+
 public class StorageReader {
 	
 	private static final String SYMBOL_EMPTY = "";

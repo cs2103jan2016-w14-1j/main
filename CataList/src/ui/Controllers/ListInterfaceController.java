@@ -123,7 +123,7 @@ public class ListInterfaceController {
 	private int previousCompletedSize;
 
 	private HBox scrollSelection = new HBox();
-	private Logger log = LogHandler.retriveLog();
+	private Logger log = LogHandler.retrieveLog();
 	private TaskFilter taskFilter = new TaskFilter();
 	private NotificationRenderer notification = new NotificationRenderer();
 

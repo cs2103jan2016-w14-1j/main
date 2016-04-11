@@ -56,7 +56,7 @@ public class CommandLineController {
 	private int tabToggle = COMPLETE_TAB;
 
 	private ArrayList<String> inputArray;
-	private Logger log = LogHandler.retriveLog();
+	private Logger log = LogHandler.retrieveLog();
 	private ColorRenderer backgroundColor;
 	private SupportFeaturesHandler supportFeaturesHandler;
 

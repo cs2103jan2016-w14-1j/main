@@ -12,6 +12,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import shared.LogHandler;
+
+/**
+ * This class handles all path related issues such as writing the file path
+ * of the XML file, reading the file path of the XML file and also
+ * exporting the XML file to the specified location of the user.
+ * 
+ */
 
 public class StoragePathMain {
 	
@@ -23,6 +34,7 @@ public class StoragePathMain {
 	private static final String ERROR_MESSAGE_COPY = "File failed to copy!";
 	private static final String SUCCESS_MESSAGE_WRITE = "write file path succesful";
 	private static final String SUCCESS_MESSAGE_COPY = "File copied successful!";
+	private final static Logger log = LogHandler.retrieveLog();
 	
 	private static String STORAGE_PATH = System.getProperty("user.dir") + "/src/storage/Catalist.xml";
 	
@@ -61,11 +73,11 @@ public class StoragePathMain {
     	    inStream.close();
     	    outStream.close();
     	    result = SUCCESS_MESSAGE_COPY;
-    	    System.out.println(result);
+    	    //System.out.println(result);
     	    
-    	} catch(IOException e){
+    	} catch(IOException e1){
     		result = ERROR_MESSAGE_COPY;
-    		e.printStackTrace();
+    		log.log(Level.FINE, e1.toString(), e1);
     		return result;
     	}
 		return result;
@@ -86,8 +98,8 @@ public class StoragePathMain {
 		if(!Files.exists(directoryPath)){
 			try{
 				Files.createDirectories(directoryPath);
-			} catch (IOException e){
-				e.printStackTrace();
+			} catch (IOException e1){
+				log.log(Level.FINE, e1.toString(), e1);
 			}
 		}
 		
@@ -97,18 +109,18 @@ public class StoragePathMain {
 				pathFile.createNewFile();
 				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println(ERROR_MESSAGE_PATH);
+			} catch (IOException e1) {
+				log.log(Level.FINE, e1.toString(), e1);
+				//System.out.println(ERROR_MESSAGE_PATH);
 			}
 			
 		}
 		
 		try {
 			stringList = Files.readAllLines(oldPath);
-		} catch (IOException e) {
-			System.out.println(ERROR_MESSAGE_READ);
-			e.printStackTrace();
+		} catch (IOException e1) {
+			//System.out.println(ERROR_MESSAGE_READ);
+			log.log(Level.FINE, e1.toString(), e1);
 			return ERROR_MESSAGE_READ;
 		}
 		
@@ -131,20 +143,20 @@ public class StoragePathMain {
 				pathFile.createNewFile();
 				String defaultPath = STORAGE_PATH;
 				Files.write(Paths.get(STORAGE_FILE_PATH), defaultPath.getBytes());
-			} catch (IOException e) {
-				System.out.println(ERROR_MESSAGE_PATH);
-				e.printStackTrace();
+			} catch (IOException e1) {
+				//System.out.println(ERROR_MESSAGE_PATH);
+				log.log(Level.FINE, e1.toString(), e1);
 			}
 		}
 		
 		try {
 			Files.write(Paths.get(STORAGE_FILE_PATH), newPath.getBytes());
-		} catch (IOException e) {
-			System.out.println(ERROR_MESSAGE_WRITE);
-			e.printStackTrace();
+		} catch (IOException e1) {
+			//System.out.println(ERROR_MESSAGE_WRITE);
+			log.log(Level.FINE, e1.toString(), e1);
 			return;
 		}
 		
-		System.out.println(SUCCESS_MESSAGE_WRITE);
+		//System.out.println(SUCCESS_MESSAGE_WRITE);
 	}
 }

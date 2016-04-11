@@ -12,7 +12,7 @@ public class LogHandler {
 	private static FileHandler fileHandler;
 	private static Logger logger;
 	
-	public static Logger retriveLog() {
+	public static Logger retrieveLog() {
 		if(logger == null) {
 			try {
 				logger = Logger.getLogger(LOG_NAME);

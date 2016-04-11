@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -13,6 +15,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import logic.Task;
+import shared.LogHandler;
+
+/**
+ * This class is created by Logic to perform any read, write or 
+ * save file methods. It acts as the main class which calls the other
+ * classes such as StoragePathMain, StorageReader and StorageWriter
+ * to help in its methods.
+ *
+ */
 
 public class StorageMain {
 	
@@ -27,6 +38,7 @@ public class StorageMain {
 	private static final String ATTRIBUTE_INCOMPLETE = "Incomplete";
 	private static final String ATTRIBUTE_STATE = "State";
 	private static final String ATTRIBUTE_NUM = "ID";
+	private final static Logger log = LogHandler.retrieveLog();
 	private ArrayList<Task> masterList;
 	
 	StoragePathMain storagePathMain;
@@ -98,8 +110,8 @@ public class StorageMain {
 
 		try{
 			storageWriter.writeToStorage(document,path);
-		} catch(IOException e) {
-			e.printStackTrace();
+		} catch(IOException e1) {
+			log.log(Level.FINE, e1.toString(), e1);
 		}
 	}
 	
@@ -117,7 +129,7 @@ public class StorageMain {
 			}
 			masterList = storageReader.readFromStorage(path, xmlFile);
 		} catch(IOException | JDOMException e1) {
-			e1.printStackTrace();
+			log.log(Level.FINE, e1.toString(), e1);
 		} 
 		return masterList;
 	}
@@ -136,7 +148,7 @@ public class StorageMain {
 			try {
 				clearFromStorage(tempTask);
 			} catch (IOException | JDOMException e1) {
-				e1.printStackTrace();
+				log.log(Level.FINE, e1.toString(), e1);
 			} 
 			try {
 				String storagePath = storagePathMain.filePathReader();
@@ -160,13 +172,13 @@ public class StorageMain {
 					
 					try{
 						storageWriter.writeToStorage(toDoListDocument, storagePath);
-					} catch(IOException e) {
-						taskObj.get_messageToUserFail();
+					} catch(IOException e1) {
+						log.log(Level.FINE, e1.toString(), e1);
 						return false;
 					}
 				}
-			} catch (JDOMException | IOException e) {
-				e.printStackTrace();
+			} catch (JDOMException | IOException e1) {
+				log.log(Level.FINE, e1.toString(), e1);
 				return false;
 			}
 		return true;
